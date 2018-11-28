@@ -10,12 +10,10 @@ import com.aswishes.spring.mapper.Mapper;
  * 权限模型: 用户角色权限
  */
 @Mapper(tableName = "wn_user", primaryKey = {"id"})
-public class WnUser {
+public class WnUser extends BaseIdAuto {
 	public static final String ALG_PASSWORD_SHA256 = "SHA256";
 	public static final String ALG_PASSWORD_MD5 = "MD5";
 	
-	/** 主键 */
-	private Long id;
 	/** 用户名 */
 	private String name;
 	/** 邮件 */
@@ -45,14 +43,6 @@ public class WnUser {
 	@Mapper(name = "reg_time")
 	private Date regTime;
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
