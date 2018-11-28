@@ -7,7 +7,7 @@ import java.io.OutputStream;
 
 import org.junit.Test;
 
-import com.aswishes.wn.common.checkcode.CheckCodeGenerator;
+import com.aswishes.wn.common.checkcode.VerificationCodeGenerator;
 
 public class CheckCodeGeneratorTest {
 
@@ -16,7 +16,7 @@ public class CheckCodeGeneratorTest {
 		OutputStream outStream = null;
 		try {
 			outStream = new FileOutputStream(new File("d:/aa.jpg"));
-			String checkcode = CheckCodeGenerator.generate(outStream, CheckCodeGenerator.SIMPLE);
+			String checkcode = VerificationCodeGenerator.generate(outStream, VerificationCodeGenerator.SIMPLE);
 			System.out.println(checkcode);
 		} catch (IOException e) {
 			e.printStackTrace();

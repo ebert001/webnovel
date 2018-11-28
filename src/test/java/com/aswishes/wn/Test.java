@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.aswishes.wn.dao.model.WnUser;
+import com.aswishes.wn.mvc.model.WnUser;
 
 public class Test {
 	
