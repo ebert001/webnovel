@@ -2,9 +2,12 @@ package com.aswishes.wn.mvc.model;
 
 import java.util.Date;
 
+import com.aswishes.spring.mapper.Mapper;
+
 /**
  * 用户反馈表
  */
+@Mapper(tableName = "wn_feedback", primaryKey = {"id"})
 public class WnFeedback {
 	
 	/** id */

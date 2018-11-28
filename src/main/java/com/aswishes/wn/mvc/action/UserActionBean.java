@@ -78,6 +78,14 @@ public class UserActionBean extends AbstractActionBean {
 		return new ModelAndView("/config/user/edit_password.jsp");
 	}
 	
+	public ModelAndView register(ModelAndView mv, String wnUsername, String wnEmail, String password) {
+		WnUser user = new WnUser();
+		user.setName(wnUsername);
+		user.setEmail(wnEmail);
+		userService.save(user);
+		return mv;
+	}
+	
 	/** 增加新用户 
 	 * @throws SQLException */
 	public ModelAndView addUser() throws SQLException {
@@ -89,7 +97,6 @@ public class UserActionBean extends AbstractActionBean {
 		user.setEmail(request.getParameter("email"));
 		user.setPhone(request.getParameter("phone"));
 		user.setBirthday(DateUtil.parseDate(request.getParameter("birthday"), DateUtil.PATTERN_DAY));
-		user.setRole(Integer.valueOf(request.getParameter("role")));
 		user.setRegTime(new Date());
 		userService.save(user);
 		return list();
@@ -103,7 +110,6 @@ public class UserActionBean extends AbstractActionBean {
 		user.setEmail(request.getParameter("email"));
 		user.setPhone(request.getParameter("phone"));
 		user.setBirthday(DateUtil.parseDate(request.getParameter("birthday"), DateUtil.PATTERN_DAY));
-		user.setRole(Integer.valueOf(request.getParameter("role")));
 		user.setSex(Integer.valueOf(request.getParameter("sex")));
 		user.setRemark(request.getParameter("remark"));
 		userService.update(user);

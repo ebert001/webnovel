@@ -2,9 +2,12 @@ package com.aswishes.wn.mvc.model;
 
 import java.util.Date;
 
+import com.aswishes.spring.mapper.Mapper;
+
 /**
  * 作品章节
  */
+@Mapper(tableName = "wn_chapter", primaryKey = {"id"})
 public class WnChapter {
 
 	/** 主键 */

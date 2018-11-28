@@ -2,9 +2,12 @@ package com.aswishes.wn.mvc.model;
 
 import java.util.Date;
 
+import com.aswishes.spring.mapper.Mapper;
+
 /**
  * 书籍评论
  */
+@Mapper(tableName = "wn_comment", primaryKey = {"id"})
 public class WnComment {
 
 	/** 评论id */

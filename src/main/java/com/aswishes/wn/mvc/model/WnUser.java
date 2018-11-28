@@ -2,47 +2,57 @@ package com.aswishes.wn.mvc.model;
 
 import java.util.Date;
 
+import com.aswishes.spring.mapper.Mapper;
+
 /**
- * 用户表
+ * 用户表.
+ * 可以使用 邮箱+密码 / 用户+密码 / 手机+密码 登录
+ * 权限模型: 用户角色权限
  */
+@Mapper(tableName = "wn_user", primaryKey = {"id"})
 public class WnUser {
+	public static final String ALG_PASSWORD_SHA256 = "SHA256";
+	public static final String ALG_PASSWORD_MD5 = "MD5";
 	
+	/** 主键 */
+	private Long id;
 	/** 用户名 */
 	private String name;
-	
-	/** 密码 */
-	private String pwd;
-	
-	/** 别名 */
-	private String alias;
-	
-	/** 注册时间 */
-	private Date regTime;
-	
 	/** 邮件 */
 	private String email;
-	
 	/** 手机 */
 	private String phone;
-	
-	/** 角色 */
-	private Integer role;
-	
-	/** 权限 */
-	private Integer permission;
-	
+	/** 密码 */
+	private String pwd;
+	/** 别名 */
+	private String alias;
 	/** 生日 */
 	private Date birthday;
-	
 	/** 备注 */
 	private String remark;
-	
 	/** 状态 */
 	private Integer status;
-	
 	/** 性别 */
 	private Integer sex;
+	/** 最后登录时间 */
+	@Mapper(name = "last_login_time")
+	private Date lastLoginTime;
+	/** 盐 */
+	private String salt;
+	/** 密码生成算法 */
+	private String alg;
+	/** 注册时间 */
+	@Mapper(name = "reg_time")
+	private Date regTime;
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -91,22 +101,6 @@ public class WnUser {
 		this.phone = phone;
 	}
 
-	public Integer getRole() {
-		return role;
-	}
-
-	public void setRole(Integer role) {
-		this.role = role;
-	}
-
-	public Integer getPermission() {
-		return permission;
-	}
-
-	public void setPermission(Integer permission) {
-		this.permission = permission;
-	}
-
 	public Date getBirthday() {
 		return birthday;
 	}
@@ -137,6 +131,30 @@ public class WnUser {
 
 	public void setSex(Integer sex) {
 		this.sex = sex;
+	}
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	public String getAlg() {
+		return alg;
+	}
+
+	public void setAlg(String alg) {
+		this.alg = alg;
 	}
 	
 	

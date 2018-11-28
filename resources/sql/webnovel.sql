@@ -5,28 +5,35 @@ USE webnovel;
 /**
  * 系统用户表
  */
-CREATE TABLE WN_USER (
+CREATE TABLE wn_user (
+	`id` bigint NOT NULL auto_increment COMMENT '用户名',
 	`name` varchar(32) NOT NULL COMMENT '用户名',
-	`pwd` varchar(64) NOT NULL COMMENT '用户密码',
-	`alias` varchar(64) DEFAULT NULL COMMENT '别名',
-	`alias_used` int DEFAULT NULL COMMENT '是否启用别名：0、不启用 1、启用',
-	`status` int DEFAULT NULL COMMENT '状态：0、未激活 1、激活 2、冻结 3、注销',
-	`reg_time` date DEFAULT NULL COMMENT '注册时间，精确到日',
 	`email` varchar(64) DEFAULT NULL COMMENT '邮件地址',
 	`phone` varchar(20) DEFAULT NULL COMMENT '手机号码',
+	`alias` varchar(64) DEFAULT NULL COMMENT '别名',
+	`alias_used` int DEFAULT NULL COMMENT '是否启用别名：0、不启用 1、启用',
+	`status` int DEFAULT NULL COMMENT '状态：1,正常 2, 锁定(1年未登录) 3, 冻结(因为账户登录异常等原因) 4, 注销',
 	`birthday` datetime DEFAULT NULL COMMENT '生日',
 	`sex` int DEFAULT NULL COMMENT '性别：0、女 1、男',
 	`avatar_url` varchar(64) DEFAULT NULL COMMENT '头像地址',
-	`role` int(1) DEFAULT NULL COMMENT '角色',
-	`permission` int DEFAULT NULL COMMENT '权限',
 	`remark` varchar(250) DEFAULT NULL COMMENT '备注',
-	PRIMARY KEY(name)
+	`last_login_time` datetime DEFAULT NULL COMMENT '最近登录时间',
+	`alg` varchar(20) NOT NULL COMMENT '密码的哈希算法',
+	`salt` varchar(40) NOT NULL COMMENT '盐',
+	`pwd` varchar(128) NOT NULL COMMENT '用户密码',
+	`reg_time` datetime DEFAULT NULL COMMENT '注册时间，精确到日',
+	PRIMARY KEY(`id`),
+	UNIQUE KEY `uq_user_name` (`name`),
+	UNIQUE KEY `uq_user_email` (`email`),
+	UNIQUE KEY `uq_user_phone` (`phone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 /**
  * 书籍表。存储所有的书籍信息，并对书籍进行分类。
  */
-CREATE TABLE WN_BOOK (
+CREATE TABLE wn_book (
 	`id` varchar(32) NOT NULL COMMENT '主键，唯一标识符',
 	`book_name` varchar(120) DEFAULT NULL COMMENT '书籍名称',
 	`desc` varchar(2000) DEFAULT NULL COMMENT '书籍的简要描述',
@@ -46,7 +53,7 @@ CREATE TABLE WN_BOOK (
 /**
  * 书籍--分卷表。存储所有的书籍分卷信息。
  */
-CREATE TABLE WN_VOLUME (
+CREATE TABLE wn_volume (
 	`id` varchar(32) NOT NULL COMMENT '主键，唯一标识符',
 	`volume_name` varchar(120) DEFAULT NULL COMMENT '卷名称',
 	`charged` int DEFAULT NULL COMMENT '是否收费',
@@ -60,7 +67,7 @@ CREATE TABLE WN_VOLUME (
 /**
  * 书籍章节表。存储书籍的章节信息。该表的信息量会比较大，需要考虑存取的效率问题。
  */
-CREATE TABLE WN_CHAPTER (
+CREATE TABLE wn_chapter (
 	`id` varchar(32) NOT NULL COMMENT '主键，唯一标识符',
 	`subject` varchar(64) DEFAULT NULL COMMENT '章节标题',
 	`content` text DEFAULT NULL COMMENT '章节内容',
@@ -76,7 +83,7 @@ CREATE TABLE WN_CHAPTER (
 /**
  * 书籍的评论表。存储用户对书籍的评论信息。
  */
-CREATE TABLE WN_COMMENT (
+CREATE TABLE wn_comment (
 	`id` varchar(32) NOT NULL COMMENT '主键，唯一标识符',
 	`content` text DEFAULT NULL COMMENT '评论内容',
 	`status` int COMMENT '帖子状态。0、关闭，1、审核，2、打开',
@@ -91,7 +98,7 @@ CREATE TABLE WN_COMMENT (
 /**
  * 书架表。存储书架信息。
  */
-CREATE TABLE WN_BOOKSHELF (
+CREATE TABLE wn_bookshelf (
 	`id` varchar(32) NOT NULL COMMENT '主键，唯一标识符',
 	`shelf_name` varchar(64) DEFAULT NULL COMMENT '书架名称',
 	`user_id` varchar(32) DEFAULT NULL COMMENT '外键，用户id',
@@ -101,7 +108,7 @@ CREATE TABLE WN_BOOKSHELF (
 /**
  * 书架书籍表。存储书架上的图书信息。
  */
-CREATE TABLE WN_SHELF_BOOKS (
+CREATE TABLE wn_bookshelf_books (
 	`id` varchar(32) NOT NULL COMMENT '主键，唯一标识符',
 	`book_id` varchar(64) DEFAULT NULL COMMENT '外键，书籍id',
 	`book_name` varchar(64) COMMENT '书籍名称',
@@ -113,7 +120,7 @@ CREATE TABLE WN_SHELF_BOOKS (
 /**
  * 论坛主题表。
  */
-CREATE TABLE WN_FORUM_SUBJECT (
+CREATE TABLE wn_forum_subject (
 	`id` varchar(32) NOT NULL COMMENT '主键，唯一标识符',
 	`subject` varchar(120) COMMENT '帖子标题',
 	`type` int COMMENT '帖子类型',
@@ -131,7 +138,7 @@ CREATE TABLE WN_FORUM_SUBJECT (
 /**
  * 论坛表。
  */
-CREATE TABLE WN_FORUM (
+CREATE TABLE wn_forum (
 	`id` varchar(32) NOT NULL COMMENT '主键，唯一标识符',
 	`content` text COMMENT '帖子内容',
 	`status` int COMMENT '帖子状态。0、关闭，1、审核，2、打开',
@@ -159,7 +166,7 @@ CREATE TABLE WN_MEMO (
 /**
  * 用户反馈表。
  */
-CREATE TABLE WN_FEEDBACK (
+CREATE TABLE wn_feedback (
 	`id` varchar(32) NOT NULL COMMENT '主键，唯一标识符',
 	`title` varchar(120) COMMENT '备忘标题',
 	`advice` text COMMENT '备忘内容',

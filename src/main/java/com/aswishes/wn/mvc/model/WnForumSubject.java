@@ -2,9 +2,12 @@ package com.aswishes.wn.mvc.model;
 
 import java.util.Date;
 
+import com.aswishes.spring.mapper.Mapper;
+
 /**
  * 论坛主帖信息
  */
+@Mapper(tableName = "wn_forum_object", primaryKey = {"id"})
 public class WnForumSubject {
 
 	/** 主键 */

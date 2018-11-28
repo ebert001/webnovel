@@ -1,8 +1,5 @@
 package com.aswishes.wn.mvc.service;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,41 +11,36 @@ import com.aswishes.wn.mvc.dao.WnForumSubjectDao;
 import com.aswishes.wn.mvc.model.WnForum;
 import com.aswishes.wn.mvc.model.WnForumSubject;
 
-import spring.persist.helper.Restriction;
-
 @Service
 @Transactional
-public class ForumService {
+public class ForumService extends AbstractService {
 
-	public WnForum queryForum(String id) throws SQLException {
-		return forumDao.selectById(Arrays.asList(Restriction.eq("id", id)));
+	public WnForum queryForum(String id) {
+		return forumDao.queryForum(id);
 	}
 
-	public List<WnForum> queryForumList(String userId) throws SQLException {
-		List<Restriction> restrictions = Arrays.asList(Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
-		return forumDao.select(restrictions);
+	public List<WnForum> queryForumList(String userId) {
+		return forumDao.queryForumList(userId);
 	}
 	
-	public List<WnForum> queryForumList(String userId, int startNo, int perNo) throws SQLException {
-		List<Restriction> restrictions = Arrays.asList(Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
-		return forumDao.select(startNo, perNo, restrictions);
+	public List<WnForum> queryForumList(String userId, int startNo, int perNo) {
+		return forumDao.queryForumList(userId, startNo, perNo);
 	}
 	
-	public int queryForumListCount() throws SQLException {
-		return forumDao.queryCount(new ArrayList<Restriction>());
+	public int queryForumListCount() {
+		return forumDao.queryForumListCount();
 	}
 
-	public void saveForum(WnForum forum) throws SQLException {
+	public void saveForum(WnForum forum) {
 		forumDao.save(forum);
 	}
 
-	public void updateForum(WnForum forum) throws SQLException {
-		forumDao.update(forum);
+	public void updateForum(WnForum forum) {
+		forumDao.updateByPK(forum);
 	}
 
-	public void deleteForum(String id) throws SQLException {
-		List<Restriction> restrictions = Arrays.asList(Restriction.eq("id", id));
-		forumDao.delete(restrictions);
+	public void deleteForum(String id) {
+		forumDao.deleteForum(id);
 	}
 	
 	public void updateReadTimes(String id) {
@@ -60,40 +52,36 @@ public class ForumService {
 	}
 	
 	
-	public WnForumSubject queryForumSubject(String id) throws SQLException {
-		return forumSubjectDao.selectById(Arrays.asList(Restriction.eq("id", id)));
+	public WnForumSubject queryForumSubject(String id) {
+		return forumSubjectDao.queryForumSubject(id);
 	}
 	
-	public int getForumSubjectCount(String userId) throws SQLException {
-		List<Restriction> restrictions = Arrays.asList(Restriction.eq("user_id", userId));
-		return forumSubjectDao.queryCount(restrictions);
+	public int getForumSubjectCount(String userId) {
+		return forumSubjectDao.getForumSubjectCount(userId);
 	}
 
-	public List<WnForumSubject> queryForumSubjectList(String userId, int startNo, int perNo) throws SQLException {
-		List<Restriction> restrictions = Arrays.asList(Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
-		return forumSubjectDao.select(startNo, perNo, restrictions);
+	public List<WnForumSubject> queryForumSubjectList(String userId, int startNo, int perNo) {
+		return forumSubjectDao.queryForumSubjectList(userId, startNo, perNo);
 	}
 	
-	public List<WnForumSubject> queryForumSubjectList(int startNo, int perNo) throws SQLException {
-		List<Restriction> restrictions = Arrays.asList(Restriction.orderByDesc("create_time"));
-		return forumSubjectDao.select(startNo, perNo, restrictions);
+	public List<WnForumSubject> queryForumSubjectList(int startNo, int perNo) {
+		return forumSubjectDao.queryForumSubjectList(startNo, perNo);
 	}
 	
-	public int getForumSubjectCount() throws SQLException {
-		return forumSubjectDao.queryCount(new ArrayList<Restriction>());
+	public int getForumSubjectCount() {
+		return forumSubjectDao.getForumSubjectCount();
 	}
 
-	public void saveForumSubject(WnForumSubject forumSubject) throws SQLException {
+	public void saveForumSubject(WnForumSubject forumSubject) {
 		forumSubjectDao.save(forumSubject);
 	}
 
-	public void updateForumSubject(WnForumSubject forumSubject) throws SQLException {
-		forumSubjectDao.update(forumSubject);
+	public void updateForumSubject(WnForumSubject forumSubject) {
+		forumSubjectDao.updateByPK(forumSubject);
 	}
 
-	public void deleteForumSubject(String id) throws SQLException {
-		List<Restriction> restrictions = Arrays.asList(Restriction.eq("id", id));
-		forumSubjectDao.delete(restrictions);
+	public void deleteForumSubject(String id) {
+		forumSubjectDao.deleteForumSubject(id);
 	}
 
 	@Autowired
