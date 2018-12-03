@@ -9,6 +9,10 @@ public class WnException extends RuntimeException {
 	public WnException() {
 	}
 	
+	public WnException(Throwable cause) {
+		super(cause);
+	}
+	
 	public WnException(int code, String msg) {
 		super(msg);
 		this.code = code;
