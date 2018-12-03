@@ -245,16 +245,46 @@
 	</dependencies>
 	
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<finalName>webnovel</finalName>
 		<resources>
 			<resource>
-				<directory>src</directory>
+				<directory>src/main/resources</directory>
 				<excludes>
 					<exclude>**/*.java</exclude>
 				</excludes>
 			</resource>
 		</resources>
 		<plugins>
+			<!-- compiler插件, 设定JDK版本 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<!-- 引入插件，支持多源码目录的编译 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<!-- 此处eclipse m2e插件报错，选择eclipse中编译时忽略即可 -->
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src-spider/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.0.0</version>
