@@ -8,15 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.http.client.fluent.Request;
 import org.dom4j.Attribute;
-import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
-import org.htmlcleaner.CleanerProperties;
-import org.htmlcleaner.HtmlCleaner;
-import org.htmlcleaner.PrettyXmlSerializer;
-import org.htmlcleaner.TagNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.aswishes.wn.exception.WnException;
 
 /**
  * 爬取网络书籍
@@ -27,42 +24,40 @@ public class DownloadBook {
 	private String catalogCharset = "UTF-8";
 	private String chapterNodePath;
 	private String chapterUrlNode;
-	private String chapterCharset = "UTF-8";
+	
+	private String contentCharset = "UTF-8";
+	private String contentNodePath;
+	
 	private List<String> excludeAttrs = new ArrayList<String>();
 	private List<ChapterInfo> chapters = new ArrayList<ChapterInfo>();
 	private List<String> replaceKeywords = new ArrayList<String>();
 	
 	private boolean showDebug = false;
 	
-	
 	public DownloadBook(String catalogUrl) {
 		this.catalogUrl = catalogUrl;
 	}
 	
-	/**
-	 * 
-	 * @throws Exception
-	 */
 	public void discovery() {
 		try {
+			loadCatalog();
+			for (ChapterInfo info : chapters) {
+				String content = loadContent(info.getChapterUrl());
+				info.setChapterContent(content);
+			}
+		} catch (Exception e) {
+			logger.error("Load book error: " + catalogUrl, e);
+		}
+	}
+	
+	public void loadCatalog() {
+		try {
 			URI catalogURI = URI.create(catalogUrl);
-			String catalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
+			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
 			if (showDebug) {
-	//			logger.debug("Origin catalog: " + catalog);
+				logger.debug("Origin catalog: " + originCatalog);
 			}
-			
-			TimeUnit.SECONDS.sleep(1);
-			
-			HtmlCleaner cleaner = new HtmlCleaner();
-			CleanerProperties props = cleaner.getProperties();
-			TagNode node = cleaner.clean(catalog);
-			catalog = new PrettyXmlSerializer(props).getAsString(node);
-			if (showDebug) {
-				logger.debug("Format catalog: " + catalog);
-			}
-			Document doc = XmlTools.makeDocument(catalog);
-			List<Node> nodes = doc.selectNodes(chapterNodePath);
-			
+			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, chapterNodePath);
 			ChapterInfo chapterInfo = new ChapterInfo();
 			for (Node tnode : nodes) {
 				Element ele = (Element) tnode;
@@ -92,17 +87,29 @@ public class DownloadBook {
 					}
 				}
 				chapterInfo.setChapterUrl(chapterUrl);
-
-				String chapterContent = new String(Request.Get(chapterInfo.getChapterUrl()).execute().returnContent().asBytes(), chapterCharset);
-				chapterInfo.setChapterContent(chapterContent);
-				if (showDebug) {
-					logger.debug("Chapter Info: \n{}", chapterInfo.toString());
-				}
-				TimeUnit.SECONDS.sleep(2);
 			}
 			chapters.add(chapterInfo);
 		} catch (Exception e) {
 			logger.error("Load book error: " + catalogUrl, e);
+		}
+	}
+	
+	private String loadContent(String chapterUrl) {
+		try {
+			String originContent = new String(Request.Get(chapterUrl).execute().returnContent().asBytes(), contentCharset);
+			String xml = HtmlTools.html2Xml(originContent);
+			List<Node> nodess = HtmlTools.findFromXml(xml, contentNodePath);
+			if (nodess == null || nodess.isEmpty()) {
+				logger.debug("Content xml: \n{}", xml);
+				throw new WnException("Retrive content xpath error.");
+			}
+			StringBuilder sb = new StringBuilder();
+			for (Node n : nodess) {
+				sb.append(n.asXML());
+			}
+			return sb.toString();
+		} catch (Exception e) {
+			throw new WnException(e.getCause());
 		}
 	}
 	
@@ -137,8 +144,13 @@ public class DownloadBook {
 		return this;
 	}
 	
-	public DownloadBook setChapterCharset(String chapterCharset) {
-		this.chapterCharset = chapterCharset;
+	public DownloadBook setContentNodePath(String contentNodePath) {
+		this.contentNodePath = contentNodePath;
+		return this;
+	}
+	
+	public DownloadBook setContentCharset(String contentCharset) {
+		this.contentCharset = contentCharset;
 		return this;
 	}
 	
