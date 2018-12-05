@@ -1,4 +1,4 @@
-package com.aswishes.wn.mvc.action;
+package com.aswishes.wn.mvc.controller;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.AppUtil;
@@ -20,11 +22,13 @@ import com.aswishes.wn.mvc.service.ForumService;
 /**
  * 备忘录的入口方法
  */
-public class ForumActionBean extends AbstractActionBean {
+@Controller
+@RequestMapping("/forum")
+public class ForumController extends AbstractController {
 	
 	/** 所有的帖子列表 
 	 * @throws SQLException */
-	public ModelAndView list() throws SQLException {
+	public ModelAndView list() {
 		log.debug("enter forum subject list page......");
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
@@ -40,7 +44,7 @@ public class ForumActionBean extends AbstractActionBean {
 	
 	/** 用户的帖子列表 
 	 * @throws SQLException */
-	public ModelAndView listByUser() throws SQLException {
+	public ModelAndView listByUser() {
 		String userId = (String) session.getAttribute(Codes.SESSION_USER);
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
@@ -56,7 +60,7 @@ public class ForumActionBean extends AbstractActionBean {
 	
 	/** 帖子详细信息，带主帖 
 	 * @throws SQLException */
-	public ModelAndView queryOne() throws SQLException {
+	public ModelAndView queryOne() {
 		String id = request.getParameter("id");
 		int perCount = 20;
 		int startPage = getStartPage(request);
@@ -79,7 +83,7 @@ public class ForumActionBean extends AbstractActionBean {
 	
 	/** 帖子详细信息，不带主帖 
 	 * @throws SQLException */
-	public ModelAndView getForum() throws SQLException {
+	public ModelAndView getForum() {
 		String id = request.getParameter("id");
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
@@ -97,7 +101,7 @@ public class ForumActionBean extends AbstractActionBean {
 	
 	/** 添加帖子信息 
 	 * @throws SQLException */
-	public ModelAndView addForumSubject() throws SQLException {
+	public ModelAndView addForumSubject() {
 		WnForumSubject forumSubject = new WnForumSubject();
 		forumSubject.setId(AppUtil.getUuid());
 		forumSubject.setSubject(request.getParameter("subject"));
@@ -121,7 +125,7 @@ public class ForumActionBean extends AbstractActionBean {
 	
 	/** 回复帖子 
 	 * @throws SQLException */
-	public ModelAndView replyForum() throws SQLException {
+	public ModelAndView replyForum() {
 		WnForum forum = new WnForum();
 		forum.setId(AppUtil.getUuid());
 		forum.setContent(request.getParameter("content"));
@@ -144,7 +148,7 @@ public class ForumActionBean extends AbstractActionBean {
 	
 	/** 更新帖子信息，帖子类型和状态 
 	 * @throws SQLException */
-	public ModelAndView updateForumSubject() throws SQLException {
+	public ModelAndView updateForumSubject() {
 		WnForumSubject forumSubject = forumMapper.queryForumSubject(request.getParameter("id"));
 		
 		forumSubject.setType(Integer.parseInt(request.getParameter("type") == null ? "0" : request.getParameter("type")));
@@ -156,7 +160,7 @@ public class ForumActionBean extends AbstractActionBean {
 	
 	/** 删除帖子信息，回帖信息 
 	 * @throws SQLException */
-	public ModelAndView deleteForumSubject() throws SQLException {
+	public ModelAndView deleteForumSubject() {
 		forumMapper.deleteForum(request.getParameter("id"));
 		return list();
 	}
@@ -172,5 +176,5 @@ public class ForumActionBean extends AbstractActionBean {
 	@Autowired
 	private ForumService forumMapper;
 
-	private static final Logger log = LoggerFactory.getLogger(ForumActionBean.class);
+	private static final Logger log = LoggerFactory.getLogger(ForumController.class);
 }

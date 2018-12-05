@@ -1,4 +1,4 @@
-package com.aswishes.wn.mvc.action;
+package com.aswishes.wn.mvc.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +12,8 @@ import com.aswishes.wn.common.Codes;
 /**
  * all action bean need to extend this abstract class. otherwise, you will get an error.
  */
-public abstract class AbstractActionBean {
-	protected static final Logger logger = LoggerFactory.getLogger(AbstractActionBean.class);
+public abstract class AbstractController {
+	protected static final Logger logger = LoggerFactory.getLogger(AbstractController.class);
 	
 	protected HttpServletRequest request = null;
 	protected HttpServletResponse response = null;

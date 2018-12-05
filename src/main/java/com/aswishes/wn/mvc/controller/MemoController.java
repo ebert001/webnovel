@@ -1,4 +1,4 @@
-package com.aswishes.wn.mvc.action;
+package com.aswishes.wn.mvc.controller;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -7,6 +7,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.AppUtil;
@@ -17,11 +19,13 @@ import com.aswishes.wn.mvc.service.MemoService;
 /**
  * 备忘录的入口方法
  */
-public class MemoActionBean extends AbstractActionBean {
+@Controller
+@RequestMapping("/memo")
+public class MemoController extends AbstractController {
 	
 	/** 备忘录列表 
 	 * @throws SQLException */
-	public ModelAndView list() throws SQLException {
+	public ModelAndView list() {
 		log.debug("enter memo list page......");
 		String userId = (String) session.getAttribute(Codes.SESSION_USER);
 		
@@ -32,7 +36,7 @@ public class MemoActionBean extends AbstractActionBean {
 	
 	/** 备忘录详细信息 
 	 * @throws SQLException */
-	public ModelAndView queryOne() throws SQLException {
+	public ModelAndView queryOne() {
 		String id = request.getParameter("id");
 		WnMemo memo = memoService.getMemo(id);
 		request.setAttribute("memo", memo);
@@ -41,7 +45,7 @@ public class MemoActionBean extends AbstractActionBean {
 	
 	/** 增加备忘 
 	 * @throws SQLException */
-	public ModelAndView addMemo() throws SQLException {
+	public ModelAndView addMemo() {
 		WnMemo memo = new WnMemo();
 		memo.setId(AppUtil.getUuid());
 		memo.setTitle(request.getParameter("title"));
@@ -60,7 +64,7 @@ public class MemoActionBean extends AbstractActionBean {
 	
 	/** 更新备忘 
 	 * @throws SQLException */
-	public ModelAndView updateMemo() throws SQLException {
+	public ModelAndView updateMemo() {
 		WnMemo memo = new WnMemo();
 		
 		memo.setId(request.getParameter("id"));
@@ -74,7 +78,7 @@ public class MemoActionBean extends AbstractActionBean {
 	
 	/** 删除备忘 
 	 * @throws SQLException */
-	public ModelAndView deleteMemo() throws SQLException {
+	public ModelAndView deleteMemo() {
 		memoService.delete(request.getParameter("id"));
 		return list();
 	}
@@ -82,5 +86,5 @@ public class MemoActionBean extends AbstractActionBean {
 	@Autowired
 	private MemoService memoService;
 
-	private static final Logger log = LoggerFactory.getLogger(MemoActionBean.class);
+	private static final Logger log = LoggerFactory.getLogger(MemoController.class);
 }

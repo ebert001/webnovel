@@ -1,4 +1,4 @@
-package com.aswishes.wn.mvc.service.controller;
+package com.aswishes.wn.common;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;

@@ -1,127 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:cache="http://www.springframework.org/schema/cache"
 	xsi:schemaLocation="
-			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+		http://www.springframework.org/schema/task 
+		http://www.springframework.org/schema/task/spring-task.xsd 
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd 
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/cache 
+		http://www.springframework.org/schema/cache/spring-cache.xsd ">
+	
+   	<!-- 定义受环境影响易变的变量 -->
+   	<context:property-placeholder location="classpath:res-${running.env}/app.properties"/>
+	
+	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
+   	<context:component-scan base-package="com.aswishes.wn"/>
+   	
+   	<!-- task任务扫描注解 -->
+   	<task:annotation-driven/>
+   	
+	<!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
+   	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+      	<!-- Connection Info -->
+      	<property name="driverClassName" value="${jdbc.driver}" />
+      	<property name="url" value="${jdbc.url}" />
+      	<property name="username" value="${jdbc.username}" />
+      	<property name="password" value="${jdbc.password}" />
 
-	<!-- 数据源配置:数据库连接由spring管理  开始 -->
-	<context:property-placeholder
-		location="classpath:db-config.properties" />
-
-	<bean id="dataSource"
-		class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
-		<property name="driverClass">
-			<value>${mysql_driver}</value>
-		</property>
-		<property name="jdbcUrl">
-			<value>${mysql_url}</value>
-		</property>
-		<property name="user">
-			<value>${mysql_username}</value>
-		</property>
-		<property name="password">
-			<value>${mysql_password}</value>
-		</property>
-		<!--连接池中保留的最小连接数。-->
-		<property name="minPoolSize">
-			<value>5</value>
-		</property>
-		<!--连接池中保留的最大连接数。Default: 15 -->
-		<property name="maxPoolSize">
-			<value>30</value>
-		</property>
-		<!--初始化时获取的连接数，取值应在minPoolSize与maxPoolSize之间。Default: 3 -->
-		<property name="initialPoolSize">
-			<value>10</value>
-		</property>
-		<!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
-		<property name="maxIdleTime">
-			<value>60</value>
-		</property>
-		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
-		<property name="acquireIncrement">
-			<value>5</value>
-		</property>
-		<!--JDBC的标准参数，用以控制数据源内加载的PreparedStatements数量。但由于预缓存的statements 
-			属于单个connection而不是整个连接池。所以设置这个参数需要考虑到多方面的因素。 
-			如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0-->
-		<property name="maxStatements">
-			<value>0</value>
-		</property>
-		<!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
-		<property name="idleConnectionTestPeriod">
-			<value>60</value>
-		</property>
-		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
-		<property name="acquireRetryAttempts">
-			<value>30</value>
-		</property>
-	</bean>
-	<!-- 数据源配置  结束 -->
-
-	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->
-	<context:component-scan base-package="wn.service" />
-
-	<!-- enable autowire -->
-	<context:annotation-config />
-
-	<!-- enable transaction demarcation with annotations -->
-	<tx:annotation-driven />
-
-	<!-- define the SqlSessionFactory -->
-	<!-- 
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:db-config.xml" />
-		<property name="typeAliasesPackage" value="wn.dao.model" />
-	</bean>
- 	-->
-	<!-- scan for mappers and let them be autowired -->
-	<!-- 
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="wn.dao" />
-	</bean>
-	 -->
-
-	<!-- 事务  开始 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
-		<property name="dataSource" ref="dataSource" />  
-	</bean>
+	   	<!-- Connection Pooling Info -->
+	   	<property name="initialSize" value="10"/>
+    	<property name="maxIdle" value="${dbcp.maxIdle}" />
+    	<property name="maxTotal" value="${dbcp.maxTotal}" />
+      	 
+      	<property name="defaultAutoCommit" value="false" />
+      	<property name="timeBetweenEvictionRunsMillis" value="3600000" />
+      	<property name="minEvictableIdleTimeMillis" value="3600000" />
 		
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+   	</bean>
+
+	<!-- 事务管理器配置,单数据源事务 -->
+ 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	    <property name="dataSource" ref="dataSource"/>
+	</bean>
+   	<!-- 使用annotation定义事务 -->
+   	<tx:annotation-driven mode="proxy" transaction-manager="transactionManager" proxy-target-class="true" />
+   	
+   	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource">
 			<ref local="dataSource"/>
 		</property>
 	</bean>
-	<!-- 	
-		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation" value="classpath:db-config.xml"/>  
-		</bean>
-		
-		
-		<bean id="baseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
-		<property name="transactionManager" ref="transactionManager" />
-		<property name="transactionAttributes">
-		<props>
-		<prop key="*">PROPAGATION_REQUIRED</prop>
-		</props>
-		</property>
-		</bean>
-		
-		<bean id="userAction" parent="baseTransactionProxy">
-		<property name="target">
-		<bean class="wn.control.UserAction" autowire="byName"/>
-		</property>
-		</bean>
-	-->
-
 </beans>
-

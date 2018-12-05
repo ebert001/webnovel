@@ -1,4 +1,4 @@
-package com.aswishes.wn.mvc.action;
+package com.aswishes.wn.mvc.controller;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -7,6 +7,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.AppUtil;
@@ -19,11 +21,13 @@ import com.aswishes.wn.mvc.service.BookService;
 /**
  * 书籍的入口方法
  */
-public class BookActionBean extends AbstractActionBean {
+@Controller
+@RequestMapping("/book")
+public class BookController extends AbstractController {
 	
 	/** 书籍列表 
 	 * @throws SQLException */
-	public ModelAndView list() throws SQLException {
+	public ModelAndView list() {
 		log.debug("enter book list page......");
 		String userId = (String) session.getAttribute(Codes.SESSION_USER);
 		
@@ -34,7 +38,7 @@ public class BookActionBean extends AbstractActionBean {
 	
 	/** 书籍章节列表 
 	 * @throws SQLException */
-	public ModelAndView listChapter() throws SQLException {
+	public ModelAndView listChapter() {
 		log.debug("enter chapter list page......");
 		String userId = (String) session.getAttribute(Codes.SESSION_USER);
 		String bookId = request.getParameter("bookId");
@@ -56,7 +60,7 @@ public class BookActionBean extends AbstractActionBean {
 	
 	/** 去章节写作页面 
 	 * @throws SQLException */
-	public ModelAndView goWritePage() throws SQLException {
+	public ModelAndView goWritePage() {
 		String userId = (String) session.getAttribute(Codes.SESSION_USER);
 		String bookId = request.getParameter("bookId");
 		log.debug("my book id:" + bookId);
@@ -69,7 +73,7 @@ public class BookActionBean extends AbstractActionBean {
 	
 	/** 书籍详细信息 
 	 * @throws SQLException */
-	public ModelAndView queryOne() throws SQLException {
+	public ModelAndView queryOne() {
 		String id = request.getParameter("id");
 		String userId = "";
 		WnBook book = bookMapper.getBook(userId, id);
@@ -80,7 +84,7 @@ public class BookActionBean extends AbstractActionBean {
 	
 	/** 添加书籍 
 	 * @throws SQLException */
-	public ModelAndView addBook() throws SQLException {
+	public ModelAndView addBook() {
 		WnBook book = new WnBook();
 		book.setId(AppUtil.getUuid());
 		book.setBookName(request.getParameter("bookName"));
@@ -99,7 +103,7 @@ public class BookActionBean extends AbstractActionBean {
 	
 	/** 添加书籍分卷 
 	 * @throws SQLException */
-	public ModelAndView addVolume() throws SQLException {
+	public ModelAndView addVolume() {
 		WnVolume volume = new WnVolume();
 		volume.setId(AppUtil.getUuid());
 		volume.setBookId(request.getParameter("bookId"));
@@ -113,7 +117,7 @@ public class BookActionBean extends AbstractActionBean {
 		return listChapter();
 	}
 	
-	public ModelAndView updateVolume() throws SQLException {
+	public ModelAndView updateVolume() {
 		String volumeId = request.getParameter("volumeId");
 		if (volumeId == null) {
 			return addVolume();
@@ -127,7 +131,7 @@ public class BookActionBean extends AbstractActionBean {
 	
 	/** 添加书籍章节 
 	 * @throws SQLException */
-	public ModelAndView addChapter() throws SQLException {
+	public ModelAndView addChapter() {
 		String bookId = request.getParameter("bookId");
 		String volumeId = request.getParameter("volumeId");
 		String subject = request.getParameter("subject");
@@ -160,7 +164,7 @@ public class BookActionBean extends AbstractActionBean {
 		return list();
 	}
 	
-	public ModelAndView addChapterSubject() throws SQLException {
+	public ModelAndView addChapterSubject() {
 		String bookId = request.getParameter("bookId");
 		String volumeId = request.getParameter("volumeId");
 		String subject = request.getParameter("subject");
@@ -181,14 +185,14 @@ public class BookActionBean extends AbstractActionBean {
 		return listChapter();
 	}
 	
-	public ModelAndView deleteChapter() throws SQLException {
+	public ModelAndView deleteChapter() {
 		bookMapper.deleteChapter(request.getParameter("chatperId"));
 		return listChapter();
 	}
 	
 	/** 查询章节详细 
 	 * @throws SQLException */
-	public ModelAndView queryChapter() throws SQLException {
+	public ModelAndView queryChapter() {
 		String userId = (String) session.getAttribute(Codes.SESSION_USER);
 		
 		String bookId = request.getParameter("bookId");
@@ -205,7 +209,7 @@ public class BookActionBean extends AbstractActionBean {
 		return new ModelAndView("/config/opus/create_article.jsp");
 	}
 	
-	public ModelAndView readChapter() throws SQLException {
+	public ModelAndView readChapter() {
 		String chapterId = request.getParameter("chapterId");
 		WnChapter chapter = bookMapper.getChapter(chapterId);
 		log.debug(chapter.getContent());
@@ -216,7 +220,7 @@ public class BookActionBean extends AbstractActionBean {
 	
 	/** 删除书籍 
 	 * @throws SQLException */
-	public ModelAndView deleteBook() throws SQLException {
+	public ModelAndView deleteBook() {
 			bookMapper.deleteBook(request.getParameter("id"));
 		return list();
 	}
@@ -224,5 +228,5 @@ public class BookActionBean extends AbstractActionBean {
 	@Autowired
 	private BookService bookMapper;
 
-	private static final Logger log = LoggerFactory.getLogger(BookActionBean.class);
+	private static final Logger log = LoggerFactory.getLogger(BookController.class);
 }

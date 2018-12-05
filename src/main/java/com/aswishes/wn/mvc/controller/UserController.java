@@ -1,12 +1,14 @@
-package com.aswishes.wn.mvc.action;
+package com.aswishes.wn.mvc.controller;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.AppUtil;
@@ -15,11 +17,32 @@ import com.aswishes.wn.common.DateUtil;
 import com.aswishes.wn.mvc.model.WnUser;
 import com.aswishes.wn.mvc.service.UserService;
 
-public class UserActionBean extends AbstractActionBean {
+@Controller
+@RequestMapping("/user")
+public class UserController extends AbstractController {
+	
+	/** 
+	 * 检查用户信息，判断登录 
+	 */
+	@RequestMapping(value = "/login", method = {RequestMethod.POST})
+	public ModelAndView login(String wnUsername, String wnPassword) {
+		WnUser user = userService.getUser(wnUsername);
+		if (user == null) {
+			setResponseMessage("登陆失败，用户名或密码错误!");
+		} else {
+			boolean isSucess = userService.login(user, wnPassword);
+			if (isSucess == false) {
+				setResponseMessage("登陆失败，用户名或密码错误!");
+			} else {
+				session.setAttribute(Codes.SESSION_USER, user);
+			}
+		}
+		return new ModelAndView("/config/user/edit_password.jsp");
+	}
 	
 	/** 用户列表 
-	 * @throws SQLException */
-	public ModelAndView list() throws SQLException {
+	 * */
+	public ModelAndView list() {
 		logger.debug("enter user list page......");
 		int startNo = 0;
 		int perNo = 20;
@@ -30,9 +53,9 @@ public class UserActionBean extends AbstractActionBean {
 	}
 	
 	/** 用户详细信息 
-	 * @throws SQLException 
+	 * 
 	 * */
-	public ModelAndView queryOne() throws SQLException {
+	public ModelAndView queryOne() {
 		String username = request.getParameter("username");
 		WnUser user = userService.getUser(username);
 		request.setAttribute("user", user);
@@ -43,28 +66,11 @@ public class UserActionBean extends AbstractActionBean {
 		return new ModelAndView("/config/user/list_user.jsp");
 	}
 	
-	/** 检查用户信息，判断登录 
-	 * @throws SQLException */
-	public ModelAndView checkUser() throws SQLException {
-		String password = request.getParameter("password");
-		String username = request.getParameter("username");
-		WnUser user = userService.getUser(username);
-		if (user == null) {
-			setResponseMessage("登陆失败，用户名或密码错误!");
-		} else {
-			boolean isSucess = userService.login(user, password);
-			if (isSucess == false) {
-				setResponseMessage("登陆失败，用户名或密码错误!");
-			} else {
-				session.setAttribute(Codes.SESSION_USER, user);
-			}
-		}
-		return new ModelAndView("/config/user/edit_password.jsp");
-	}
+	
 	
 	/** 更新密码 
-	 * @throws SQLException */
-	public ModelAndView updatePassword() throws SQLException {
+	 * */
+	public ModelAndView updatePassword() {
 		String oldPassword = request.getParameter("old_password");
 		String newPassword = request.getParameter("new_password");
 		WnUser user = getAttribute(session, Codes.SESSION_USER);
@@ -87,8 +93,8 @@ public class UserActionBean extends AbstractActionBean {
 	}
 	
 	/** 增加新用户 
-	 * @throws SQLException */
-	public ModelAndView addUser() throws SQLException {
+	 * */
+	public ModelAndView addUser() {
 		WnUser user = new WnUser();
 		String username = request.getParameter("username");
 		user.setName(username);
@@ -103,8 +109,8 @@ public class UserActionBean extends AbstractActionBean {
 	}
 	
 	/** 更新用户信息 
-	 * @throws SQLException */
-	public ModelAndView updateUser() throws SQLException {
+	 * */
+	public ModelAndView updateUser() {
 		String username = request.getParameter("username");
 		WnUser user = userService.getUser(username);
 		user.setEmail(request.getParameter("email"));
@@ -119,5 +125,5 @@ public class UserActionBean extends AbstractActionBean {
 	@Autowired
 	private UserService userService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(UserActionBean.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 }
