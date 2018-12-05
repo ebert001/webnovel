@@ -1,14 +1,13 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix= "fmt" uri= "http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>作品章节目录</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/calendar/WdatePicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/js/common.js"></script>
+	<script type="text/javascript" src="${ctx}/js/calendar/WdatePicker.js"></script>
 	<style type="text/css">
 	.edit_catalog {
 		background-color: #A4E2C6;
@@ -51,7 +50,7 @@
 	function deleteChapter(chapterId) {
 		var rs = confirm("确认删除此章节吗？删除后，此章节会放入回收站中。");
 		if (rs == true) {
-			document.location.href = "${pageContext.request.contextPath}/Book.action?deleteChapter&chapterId=" + chapterId;
+			document.location.href = "${ctx}/Book.action?deleteChapter&chapterId=" + chapterId;
 		} else {
 			return;
 		}
@@ -75,7 +74,7 @@
 		var str = '';
 		str += '<div class="volume">';
 		str += '<div id="' + editId + '" style="display: none;">';
-		str += '<form name="' + formName + '" action="${pageContext.request.contextPath}/Book.action?updateVolume&volumeId="' + volumeId + ' method="post">';
+		str += '<form name="' + formName + '" action="${ctx}/Book.action?updateVolume&volumeId="' + volumeId + ' method="post">';
 		str += '<span style="width: 80%;">';
 		str += '卷名称：<input class="text_wrapper" type="text" name="volumeName" id="' + volumeNameId + '" value="">';
 		str += '<input type="hidden" name="bookId" value="${book.id}">';
@@ -111,7 +110,7 @@
 		var str = '';
 		str += '<div>';
 		str += '<div id="' + editId + '" style="display: none;">';
-		str += '<form name="' + formName + '" action="${pageContext.request.contextPath}/Book.action?updateVolume&volumeId="' + chapterId + ' method="post">';
+		str += '<form name="' + formName + '" action="${ctx}/Book.action?updateVolume&volumeId="' + chapterId + ' method="post">';
 		str += '<span style="width: 80%;">';
 		str += '章节名称：<input class="text_wrapper" type="text" name="chapterName" id="' + chapterNameId + '" value="">';
 		str += '<input type="hidden" name="bookId" value="${book.id}">';
@@ -126,12 +125,12 @@
 			
 		str += '<div id="' + viewId + '">';
 		str += '<span style="width: 80%; float: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">';
-		str += '<a href="${pageContext.request.contextPath}/Book.action?queryChapter&chapterId=' + chapterId + '"><span>' + chapterName + '</span></a>';
+		str += '<a href="${ctx}/Book.action?queryChapter&chapterId=' + chapterId + '"><span>' + chapterName + '</span></a>';
 		str += '</span>';
 		str += '<span style="width: 20%; float: right;">';
 		str += '<a href="#" onclick="swapDisplay(\'' + editId + '\', \'' + viewId + '\');backfill(\'' + formName + '\', \'' + chapterNameId + '\', \'' + chapterName + '\')">编辑</a>';
 		str += '&nbsp;&nbsp;&nbsp;&nbsp;';
-		str += '<a href="#" onclick="${pageContext.request.contextPath}/Book.action?deleteChapter&chapterId=' + chapterId + '">删除</a>';
+		str += '<a href="#" onclick="${ctx}/Book.action?deleteChapter&chapterId=' + chapterId + '">删除</a>';
 		str += '</span>';
 		str += '</div>';
 		str += '</div>';
@@ -153,7 +152,7 @@
  			<div>
 	 			<div class="volume">
 	 				<div id="volume_edit" style="display: none;">
-	 					<form name="volumeForm" action="${pageContext.request.contextPath}/Book.action?addVolume" method="post">
+	 					<form name="volumeForm" action="${ctx}/Book.action?addVolume" method="post">
 							卷名称：<input class="input_wrapper" type="text" name="volumeName" value="">
 							<input type="hidden" name="bookId" value="${book.id}">
 							<a href="#" onclick="javascript:doSubmit('volumeForm');">保存</a>
@@ -179,7 +178,7 @@
 			  					<c:set var="chapter_view" value="chapter_view_v_${volume.id}"></c:set>
 			  					<c:set var="chapter_form" value="chapter_form_v_${volume.id}"></c:set>
 			  					<div id="${chapter_edit}" style="display: none;">
-				 					<form name="${chapter_form}" action="${pageContext.request.contextPath}/Book.action?addChapterSubject" method="post">
+				 					<form name="${chapter_form}" action="${ctx}/Book.action?addChapterSubject" method="post">
 					 					章节名称：<input class="input_wrapper" type="text" name="chapterName" value="">
 					 					<input type="hidden" name="volumeId" value="${volume.id}">
 					 					<input type="hidden" name="bookId" value="${book.id}">
@@ -191,7 +190,7 @@
 				 					<span style="width: 80%; float: left; text-align: center;">
 					 					<a href="#" onclick="javascript:$$('${chapter_view}').style.display = 'none'; $$('${chapter_edit}').style.display = 'block';">添加新章节标题</a>
 					  					&nbsp;&nbsp;&nbsp;&nbsp;
-					  					<a href="${pageContext.request.contextPath}/Book.action?goWritePage&bookId=${book.id}">添加新章节</a>
+					  					<a href="${ctx}/Book.action?goWritePage&bookId=${book.id}">添加新章节</a>
 				  					</span>
 			  					</div>
 			  				</li>

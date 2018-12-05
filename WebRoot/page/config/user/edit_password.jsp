@@ -1,11 +1,12 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>修改密码</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/js/common.js"></script>
 	<script type="text/javascript">
 	function check() {
 		var newPwd = $$("new_password").value;
@@ -22,7 +23,7 @@
   	<jsp:include page="/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
   	<div style="width: 80%; margin-left: 10%; padding-top: 68px;">
-    <form action="${pageContext.request.contextPath}/User.action?updatePassword" method="post">
+    <form action="${ctx}/User.action?updatePassword" method="post">
     	<table class="table_form full_border">
     		<tr class="bottom_border">
     			<td class="table_form_label">原始密码：</td>

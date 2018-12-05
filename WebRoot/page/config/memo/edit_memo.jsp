@@ -8,8 +8,8 @@
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/js/common.js"></script>
 	
 	<style type="text/css">
 	#memo_list ul {
@@ -30,7 +30,7 @@
   	<jsp:include page="/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
     <div id="input_area">
-    	<form name="memoForm" action="${pageContext.request.contextPath}/Memo.action?updateMemo" method="post">
+    	<form name="memoForm" action="${ctx}/Memo.action?updateMemo" method="post">
   		<table class="table_form has_border">
     		<tr class="bottom_border">
     			<td class="table_form_label">标题：</td>

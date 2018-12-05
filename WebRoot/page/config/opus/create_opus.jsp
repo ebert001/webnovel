@@ -1,14 +1,13 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix= "fmt" uri= "http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>我的作品</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/calendar/WdatePicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/js/common.js"></script>
+	<script type="text/javascript" src="${ctx}/js/calendar/WdatePicker.js"></script>
 	<style type="text/css">
 	</style>
 	<script type="text/javascript">
@@ -20,7 +19,7 @@
   	<jsp:include page="/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
 	<div id="input_area">
-    	<form name="bookForm" action="${pageContext.request.contextPath}/Book.action?addBook" method="post">
+    	<form name="bookForm" action="${ctx}/Book.action?addBook" method="post">
   		<table class="table_form has_border">
     		<tr class="bottom_border">
     			<td class="table_form_label">书名：</td>
@@ -60,13 +59,13 @@
    		<c:forEach items="${bookList}" varStatus="i" var="book">
    		<tr <c:if test="${i.index % 2 == 1}">class="swap"</c:if>>
    			<td>
-   				<a href="${pageContext.request.contextPath}/Book.action?listChapter&bookId=${book.id}">${book.bookName}</a>
+   				<a href="${ctx}/Book.action?listChapter&bookId=${book.id}">${book.bookName}</a>
    			</td>
    			<td><fmt:formatDate value="${book.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
    			<td><fmt:formatDate value="${book.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
    			<td>${book.status}</td>
    			<td>
-   				<a href="${pageContext.request.contextPath}/Book.action?deleteBook&id=${book.id}">删除</a>
+   				<a href="${ctx}/Book.action?deleteBook&id=${book.id}">删除</a>
    			</td>
    		</tr>
    		</c:forEach>

@@ -1,18 +1,19 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>修改基本信息</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/calendar/WdatePicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/js/common.js"></script>
+	<script type="text/javascript" src="${ctx}/js/calendar/WdatePicker.js"></script>
   </head>
   
   <body>
   	<jsp:include page="../config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
-  	<form name="userForm" action="${pageContext.request.contextPath}/User.action?addUser" method="post">
+  	<form name="userForm" action="${ctx}/User.action?addUser" method="post">
   		<table class="table_form">
     		<tr>
     			<td class="table_form_label">帐号：</td>

@@ -42,6 +42,7 @@ public class UserController extends AbstractController {
 	
 	/** 用户列表 
 	 * */
+	@RequestMapping(value = "/list", method = {RequestMethod.POST})
 	public ModelAndView list() {
 		logger.debug("enter user list page......");
 		int startNo = 0;
@@ -52,9 +53,10 @@ public class UserController extends AbstractController {
 		return new ModelAndView("/config/user/list_user.jsp");
 	}
 	
-	/** 用户详细信息 
-	 * 
-	 * */
+	/**  
+	 * 用户详细信息
+	 */
+	@RequestMapping(value = "/login", method = {RequestMethod.POST})
 	public ModelAndView queryOne() {
 		String username = request.getParameter("username");
 		WnUser user = userService.getUser(username);

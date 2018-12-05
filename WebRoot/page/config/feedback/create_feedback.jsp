@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -10,14 +11,14 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/js/common.js"></script>
   </head>
   
   <body>
   	<jsp:include page="/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
-  	<form name="feedbackForm" action="${pageContext.request.contextPath}/Feedback.action?addFeedback" method="post">
+  	<form name="feedbackForm" action="${ctx}/Feedback.action?addFeedback" method="post">
   		<table class="table_form has_border">
     		<tr class="bottom_border">
     			<td class="table_form_label">标题：</td>

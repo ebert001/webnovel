@@ -1,11 +1,12 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>作家专区</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/js/common.js"></script>
 	
 	<style type="text/css">
 	.de {

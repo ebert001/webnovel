@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
-import com.aswishes.wn.listener.WApplicationListener;
+import com.aswishes.wn.listener.WnContextListener;
 
 /**
  * 应用程序工具类
@@ -166,11 +166,11 @@ public class AppUtil {
 	 * @return 对象
 	 */
 	public static Object getBean(String id) {
-		return WApplicationListener.getContext().getBean(id);
+		return WnContextListener.getContext().getBean(id);
 	}
 	
 	public static boolean containBean(String id) {
-		return WApplicationListener.getContext().containsBean(id);
+		return WnContextListener.getContext().containsBean(id);
 	}
 	
 	/**

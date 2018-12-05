@@ -1,10 +1,11 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>用户信息</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
 	<style type="text/css">
 	</style>
   </head>
@@ -40,7 +41,7 @@
    	</table>
     
     <div style="width: 100%; text-align: center; margin: 26px auto 16px auto;">
-    	<a class="a_btn medium" href="${pageContext.request.contextPath}/User.action?queryOne&uName=">修改基本信息</a>
+    	<a class="a_btn medium" href="${ctx}/User.action?queryOne&uName=">修改基本信息</a>
     </div>
     </div>
     <script type="text/javascript">

@@ -1,13 +1,12 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>修改基本信息</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/js/common.js"></script>
 	<style type="text/css">
 	</style>
   </head>
@@ -18,7 +17,7 @@
   	<div style="border-bottom: 2px dashed #8BB8F2;margin-bottom: 18px; text-indent: 8px;">
   		<span style="line-height: 28px; font-weight: bold;">用户设置</span>
   	</div>
-  	<form name="userForm" action="${pageContext.request.contextPath}/User.action?updateUser" method="post">
+  	<form name="userForm" action="${ctx}/User.action?updateUser" method="post">
   		<table class="table_form has_border">
     		<tr class="bottom_border">
     			<td class="table_form_label">帐号：</td>

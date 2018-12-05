@@ -13,8 +13,8 @@ import com.aswishes.wn.common.web.PageSupport;
 /**
  * 应用程序监听器，初始化ApplicationCotnext对象。
  */
-public class WApplicationListener extends ContextLoaderListener {
-	private static final Logger logger = LoggerFactory.getLogger(WApplicationListener.class);
+public class WnContextListener extends ContextLoaderListener {
+	private static final Logger logger = LoggerFactory.getLogger(WnContextListener.class);
 	private static ApplicationContext appContext = null;
 	
 	public void contextInitialized(ServletContextEvent event) {

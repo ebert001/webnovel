@@ -1,13 +1,12 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix= "fmt" uri= "http://java.sun.com/jsp/jstl/fmt"%> 
+<%@ include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
   <head>
     <title>用户列表</title>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/calendar/WdatePicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/js/calendar/WdatePicker.js"></script>
 	<style type="text/css">
 	</style>
 	<script type="text/javascript">
@@ -63,7 +62,7 @@
    		</thead>
    		<c:forEach items="${userList}" varStatus="i" var="user">
    		<tr <c:if test="${i.index % 2 == 1}">class="swap"</c:if>>
-   			<td class="text_center"><a href="${pageContext.request.contextPath}/User.action?queryOne&username=${user.name}">编辑</a></td>
+   			<td class="text_center"><a href="${ctx}/User.action?queryOne&username=${user.name}">编辑</a></td>
    			<td>${user.name}</td>
    			<td>${user.alias}</td>
    			<td><script type="text/javascript">if (${user.role} != '') {document.write(role["${user.role}"]);}</script></td>
@@ -77,7 +76,7 @@
    	</table>
     
     <div style="width: 100%; text-align: center; margin: 26px auto 16px auto;">
-    	<a class="a_btn medium" href="${pageContext.request.contextPath}/user/user_add.jsp">添加用户</a>
+    	<a class="a_btn medium" href="${ctx}/user/user_add.jsp">添加用户</a>
     </div>
     </div>
     <script type="text/javascript">
