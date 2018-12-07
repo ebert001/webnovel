@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.http.client.fluent.Request;
 import org.dom4j.Attribute;
@@ -38,27 +37,26 @@ public class DownloadBook {
 		this.catalogUrl = catalogUrl;
 	}
 	
-	public void discovery() {
+	public DownloadBook discovery() {
 		try {
 			loadCatalog();
 			for (ChapterInfo info : chapters) {
+				logger.debug("Loading chapter: {}, {}", info.getChapterUrl(), info.getChapterTitle());
 				String content = loadContent(info.getChapterUrl());
 				info.setChapterContent(content);
 			}
 		} catch (Exception e) {
 			logger.error("Load book error: " + catalogUrl, e);
 		}
+		logger.debug("chapters: {}", chapters);
+		return this;
 	}
 	
-	public void loadCatalog() {
+	private void loadCatalog() {
 		try {
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
-			if (showDebug) {
-				logger.debug("Origin catalog: " + originCatalog);
-			}
-			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, chapterNodePath);
-			ChapterInfo chapterInfo = new ChapterInfo();
+			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, chapterNodePath, showDebug);
 			for (Node tnode : nodes) {
 				Element ele = (Element) tnode;
 				boolean isContinue = false;
@@ -71,6 +69,8 @@ public class DownloadBook {
 				if (isContinue) {
 					continue;
 				}
+				ChapterInfo chapterInfo = new ChapterInfo();
+
 				String title = tnode.getText().trim();
 				chapterInfo.setChapterTitle(replace(title));
 				
@@ -87,8 +87,8 @@ public class DownloadBook {
 					}
 				}
 				chapterInfo.setChapterUrl(chapterUrl);
+				chapters.add(chapterInfo);
 			}
-			chapters.add(chapterInfo);
 		} catch (Exception e) {
 			logger.error("Load book error: " + catalogUrl, e);
 		}
@@ -97,10 +97,9 @@ public class DownloadBook {
 	private String loadContent(String chapterUrl) {
 		try {
 			String originContent = new String(Request.Get(chapterUrl).execute().returnContent().asBytes(), contentCharset);
-			String xml = HtmlTools.html2Xml(originContent);
-			List<Node> nodess = HtmlTools.findFromXml(xml, contentNodePath);
+//			String xml = HtmlTools.html2Xml(originContent);
+			List<Node> nodess = HtmlTools.findFromHtml(originContent, contentNodePath, showDebug);
 			if (nodess == null || nodess.isEmpty()) {
-				logger.debug("Content xml: \n{}", xml);
 				throw new WnException("Retrive content xpath error.");
 			}
 			StringBuilder sb = new StringBuilder();
@@ -165,5 +164,9 @@ public class DownloadBook {
 		}
 		this.replaceKeywords.addAll(Arrays.asList(words));
 		return this;
+	}
+	
+	public List<ChapterInfo> getChapters() {
+		return chapters;
 	}
 }

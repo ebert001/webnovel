@@ -11,10 +11,13 @@ import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.PrettyXmlSerializer;
 import org.htmlcleaner.TagNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.aswishes.wn.exception.WnException;
 
 public class HtmlTools {
+	private static final Logger logger = LoggerFactory.getLogger(HtmlTools.class);
 
 	public static Document makeDocument(String content) {
 		SAXReader saxReader = new SAXReader();  
@@ -33,8 +36,12 @@ public class HtmlTools {
 		return newContent;
 	}
 	
-	public static List<Node> findFromHtml(String html, String xpath) {
-		Document doc = HtmlTools.makeDocument(html2Xml(html));
+	public static List<Node> findFromHtml(String html, String xpath, boolean showDebug) {
+		String xml = html2Xml(html);
+		if (showDebug) {
+			logger.debug("XML: \n{}", xml);
+		}
+		Document doc = HtmlTools.makeDocument(xml);
 		List<Node> nodes = doc.selectNodes(xpath);
 		return nodes;
 	}
