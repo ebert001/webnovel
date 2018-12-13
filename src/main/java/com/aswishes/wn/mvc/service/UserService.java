@@ -2,10 +2,13 @@ package com.aswishes.wn.mvc.service;
 
 import java.util.List;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.wn.common.AppConstants;
 import com.aswishes.wn.common.AppUtil;
 import com.aswishes.wn.mvc.dao.WnUserDao;
 import com.aswishes.wn.mvc.model.WnUser;
@@ -13,6 +16,8 @@ import com.aswishes.wn.mvc.model.WnUser;
 @Service
 @Transactional
 public class UserService extends AbstractService {
+	@Autowired
+	private WnUserDao userDao;
 	
 	public WnUser getUser(String username) {
 		return userDao.getUser(username);
@@ -20,6 +25,14 @@ public class UserService extends AbstractService {
 	
 	public List<WnUser> queryList(int startNo, int perNo) {
 		return userDao.queryList(startNo, perNo);
+	}
+	
+	public String calPassword(WnUser user, String password) {
+		String salt = user.getSalt();
+		if (salt == null) {
+			return Base64.encodeBase64String(DigestUtils.sha256(password.getBytes(AppConstants.CHARSET_UTF_8)));
+		}
+    	return Base64.encodeBase64String(DigestUtils.sha256((password + salt).getBytes(AppConstants.CHARSET_UTF_8)));
 	}
 	
 	@Transactional
@@ -49,6 +62,5 @@ public class UserService extends AbstractService {
 		userDao.updateByPK(user);
 	}
 	
-	@Autowired
-	private WnUserDao userDao;
+	
 }

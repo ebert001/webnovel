@@ -3,6 +3,9 @@ package com.aswishes.wn.mvc.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,28 +17,61 @@ import org.springframework.web.servlet.ModelAndView;
 import com.aswishes.wn.common.AppUtil;
 import com.aswishes.wn.common.Codes;
 import com.aswishes.wn.common.DateUtil;
+import com.aswishes.wn.common.web.SessionUtils;
 import com.aswishes.wn.mvc.model.WnUser;
 import com.aswishes.wn.mvc.service.UserService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController extends AbstractController {
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	@Autowired
+	private UserService userService;
+	
+	@RequestMapping(value = "/toLogin")
+	public ModelAndView toLogin(String wnUsername, String wnPassword) {
+		return new ModelAndView("/login.jsp");
+	}
 	
 	/** 
 	 * 检查用户信息，判断登录 
 	 */
 	@RequestMapping(value = "/login", method = {RequestMethod.POST})
-	public ModelAndView login(String wnUsername, String wnPassword) {
-		WnUser user = userService.getUser(wnUsername);
-		if (user == null) {
-			setResponseMessage("登陆失败，用户名或密码错误!");
+	public String login(String wnUsername, String wnPassword) {
+		UsernamePasswordToken token = new UsernamePasswordToken(wnUsername, wnPassword.toCharArray());
+		Subject subject = SecurityUtils.getSubject();
+		subject.login(token);
+		return "redirect:/index";
+	}
+	
+	@RequestMapping(value = "/logout")
+	public ModelAndView logout(ModelAndView mv) {
+		SessionUtils.invalidate();
+		mv.setViewName("redirect:/config/user/edit_password.jsp");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/register", method = {RequestMethod.POST})
+	public ModelAndView register(ModelAndView mv, String wnUsername, String wnEmail, String password) {
+		WnUser user = new WnUser();
+		user.setName(wnUsername);
+		user.setEmail(wnEmail);
+		userService.save(user);
+		return mv;
+	}
+	
+	/** 
+	 * 更新密码 
+	 */
+	@RequestMapping(value = "/updatePassword", method = {RequestMethod.POST})
+	public ModelAndView updatePassword(String oldPassword, String newPassword) {
+		WnUser user = getAttribute(session, Codes.SESSION_USER);
+		String tpwd = AppUtil.getPwd(user.getName(), oldPassword);
+		if (tpwd.equals(user.getPwd())) {
+			userService.updatePassword(user, newPassword);
+			setResponseMessage("修改密码成功");
 		} else {
-			boolean isSucess = userService.login(user, wnPassword);
-			if (isSucess == false) {
-				setResponseMessage("登陆失败，用户名或密码错误!");
-			} else {
-				session.setAttribute(Codes.SESSION_USER, user);
-			}
+			setResponseMessage("您输入的密码和原始密码不相同，请重新输入。");
 		}
 		return new ModelAndView("/config/user/edit_password.jsp");
 	}
@@ -68,32 +104,6 @@ public class UserController extends AbstractController {
 		return new ModelAndView("/config/user/list_user.jsp");
 	}
 	
-	
-	
-	/** 更新密码 
-	 * */
-	public ModelAndView updatePassword() {
-		String oldPassword = request.getParameter("old_password");
-		String newPassword = request.getParameter("new_password");
-		WnUser user = getAttribute(session, Codes.SESSION_USER);
-		String tpwd = AppUtil.getPwd(user.getName(), oldPassword);
-		if (tpwd.equals(user.getPwd())) {
-			userService.updatePassword(user, newPassword);
-			setResponseMessage("修改密码成功");
-		} else {
-			setResponseMessage("您输入的密码和原始密码不相同，请重新输入。");
-		}
-		return new ModelAndView("/config/user/edit_password.jsp");
-	}
-	
-	public ModelAndView register(ModelAndView mv, String wnUsername, String wnEmail, String password) {
-		WnUser user = new WnUser();
-		user.setName(wnUsername);
-		user.setEmail(wnEmail);
-		userService.save(user);
-		return mv;
-	}
-	
 	/** 增加新用户 
 	 * */
 	public ModelAndView addUser() {
@@ -123,9 +133,4 @@ public class UserController extends AbstractController {
 		userService.update(user);
 		return list();
 	}
-	
-	@Autowired
-	private UserService userService;
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 }
