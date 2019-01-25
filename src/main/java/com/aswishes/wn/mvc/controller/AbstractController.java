@@ -13,7 +13,7 @@ import com.aswishes.wn.common.Codes;
  * all action bean need to extend this abstract class. otherwise, you will get an error.
  */
 public abstract class AbstractController {
-	protected static final Logger logger = LoggerFactory.getLogger(AbstractController.class);
+	protected static final Logger log = LoggerFactory.getLogger(AbstractController.class);
 	
 	protected HttpServletRequest request = null;
 	protected HttpServletResponse response = null;

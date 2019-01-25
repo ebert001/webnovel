@@ -6,8 +6,6 @@ import java.util.List;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +22,6 @@ import com.aswishes.wn.mvc.service.UserService;
 @Controller
 @RequestMapping("/user")
 public class UserController extends AbstractController {
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private UserService userService;
 	
@@ -80,7 +77,7 @@ public class UserController extends AbstractController {
 	 * */
 	@RequestMapping(value = "/list", method = {RequestMethod.POST})
 	public ModelAndView list() {
-		logger.debug("enter user list page......");
+		log.debug("enter user list page......");
 		int startNo = 0;
 		int perNo = 20;
 		
