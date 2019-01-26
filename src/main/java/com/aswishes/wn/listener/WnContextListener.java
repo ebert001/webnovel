@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.aswishes.wn.common.EnvInfo;
 import com.aswishes.wn.common.web.PageSupport;
 
 /**
@@ -19,6 +20,7 @@ public class WnContextListener extends ContextLoaderListener {
 	
 	public void contextInitialized(ServletContextEvent event) {
 		logger.info("Start WebNovel System...");
+		EnvInfo.loadEnvironment(event.getServletContext());
 		event.getServletContext().setAttribute("psupport", PageSupport.getInstance());
 		
 		super.contextInitialized(event);

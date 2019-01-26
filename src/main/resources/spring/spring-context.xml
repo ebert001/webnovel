@@ -56,8 +56,6 @@
    	<tx:annotation-driven mode="proxy" transaction-manager="transactionManager" proxy-target-class="true" />
    	
    	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource">
-			<ref local="dataSource"/>
-		</property>
+		<property name="dataSource" ref="dataSource"/>
 	</bean>
 </beans>
