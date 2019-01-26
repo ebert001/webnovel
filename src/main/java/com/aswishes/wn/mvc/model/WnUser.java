@@ -11,9 +11,6 @@ import com.aswishes.spring.mapper.Mapper;
  */
 @Mapper(tableName = "wn_user", primaryKey = {"id"})
 public class WnUser extends BaseIdAuto {
-	public static final String ALG_PASSWORD_SHA256 = "SHA256";
-	public static final String ALG_PASSWORD_MD5 = "MD5";
-	
 	/** 用户名 */
 	private String name;
 	/** 邮件 */
