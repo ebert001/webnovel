@@ -27,7 +27,7 @@
   </head>
   
   <body class="body">
-    <jsp:include page="header.jsp"></jsp:include>
+    <jsp:include page="/page/frame/header.jsp"></jsp:include>
     
     <div class="container">
   		<div class="content_wrapper none_space upper_border_radius">

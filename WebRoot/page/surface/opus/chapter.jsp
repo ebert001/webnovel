@@ -48,7 +48,7 @@
   </head>
   
   <body class="body">
-  	<jsp:include page="header.jsp"></jsp:include>
+  	<jsp:include page="/page/frame/header.jsp"></jsp:include>
   	
   	<div class="container">
   		<div class="content_wrapper upper_border_radius">
@@ -64,7 +64,7 @@
 	  	</div>
   	</div>
   	
-  	<jsp:include page="footer.jsp"></jsp:include>
+  	<jsp:include page="/page/frame/footer.jsp"></jsp:include>
   	<script type="text/javascript">
   	popLoginDiv();
   	</script>

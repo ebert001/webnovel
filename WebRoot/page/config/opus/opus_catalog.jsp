@@ -140,7 +140,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/config/user_setup.jsp"></jsp:include>
+  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
     	<div class="content_wrapper upper_border_radius" style="overflow: hidden;">
  			<div class="book_title">${book.bookName}</div>

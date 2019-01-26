@@ -11,7 +11,7 @@
   </head>
   
   <body>
-  	<jsp:include page="../config/user_setup.jsp"></jsp:include>
+  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
   	<table class="table_form has_border">
    		<tr class="bottom_border">

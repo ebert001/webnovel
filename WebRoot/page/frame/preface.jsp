@@ -23,7 +23,7 @@
   	
   	<div class="container">
   		<%@include file="menu.jsp" %>
-	  	<jsp:include page="/surface/opus/about_book.jsp"></jsp:include>
+	  	<jsp:include page="/page/surface/opus/about_book.jsp"></jsp:include>
   	</div>
   	
   	<jsp:include page="footer.jsp"></jsp:include>

@@ -40,7 +40,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/config/user_setup.jsp"></jsp:include>
+  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
     <div id="input_area">
     	<form name="memoForm" action="${ctx}/Memo.action?addMemo" method="post">

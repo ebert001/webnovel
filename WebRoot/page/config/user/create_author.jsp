@@ -24,7 +24,7 @@
   </head>
   
   <body>
-  	<jsp:include page="../config/user_setup.jsp"></jsp:include>
+  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
 	<form action="" method="post">
 		<table class="table_form has_border">
@@ -69,7 +69,7 @@
 	</form>
 	
 	<div class="de">
-		<jsp:include page="author_princple.jsp"></jsp:include>
+		<jsp:include page="/page/surface/self/author_princple.jsp"></jsp:include>
 	</div>
 	
 	<div class="ok">

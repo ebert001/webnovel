@@ -11,12 +11,12 @@
   </head>
   
   <body class="body">
-  	<jsp:include page="header.jsp"></jsp:include>
-  	<jsp:include page="search.jsp"></jsp:include>
+  	<jsp:include page="/page/frame/header.jsp"></jsp:include>
+  	<jsp:include page="/page/frame/search.jsp"></jsp:include>
 	  	
   	<div class="container">
   		<div class="content_wrapper upper_border_radius none_space">
-  			<jsp:include page="menu.jsp"></jsp:include>
+  			<jsp:include page="/page/frame/menu.jsp"></jsp:include>
   			<div class="left_bar">
 	  			<dl>
 	  				<dt>广而告之</dt>
@@ -36,7 +36,7 @@
 	  	</div>
   	</div>
   	
-  	<jsp:include page="../frame/footer.jsp"></jsp:include>
+  	<jsp:include page="/page/frame/footer.jsp"></jsp:include>
   	<script type="text/javascript">
   	popLoginDiv();
   	</script>

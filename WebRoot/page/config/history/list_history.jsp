@@ -14,7 +14,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/config/user_setup.jsp"></jsp:include>
+  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
     <table class="table_list">
     	<caption style="margin-top: 30px; font-weight: bold; font-size: 28px;">我的浏览历史</caption>

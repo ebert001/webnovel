@@ -20,7 +20,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/config/user_setup.jsp"></jsp:include>
+  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
   	<div style="width: 80%; margin-left: 10%; padding-top: 68px;">
     <form action="${ctx}/User.action?updatePassword" method="post">

@@ -12,7 +12,7 @@
 	</head>
 	
 	<body class="body">
-	<jsp:include page="/frame/header.jsp"></jsp:include>
+	<jsp:include page="/page/frame/header.jsp"></jsp:include>
 		  	
   	<div class="container">
   		<jsp:include page="joke_menu.jsp"></jsp:include>	

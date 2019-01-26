@@ -57,7 +57,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/config/user_setup.jsp"></jsp:include>
+  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
   	<form name="chapterForm" action="${ctx}/Book.action?addChapter" method="post">
   	<input type="hidden" name="volumeId" value="${chapter.volumeId}">
