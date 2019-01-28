@@ -22,15 +22,15 @@ public class WnMemoDao extends AbstractJdbcDao {
 		this.tableName = "wn_memo";
 	}
 	
-	public WnMemo getMemo(String id) {
+	public WnMemo getMemo(Long id) {
 		return getObjectBy(MapperHelper.getMapper(WnMemo.class), Restriction.eq("id", id));
 	}
 
-	public List<WnMemo> queryList(String userId) {
+	public List<WnMemo> queryList(Long userId) {
 		return getList(MapperHelper.getMapper(WnMemo.class), Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
 	}
 
-	public void delete(String id) {
+	public void delete(Long id) {
 		delete(Restriction.eq("id", id));
 	}
 	

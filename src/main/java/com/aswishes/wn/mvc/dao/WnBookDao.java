@@ -24,19 +24,23 @@ public class WnBookDao extends AbstractJdbcDao {
 		this.tableName = "wn_book";
 	}
 	
-	public List<WnBook> getBookList(String userId) {
+	public List<WnBook> getBookList(Long userId) {
 		return getList(MapperHelper.getMapper(WnBook.class), Restriction.eq("user_id", userId));
 	}
 
-	public WnBook getBook(String userId, String bookId) {
-		return getObjectBy(MapperHelper.getMapper(WnBook.class), Restriction.eq("user_id", userId), Restriction.eq("book_id", bookId));
+	public WnBook getBook(Long bookId) {
+		return getObjectBy(MapperHelper.getMapper(WnBook.class), Restriction.eq("book_id", bookId));
 	}
 	
-	public void deleteBook(String bookId) {
+	public WnBook getBook(String bookName) {
+		return getObjectBy(MapperHelper.getMapper(WnBook.class), Restriction.eq("book_name", bookName));
+	}
+	
+	public void deleteBook(Long bookId) {
 		delete(Restriction.eq("book_id", bookId));
 	}
 	
-	public void updateBook(String bookId, Date updateTime) {
+	public void updateBook(Long bookId, Date updateTime) {
 		update(SqlHelper.update(tableName).set("update_time").where("id"), updateTime, bookId);
 	}
 

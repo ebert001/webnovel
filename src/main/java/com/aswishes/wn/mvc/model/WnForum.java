@@ -11,7 +11,7 @@ import com.aswishes.spring.mapper.Mapper;
 public class WnForum {
 
 	/** 主键 */
-	private String id;
+	private Long id;
 
 	/** 帖子内容 */
 	private String content;
@@ -23,22 +23,22 @@ public class WnForum {
 	private Date createTime;
 
 	/** 主帖id */
-	private String subjectId;
+	private Long subjectId;
 
 	/** 坛员对坛员的回复 */
 	private String refer;
 
 	/** 用户id */
-	private String userId;
+	private Long userId;
 
 	/** 用户别名 */
 	private String userAlias;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -66,11 +66,11 @@ public class WnForum {
 		this.createTime = createTime;
 	}
 
-	public String getSubjectId() {
+	public Long getSubjectId() {
 		return subjectId;
 	}
 
-	public void setSubjectId(String subjectId) {
+	public void setSubjectId(Long subjectId) {
 		this.subjectId = subjectId;
 	}
 
@@ -82,11 +82,11 @@ public class WnForum {
 		this.refer = refer;
 	}
 
-	public String getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.aswishes.wn.common.Codes;
 
@@ -13,11 +14,12 @@ import com.aswishes.wn.common.Codes;
  * all action bean need to extend this abstract class. otherwise, you will get an error.
  */
 public abstract class AbstractController {
-	protected static final Logger log = LoggerFactory.getLogger(AbstractController.class);
+	protected static final Logger logger = LoggerFactory.getLogger(AbstractController.class);
 	
+	@Autowired
 	protected HttpServletRequest request = null;
+	@Autowired
 	protected HttpServletResponse response = null;
-	protected HttpSession session = null;
 	
 	/**
 	 * 设置响应消息.取值方式request.getAttrbute("");

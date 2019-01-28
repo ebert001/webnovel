@@ -26,7 +26,7 @@ public class WnFeedbackDao extends AbstractJdbcDao {
 		return getObjectBy(MapperHelper.getMapper(WnFeedback.class), Restriction.eq("id", id));
 	}
 
-	public List<WnFeedback> queryList(String userId) {
+	public List<WnFeedback> queryList(Long userId) {
 		return getList(MapperHelper.getMapper(WnFeedback.class), Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
 	}
 

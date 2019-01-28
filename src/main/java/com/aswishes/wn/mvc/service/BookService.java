@@ -20,31 +20,35 @@ import com.aswishes.wn.mvc.model.WnVolume;
 @Transactional
 public class BookService extends AbstractService {
 
-	public List<WnBook> getBookList(String userId) {
+	public List<WnBook> getBookList(Long userId) {
 		return bookDao.getBookList(userId);
 	}
+	
+	public WnBook getBook(String bookName) {
+		return bookDao.getBook(bookName);
+	}
 
-	public WnBook getBook(String userId, String bookId) {
-		return bookDao.getBook(userId, bookId);
+	public WnBook getBook(Long bookId) {
+		return bookDao.getBook(bookId);
 	}
 	
 	public void addBook(WnBook book) {
 		bookDao.save(book);
 	}
 
-	public void deleteBook(String bookId) {
+	public void deleteBook(Long bookId) {
 		bookDao.deleteBook(bookId);
 	}
 	
-	public void deleteChapter(String chapterId) {
+	public void deleteChapter(Long chapterId) {
 		chapterDao.deleteChapter(chapterId);
 	}
 
-	public List<WnChapter> readCatalogs(String userId, String bookId) {
+	public List<WnChapter> readCatalogs(Long userId, Long bookId) {
 		return chapterDao.readCatalogs(userId, bookId);
 	}
 
-	public WnChapter getChapter(String chapterId) {
+	public WnChapter getChapter(Long chapterId) {
 		return chapterDao.getChapter(chapterId);
 	}
 
@@ -59,7 +63,7 @@ public class BookService extends AbstractService {
 		bookDao.updateBook(chapter.getBookId(), chapter.getInputTime());
 	}
 	
-	public List<WnVolume> getVolumeList(String bookId) {
+	public List<WnVolume> getVolumeList(Long bookId) {
 		return volumeDao.getVolumeList(bookId);
 	}
 	
@@ -67,7 +71,7 @@ public class BookService extends AbstractService {
 		volumeDao.save(volume);
 	}
 	
-	public WnVolume getVolume(String id) {
+	public WnVolume getVolume(Long id) {
 		return volumeDao.getVolume(id);
 	}
 	

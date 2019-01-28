@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.AppUtil;
-import com.aswishes.wn.common.Codes;
+import com.aswishes.wn.common.web.SessionUtils;
 import com.aswishes.wn.mvc.model.WnForum;
 import com.aswishes.wn.mvc.model.WnForumSubject;
 import com.aswishes.wn.mvc.service.ForumService;
@@ -27,7 +27,7 @@ public class ForumController extends AbstractController {
 	/** 所有的帖子列表 
 	 * @throws SQLException */
 	public ModelAndView list() {
-		log.debug("enter forum subject list page......");
+		logger.debug("enter forum subject list page......");
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
 		
@@ -43,7 +43,7 @@ public class ForumController extends AbstractController {
 	/** 用户的帖子列表 
 	 * @throws SQLException */
 	public ModelAndView listByUser() {
-		String userId = (String) session.getAttribute(Codes.SESSION_USER);
+		Long userId = SessionUtils.getUser().getId();
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
 		
@@ -58,8 +58,7 @@ public class ForumController extends AbstractController {
 	
 	/** 帖子详细信息，带主帖 
 	 * @throws SQLException */
-	public ModelAndView queryOne() {
-		String id = request.getParameter("id");
+	public ModelAndView queryOne(Long id) {
 		int perCount = 20;
 		int startPage = getStartPage(request);
 		int no = AppUtil.calStartNo(startPage, perCount);
@@ -81,8 +80,7 @@ public class ForumController extends AbstractController {
 	
 	/** 帖子详细信息，不带主帖 
 	 * @throws SQLException */
-	public ModelAndView getForum() {
-		String id = request.getParameter("id");
+	public ModelAndView getForum(Long id) {
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
 		
@@ -114,7 +112,7 @@ public class ForumController extends AbstractController {
 		forumSubject.setReadTimes(0);
 		forumSubject.setReplyTimes(0);
 		
-		String userId = (String) session.getAttribute(Codes.SESSION_USER);
+		Long userId = SessionUtils.getUser().getId();
 		forumSubject.setUserId(userId);
 		
 		forumMapper.saveForumSubject(forumSubject);
@@ -123,31 +121,29 @@ public class ForumController extends AbstractController {
 	
 	/** 回复帖子 
 	 * @throws SQLException */
-	public ModelAndView replyForum() {
+	public ModelAndView replyForum(Long subjectId) {
 		WnForum forum = new WnForum();
-		forum.setId(AppUtil.getUuid());
 		forum.setContent(request.getParameter("content"));
 		
-		String subjectId = request.getParameter("id");
 		forum.setSubjectId(subjectId);
 		forum.setStatus(WnForumSubject.Status.OPEN);
 		
 		Date cdate = new Date();
 		forum.setCreateTime(cdate);
 		
-		String userId = (String) session.getAttribute(Codes.SESSION_USER);
+		Long userId = SessionUtils.getUser().getId();
 		forum.setUserId(userId);
 		
 		forumMapper.saveForum(forum);
 		// 回复 数量 + 1
 		forumMapper.updateReplyTimes(subjectId);
-		return queryOne();
+		return queryOne(subjectId);
 	}
 	
 	/** 更新帖子信息，帖子类型和状态 
 	 * @throws SQLException */
-	public ModelAndView updateForumSubject() {
-		WnForumSubject forumSubject = forumMapper.queryForumSubject(request.getParameter("id"));
+	public ModelAndView updateForumSubject(Long id) {
+		WnForumSubject forumSubject = forumMapper.queryForumSubject(id);
 		
 		forumSubject.setType(Integer.parseInt(request.getParameter("type") == null ? "0" : request.getParameter("type")));
 		forumSubject.setStatus(WnForumSubject.Status.OPEN);
@@ -158,8 +154,8 @@ public class ForumController extends AbstractController {
 	
 	/** 删除帖子信息，回帖信息 
 	 * @throws SQLException */
-	public ModelAndView deleteForumSubject() {
-		forumMapper.deleteForum(request.getParameter("id"));
+	public ModelAndView deleteForumSubject(Long id) {
+		forumMapper.deleteForum(id);
 		return list();
 	}
 	

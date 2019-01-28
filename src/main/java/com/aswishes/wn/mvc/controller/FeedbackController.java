@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.AppUtil;
-import com.aswishes.wn.common.Codes;
+import com.aswishes.wn.common.web.SessionUtils;
 import com.aswishes.wn.mvc.model.WnFeedback;
 import com.aswishes.wn.mvc.service.FeedbackService;
 
@@ -26,7 +26,7 @@ public class FeedbackController extends AbstractController {
 	}
 	
 	public ModelAndView listByUser() {
-		String userId = getAttribute(session, Codes.SESSION_USER);
+		Long userId = SessionUtils.getUser().getId();
 		List<WnFeedback> feedbackList = feedbackService.queryList(userId);
 		request.setAttribute("feedbackList", feedbackList);
 		return new ModelAndView("/config/feedback/list_feedback.jsp");

@@ -13,11 +13,11 @@ import com.aswishes.wn.mvc.model.WnMemo;
 @Transactional
 public class MemoService extends AbstractService {
 
-	public WnMemo getMemo(String id) {
+	public WnMemo getMemo(Long id) {
 		return memoDao.getMemo(id);
 	}
 
-	public List<WnMemo> queryList(String userId) {
+	public List<WnMemo> queryList(Long userId) {
 		return memoDao.queryList(userId);
 	}
 
@@ -29,7 +29,7 @@ public class MemoService extends AbstractService {
 		memoDao.updateByPK(memo);
 	}
 
-	public void delete(String id) {
+	public void delete(Long id) {
 		memoDao.delete(id);
 	}
 

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aswishes.wn.common.AppUtil;
-import com.aswishes.wn.common.Codes;
+import com.aswishes.wn.common.web.SessionUtils;
 import com.aswishes.wn.mvc.model.WnMemo;
 import com.aswishes.wn.mvc.service.MemoService;
 
@@ -24,8 +23,8 @@ public class MemoController extends AbstractController {
 	/** 备忘录列表 
 	 * @throws SQLException */
 	public ModelAndView list() {
-		log.debug("enter memo list page......");
-		String userId = (String) session.getAttribute(Codes.SESSION_USER);
+		logger.debug("enter memo list page......");
+		Long userId = SessionUtils.getUser().getId();
 		
 		List<WnMemo> memoList = memoService.queryList(userId);
 		request.setAttribute("memoList", memoList);
@@ -34,8 +33,7 @@ public class MemoController extends AbstractController {
 	
 	/** 备忘录详细信息 
 	 * @throws SQLException */
-	public ModelAndView queryOne() {
-		String id = request.getParameter("id");
+	public ModelAndView queryOne(Long id) {
 		WnMemo memo = memoService.getMemo(id);
 		request.setAttribute("memo", memo);
 		return new ModelAndView("/config/memo/edit_memo.jsp");
@@ -45,7 +43,6 @@ public class MemoController extends AbstractController {
 	 * @throws SQLException */
 	public ModelAndView addMemo() {
 		WnMemo memo = new WnMemo();
-		memo.setId(AppUtil.getUuid());
 		memo.setTitle(request.getParameter("title"));
 		memo.setContent(request.getParameter("content"));
 		
@@ -53,7 +50,7 @@ public class MemoController extends AbstractController {
 		memo.setCreateTime(cdate);
 		memo.setUpdateTime(cdate);
 		
-		String userId = (String) session.getAttribute(Codes.SESSION_USER);
+		Long userId = SessionUtils.getUser().getId();
 		memo.setUserId(userId);
 		
 		memoService.save(memo);
@@ -62,10 +59,10 @@ public class MemoController extends AbstractController {
 	
 	/** 更新备忘 
 	 * @throws SQLException */
-	public ModelAndView updateMemo() {
+	public ModelAndView updateMemo(Long id) {
 		WnMemo memo = new WnMemo();
 		
-		memo.setId(request.getParameter("id"));
+		memo.setId(id);
 		memo.setTitle(request.getParameter("title"));
 		memo.setContent(request.getParameter("content"));
 		memo.setUpdateTime(new Date());
@@ -76,8 +73,8 @@ public class MemoController extends AbstractController {
 	
 	/** 删除备忘 
 	 * @throws SQLException */
-	public ModelAndView deleteMemo() {
-		memoService.delete(request.getParameter("id"));
+	public ModelAndView deleteMemo(Long id) {
+		memoService.delete(id);
 		return list();
 	}
 	

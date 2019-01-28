@@ -22,15 +22,15 @@ public class WnForumDao extends AbstractJdbcDao {
 		this.tableName = "wn_forum";
 	}
 	
-	public WnForum queryForum(String id) {
+	public WnForum queryForum(Long id) {
 		return getObjectBy(MapperHelper.getMapper(WnForum.class), Restriction.eq("id", id));
 	}
 
-	public List<WnForum> queryForumList(String userId) {
+	public List<WnForum> queryForumList(Long userId) {
 		return getList(MapperHelper.getMapper(WnForum.class), Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
 	}
 	
-	public List<WnForum> queryForumList(String userId, int startNo, int perNo) {
+	public List<WnForum> queryForumList(Long userId, int startNo, int perNo) {
 		return getList(MapperHelper.getMapper(WnForum.class), Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
 	}
 	
@@ -38,7 +38,7 @@ public class WnForumDao extends AbstractJdbcDao {
 		return getCount();
 	}
 
-	public void deleteForum(String id) {
+	public void deleteForum(Long id) {
 		delete(Restriction.eq("id", id));
 	}
 }

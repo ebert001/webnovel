@@ -22,11 +22,11 @@ public class WnVolumeDao extends AbstractJdbcDao {
 		this.tableName = "wn_volume";
 	}
 	
-	public List<WnVolume> getVolumeList(String bookId) {
+	public List<WnVolume> getVolumeList(Long bookId) {
 		return getList(MapperHelper.getMapper(WnVolume.class), Restriction.eq("book_id", bookId));
 	}
 	
-	public WnVolume getVolume(String id) {
+	public WnVolume getVolume(Long id) {
 		return getObjectBy(MapperHelper.getMapper(WnVolume.class), Restriction.eq("id", id));
 	}
 	

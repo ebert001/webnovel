@@ -22,15 +22,15 @@ public class WnChapterDao extends AbstractJdbcDao {
 		this.tableName = "wn_chapter";
 	}
 	
-	public void deleteChapter(String chapterId) {
+	public void deleteChapter(Long chapterId) {
 		delete(Restriction.eq("id", chapterId));
 	}
 
-	public List<WnChapter> readCatalogs(String userId, String bookId) {
+	public List<WnChapter> readCatalogs(Long userId, Long bookId) {
 		return getList(MapperHelper.getMapper(WnChapter.class), Restriction.eq("book_id", bookId));
 	}
 
-	public WnChapter getChapter(String chapterId) {
+	public WnChapter getChapter(Long chapterId) {
 		return getObjectBy(MapperHelper.getMapper(WnChapter.class), Restriction.eq("chapter_id", chapterId));
 	}
 	

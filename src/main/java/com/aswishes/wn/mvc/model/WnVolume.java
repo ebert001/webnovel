@@ -11,7 +11,7 @@ import com.aswishes.spring.mapper.Mapper;
 public class WnVolume {
 
 	/** 主键 */
-	private String id;
+	private Long id;
 	
 	/** 卷名称 */
 	private String volumeName;
@@ -29,13 +29,13 @@ public class WnVolume {
 	private Integer words;
 	
 	/** 书籍id */
-	private String bookId;
+	private Long bookId;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -79,11 +79,11 @@ public class WnVolume {
 		this.words = words;
 	}
 
-	public String getBookId() {
+	public Long getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(String bookId) {
+	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
 	

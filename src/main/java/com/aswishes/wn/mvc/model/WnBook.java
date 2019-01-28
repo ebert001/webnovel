@@ -11,13 +11,13 @@ import com.aswishes.spring.mapper.Mapper;
 public class WnBook {
 
 	/** 书籍id */
-	private String id;
+	private Long id;
 	
 	/** 书籍名称 */
 	private String bookName;
 	
 	/** 书籍描述 */
-	private String desc;
+	private String description;
 	
 	/** 创作时间 */
 	private Date createTime;
@@ -47,13 +47,15 @@ public class WnBook {
 	private Integer commentTimes;
 	
 	/** 作者id */
-	private String authorId;
+	private Long authorId;
 	
-	public String getId() {
+	private String author;
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -65,12 +67,12 @@ public class WnBook {
 		this.bookName = bookName;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getCreateTime() {
@@ -145,12 +147,20 @@ public class WnBook {
 		this.commentTimes = commentTimes;
 	}
 
-	public String getAuthorId() {
+	public Long getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(String authorId) {
+	public void setAuthorId(Long authorId) {
 		this.authorId = authorId;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 	
 	

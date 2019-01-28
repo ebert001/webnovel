@@ -62,7 +62,7 @@ public class UserController extends AbstractController {
 	 */
 	@RequestMapping(value = "/updatePassword", method = {RequestMethod.POST})
 	public ModelAndView updatePassword(String oldPassword, String newPassword) {
-		WnUser user = getAttribute(session, Codes.SESSION_USER);
+		WnUser user = SessionUtils.getUser();
 		String tpwd = AppUtil.getPwd(user.getName(), oldPassword);
 		if (tpwd.equals(user.getPwd())) {
 			userService.updatePassword(user, newPassword);
@@ -77,7 +77,7 @@ public class UserController extends AbstractController {
 	 * */
 	@RequestMapping(value = "/list", method = {RequestMethod.POST})
 	public ModelAndView list() {
-		log.debug("enter user list page......");
+		logger.debug("enter user list page......");
 		int startNo = 0;
 		int perNo = 20;
 		

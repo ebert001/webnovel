@@ -22,23 +22,23 @@ public class WnForumSubjectDao extends AbstractJdbcDao {
 		this.tableName = "wn_forum_subject";
 	}
 	
-	public void updateReadTimes(String id) {
+	public void updateReadTimes(Long id) {
 		this.jdbcTemplate.update("update wn_forum_subject set read_times = read_times + 1 where id = ?", id);
 	}
 	
-	public void updateReplyTimes(String id) {
+	public void updateReplyTimes(Long id) {
 		this.jdbcTemplate.update("update wn_forum_subject set reply_times = reply_times + 1 where id = ?", id);
 	}
 	
-	public WnForumSubject queryForumSubject(String id) {
+	public WnForumSubject queryForumSubject(Long id) {
 		return getObjectBy(MapperHelper.getMapper(WnForumSubject.class), Restriction.eq("id", id));
 	}
 	
-	public int getForumSubjectCount(String userId) {
+	public int getForumSubjectCount(Long userId) {
 		return getCount(Restriction.eq("user_id", userId));
 	}
 
-	public List<WnForumSubject> queryForumSubjectList(String userId, int startNo, int perNo) {
+	public List<WnForumSubject> queryForumSubjectList(Long userId, int startNo, int perNo) {
 		return getList(MapperHelper.getMapper(WnForumSubject.class), startNo, perNo, Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
 	}
 	
@@ -50,7 +50,7 @@ public class WnForumSubjectDao extends AbstractJdbcDao {
 		return getCount();
 	}
 
-	public void deleteForumSubject(String id) {
+	public void deleteForumSubject(Long id) {
 		delete(Restriction.eq("id", id));
 	}
 }

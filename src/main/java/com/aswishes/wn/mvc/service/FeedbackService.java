@@ -17,7 +17,7 @@ public class FeedbackService extends AbstractService {
 		return feedbackDao.query(id);
 	}
 
-	public List<WnFeedback> queryList(String userId) {
+	public List<WnFeedback> queryList(Long userId) {
 		return feedbackDao.queryList(userId);
 	}
 

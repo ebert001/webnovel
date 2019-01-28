@@ -15,15 +15,15 @@ import com.aswishes.wn.mvc.model.WnForumSubject;
 @Transactional
 public class ForumService extends AbstractService {
 
-	public WnForum queryForum(String id) {
+	public WnForum queryForum(Long id) {
 		return forumDao.queryForum(id);
 	}
 
-	public List<WnForum> queryForumList(String userId) {
+	public List<WnForum> queryForumList(Long userId) {
 		return forumDao.queryForumList(userId);
 	}
 	
-	public List<WnForum> queryForumList(String userId, int startNo, int perNo) {
+	public List<WnForum> queryForumList(Long userId, int startNo, int perNo) {
 		return forumDao.queryForumList(userId, startNo, perNo);
 	}
 	
@@ -39,28 +39,28 @@ public class ForumService extends AbstractService {
 		forumDao.updateByPK(forum);
 	}
 
-	public void deleteForum(String id) {
+	public void deleteForum(Long id) {
 		forumDao.deleteForum(id);
 	}
 	
-	public void updateReadTimes(String id) {
+	public void updateReadTimes(Long id) {
 		forumSubjectDao.updateReadTimes(id);
 	}
 	
-	public void updateReplyTimes(String id) {
+	public void updateReplyTimes(Long id) {
 		forumSubjectDao.updateReplyTimes(id);
 	}
 	
 	
-	public WnForumSubject queryForumSubject(String id) {
+	public WnForumSubject queryForumSubject(Long id) {
 		return forumSubjectDao.queryForumSubject(id);
 	}
 	
-	public int getForumSubjectCount(String userId) {
+	public int getForumSubjectCount(Long userId) {
 		return forumSubjectDao.getForumSubjectCount(userId);
 	}
 
-	public List<WnForumSubject> queryForumSubjectList(String userId, int startNo, int perNo) {
+	public List<WnForumSubject> queryForumSubjectList(Long userId, int startNo, int perNo) {
 		return forumSubjectDao.queryForumSubjectList(userId, startNo, perNo);
 	}
 	
@@ -80,7 +80,7 @@ public class ForumService extends AbstractService {
 		forumSubjectDao.updateByPK(forumSubject);
 	}
 
-	public void deleteForumSubject(String id) {
+	public void deleteForumSubject(Long id) {
 		forumSubjectDao.deleteForumSubject(id);
 	}
 

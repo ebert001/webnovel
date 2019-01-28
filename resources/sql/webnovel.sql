@@ -96,7 +96,7 @@ CREATE TABLE wn_role_permission (
 CREATE TABLE wn_book (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`book_name` varchar(120) DEFAULT NULL COMMENT '书籍名称',
-	`desc` varchar(2000) DEFAULT NULL COMMENT '书籍的简要描述',
+	`description` varchar(2000) DEFAULT NULL COMMENT '书籍的简要描述',
 	`create_time` datetime DEFAULT NULL COMMENT '创建时间(开始写作时间)',
 	`update_time` datetime DEFAULT NULL COMMENT '更新时间(最新章节更新时间)',
 	`status` int DEFAULT NULL COMMENT '状态：1、写作中 2、已完结',
@@ -104,9 +104,11 @@ CREATE TABLE wn_book (
 	`type_by_area` int DEFAULT NULL COMMENT '类型细分，按地域(中国、英国、美国....)',
 	`type_by_field` int DEFAULT NULL COMMENT '类型细分，按领域(玄幻、武侠、科幻、校园....)',
 	`words` int DEFAULT NULL COMMENT '字数',
+	`charged` int DEFAULT NULL COMMENT '是否收费，默认不收费',
 	`click_times` int DEFAULT NULL COMMENT '点击次数',
 	`comment_times` int DEFAULT NULL COMMENT '评论次数',
 	`author_id` bigint DEFAULT NULL COMMENT '外键，作者id',
+	`author` varchar(32) comment '作者名称',
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -133,6 +135,7 @@ CREATE TABLE wn_chapter (
 	`content` text DEFAULT NULL COMMENT '章节内容',
 	`serial_no` int DEFAULT 0 COMMENT '章节序列号', 
 	`charged` int DEFAULT NULL COMMENT '是否收费，默认不收费',
+	`price` int NOT NULL DEFAULT 0 COMMENT '计费单价',
 	`write_time` datetime DEFAULT NULL COMMENT '写作时间',
 	`input_time` datetime DEFAULT NULL COMMENT '录入时间',
 	`volume_id` bigint DEFAULT NULL COMMENT '外键，分卷id',
