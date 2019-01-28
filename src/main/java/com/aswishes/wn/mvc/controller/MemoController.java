@@ -1,6 +1,5 @@
 package com.aswishes.wn.mvc.controller;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -20,8 +19,9 @@ import com.aswishes.wn.mvc.service.MemoService;
 @RequestMapping("/memo")
 public class MemoController extends AbstractController {
 	
-	/** 备忘录列表 
-	 * @throws SQLException */
+	/** 
+	 * 备忘录列表 
+	 */
 	public ModelAndView list() {
 		logger.debug("enter memo list page......");
 		Long userId = SessionUtils.getUser().getId();
@@ -31,16 +31,18 @@ public class MemoController extends AbstractController {
 		return new ModelAndView("/config/memo/create_memo.jsp");
 	}
 	
-	/** 备忘录详细信息 
-	 * @throws SQLException */
+	/** 
+	 * 备忘录详细信息 
+	 */
 	public ModelAndView queryOne(Long id) {
 		WnMemo memo = memoService.getMemo(id);
 		request.setAttribute("memo", memo);
 		return new ModelAndView("/config/memo/edit_memo.jsp");
 	}
 	
-	/** 增加备忘 
-	 * @throws SQLException */
+	/** 
+	 * 增加备忘 
+	 */
 	public ModelAndView addMemo() {
 		WnMemo memo = new WnMemo();
 		memo.setTitle(request.getParameter("title"));
@@ -57,8 +59,9 @@ public class MemoController extends AbstractController {
 		return list();
 	}
 	
-	/** 更新备忘 
-	 * @throws SQLException */
+	/** 
+	 * 更新备忘 
+	 */
 	public ModelAndView updateMemo(Long id) {
 		WnMemo memo = new WnMemo();
 		
@@ -71,8 +74,9 @@ public class MemoController extends AbstractController {
 		return list();
 	}
 	
-	/** 删除备忘 
-	 * @throws SQLException */
+	/** 
+	 * 删除备忘 
+	 */
 	public ModelAndView deleteMemo(Long id) {
 		memoService.delete(id);
 		return list();

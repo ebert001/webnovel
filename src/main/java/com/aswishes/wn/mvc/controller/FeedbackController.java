@@ -1,6 +1,5 @@
 package com.aswishes.wn.mvc.controller;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -32,17 +31,18 @@ public class FeedbackController extends AbstractController {
 		return new ModelAndView("/config/feedback/list_feedback.jsp");
 	}
 	
-	/** 反馈详细信息 
-	 * @throws SQLException */
-	public ModelAndView queryOne() {
-		String id = request.getParameter("id");
+	/** 
+	 * 反馈详细信息 
+	 */
+	public ModelAndView queryOne(Long id) {
 		WnFeedback feedback = feedbackService.query(id);
 		request.setAttribute("feedback", feedback);
 		return new ModelAndView("/config/feedback/list_feedback.jsp");
 	}
 	
-	/** 增加新反馈 
-	 * @throws SQLException */
+	/** 
+	 * 增加新反馈 
+	 */
 	public ModelAndView addFeedback() {
 		WnFeedback feedback = new WnFeedback();
 		feedback.setId(AppUtil.getUuid());
@@ -54,11 +54,12 @@ public class FeedbackController extends AbstractController {
 		return list();
 	}
 	
-	/** 更新反馈信息 
-	 * @throws SQLException */
-	public ModelAndView updateFeedback() {
+	/** 
+	 * 更新反馈信息 
+	 */
+	public ModelAndView updateFeedback(Long id) {
 		String status = request.getParameter("status");
-		WnFeedback feedback = feedbackService.query(request.getParameter("id"));
+		WnFeedback feedback = feedbackService.query(id);
 		feedback.setStatus(Integer.parseInt(status));
 		feedbackService.update(feedback);
 		return list();

@@ -13,7 +13,7 @@ import com.aswishes.wn.mvc.model.WnFeedback;
 @Transactional
 public class FeedbackService extends AbstractService {
 
-	public WnFeedback query(String id) {
+	public WnFeedback query(Long id) {
 		return feedbackDao.query(id);
 	}
 
@@ -29,7 +29,7 @@ public class FeedbackService extends AbstractService {
 		feedbackDao.updateByPK(feedback);
 	}
 
-	public void delete(String id) {
+	public void delete(Long id) {
 		feedbackDao.delete(id);
 	}
 

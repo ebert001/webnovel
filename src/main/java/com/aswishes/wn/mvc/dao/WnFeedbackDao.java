@@ -22,7 +22,7 @@ public class WnFeedbackDao extends AbstractJdbcDao {
 		this.tableName = "wn_feedback";
 	}
 	
-	public WnFeedback query(String id) {
+	public WnFeedback query(Long id) {
 		return getObjectBy(MapperHelper.getMapper(WnFeedback.class), Restriction.eq("id", id));
 	}
 
@@ -30,7 +30,7 @@ public class WnFeedbackDao extends AbstractJdbcDao {
 		return getList(MapperHelper.getMapper(WnFeedback.class), Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
 	}
 
-	public void delete(String id) {
+	public void delete(Long id) {
 		delete(Restriction.eq("id", id));
 	}
 	

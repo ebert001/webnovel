@@ -1,6 +1,5 @@
 package com.aswishes.wn.mvc.controller;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -24,8 +23,9 @@ import com.aswishes.wn.mvc.service.ForumService;
 @RequestMapping("/forum")
 public class ForumController extends AbstractController {
 	
-	/** 所有的帖子列表 
-	 * @throws SQLException */
+	/** 
+	 * 所有的帖子列表 
+	 */
 	public ModelAndView list() {
 		logger.debug("enter forum subject list page......");
 		int perCount = 20;
@@ -40,8 +40,9 @@ public class ForumController extends AbstractController {
 		return new ModelAndView("/surface/bbs/list_bbs.jsp");
 	}
 	
-	/** 用户的帖子列表 
-	 * @throws SQLException */
+	/** 
+	 * 用户的帖子列表 
+	 */
 	public ModelAndView listByUser() {
 		Long userId = SessionUtils.getUser().getId();
 		int perCount = 20;
@@ -56,8 +57,9 @@ public class ForumController extends AbstractController {
 		return new ModelAndView("/surface/bbs/list_bbs.jsp");
 	}
 	
-	/** 帖子详细信息，带主帖 
-	 * @throws SQLException */
+	/** 
+	 * 帖子详细信息，带主帖 
+	 */
 	public ModelAndView queryOne(Long id) {
 		int perCount = 20;
 		int startPage = getStartPage(request);
@@ -78,8 +80,9 @@ public class ForumController extends AbstractController {
 		return new ModelAndView("/surface/bbs/view_bbs.jsp");
 	}
 	
-	/** 帖子详细信息，不带主帖 
-	 * @throws SQLException */
+	/** 
+	 * 帖子详细信息，不带主帖 
+	 */
 	public ModelAndView getForum(Long id) {
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
@@ -95,8 +98,9 @@ public class ForumController extends AbstractController {
 		return new ModelAndView("/surface/bbs/view_bbs.jsp");
 	}
 	
-	/** 添加帖子信息 
-	 * @throws SQLException */
+	/** 
+	 * 添加帖子信息 
+	 */
 	public ModelAndView addForumSubject() {
 		WnForumSubject forumSubject = new WnForumSubject();
 		forumSubject.setId(AppUtil.getUuid());
@@ -119,8 +123,9 @@ public class ForumController extends AbstractController {
 		return list();
 	}
 	
-	/** 回复帖子 
-	 * @throws SQLException */
+	/** 
+	 * 回复帖子 
+	 */
 	public ModelAndView replyForum(Long subjectId) {
 		WnForum forum = new WnForum();
 		forum.setContent(request.getParameter("content"));
@@ -140,8 +145,9 @@ public class ForumController extends AbstractController {
 		return queryOne(subjectId);
 	}
 	
-	/** 更新帖子信息，帖子类型和状态 
-	 * @throws SQLException */
+	/** 
+	 * 更新帖子信息，帖子类型和状态 
+	 */
 	public ModelAndView updateForumSubject(Long id) {
 		WnForumSubject forumSubject = forumMapper.queryForumSubject(id);
 		
@@ -152,8 +158,9 @@ public class ForumController extends AbstractController {
 		return list();
 	}
 	
-	/** 删除帖子信息，回帖信息 
-	 * @throws SQLException */
+	/** 
+	 * 删除帖子信息，回帖信息 
+	 */
 	public ModelAndView deleteForumSubject(Long id) {
 		forumMapper.deleteForum(id);
 		return list();
