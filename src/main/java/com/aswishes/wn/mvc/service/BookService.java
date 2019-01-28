@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.spring.service.AbstractService;
 import com.aswishes.wn.mvc.dao.WnBookDao;
 import com.aswishes.wn.mvc.dao.WnChapterDao;
 import com.aswishes.wn.mvc.dao.WnVolumeDao;
@@ -85,4 +86,9 @@ public class BookService extends AbstractService {
 	private WnChapterDao chapterDao;
 	@Autowired
 	private WnBookDao bookDao;
+	
+	@Override
+	public void setDao() {
+		this.dao = bookDao;
+	}
 }

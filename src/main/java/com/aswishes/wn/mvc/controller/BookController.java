@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.web.SessionUtils;
@@ -25,6 +26,7 @@ public class BookController extends AbstractController {
 	/** 
 	 * 添加书籍 
 	 */
+	@RequestMapping(value = "/add", method = {RequestMethod.POST})
 	public ModelAndView addBook(ModelAndView mv, String bookName, String desc) {
 		WnBook book = bookService.getBook(bookName);
 		if (book != null) {
@@ -41,6 +43,10 @@ public class BookController extends AbstractController {
 		book.setUpdateTime(cdate);
 		
 		WnUser user = SessionUtils.getUser();
+		if (user == null) {
+			// 用户尚未登录
+			return mv;
+		}
 		book.setAuthorId(user.getId());
 		book.setAuthor(user.getName());
 		
@@ -51,6 +57,7 @@ public class BookController extends AbstractController {
 	/** 
 	 * 删除书籍 
 	 */
+	@RequestMapping(value = "/delete")
 	public ModelAndView deleteBook(ModelAndView mv, Long id) {
 		WnBook book = bookService.getBook(id);
 		if (book == null) {
@@ -77,6 +84,7 @@ public class BookController extends AbstractController {
 		logger.debug("enter book list page......");
 		Long userId = SessionUtils.getUser().getId();
 		
+//		bookService.getPage(WnBook.class, pageNo, pageSize, restrictions);
 		List<WnBook> bookList = bookService.getBookList(userId);
 		request.setAttribute("bookList", bookList);
 		

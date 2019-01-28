@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.spring.service.AbstractService;
 import com.aswishes.wn.mvc.dao.WnFeedbackDao;
 import com.aswishes.wn.mvc.model.WnFeedback;
 
@@ -35,4 +36,9 @@ public class FeedbackService extends AbstractService {
 
 	@Autowired
 	private WnFeedbackDao feedbackDao;
+
+	@Override
+	public void setDao() {
+		this.dao = feedbackDao;
+	}
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.spring.service.AbstractService;
 import com.aswishes.wn.mvc.dao.WnMemoDao;
 import com.aswishes.wn.mvc.model.WnMemo;
 
@@ -35,4 +36,9 @@ public class MemoService extends AbstractService {
 
 	@Autowired
 	private WnMemoDao memoDao;
+
+	@Override
+	public void setDao() {
+		this.dao = memoDao;
+	}
 }

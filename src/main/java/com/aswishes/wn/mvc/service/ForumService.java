@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.spring.service.AbstractService;
 import com.aswishes.wn.mvc.dao.WnForumDao;
 import com.aswishes.wn.mvc.dao.WnForumSubjectDao;
 import com.aswishes.wn.mvc.model.WnForum;
@@ -89,4 +90,9 @@ public class ForumService extends AbstractService {
 	
 	@Autowired
 	private WnForumSubjectDao forumSubjectDao;
+
+	@Override
+	public void setDao() {
+		this.dao = forumDao;
+	}
 }

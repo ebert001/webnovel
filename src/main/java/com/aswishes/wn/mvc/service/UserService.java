@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.spring.service.AbstractService;
 import com.aswishes.wn.common.AppConstants;
 import com.aswishes.wn.common.AppUtil;
 import com.aswishes.wn.mvc.dao.WnUserDao;
@@ -60,6 +61,11 @@ public class UserService extends AbstractService {
 	
 	public void update(WnUser user) {
 		userDao.updateByPK(user);
+	}
+
+	@Override
+	public void setDao() {
+		this.dao = userDao;
 	}
 	
 	
