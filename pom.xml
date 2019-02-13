@@ -25,6 +25,12 @@
 	</properties>
 	
 	<dependencies>
+		<dependency>
+			<groupId>com.aswishes.im</groupId>
+			<artifactId>myim-spring</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -72,6 +78,13 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.6</version>
 			<type>jar</type>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-dbcp2</artifactId>
+		    <version>2.5.0</version>
 		</dependency>
 
 		<!-- commons -->
