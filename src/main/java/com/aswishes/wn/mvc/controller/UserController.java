@@ -89,7 +89,7 @@ public class UserController extends AbstractController {
 	/**  
 	 * 用户详细信息
 	 */
-	@RequestMapping(value = "/login", method = {RequestMethod.POST})
+	@RequestMapping(value = "/queryone", method = {RequestMethod.POST})
 	public ModelAndView queryOne() {
 		String username = request.getParameter("username");
 		WnUser user = userService.getUser(username);

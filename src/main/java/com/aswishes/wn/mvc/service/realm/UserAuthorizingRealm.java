@@ -7,11 +7,13 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.realm.AuthenticatingRealm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.aswishes.wn.common.web.SessionUtils;
 import com.aswishes.wn.mvc.model.WnUser;
 import com.aswishes.wn.mvc.service.UserService;
 
+@Component
 public class UserAuthorizingRealm extends AuthenticatingRealm  {
 	@Autowired
 	private UserService userService;

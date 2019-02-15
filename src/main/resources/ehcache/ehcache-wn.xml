@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false">
+	<diskStore path="${catalina.home}/temp/webnovel/cache-data" />
+
+	<!-- 缓存通讯key -->
+	<cache name="terminalKeyCache"
+		maxElementsInMemory="1000"
+		memoryStoreEvictionPolicy="LRU"
+		eternal="false"
+		diskPersistent="false"
+		overflowToDisk="false"
+		timeToIdleSeconds="60"
+		 />
+
+	<!-- 缓存系统属性 -->
+	<cache name="sysPropertyCache"
+		maxElementsInMemory="100"
+		memoryStoreEvictionPolicy="LRU"
+		eternal="false"
+		diskPersistent="false"
+		overflowToDisk="false"
+		maxElementsOnDisk="100" />
+
+	<!-- 缓存 附件在服务器上是否存在信息 -->
+	<cache name="attachCache"
+		maxElementsInMemory="100"
+		memoryStoreEvictionPolicy="LRU"
+		eternal="false"
+		diskPersistent="false"
+		overflowToDisk="false"
+		maxElementsOnDisk="20" />
+
+	<!-- 缓存 终端组路径信息 -->
+	<cache name="ownerPathCache"
+		maxElementsInMemory="100"
+		memoryStoreEvictionPolicy="LRU"
+		eternal="false"
+		diskPersistent="false"
+		overflowToDisk="false"
+		maxElementsOnDisk="20" />
+
+	<!-- 缓存 系统共享信息 -->
+	<cache name="shiroCache"
+		maxElementsInMemory="100"
+		memoryStoreEvictionPolicy="LRU"
+		eternal="false"
+		diskPersistent="false"
+		overflowToDisk="false"
+		maxElementsOnDisk="20" />
+</ehcache>
