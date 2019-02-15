@@ -12,10 +12,10 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/floatPage.js"></script>
+	<link rel="shortcut icon" href="${ctx}/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
+	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
   </head>
   
   <body class="body">
@@ -39,7 +39,7 @@
 		  				<c:forEach items="${chapterList}" var="chapter">
 		  					<c:if test="${chapter.volumeId == volume.id}">
 				  				<li title="${chapter.subject}">
-				  					<a href="${pageContext.request.contextPath}/Book.action?readChapter&chapterId=${chapter.id}" target="_blank">${chapter.subject}</a>
+				  					<a href="${ctx}/Book.action?readChapter&chapterId=${chapter.id}" target="_blank">${chapter.subject}</a>
 				  				</li>
 			  				</c:if>
 		  				</c:forEach>

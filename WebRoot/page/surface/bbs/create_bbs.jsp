@@ -12,10 +12,10 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/floatPage.js"></script>
+	<link rel="shortcut icon" href="${ctx}/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
+	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
 	
 	<style type="text/css">
 	.block_width {
@@ -32,7 +32,7 @@
     <div class="container">
   		<div class="content_wrapper none_space upper_border_radius">
   			<div class="block_width">
-	  			<form action="${pageContext.request.contextPath}/Forum.action?addForumSubject" name="forumSubject" method="post">
+	  			<form action="${ctx}/Forum.action?addForumSubject" name="forumSubject" method="post">
 	  			<table class="table_form has_border">
 	  				<tr class="bottom_border">
 	  					<td class="table_form_label">标题</td>

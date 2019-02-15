@@ -12,10 +12,10 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/floatPage.js"></script>
+	<link rel="shortcut icon" href="${ctx}/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
+	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
 	
 	<style type="text/css">
 	.title {
@@ -91,8 +91,8 @@
   				</div>
   			</div>
   			<div class="new_bbs">
-  				<a class="a_btn medium" href="${pageContext.request.contextPath}/frame/bbs_make.jsp">发表新帖</a><br/><br/>
-  				<a class="a_btn medium" href="${pageContext.request.contextPath}/Forum.action?list">查看新帖</a>
+  				<a class="a_btn medium" href="${ctx}/frame/bbs_make.jsp">发表新帖</a><br/><br/>
+  				<a class="a_btn medium" href="${ctx}/Forum.action?list">查看新帖</a>
   			</div>
 	  		<div class="mini_msg_list mini_msg_width">
 				<ul>
@@ -135,12 +135,12 @@
 	  		
 	  		<div class="mini_msg_width">
   				<script type="text/javascript">
-  				document.write(paginationBar(${pageNo}, ${pageCount}, "${pageContext.request.contextPath}/Forum.action?queryOne&id=${forumSubject.id}"));
+  				document.write(paginationBar(${pageNo}, ${pageCount}, "${ctx}/Forum.action?queryOne&id=${forumSubject.id}"));
   				</script>
   			</div>
 	  		
 	  		<div class="bbs_reply mini_msg_width">
-	  			<form action="${pageContext.request.contextPath}/Forum.action?replyForum" method="post" name="reply">
+	  			<form action="${ctx}/Forum.action?replyForum" method="post" name="reply">
 	  			<input type="hidden" name="id" value="${forumSubject.id}">
 	  			<input type="hidden" name="page" value="${pageCount}">
 	  			<script type="text/javascript">

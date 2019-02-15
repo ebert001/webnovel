@@ -12,10 +12,10 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css"/>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/floatPage.js"></script>
+	<link rel="shortcut icon" href="${ctx}/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
+	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
   </head>
   
   <body class="body">
@@ -51,10 +51,10 @@
   				</div>
   				<div style="line-height: 32px; margin-top: 6px;">
   					搜索：<input class="input_wrapper" style="width: 320px;" type="text" name="bbs_subject"/>
-  					<a class="a_btn small" href="#"  onclick="javascript: window.open('${pageContext.request.contextPath}/frame/search_list.jsp')"> 搜 索 </a>
+  					<a class="a_btn small" href="#"  onclick="javascript: window.open('${ctx}/frame/search_list.jsp')"> 搜 索 </a>
   				</div>
   				<div style="margin-top: 6px; float: right;">
-  					<a class="a_btn medium" href="${pageContext.request.contextPath}/frame/bbs_make.jsp">发表新帖</a>
+  					<a class="a_btn medium" href="${ctx}/frame/bbs_make.jsp">发表新帖</a>
   				</div>
 	  			<table class="table_list">
 	  				<thead>
@@ -72,7 +72,7 @@
 	  				<tr <c:if test="${item.index % 2 == 0}">class="swap"</c:if>>
 	  					<td>${item.count}</td>
 	  					<td>
-	  						<a href="${pageContext.request.contextPath}/Forum.action?queryOne&id=${fs.id}">${fs.subject}</a>
+	  						<a href="${ctx}/Forum.action?queryOne&id=${fs.id}">${fs.subject}</a>
 	  					</td>
 	  					<td>${fs.userId}</td>
 	  					<td>${fs.readTimes}</td>
@@ -84,7 +84,7 @@
 	  			</table>
 	  			<div>
 	  				<script type="text/javascript">
-	  				document.write(paginationBar(2, 100, "${pageContext.request.contextPath}/Forum.action?queryOne&id=${forumSubject.id}"));
+	  				document.write(paginationBar(2, 100, "${ctx}/Forum.action?queryOne&id=${forumSubject.id}"));
 	  				</script>
 	  			</div>
   			</div>

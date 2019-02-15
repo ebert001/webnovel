@@ -19,12 +19,12 @@ function doSearch() {
 		<div class="book_detail about_book_border">
 			<div class="left">
 				<div class="img">
-					<img style="width: 160px; height: 200px;" src="${pageContext.request.contextPath}/imgs/face.png"/>
+					<img style="width: 160px; height: 200px;" src="${ctx}/static/imgs/face.png"/>
 				</div>
 				<div class="nav">
 					<ul>
 						<li>
-							<a class="nav_button" href="${pageContext.request.contextPath}/Book.action?listChapter&a=r&bookId=4b3596b10a50448d8f2a67d7dad4cfd6">点击阅读</a>
+							<a class="nav_button" href="${ctx}/Book.action?listChapter&a=r&bookId=4b3596b10a50448d8f2a67d7dad4cfd6">点击阅读</a>
 						</li>
 						<li>
 							<a class="nav_button" href="catalog.jsp">加入书架</a>
@@ -121,7 +121,7 @@ function doSearch() {
 			</div>
 			<div>
   				<script type="text/javascript">
-  				document.write(paginationBar(2, 10, "${pageContext.request.contextPath}/Forum.action?queryOne&id=${forumSubject.id}"));
+  				document.write(paginationBar(2, 10, "${ctx}/Forum.action?queryOne&id=${forumSubject.id}"));
   				</script>
   			</div>
 		</div>
