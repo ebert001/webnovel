@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.web.SessionUtils;
@@ -23,6 +24,12 @@ import com.aswishes.wn.mvc.service.ChapterService;
 @Controller
 @RequestMapping("/book")
 public class BookController extends AbstractController {
+	
+	@RequestMapping(value = "/view")
+	public ModelAndView viewBook(ModelAndView mv, Long bookId) {
+		mv.setViewName("frame/preface");
+		return mv;
+	}
 	
 	/** 
 	 * 添加书籍 
@@ -96,23 +103,24 @@ public class BookController extends AbstractController {
 	/** 
 	 * 书籍章节列表 
 	 */
-	public ModelAndView listChapter(Long bookId) {
+	@RequestMapping(value = "/listChapter")
+	public ModelAndView listChapter(ModelAndView mv, Long bookId, 
+			@RequestParam(name = "a")String action) {
 		logger.debug("enter chapter list page......");
-		Long userId = SessionUtils.getUser().getId();
-		String a = request.getParameter("a");
 		
-		List<WnChapter> chapterList = chapterService.readCatalogs(userId, bookId);
+		List<WnChapter> chapterList = chapterService.readCatalogs(bookId);
 		WnBook book = bookService.getBook(bookId);
 		List<WnVolume> volumeList = bookService.getVolumeList(bookId);
 		
-		request.setAttribute("volumeList", volumeList);
-		request.setAttribute("chapterList", chapterList);
-		request.setAttribute("book", book);
-		if ("r".equals(a)) {
-			return new ModelAndView("/surface/opus/catalog.jsp");
+		mv.addObject("volumeList", volumeList);
+		mv.addObject("chapterList", chapterList);
+		mv.addObject("book", book);
+		if ("r".equals(action)) {
+			mv.setViewName("surface/opus/catalog");
 		} else {
-			return new ModelAndView("/config/opus/opus_catalog.jsp");
+			mv.setViewName("config/opus/opus_catalog");
 		}
+		return mv;
 	}
 	
 	/** 
@@ -143,7 +151,7 @@ public class BookController extends AbstractController {
 	
 	/** 添加书籍分卷 
 	 *  */
-	public ModelAndView addVolume(Long bookId, String volumeName) {
+	public ModelAndView addVolume(ModelAndView mv, Long bookId, String volumeName) {
 		WnVolume volume = new WnVolume();
 		volume.setBookId(bookId);
 		volume.setVolumeName(volumeName);
@@ -153,14 +161,14 @@ public class BookController extends AbstractController {
 		volume.setUpdateTime(cdate);
 		
 		bookService.addVolume(volume);
-		return listChapter(bookId);
+		return listChapter(mv, bookId, "a");
 	}
 	
-	public ModelAndView updateVolume(Long volumeId, String volumeName) {
+	public ModelAndView updateVolume(ModelAndView mv, Long volumeId, String volumeName) {
 		WnVolume volume = bookService.getVolume(volumeId);
 		volume.setVolumeName(volumeName);
 		bookService.updateVolume(volume);
-		return listChapter(volume.getBookId());
+		return listChapter(mv, volume.getBookId(), "a");
 	}
 	
 	/** 添加书籍章节 
@@ -192,7 +200,7 @@ public class BookController extends AbstractController {
 		return list(mv);
 	}
 	
-	public ModelAndView addChapterSubject(Long bookId, Long volumeId, String subject) {
+	public ModelAndView addChapterSubject(ModelAndView mv, Long bookId, Long volumeId, String subject) {
 		logger.debug("my book id:" + bookId);
 		
 		WnChapter chapter = new WnChapter();
@@ -206,15 +214,15 @@ public class BookController extends AbstractController {
 		chapter.setVolumeId(volumeId);
 		
 		chapterService.addChapter(chapter);
-		return listChapter(bookId);
+		return listChapter(mv, bookId, "a");
 	}
 	
-	public ModelAndView deleteChapter(Long chapterId) {
+	public ModelAndView deleteChapter(ModelAndView mv, Long chapterId) {
 		WnChapter chapter = chapterService.getChapter(chapterId);
 		WnBook book = bookService.getBook(chapter.getBookId());
 		
 		chapterService.deleteChapter(chapterId);
-		return listChapter(book.getId());
+		return listChapter(mv, book.getId(), "a");
 	}
 	
 	/** 查询章节详细 

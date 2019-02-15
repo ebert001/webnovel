@@ -26,7 +26,7 @@ public class WnChapterDao extends AbstractJdbcDao {
 		delete(Restriction.eq("id", chapterId));
 	}
 
-	public List<WnChapter> readCatalogs(Long userId, Long bookId) {
+	public List<WnChapter> readCatalogs(Long bookId) {
 		return getList(MapperHelper.getMapper(WnChapter.class), Restriction.eq("book_id", bookId));
 	}
 

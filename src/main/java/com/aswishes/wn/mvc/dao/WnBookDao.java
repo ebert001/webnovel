@@ -29,7 +29,7 @@ public class WnBookDao extends AbstractJdbcDao {
 	}
 
 	public WnBook getBook(Long bookId) {
-		return getObjectBy(MapperHelper.getMapper(WnBook.class), Restriction.eq("book_id", bookId));
+		return getObjectBy(MapperHelper.getMapper(WnBook.class), Restriction.eq("id", bookId));
 	}
 	
 	public WnBook getBook(String bookName) {
@@ -37,7 +37,7 @@ public class WnBookDao extends AbstractJdbcDao {
 	}
 	
 	public void deleteBook(Long bookId) {
-		delete(Restriction.eq("book_id", bookId));
+		delete(Restriction.eq("id", bookId));
 	}
 	
 	public void updateBook(Long bookId, Date updateTime) {

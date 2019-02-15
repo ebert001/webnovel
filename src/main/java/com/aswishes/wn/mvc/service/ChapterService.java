@@ -26,8 +26,8 @@ public class ChapterService extends AbstractService {
 		chapterDao.deleteChapter(chapterId);
 	}
 
-	public List<WnChapter> readCatalogs(Long userId, Long bookId) {
-		return chapterDao.readCatalogs(userId, bookId);
+	public List<WnChapter> readCatalogs(Long bookId) {
+		return chapterDao.readCatalogs(bookId);
 	}
 
 	public WnChapter getChapter(Long chapterId) {

@@ -4,7 +4,6 @@
 <script>
 function doSearch() {
 	var sk = document.getElementById("s_k").value;
-	
 }
 
 </script>
@@ -24,7 +23,7 @@ function doSearch() {
 				<div class="nav">
 					<ul>
 						<li>
-							<a class="nav_button" href="${ctx}/Book.action?listChapter&a=r&bookId=4b3596b10a50448d8f2a67d7dad4cfd6">点击阅读</a>
+							<a class="nav_button" href="${ctx}/book/listChapter?a=r&bookId=4">点击阅读</a>
 						</li>
 						<li>
 							<a class="nav_button" href="catalog.jsp">加入书架</a>
