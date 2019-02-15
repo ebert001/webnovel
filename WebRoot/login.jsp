@@ -5,7 +5,8 @@
 <html>
   <head>
     <title>${website_name}--登录</title>
-    
+
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -33,35 +34,35 @@
   		
   		</div>
 	  	<div class="right">
-	    <form action="" method="post">
-	   	<table>
-	   		<tr>
-	   			<td>用户名：</td>
-	   			<td>
-	   				<input class="input_wrapper" type="text" name="wnUsername">
-	   			</td>
-	   		</tr>
-	   		<tr>
-	   			<td>密&nbsp;&nbsp;码：</td>
-	   			<td>
-	   				<input class="input_wrapper" type="password" name="wnPassword">
-	   			</td>
-	   		</tr>
-	   		<tr>
-	   			<td>验证码：</td>
-	   			<td>
-	   				<input class="input_wrapper" style="width: 80px;" type="text" name="validcode">
-	   			</td>
-	   		</tr>
-	   		<tr>
-	   			<td colspan="2">
-	   				<div style="width: 100%; text-align: center; margin: 26px auto 16px auto;">
-				    	<a class="a_btn medium" href="${ctx}/User.action?queryOne&uName=">登  录</a>
-				    </div>
-	   			</td>
-	   		</tr>
-	   	</table>
-	    </form>
+		    <form action="${ctx}/user/login" method="post">
+			   	<table>
+			   		<tr>
+			   			<td>用户名：</td>
+			   			<td>
+			   				<input class="input_wrapper" type="text" name="wnUsername">
+			   			</td>
+			   		</tr>
+			   		<tr>
+			   			<td>密&nbsp;&nbsp;码：</td>
+			   			<td>
+			   				<input class="input_wrapper" type="password" name="wnPassword">
+			   			</td>
+			   		</tr>
+			   		<tr>
+			   			<td>验证码：</td>
+			   			<td>
+			   				<input class="input_wrapper" style="width: 80px;" type="text" name="validcode">
+			   			</td>
+			   		</tr>
+			   		<tr>
+			   			<td colspan="2">
+			   				<div style="width: 100%; text-align: center; margin: 26px auto 16px auto;">
+						    	<a class="a_btn medium" href="${ctx}/User.action?queryOne&uName=">登  录</a>
+						    </div>
+			   			</td>
+			   		</tr>
+			   	</table>
+		    </form>
 	    </div>
     </div>
   </body>

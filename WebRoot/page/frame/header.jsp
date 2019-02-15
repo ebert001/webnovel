@@ -3,7 +3,7 @@
 
 <div class="header_wrapper">
 	<div class="header">
-		<a href="${ctx}/frame/homepage.jsp"><img src="${ctx}/static/imgs/logo/logo.png" style="border: none;" alt="乐在文学"/></a>
+		<a href="${ctx}/homepage/"><img src="${ctx}/static/imgs/logo/logo.png" style="border: none;" alt="乐在文学"/></a>
 		<div class="header_weather">
 			<iframe scrolling="no" frameborder="0" src=""></iframe>
 		</div>
@@ -18,7 +18,7 @@
 				<li onclick="javascript:window.open('${ctx}/surface/user/register.jsp')">
 					注册
 				</li>
-				<li onclick="javascript:window.open('${ctx}/User.action?queryOne')">设置</li>
+				<li onclick="javascript:window.open('${ctx}/user/queryOne')">设置</li>
 				<li>退出</li>
 				</div>
 			</ul>
