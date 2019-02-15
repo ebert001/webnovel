@@ -44,7 +44,13 @@ public class UserController extends AbstractController {
 	@RequestMapping(value = "/logout")
 	public ModelAndView logout(ModelAndView mv) {
 		SessionUtils.invalidate();
-		mv.setViewName("redirect:/config/user/edit_password.jsp");
+		mv.setViewName("redirect:config/user/edit_password.jsp");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/toRegister")
+	public ModelAndView toRegister(ModelAndView mv) {
+		mv.setViewName("surface/user/register");
 		return mv;
 	}
 	

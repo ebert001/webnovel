@@ -15,11 +15,15 @@
 					帐号
 				</li>
 				<div id="account_nav_sub">
-				<li onclick="javascript:window.open('${ctx}/surface/user/register.jsp')">
-					注册
-				</li>
-				<li onclick="javascript:window.open('${ctx}/user/queryOne')">设置</li>
-				<li>退出</li>
+					<li onclick="location.href='${ctx}/user/toRegister'">
+						注册
+					</li>
+					<li onclick="location.href='${ctx}/user/queryOne'">
+						设置
+					</li>
+					<li onclick="location.href='${ctx}/user/logout'">
+						退出
+					</li>
 				</div>
 			</ul>
 		</div>

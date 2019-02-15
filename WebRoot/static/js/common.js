@@ -1,3 +1,7 @@
+// 取代document.getElementById()方法
+function $$(id) {
+	return document.getElementById(id);
+}
 
 // 设置首页
 function setHomePage(url) {
@@ -33,7 +37,7 @@ function inputCheck(fid) {
 }
 
 function loadEmbedPage(srcId, embedId) {
-	document.getElementById(srcId).innerHTML = document.getElementById(embedId).innerHTML;
+	$$(srcId).innerHTML = $$(embedId).innerHTML;
 }
 
 // 用于表单提交
@@ -56,7 +60,7 @@ function getBinaryLength(obj) {
 	if (cn != null) {
 		length = (length - cn.length) + cn.length * 2;
 	}
-	document.getElementById("re").innerHTML = length;
+	$$("re").innerHTML = length;
 	return length;
 }
 
@@ -68,11 +72,6 @@ function replaceCRLF(str) {
 // 替换字符串中的<br>为换行符
 function replaceBR(str) {
 	return str.replace(/\<br\>/ig, "\n").replace(/\<br\/\>/ig, "\n").replace("&lt;br&gt;", "<br>").replace("&lt;br/&gt;", "<br/>");
-}
-
-// 取代document.getElementById()方法
-function $$(id) {
-	return document.getElementById(id);
 }
 
 var EventUtil = {
@@ -161,8 +160,8 @@ function addKeyboardEvent(handle) {
 // 选项卡切换事件
 function tabChange(prefix, num, currentSelected) {
 	for (i = 1; i <= num; i++) {
-		var menu = document.getElementById(prefix + "_tab_menu_" + i);
-		var con = document.getElementById(prefix + "_tab_content_" + i);
+		var menu = $$(prefix + "_tab_menu_" + i);
+		var con = $$(prefix + "_tab_content_" + i);
 		menu.className = ((i == currentSelected) ? "hover" : "");
 		con.style.display = ((i == currentSelected) ? "block" : "none");
 	}
@@ -229,7 +228,7 @@ function createDivEditorHeader(id) {
 }
 
 function setValue(id) {
-	document.getElementById(id).value = document.getElementById(id + "_area").innerHTML;
+	$$(id).value = $$(id + "_area").innerHTML;
 }
 
 function decorate(command) {
