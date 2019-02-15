@@ -8,10 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.spring.service.AbstractService;
 import com.aswishes.wn.mvc.dao.WnBookDao;
-import com.aswishes.wn.mvc.dao.WnChapterDao;
 import com.aswishes.wn.mvc.dao.WnVolumeDao;
 import com.aswishes.wn.mvc.model.WnBook;
-import com.aswishes.wn.mvc.model.WnChapter;
 import com.aswishes.wn.mvc.model.WnVolume;
 
 /**
@@ -20,6 +18,10 @@ import com.aswishes.wn.mvc.model.WnVolume;
 @Service
 @Transactional
 public class BookService extends AbstractService {
+	@Autowired
+	private WnBookDao bookDao;
+	@Autowired
+	private WnVolumeDao volumeDao;
 
 	public List<WnBook> getBookList(Long userId) {
 		return bookDao.getBookList(userId);
@@ -41,29 +43,6 @@ public class BookService extends AbstractService {
 		bookDao.deleteBook(bookId);
 	}
 	
-	public void deleteChapter(Long chapterId) {
-		chapterDao.deleteChapter(chapterId);
-	}
-
-	public List<WnChapter> readCatalogs(Long userId, Long bookId) {
-		return chapterDao.readCatalogs(userId, bookId);
-	}
-
-	public WnChapter getChapter(Long chapterId) {
-		return chapterDao.getChapter(chapterId);
-	}
-
-	@Transactional
-	public void addChapter(WnChapter chapter) {
-		chapterDao.save(chapter);
-		bookDao.updateBook(chapter.getBookId(), chapter.getInputTime());
-	}
-
-	public void updateChapter(WnChapter chapter) {
-		chapterDao.updateByPK(chapter);
-		bookDao.updateBook(chapter.getBookId(), chapter.getInputTime());
-	}
-	
 	public List<WnVolume> getVolumeList(Long bookId) {
 		return volumeDao.getVolumeList(bookId);
 	}
@@ -79,13 +58,6 @@ public class BookService extends AbstractService {
 	public void updateVolume(WnVolume volume) {
 		volumeDao.updateByPK(volume);
 	}
-	
-	@Autowired
-	private WnVolumeDao volumeDao;
-	@Autowired
-	private WnChapterDao chapterDao;
-	@Autowired
-	private WnBookDao bookDao;
 	
 	@Override
 	public void setDao() {

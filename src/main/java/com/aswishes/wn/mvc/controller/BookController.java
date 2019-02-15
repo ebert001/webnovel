@@ -15,6 +15,7 @@ import com.aswishes.wn.mvc.model.WnChapter;
 import com.aswishes.wn.mvc.model.WnUser;
 import com.aswishes.wn.mvc.model.WnVolume;
 import com.aswishes.wn.mvc.service.BookService;
+import com.aswishes.wn.mvc.service.ChapterService;
 
 /**
  * 书籍的入口方法
@@ -100,7 +101,7 @@ public class BookController extends AbstractController {
 		Long userId = SessionUtils.getUser().getId();
 		String a = request.getParameter("a");
 		
-		List<WnChapter> chapterList = bookService.readCatalogs(userId, bookId);
+		List<WnChapter> chapterList = chapterService.readCatalogs(userId, bookId);
 		WnBook book = bookService.getBook(bookId);
 		List<WnVolume> volumeList = bookService.getVolumeList(bookId);
 		
@@ -179,14 +180,14 @@ public class BookController extends AbstractController {
 			chapter.setContent(content);
 			chapter.setBookId(bookId);
 			chapter.setVolumeId(volumeId);
-			bookService.addChapter(chapter);
+			chapterService.addChapter(chapter);
 		} else {
-			chapter = bookService.getChapter(chapterId);
+			chapter = chapterService.getChapter(chapterId);
 			chapter.setSubject(subject);
 			chapter.setContent(content);
 			Date cdate = new Date();
 			chapter.setInputTime(cdate);
-			bookService.updateChapter(chapter);
+			chapterService.updateChapter(chapter);
 		}
 		return list(mv);
 	}
@@ -204,15 +205,15 @@ public class BookController extends AbstractController {
 		chapter.setBookId(bookId);
 		chapter.setVolumeId(volumeId);
 		
-		bookService.addChapter(chapter);
+		chapterService.addChapter(chapter);
 		return listChapter(bookId);
 	}
 	
 	public ModelAndView deleteChapter(Long chapterId) {
-		WnChapter chapter = bookService.getChapter(chapterId);
+		WnChapter chapter = chapterService.getChapter(chapterId);
 		WnBook book = bookService.getBook(chapter.getBookId());
 		
-		bookService.deleteChapter(chapterId);
+		chapterService.deleteChapter(chapterId);
 		return listChapter(book.getId());
 	}
 	
@@ -228,14 +229,14 @@ public class BookController extends AbstractController {
 		request.setAttribute("bookList", bookList);
 		request.setAttribute("bookId", bookId);
 		
-		WnChapter chapter = bookService.getChapter(chapterId);
+		WnChapter chapter = chapterService.getChapter(chapterId);
 		request.setAttribute("chapter", chapter);
 		
 		return new ModelAndView("/config/opus/create_article.jsp");
 	}
 	
 	public ModelAndView readChapter(Long chapterId) {
-		WnChapter chapter = bookService.getChapter(chapterId);
+		WnChapter chapter = chapterService.getChapter(chapterId);
 		logger.debug(chapter.getContent());
 		request.setAttribute("chapter", chapter);
 		
@@ -244,5 +245,7 @@ public class BookController extends AbstractController {
 	
 	@Autowired
 	private BookService bookService;
+	@Autowired
+	private ChapterService chapterService;
 
 }
