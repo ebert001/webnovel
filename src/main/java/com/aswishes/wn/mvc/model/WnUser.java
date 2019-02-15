@@ -26,7 +26,7 @@ public class WnUser extends BaseIdAuto {
 	/** 备注 */
 	private String remark;
 	/** 状态 */
-	private Integer status;
+	private Integer state;
 	/** 性别 */
 	private Integer sex;
 	/** 最后登录时间 */
@@ -104,12 +104,12 @@ public class WnUser extends BaseIdAuto {
 		this.remark = remark;
 	}
 
-	public Integer getStatus() {
-		return status;
+	public Integer getState() {
+		return state;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
 	public Integer getSex() {

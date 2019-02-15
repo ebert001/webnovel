@@ -33,7 +33,7 @@ public class UserAuthorizingRealm extends AuthenticatingRealm  {
 			throw new AuthenticationException("用户名或密码错误");
 		}
 		SessionUtils.setUser(user);
-		AuthenticationInfo authInfo = new SimpleAuthenticationInfo();
+		SimpleAuthenticationInfo authInfo = new SimpleAuthenticationInfo(username, password, this.getName());
 		return authInfo;
 	}
 

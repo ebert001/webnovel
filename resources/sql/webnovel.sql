@@ -28,7 +28,8 @@ CREATE TABLE wn_user (
 	UNIQUE KEY `uq_user_phone` (`phone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into wn_user(name, alias, state, pwd, system) values('admin', 'admin', 1, 'admin', 1);
+/** 默认密码 111111 */
+insert into wn_user(name, alias, state, alg, salt, pwd, system, reg_time) values('admin', 'admin', 1, 'SHA256', '1', 'JVijTU0glkyh0nKrJszOlRHYgFeVk81MngGrke0A8yU=', 1, now());
 
 /**
  * 角色表

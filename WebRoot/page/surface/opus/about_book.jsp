@@ -120,7 +120,7 @@ function doSearch() {
 			</div>
 			<div>
   				<script type="text/javascript">
-  				document.write(paginationBar(2, 10, "${ctx}/Forum.action?queryOne&id=${forumSubject.id}"));
+  				document.write(paginationBar(2, 10, "${ctx}/forum/queryOne?id=${forumSubject.id}"));
   				</script>
   			</div>
 		</div>

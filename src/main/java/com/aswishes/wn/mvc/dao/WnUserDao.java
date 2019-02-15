@@ -26,7 +26,7 @@ public class WnUserDao extends AbstractJdbcDao {
 		return getObjectBy(MapperHelper.getMapper(WnUser.class), Restriction.eq("name", username));
 	}
 	
-	public List<WnUser> queryList(int startNo, int perNo) {
+	public List<WnUser> queryList(int pageNo, int pageSize) {
 		return getList(MapperHelper.getMapper(WnUser.class), Restriction.orderByDesc("reg_time"));
 	}
 	

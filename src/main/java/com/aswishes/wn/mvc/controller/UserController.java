@@ -30,15 +30,17 @@ public class UserController extends AbstractController {
 		return new ModelAndView("/login.jsp");
 	}
 	
-	/** 
-	 * 检查用户信息，判断登录 
-	 */
 	@RequestMapping(value = "/login", method = {RequestMethod.POST})
 	public String login(String wnUsername, String wnPassword) {
-		UsernamePasswordToken token = new UsernamePasswordToken(wnUsername, wnPassword.toCharArray());
-		Subject subject = SecurityUtils.getSubject();
-		subject.login(token);
-		return "redirect:/index";
+		try { 
+			boolean result = userService.login(wnUsername, wnPassword);
+			if (result) {
+				return "redirect:/index";
+			}
+		} catch (Exception e) {
+			
+		}
+		return null;
 	}
 	
 	@RequestMapping(value = "/logout")
@@ -63,11 +65,22 @@ public class UserController extends AbstractController {
 		return mv;
 	}
 	
-	/** 
-	 * 更新密码 
-	 */
+	@RequestMapping(value = "/toConfig")
+	public ModelAndView toConfig(ModelAndView mv) {
+		userService.login("admin", "111111");
+		
+		mv.setViewName("config/user_setup");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/toUpdatePwd")
+	public ModelAndView toUpdatePwd(ModelAndView mv) {
+		mv.setViewName("config/user/edit_password");
+		return mv;
+	}
+	
 	@RequestMapping(value = "/updatePassword", method = {RequestMethod.POST})
-	public ModelAndView updatePassword(String oldPassword, String newPassword) {
+	public ModelAndView updatePassword(ModelAndView mv, String oldPassword, String newPassword) {
 		WnUser user = SessionUtils.getUser();
 		String tpwd = AppUtil.getPwd(user.getName(), oldPassword);
 		if (tpwd.equals(user.getPwd())) {
@@ -76,40 +89,39 @@ public class UserController extends AbstractController {
 		} else {
 			setResponseMessage("您输入的密码和原始密码不相同，请重新输入。");
 		}
-		return new ModelAndView("/config/user/edit_password.jsp");
+		mv.setViewName("/config/user/edit_password.jsp");
+		return mv;
 	}
 	
 	/** 用户列表 
 	 * */
 	@RequestMapping(value = "/list", method = {RequestMethod.POST})
-	public ModelAndView list() {
-		logger.debug("enter user list page......");
-		int startNo = 0;
-		int perNo = 20;
-		
-		List<WnUser> userList = userService.queryList(startNo, perNo);
+	public ModelAndView list(ModelAndView mv, int pageNo, int pageSize) {
+		List<WnUser> userList = userService.queryList(pageNo, pageSize);
 		request.setAttribute("userList", userList);
-		return new ModelAndView("/config/user/list_user.jsp");
+		mv.setViewName("config/user/list_user.jsp");
+		return mv;
 	}
 	
 	/**  
 	 * 用户详细信息
 	 */
-	@RequestMapping(value = "/queryone", method = {RequestMethod.POST})
-	public ModelAndView queryOne() {
-		String username = request.getParameter("username");
+	@RequestMapping(value = "/queryOne")
+	public ModelAndView queryOne(ModelAndView mv, String username) {
 		WnUser user = userService.getUser(username);
 		request.setAttribute("user", user);
-		return new ModelAndView("/config/user/edit_user.jsp");
+		mv.setViewName("config/user/edit_user");
+		return mv;
 	}
 	
-	public ModelAndView search() {
-		return new ModelAndView("/config/user/list_user.jsp");
+	@RequestMapping(value = "/search")
+	public ModelAndView search(ModelAndView mv) {
+		mv.setViewName("/config/user/list_user.jsp");
+		return mv;
 	}
-	
-	/** 增加新用户 
-	 * */
-	public ModelAndView addUser() {
+
+	@RequestMapping(value = "/add")
+	public ModelAndView addUser(ModelAndView mv) {
 		WnUser user = new WnUser();
 		String username = request.getParameter("username");
 		user.setName(username);
@@ -120,20 +132,17 @@ public class UserController extends AbstractController {
 		user.setBirthday(DateUtil.parseDate(request.getParameter("birthday"), DateUtil.PATTERN_DAY));
 		user.setRegTime(new Date());
 		userService.save(user);
-		return list();
+		return list(mv, 1, 10);
 	}
 	
-	/** 更新用户信息 
-	 * */
-	public ModelAndView updateUser() {
-		String username = request.getParameter("username");
+	public ModelAndView updateUser(ModelAndView mv, String username, String email, String phone) {
 		WnUser user = userService.getUser(username);
-		user.setEmail(request.getParameter("email"));
-		user.setPhone(request.getParameter("phone"));
+		user.setEmail(email);
+		user.setPhone(phone);
 		user.setBirthday(DateUtil.parseDate(request.getParameter("birthday"), DateUtil.PATTERN_DAY));
 		user.setSex(Integer.valueOf(request.getParameter("sex")));
 		user.setRemark(request.getParameter("remark"));
 		userService.update(user);
-		return list();
+		return list(mv, 1, 10);
 	}
 }

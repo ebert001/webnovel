@@ -5,10 +5,12 @@
 <html>
   <head>
     <title>乐在文学-用户设置</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    
 	<link rel="shortcut icon" href="${ctx}/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
-	<script type="text/javascript" src="${ctx}/js/common.js"></script>
-	<script type="text/javascript" src="${ctx}/js/floatPage.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
+	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
   </head>
   
   <body class="body">
@@ -20,9 +22,9 @@
   			<div class="setup_tree padding_top">
   				<ul>
   					<li class="tree_group">用户设置</li>
-  					<li><a href="${ctx}/User.action?queryOne">基本信息</a></li>
-  					<li><a href="${ctx}/config/user/edit_password.jsp">修改密码</a></li>
-  					<li><a href="${ctx}/User.action?list">用户管理</a></li>
+  					<li><a href="${ctx}/user/queryOne">基本信息</a></li>
+  					<li><a href="${ctx}/user/toUpdatePwd">修改密码</a></li>
+  					<li><a href="${ctx}/user/list">用户管理</a></li>
   					<li><a href="${ctx}/config/user/upload_avatar.jsp">上传头像</a></li>
   					<li><a href="${ctx}/config/history/list_history.jsp">访问历史</a></li>
   					

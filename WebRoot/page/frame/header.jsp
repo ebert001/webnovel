@@ -18,7 +18,7 @@
 					<li onclick="location.href='${ctx}/user/toRegister'">
 						注册
 					</li>
-					<li onclick="location.href='${ctx}/user/queryOne'">
+					<li onclick="location.href='${ctx}/user/toConfig'">
 						设置
 					</li>
 					<li onclick="location.href='${ctx}/user/logout'">
