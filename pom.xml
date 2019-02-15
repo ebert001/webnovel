@@ -66,14 +66,6 @@
 			<scope>compile</scope>
 		</dependency>
 		
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<version>2.10.4</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
 		<dependency>
 		    <groupId>org.apache.shiro</groupId>
