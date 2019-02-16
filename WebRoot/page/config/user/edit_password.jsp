@@ -5,8 +5,8 @@
 <html>
   <head>
     <title>修改密码</title>
-	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
-	<script type="text/javascript" src="${ctx}/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
 	<script type="text/javascript">
 	function check() {
 		var newPwd = $$("new_password").value;
@@ -23,24 +23,24 @@
   	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
   	<div style="width: 80%; margin-left: 10%; padding-top: 68px;">
-    <form action="${ctx}/User.action?updatePassword" method="post">
+    <form action="${ctx}/user/updatePassword" method="post">
     	<table class="table_form full_border">
     		<tr class="bottom_border">
     			<td class="table_form_label">原始密码：</td>
     			<td class="table_form_field">
-    				<input class="input_wrapper input_required" type="password" name="old_password"/>
+    				<input class="input_wrapper input_required" type="password" name="oldPassword"/>
     			</td>
     		</tr>
     		<tr class="bottom_border">
     			<td class="table_form_label">新&nbsp;密&nbsp;码：</td>
     			<td class="table_form_field">
-    				<input class="input_wrapper input_required" type="password" id="new_password" name="new_password"/>
+    				<input class="input_wrapper input_required" type="password" id="new_password" name="newPassword"/>
     			</td>
     		</tr>
     		<tr class="bottom_border">
     			<td class="table_form_label">确认密码：</td>
     			<td class="table_form_field">
-    				<input class="input_wrapper input_required" type="password" id="confirm_password" name="confirm_password"/>
+    				<input class="input_wrapper input_required" type="password" id="confirm_password" name="confirmPassword"/>
     			</td>
     		</tr>
     	</table>

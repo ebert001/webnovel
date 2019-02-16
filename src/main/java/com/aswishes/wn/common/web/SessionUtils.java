@@ -12,6 +12,10 @@ public class SessionUtils {
 		return SecurityUtils.getSubject().getSession();
 	}
 	
+	public static void invalidate() {
+		SecurityUtils.getSubject().logout();
+	}
+	
 	public static void setUser(WnUser user) {
 		getSession().setAttribute(USER_KEY, user);
 	}
@@ -20,7 +24,5 @@ public class SessionUtils {
 		return (WnUser) getSession().getAttribute(USER_KEY);
 	}
 	
-	public static void invalidate() {
-		getSession().stop();
-	}
+	
 }

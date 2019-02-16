@@ -88,15 +88,16 @@ public class BookController extends AbstractController {
 	/** 
 	 * 书籍列表 
 	 */
+	@RequestMapping("/list")
 	public ModelAndView list(ModelAndView mv) {
 		logger.debug("enter book list page......");
 		Long userId = SessionUtils.getUser().getId();
 		
 //		bookService.getPage(WnBook.class, pageNo, pageSize, restrictions);
 		List<WnBook> bookList = bookService.getBookList(userId);
-		request.setAttribute("bookList", bookList);
+		mv.addObject("bookList", bookList);
 		
-		mv.setViewName("/config/opus/create_opus.jsp");
+		mv.setViewName("config/opus/create_opus");
 		return mv;
 	}
 	
@@ -123,28 +124,40 @@ public class BookController extends AbstractController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/readChapter")
+	public ModelAndView readChapter(ModelAndView mv, Long chapterId) {
+		WnChapter chapter = chapterService.getChapter(chapterId);
+		logger.debug(chapter.getContent());
+		mv.addObject("chapter", chapter);
+		
+		mv.setViewName("/surface/opus/chapter");
+		return mv;
+	}
+	
 	/** 
 	 * 去章节写作页面 
 	 */
 	@RequestMapping(value = "/toWritePage")
-	public ModelAndView goWritePage(Long bookId) {
+	public ModelAndView toWritePage(ModelAndView mv, Long bookId) {
 		Long userId = SessionUtils.getUser().getId();
 		logger.debug("my book id:" + bookId);
 
 		List<WnBook> bookList = bookService.getBookList(userId);
-		request.setAttribute("bookList", bookList);
-		request.setAttribute("bookId", bookId);
-		return new ModelAndView("/config/opus/create_article.jsp");
+		mv.addObject("bookList", bookList);
+		mv.addObject("bookId", bookId);
+		mv.setViewName("config/opus/create_article");
+		return mv;
 	}
 	
 	/** 
 	 * 书籍详细信息 
 	 */
-	public ModelAndView queryOne(Long id) {
+	public ModelAndView queryOne(ModelAndView mv, Long id) {
 		WnBook book = bookService.getBook(id);
 		
-		request.setAttribute("book", book);
-		return new ModelAndView("/config/opus/opus_catalog.jsp");
+		mv.addObject("book", book);
+		mv.setViewName("/config/opus/opus_catalog.jsp");
+		return mv;
 	}
 	
 
@@ -173,6 +186,7 @@ public class BookController extends AbstractController {
 	
 	/** 添加书籍章节 
 	 *  */
+	@RequestMapping("/addChapter")
 	public ModelAndView addChapter(ModelAndView mv, Long bookId, Long volumeId, String subject, String content, Long chapterId) {
 		logger.debug("my book id:" + bookId);
 		
@@ -227,28 +241,21 @@ public class BookController extends AbstractController {
 	
 	/** 查询章节详细 
 	 *  */
-	public ModelAndView queryChapter(Long chapterId) {
+	public ModelAndView queryChapter(ModelAndView mv, Long chapterId) {
 		Long userId = SessionUtils.getUser().getId();
 		
 		String bookId = request.getParameter("bookId");
 		logger.debug("my book id:" + bookId);
 
 		List<WnBook> bookList = bookService.getBookList(userId);
-		request.setAttribute("bookList", bookList);
-		request.setAttribute("bookId", bookId);
+		mv.addObject("bookList", bookList);
+		mv.addObject("bookId", bookId);
 		
 		WnChapter chapter = chapterService.getChapter(chapterId);
-		request.setAttribute("chapter", chapter);
+		mv.addObject("chapter", chapter);
 		
-		return new ModelAndView("/config/opus/create_article.jsp");
-	}
-	
-	public ModelAndView readChapter(Long chapterId) {
-		WnChapter chapter = chapterService.getChapter(chapterId);
-		logger.debug(chapter.getContent());
-		request.setAttribute("chapter", chapter);
-		
-		return new ModelAndView("/surface/opus/chapter.jsp");
+		mv.setViewName("/config/opus/create_article.jsp");
+		return mv;
 	}
 	
 	@Autowired

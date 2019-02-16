@@ -5,8 +5,8 @@
 <html>
   <head>
     <title>用户列表</title>
-	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
-	<script type="text/javascript" src="${ctx}/js/calendar/WdatePicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/calendar/WdatePicker.js"></script>
 	<style type="text/css">
 	</style>
 	<script type="text/javascript">
@@ -17,7 +17,7 @@
   <body>
   	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
-  	<form>
+  	<form action="${ctx}/user/list" method="post">
   		<table class="table_form has_border">
     		<tr class="bottom_border">
     			<td class="table_form_label">帐号：</td>
@@ -26,7 +26,8 @@
     			</td>
     			<td class="table_form_label">注册时间：</td>
     			<td class="table_form_field">
-    				<input class="input_wrapper" type="text" name="register_time" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="2012-02-15 15:52:43">
+    				<input class="input_wrapper" type="text" name="register_time" value="2012-02-15 15:52:43"
+    					onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" >
     			</td>
     		</tr>
     		<tr class="bottom_border">
@@ -62,11 +63,11 @@
    		</thead>
    		<c:forEach items="${userList}" varStatus="i" var="user">
    		<tr <c:if test="${i.index % 2 == 1}">class="swap"</c:if>>
-   			<td class="text_center"><a href="${ctx}/User.action?queryOne&username=${user.name}">编辑</a></td>
+   			<td class="text_center"><a href="${ctx}/user/toEdit?userId=${user.id}">编辑</a></td>
    			<td>${user.name}</td>
    			<td>${user.alias}</td>
    			<td><script type="text/javascript">if (${user.role} != '') {document.write(role["${user.role}"]);}</script></td>
-   			<td>${user.status}</td>
+   			<td>${user.state}</td>
    			<td>${user.email}</td>
    			<td>${user.phone}</td>
    			<td><fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/></td>

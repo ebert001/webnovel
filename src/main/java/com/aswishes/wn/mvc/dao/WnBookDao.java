@@ -25,7 +25,7 @@ public class WnBookDao extends AbstractJdbcDao {
 	}
 	
 	public List<WnBook> getBookList(Long userId) {
-		return getList(MapperHelper.getMapper(WnBook.class), Restriction.eq("user_id", userId));
+		return getList(MapperHelper.getMapper(WnBook.class), Restriction.eq("author_id", userId));
 	}
 
 	public WnBook getBook(Long bookId) {
@@ -41,7 +41,7 @@ public class WnBookDao extends AbstractJdbcDao {
 	}
 	
 	public void updateBook(Long bookId, Date updateTime) {
-		update(SqlHelper.update(tableName).set("update_time").where("id"), updateTime, bookId);
+		update(SqlHelper.update(tableName).setColumns("update_time").whereColumns("id"), updateTime, bookId);
 	}
 
 	

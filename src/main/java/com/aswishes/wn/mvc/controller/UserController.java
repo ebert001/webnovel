@@ -3,16 +3,17 @@ package com.aswishes.wn.mvc.controller;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
+import javax.mail.Multipart;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aswishes.wn.common.AppUtil;
+import com.aswishes.wn.common.AppConstants;
 import com.aswishes.wn.common.Codes;
 import com.aswishes.wn.common.DateUtil;
 import com.aswishes.wn.common.web.SessionUtils;
@@ -80,37 +81,108 @@ public class UserController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/updatePassword", method = {RequestMethod.POST})
-	public ModelAndView updatePassword(ModelAndView mv, String oldPassword, String newPassword) {
+	public ModelAndView updatePassword(ModelAndView mv, String oldPassword, String newPassword, String confirmPassword) {
 		WnUser user = SessionUtils.getUser();
-		String tpwd = AppUtil.getPwd(user.getName(), oldPassword);
+		if (user == null) {
+			mv.setViewName("frame/homepage");
+			return mv;
+		}
+		String tpwd = userService.calPassword(user, oldPassword);
 		if (tpwd.equals(user.getPwd())) {
 			userService.updatePassword(user, newPassword);
 			setResponseMessage("修改密码成功");
 		} else {
 			setResponseMessage("您输入的密码和原始密码不相同，请重新输入。");
 		}
-		mv.setViewName("/config/user/edit_password.jsp");
+		mv.setViewName("/config/user/edit_password");
 		return mv;
 	}
 	
-	/** 用户列表 
-	 * */
-	@RequestMapping(value = "/list", method = {RequestMethod.POST})
-	public ModelAndView list(ModelAndView mv, int pageNo, int pageSize) {
+	@RequestMapping(value = "/list")
+	public ModelAndView list(ModelAndView mv, 
+			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo, 
+			@RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
 		List<WnUser> userList = userService.queryList(pageNo, pageSize);
-		request.setAttribute("userList", userList);
-		mv.setViewName("config/user/list_user.jsp");
+		mv.addObject("userList", userList);
+		mv.setViewName("config/user/list_user");
 		return mv;
 	}
 	
 	/**  
 	 * 用户详细信息
 	 */
-	@RequestMapping(value = "/queryOne")
+	@RequestMapping(value = "/info")
 	public ModelAndView queryOne(ModelAndView mv, String username) {
-		WnUser user = userService.getUser(username);
-		request.setAttribute("user", user);
+		WnUser user = SessionUtils.getUser();
+		if (user == null) {
+			mv.setViewName("redirect:homepage");
+			return mv;
+		}
+		mv.addObject("user", user);
 		mv.setViewName("config/user/edit_user");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/toEdit")
+	public ModelAndView toEdit(ModelAndView mv, Long userId) {
+		WnUser user = userService.getUser(userId);
+		if (user == null) {
+			mv.setViewName("redirect:homepage");
+			return mv;
+		}
+		mv.addObject("user", user);
+		mv.setViewName("config/user/edit_user");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/update", method = {RequestMethod.POST})
+	public ModelAndView updateUser(ModelAndView mv, Long id, 
+			String username, String email, String phone,
+			Date birthday, int sex, String remark) {
+		WnUser user = userService.getUser(id);
+		user.setEmail(email);
+		user.setPhone(phone);
+		user.setBirthday(birthday);
+		user.setSex(sex);
+		user.setRemark(remark);
+		userService.update(user);
+		return list(mv, 1, 10);
+	}
+	
+	@RequestMapping(value = "/toUploadAvatar")
+	public ModelAndView toUploadAvatar(ModelAndView mv) {
+		WnUser user = SessionUtils.getUser();
+		if (user == null) {
+			mv.setViewName("redirect:/homepage");
+			return mv;
+		}
+		mv.addObject("user", user);
+		mv.setViewName("config/user/upload_avatar");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/uploadAvatar")
+	public ModelAndView uploadAvatar(ModelAndView mv, Multipart avatar) {
+		
+		mv.setViewName("/config/user/list_user.jsp");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/toCreateAuthor")
+	public ModelAndView toCreateAuthor(ModelAndView mv) {
+		WnUser user = SessionUtils.getUser();
+		if (user == null) {
+			mv.setViewName("redirect:/homepage");
+			return mv;
+		}
+		mv.addObject("user", user);
+		mv.setViewName("config/user/create_author");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/toAuthorPrincple")
+	public ModelAndView toAuthorPrincple(ModelAndView mv) {
+		mv.setViewName("surface/self/author_princple_board");
 		return mv;
 	}
 	
@@ -126,7 +198,11 @@ public class UserController extends AbstractController {
 		String username = request.getParameter("username");
 		user.setName(username);
 		user.setAlias(username);
-		user.setPwd(AppUtil.getPwd(username, Codes.INIT_PASSWORD));
+
+		String salt = RandomStringUtils.random(16);
+		user.setAlg(AppConstants.ALG_SHA256);
+		user.setSalt(salt);
+		user.setPwd(userService.calPassword(salt, Codes.INIT_PASSWORD));
 		user.setEmail(request.getParameter("email"));
 		user.setPhone(request.getParameter("phone"));
 		user.setBirthday(DateUtil.parseDate(request.getParameter("birthday"), DateUtil.PATTERN_DAY));
@@ -135,14 +211,5 @@ public class UserController extends AbstractController {
 		return list(mv, 1, 10);
 	}
 	
-	public ModelAndView updateUser(ModelAndView mv, String username, String email, String phone) {
-		WnUser user = userService.getUser(username);
-		user.setEmail(email);
-		user.setPhone(phone);
-		user.setBirthday(DateUtil.parseDate(request.getParameter("birthday"), DateUtil.PATTERN_DAY));
-		user.setSex(Integer.valueOf(request.getParameter("sex")));
-		user.setRemark(request.getParameter("remark"));
-		userService.update(user);
-		return list(mv, 1, 10);
-	}
+	
 }

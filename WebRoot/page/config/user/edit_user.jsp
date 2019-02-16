@@ -5,10 +5,8 @@
 <html>
   <head>
     <title>修改基本信息</title>
-	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
-	<script type="text/javascript" src="${ctx}/js/common.js"></script>
-	<style type="text/css">
-	</style>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
   </head>
   
   <body>
@@ -17,7 +15,8 @@
   	<div style="border-bottom: 2px dashed #8BB8F2;margin-bottom: 18px; text-indent: 8px;">
   		<span style="line-height: 28px; font-weight: bold;">用户设置</span>
   	</div>
-  	<form name="userForm" action="${ctx}/User.action?updateUser" method="post">
+  	<form name="userForm" action="${ctx}/user/update" method="post">
+  		<input type="hidden" name="id" value="${user.id}">
   		<table class="table_form has_border">
     		<tr class="bottom_border">
     			<td class="table_form_label">帐号：</td>
@@ -26,7 +25,7 @@
     			</td>
     			<td class="table_form_label">注册时间：</td>
     			<td class="table_form_field">
-    				<input class="input_wrapper" type="text" name="register_time" readonly value="<fmt:formatDate value="${user.regTime}" pattern="yyyy-MM-dd"/>">
+    				<input class="input_wrapper" type="text" name="register_time" readonly value="<fmt:formatDate value="${user.regTime}" pattern="yyyy-MM-dd HH:mm:ss"/>">
     			</td>
     		</tr>
     		<tr class="bottom_border">

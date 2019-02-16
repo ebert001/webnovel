@@ -214,16 +214,6 @@ public class AppUtil {
 	}
 	
 	/**
-	 * 对密码做简单的加密处理，提高安全性
-	 * @param uname 用户名
-	 * @param upwd 密码
-	 * @return 加密后的密码
-	 */
-	public static String getPwd(String uname, String upwd) {
-		return md5codec(uname + "_" + upwd);
-	}
-	
-	/**
 	 * md5加密
 	 * @param str 源字符串
 	 * @return 加密后的串

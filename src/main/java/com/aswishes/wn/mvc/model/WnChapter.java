@@ -20,21 +20,26 @@ public class WnChapter {
 	private String content;
 	
 	/** 章节序列号 */
+	@Mapper(name = "serial_no")
 	private int serialNo;
 	
 	/** 是否收费 */
 	private Integer charged;
 	
 	/** 写作时间 */
+	@Mapper(name = "write_time")
 	private Date writeTime;
 	
 	/** 录入时间 */
+	@Mapper(name = "input_time")
 	private Date inputTime;
 	
 	/** 分卷id */
+	@Mapper(name = "volume_id")
 	private Long volumeId;
 	
 	/** 书籍id */
+	@Mapper(name = "book_id")
 	private Long bookId;
 
 	public Long getId() {

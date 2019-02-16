@@ -19,7 +19,7 @@
   	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
 	<div id="input_area">
-    	<form name="bookForm" action="${ctx}/Book.action?addBook" method="post">
+    	<form name="bookForm" action="${ctx}/book/add" method="post">
   		<table class="table_form has_border">
     		<tr class="bottom_border">
     			<td class="table_form_label">书名：</td>
@@ -59,7 +59,7 @@
    		<c:forEach items="${bookList}" varStatus="i" var="book">
    		<tr <c:if test="${i.index % 2 == 1}">class="swap"</c:if>>
    			<td>
-   				<a href="${ctx}/Book.action?listChapter&bookId=${book.id}">${book.bookName}</a>
+   				<a href="${ctx}/book/listChapter?bookId=${book.id}&a=r">${book.bookName}</a>
    			</td>
    			<td><fmt:formatDate value="${book.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
    			<td><fmt:formatDate value="${book.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>

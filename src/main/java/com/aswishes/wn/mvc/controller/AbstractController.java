@@ -1,12 +1,19 @@
 package com.aswishes.wn.mvc.controller;
 
+import java.beans.PropertyEditorSupport;
+import java.text.ParseException;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.aswishes.wn.common.Codes;
 
@@ -15,11 +22,28 @@ import com.aswishes.wn.common.Codes;
  */
 public abstract class AbstractController {
 	protected static final Logger logger = LoggerFactory.getLogger(AbstractController.class);
-	
+	protected static final String[] datePatterns = {
+		"yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM-dd", "HH:mm:ss",
+		"yyyy/MM/dd HH:mm:ss"
+	};
 	@Autowired
 	protected HttpServletRequest request = null;
 	@Autowired
 	protected HttpServletResponse response = null;
+	
+	@InitBinder
+    public void InitBinder(ServletRequestDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+        	@Override
+        	public void setAsText(String text) throws IllegalArgumentException {
+        		try {
+					setValue(DateUtils.parseDate(text, datePatterns));
+				} catch (ParseException e) {
+					logger.error("Parse date error", e);
+				}
+        	}
+        });
+    } 
 	
 	/**
 	 * 设置响应消息.取值方式request.getAttrbute("");

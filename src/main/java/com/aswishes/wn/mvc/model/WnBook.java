@@ -14,15 +14,18 @@ public class WnBook {
 	private Long id;
 	
 	/** 书籍名称 */
+	@Mapper(name= "book_name")
 	private String bookName;
 	
 	/** 书籍描述 */
 	private String description;
 	
 	/** 创作时间 */
+	@Mapper(name= "create_time")
 	private Date createTime;
 	
 	/** 更新时间 */
+	@Mapper(name= "update_time")
 	private Date updateTime;
 	
 	/** 状态：1、写作中，2、已完结 */
@@ -41,12 +44,14 @@ public class WnBook {
 	private Integer words;
 	
 	/** 点击次数 */
+	@Mapper(name= "click_times")
 	private Integer clickTimes;
 	
 	/** 评论次数 */
 	private Integer commentTimes;
 	
 	/** 作者id */
+	@Mapper(name= "author_id")
 	private Long authorId;
 	
 	private String author;

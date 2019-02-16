@@ -39,6 +39,9 @@ public class WnUser extends BaseIdAuto {
 	/** 注册时间 */
 	@Mapper(name = "reg_time")
 	private Date regTime;
+	/** 角色 */
+	@Mapper(ignore = true)
+	private String role;
 	
 	public String getName() {
 		return name;
@@ -142,6 +145,14 @@ public class WnUser extends BaseIdAuto {
 
 	public void setAlg(String alg) {
 		this.alg = alg;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

@@ -9,8 +9,8 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
-	<script type="text/javascript" src="${ctx}/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
 	
 	<style type="text/css">
 	#article {
@@ -59,7 +59,7 @@
   <body>
   	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
   	<div id="embed_area">
-  	<form name="chapterForm" action="${ctx}/Book.action?addChapter" method="post">
+  	<form name="chapterForm" action="${ctx}/book/addChapter" method="post">
   	<input type="hidden" name="volumeId" value="${chapter.volumeId}">
   	<input type="hidden" name="chapterId" value="${chapter.id}">
   	<div class="div_line">

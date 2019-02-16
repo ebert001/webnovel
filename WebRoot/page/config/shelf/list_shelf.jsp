@@ -9,8 +9,8 @@
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
-	<link rel="stylesheet" type="text/css" href="${ctx}/css/common.css"/>
-	<script type="text/javascript" src="${ctx}/js/common.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
   </head>
   
   <body>

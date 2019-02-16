@@ -34,18 +34,18 @@
 	  			<div class="volume" style="margin-top: 4px;">
 	  				${volume.volumeName}
 	  			</div>
+	  			</c:forEach>
 	  			<div class="catalog">
 		  			<ul>
 		  				<c:forEach items="${chapterList}" var="chapter">
 		  					<c:if test="${chapter.volumeId == volume.id}">
 				  				<li title="${chapter.subject}">
-				  					<a href="${ctx}/Book.action?readChapter&chapterId=${chapter.id}" target="_blank">${chapter.subject}</a>
+				  					<a href="${ctx}/book/readChapter?chapterId=${chapter.id}" target="_blank">${chapter.subject}</a>
 				  				</li>
 			  				</c:if>
 		  				</c:forEach>
 		  			</ul>
 	  			</div>
-	  			</c:forEach>
   			</div>
 	  	</div>
   	</div>
