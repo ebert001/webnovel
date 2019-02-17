@@ -32,6 +32,7 @@ public class HtmlTools {
 		HtmlCleaner cleaner = new HtmlCleaner();
 		CleanerProperties props = cleaner.getProperties();
 		TagNode node = cleaner.clean(content);
+		node.removeAttribute("xmlns"); // 否则会影响dom4j使用xpath取值
 		String newContent = new PrettyXmlSerializer(props).getAsString(node);
 		return newContent;
 	}
