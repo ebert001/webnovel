@@ -48,6 +48,7 @@
   					<li>日志监控</li>
   					<li>人员维护</li>
   					<li>文章审核</li>
+  					<li><a href="${ctx}/spider/toSpiderWebsite">蜘蛛</a></li>
   					
   					<li class="tree_group">意见反馈</li>
   					<li><a href="${ctx}/config/feedback/create_feedback.jsp">我有反馈</a></li>
