@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory;
 
 public enum WnStatus {
 	SUCCESS(1, "OK", "lbl.ok"),
-	
+	WEBSITE_EXISTS(2, "Website exists"),
+	WEBSITE_BOOK_EXISTS(3, "Website book exists"),
 	;
 
 	private int code;
