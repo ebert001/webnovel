@@ -16,15 +16,18 @@ public class FindBook {
 	/** 只找本站 */
 	private boolean onlyFindBaseWeb = true;
 	
-	public FindBook(String baseUrl) {
-		this.baseUrl = baseUrl;
+	public FindBook() {
 	}
-
+	
 	public void find() {
 		try {
 			
 		} catch (Exception e) {
 			logger.error("", e);
 		}
+	}
+	
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
 	}
 }
