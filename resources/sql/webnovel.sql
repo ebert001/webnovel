@@ -217,7 +217,7 @@ CREATE TABLE wn_forum (
 /**
  * 备忘表。
  */
-CREATE TABLE WN_MEMO (
+CREATE TABLE wn_memo (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`title` varchar(120) COMMENT '备忘标题',
 	`content` text COMMENT '备忘内容',

@@ -22,13 +22,14 @@ public class MemoController extends AbstractController {
 	/** 
 	 * 备忘录列表 
 	 */
+	@RequestMapping("/list")
 	public ModelAndView list() {
 		logger.debug("enter memo list page......");
 		Long userId = SessionUtils.getUser().getId();
 		
 		List<WnMemo> memoList = memoService.queryList(userId);
 		request.setAttribute("memoList", memoList);
-		return new ModelAndView("/config/memo/create_memo.jsp");
+		return new ModelAndView("config/memo/create_memo");
 	}
 	
 	/** 
