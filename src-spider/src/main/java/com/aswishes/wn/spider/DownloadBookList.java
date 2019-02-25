@@ -17,6 +17,10 @@ public class DownloadBookList {
 	private String bookUrlPath;
 	private String totalPagePath;
 	private String totalPageExpress;
+	private String imgUrlPath;
+	private String authorPath;
+	private String introductionPath;
+	private String lastUpdateTimePath;
 	private boolean showDebug = false;
 	
 	private String bookListUrlPrefix;
@@ -30,7 +34,7 @@ public class DownloadBookList {
 		this.bookListUrlSuffix = bookListUrlSuffix;
 	}
 	
-	public DownloadBookList discovery() {
+	public DownloadBookList discovery(IBookInfo bookInfo) {
 		do {
 			String bookListUrl = getBookListPageUrl(bookListUrlPrefix, pageNo, bookListUrlSuffix);
 			try {
@@ -50,6 +54,17 @@ public class DownloadBookList {
 					String bookName = bookNameNode.getText().trim();
 					String bookUrl = bookUrlNode.getText().trim();
 					logger.debug("{} book name: {}, book url: {}", pageNo, bookName, bookUrl);
+					if (bookInfo == null) {
+						continue;
+					}
+					BookInfo info = new BookInfo();
+					info.setBookName(bookName);
+					info.setBookUrl(bookUrl);
+					info.setImgUrl(findInfo(tnode, imgUrlPath));
+					info.setAuthor(findInfo(tnode, authorPath));
+					info.setIntroduction(findInfo(tnode, introductionPath));
+					info.setLastUpdateTime(findInfo(tnode, lastUpdateTimePath));
+					bookInfo.extract(info);
 				}
 				findTotalPage(bookListContent);
 			} catch (Exception e) {
@@ -83,6 +98,17 @@ public class DownloadBookList {
 	
 	private String getBookListPageUrl(String prefix, int pageNo, String suffix) {
 		return prefix + pageNo + suffix;
+	}
+	
+	private String findInfo(Node node, String nodePath) {
+		if (nodePath == null) {
+			return null;
+		}
+		Node tnode = node.selectSingleNode(nodePath);
+		if (tnode == null) {
+			return null;
+		}
+		return tnode.getText().trim();
 	}
 	
 	public DownloadBookList setShowDebug(boolean showDebug) {
@@ -119,4 +145,5 @@ public class DownloadBookList {
 		this.totalPageExpress = totalPageExpress;
 		return this;
 	}
+	
 }

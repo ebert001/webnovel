@@ -10,10 +10,22 @@ public class WnSpiderWebsite {
 	private Long id;
 	private String name;
 	private String url;
+	
+	@Mapper(name = "book_list_url_prefix")
+	private String bookListUrlPrefix;
+	
+	@Mapper(name = "page_no")
+	private Integer pageNo = 1;
+	
+	@Mapper(name = "book_list_url_suffix")
+	private String bookListUrlSuffix;
+	
 	@Mapper(name = "last_retrive_name")
 	private Date lastRetriveTime;
+	
 	@Mapper(name = "update_time")
 	private Date updateTime;
+	
 	@Mapper(name = "create_time")
 	private Date createTime;
 	public Long getId() {
@@ -51,6 +63,24 @@ public class WnSpiderWebsite {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	public String getBookListUrlPrefix() {
+		return bookListUrlPrefix;
+	}
+	public void setBookListUrlPrefix(String bookListUrlPrefix) {
+		this.bookListUrlPrefix = bookListUrlPrefix;
+	}
+	public Integer getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
+	public String getBookListUrlSuffix() {
+		return bookListUrlSuffix;
+	}
+	public void setBookListUrlSuffix(String bookListUrlSuffix) {
+		this.bookListUrlSuffix = bookListUrlSuffix;
 	}
 	
 	
