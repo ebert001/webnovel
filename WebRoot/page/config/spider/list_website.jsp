@@ -14,13 +14,13 @@
   </head>
   
   <body>
-  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
+  	<jsp:include page="/page/config/setup_common.jsp"></jsp:include>
   	<div id="embed_area">
   	<div style="margin: 20px 6px; ">
   		蜘蛛网站
   	</div>
   	
-  	<div id="no1" style="display: none;">
+  	<div id="no1">
 	    <table class="table_list" >
 	  		<thead>
 	   		<tr class="title">
@@ -33,7 +33,7 @@
 	   		</thead>
 	   		<tbody>
 	   		<c:forEach items="${bookList}" varStatus="i" var="book">
-	   		<tr <c:if test="${i.index % 2 == 1}">class="swap"</c:if>>
+	   		<tr>
 	   			<td>
 	   				<a href="${ctx}/book/listChapter?bookId=${book.id}&a=r">${book.bookName}</a>
 	   			</td>

@@ -10,7 +10,7 @@
   </head>
   
   <body>
-  	<jsp:include page="../user_setup.jsp"></jsp:include>
+  	<jsp:include page="../setup_common.jsp"></jsp:include>
   	<div id="embed_area">
   	<div style="border-bottom: 2px dashed #8BB8F2;margin-bottom: 18px; text-indent: 8px;">
   		<span style="line-height: 28px; font-weight: bold;">用户设置</span>

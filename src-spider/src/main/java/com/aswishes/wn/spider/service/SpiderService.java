@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.mapper.MapperHelper;
 import com.aswishes.spring.service.AbstractService;
@@ -62,8 +63,8 @@ public class SpiderService extends AbstractService {
 				Restriction.eq("name", name), Restriction.eq("website_id", websiteId));
 	}
 	
-	public List<WnSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
-		return spiderWebsiteDao.getList(MapperHelper.getMapper(WnSpiderWebsite.class), pageNo, pageSize);
+	public PageResultWrapper<WnSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
+		return spiderWebsiteDao.getPage(MapperHelper.getMapper(WnSpiderWebsite.class), pageNo, pageSize);
 	}
 	
 	public List<WnSpiderBook> getSpiderBook(int pageNo, int pageSize) {
@@ -71,19 +72,16 @@ public class SpiderService extends AbstractService {
 	}
 	
 	@Transactional
-	public void addSpiderWebsite(String websiteName, String websiteUrl) {
-		WnSpiderWebsite bean = getWebsite(websiteName);
+	public void addSpiderWebsite(WnSpiderWebsite website) {
+		WnSpiderWebsite bean = getWebsite(website.getName());
 		if (bean != null) {
 			throw new ServiceException(WnStatus.WEBSITE_EXISTS);
 		}
-		bean = new WnSpiderWebsite();
-		bean.setName(websiteName);
-		bean.setUrl(websiteUrl);
 		
 		Date date = new Date();
-		bean.setCreateTime(date);
-		bean.setUpdateTime(date);
-		spiderWebsiteDao.save(bean);
+		website.setCreateTime(date);
+		website.setUpdateTime(date);
+		spiderWebsiteDao.save(website);
 	}
 	
 	@Transactional
