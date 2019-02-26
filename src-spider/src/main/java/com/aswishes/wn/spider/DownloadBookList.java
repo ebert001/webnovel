@@ -136,6 +136,26 @@ public class DownloadBookList {
 		return this;
 	}
 	
+	public DownloadBookList setImgUrlPath(String imgUrlPath) {
+		this.imgUrlPath = imgUrlPath;
+		return this;
+	}
+	
+	public DownloadBookList setAuthorPath(String authorPath) {
+		this.authorPath = authorPath;
+		return this;
+	}
+	
+	public DownloadBookList setLastUpdateTimePath(String lastUpdateTimePath) {
+		this.lastUpdateTimePath = lastUpdateTimePath;
+		return this;
+	}
+	
+	public DownloadBookList setIntroductionPath(String introductionPath) {
+		this.introductionPath = introductionPath;
+		return this;
+	}
+	
 	public DownloadBookList setTotalPagePath(String totalPagePath) {
 		this.totalPagePath = totalPagePath;
 		return this;

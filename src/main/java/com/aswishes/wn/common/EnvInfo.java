@@ -77,6 +77,8 @@ public class EnvInfo {
 		return getProjectName(request.getServletContext());
 	}
 	
-	
+	public static String getRunningEnv() {
+		return System.getProperty("running.env", "pro");
+	}
 	
 }

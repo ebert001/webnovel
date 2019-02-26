@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,18 +49,13 @@ public class DateUtil {
 		return getDate(new Date(), pattern);
 	}
 	
-	public static Date parseDate(String date, String pattern) {
-		if (StringUtils.isEmpty(date)) {
-			log.warn("输入的日期字符串为空。");
-			return null;
-		}
-		SimpleDateFormat format = new SimpleDateFormat(pattern);
+	public static Date parseDate(String date, String...patterns) {
 		try {
-			return format.parse(date);
+			return DateUtils.parseDate(date, patterns);
 		} catch (ParseException e) {
-			log.error("parse date string error:" + date, e);
+			log.error("Parse date string error", e);
 		}
-		return new Date();
+		return null;
 	}
 	
 	public static String getTimeStamp() {
