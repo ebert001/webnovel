@@ -119,6 +119,10 @@ div#embed_area {
 	background-color: #AFDFE4;
 }
 
+.table_list tbody tr:nth-of-type(even) {
+	background-color: #cde6c7;
+}
+
 .table_list .title {
 	background-color: #8BB8F2;
 	text-align: center;
