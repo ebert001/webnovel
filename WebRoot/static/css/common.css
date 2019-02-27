@@ -15,6 +15,7 @@ ul {
 
 input, textarea {
 	padding: 0 4px;
+	border: 1px solid #8BB8F2; 
 }
 
 input:focus {
@@ -92,7 +93,6 @@ div#embed_area {
 .table_form input,select {
 	width: 180px;
 	height: 24px;
-	border: 1px solid #8BB8F2; 
 	font-size: 18px;
 }
 

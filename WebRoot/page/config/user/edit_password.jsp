@@ -22,6 +22,7 @@
 		<%@include file="/page/config/setup_common.jsp"%>
 		<div id="embed_area">
 			<div class="content_title">修改密码</div>
+			
 			<div style="width: 80%; margin-left: 10%; padding-top: 68px;">
 				<form action="${ctx}/user/updatePassword" method="post">
 					<table class="table_form full_border">
