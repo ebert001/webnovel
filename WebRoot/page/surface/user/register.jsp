@@ -36,25 +36,25 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">名称：</td>
 						<td class="table_form_field">
-							<input type="text" name="username" style="width: 60%;" class="input_wrapper input_required"/>
+							<input type="text" name="username" style="width: 60%;" class="input_required"/>
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">密码：</td>
 						<td class="table_form_field">
-							<input type="password" name="password" style="width: 60%;" class="input_wrapper input_required"/>
+							<input type="password" name="password" style="width: 60%;" class="input_required"/>
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">确认密码：</td>
 						<td class="table_form_field">
-							<input type="password" name="confirm_password" style="width: 60%;" class="input_wrapper input_required"/>
+							<input type="password" name="confirm_password" style="width: 60%;" class="input_required"/>
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">邮箱：</td>
 						<td class="table_form_field">
-							<input type="text" name="email" style="width: 60%;" class="input_wrapper input_required"/>
+							<input type="text" name="email" style="width: 60%;" class="input_required"/>
 						</td>
 					</tr>
 				</table>

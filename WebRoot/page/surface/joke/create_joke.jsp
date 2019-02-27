@@ -29,7 +29,7 @@
 		    		<tr class="bottom_border">
 		    			<td class="table_form_label">标题：</td>
 		    			<td class="table_form_field">
-		    				<input class="input_wrapper" style="width: 520px;" type="text" name="title" value="">
+		    				<input style="width: 520px;" type="text" name="title" value="">
 		    			</td>
 		    		</tr>
 		    		<tr class="bottom_border">

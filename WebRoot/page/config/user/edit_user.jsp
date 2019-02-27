@@ -18,20 +18,20 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">帐号：</td>
 						<td class="table_form_field">
-							<input class="input_wrapper" type="text" name="username" readonly value="${user.name}">
+							<input type="text" name="username" readonly value="${user.name}">
 						</td>
 						<td class="table_form_label">注册时间：</td>
 						<td class="table_form_field">
-							<input class="input_wrapper" type="text" name="register_time" readonly
+							<input type="text" name="register_time" readonly
 								value="<fmt:formatDate value="${user.regTime}" pattern="yyyy-MM-dd HH:mm:ss"/>">
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">邮箱：</td>
-						<td class="table_form_field"><input class="input_wrapper"
+						<td class="table_form_field"><input
 							type="text" name="email" value="${user.email}"></td>
 						<td class="table_form_label">手机：</td>
-						<td class="table_form_field"><input class="input_wrapper"
+						<td class="table_form_field"><input
 							type="text" name="phone" value="${user.phone}"></td>
 					</tr>
 					<tr class="bottom_border">
@@ -46,7 +46,7 @@
 						</select></td>
 						<td class="table_form_label">性别：</td>
 						<td class="table_form_field">
-							<select name="sex" class="input_wrapper" default-value="${user.sex}">
+							<select name="sex" default-value="${user.sex}">
 								<option value="1">男</option>
 								<option value="0">女</option>
 							</select>
@@ -56,7 +56,7 @@
 						<td class="table_form_label">生日：</td>
 						<td class="table_form_field" colspan="3">
 							<input
-								class="input_wrapper" type="text" name="birthday"
+								type="text" name="birthday"
 								value="<fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/>"
 								onClick="WdatePicker()">
 						</td>
@@ -64,7 +64,7 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">所在地址：</td>
 						<td class="table_form_field" colspan="3">
-							<input class="input_wrapper" style="width: 380px;" type="text" name="address" value="${user.name}">
+							<input style="width: 380px;" type="text" name="address" value="${user.name}">
 						</td>
 					</tr>
 					<tr class="bottom_border">

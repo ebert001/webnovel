@@ -88,7 +88,7 @@ function doSearch() {
 				</li>
 				<li>
 					<div>验证码:</div>
-					<input name="checkCode" class="input_wrapper"/>
+					<input name="checkCode"/>
 				</li>
 				<li>
 					<div><input type="button" value="确认提交"/></div>

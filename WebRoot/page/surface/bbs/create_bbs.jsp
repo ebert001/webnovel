@@ -37,7 +37,7 @@
 	  				<tr class="bottom_border">
 	  					<td class="table_form_label">标题</td>
 	  					<td class="table_form_field">
-	  						<input class="input_wrapper input_required" style="width: 100%;" name="subject" type="text"/>
+	  						<input class="input_required" style="width: 100%;" name="subject" type="text"/>
 	  					</td>
 	  				</tr>
 	  				<tr class="bottom_border">

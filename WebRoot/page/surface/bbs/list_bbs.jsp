@@ -50,7 +50,7 @@
   					虚位以待
   				</div>
   				<div style="line-height: 32px; margin-top: 6px;">
-  					搜索：<input class="input_wrapper" style="width: 320px;" type="text" name="bbs_subject"/>
+  					搜索：<input style="width: 320px;" type="text" name="bbs_subject"/>
   					<a class="a_btn small" href="#"  onclick="javascript: window.open('${ctx}/frame/search_list.jsp')"> 搜 索 </a>
   				</div>
   				<div style="margin-top: 6px; float: right;">

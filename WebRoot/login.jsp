@@ -39,19 +39,19 @@
 			   		<tr>
 			   			<td>用户名：</td>
 			   			<td>
-			   				<input class="input_wrapper" type="text" name="wnUsername">
+			   				<input type="text" name="wnUsername">
 			   			</td>
 			   		</tr>
 			   		<tr>
 			   			<td>密&nbsp;&nbsp;码：</td>
 			   			<td>
-			   				<input class="input_wrapper" type="password" name="wnPassword">
+			   				<input type="password" name="wnPassword">
 			   			</td>
 			   		</tr>
 			   		<tr>
 			   			<td>验证码：</td>
 			   			<td>
-			   				<input class="input_wrapper" style="width: 80px;" type="text" name="validcode">
+			   				<input style="width: 80px;" type="text" name="validcode">
 			   			</td>
 			   		</tr>
 			   		<tr>

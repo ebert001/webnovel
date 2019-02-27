@@ -5,11 +5,6 @@
 <html>
 	<head>
 		<title>蜘蛛网站</title>
-		
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0">
-		
 		<%@include file="/css-js.jsp"%>
 	</head>
 	

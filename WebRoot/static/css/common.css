@@ -89,6 +89,13 @@ div#embed_area {
 	height: 62px;
 }
 
+.table_form input,select {
+	width: 180px;
+	height: 24px;
+	border: 1px solid #8BB8F2; 
+	font-size: 18px;
+}
+
 .table_form_label {
 	width: 15%;
 	padding-right: 8px;
