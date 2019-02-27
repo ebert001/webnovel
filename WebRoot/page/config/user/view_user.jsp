@@ -8,8 +8,8 @@
 		<%@include file="/css-js.jsp"%>
 	</head>
 	
-	<body>
-		<%@include file="/page/config/user_setup.jsp"%>
+	<body class="body">
+		<%@include file="/page/config/setup_common.jsp"%>
 		<div id="embed_area">
 			<div class="content_title">用户信息</div>
 			<table class="table_form has_border">

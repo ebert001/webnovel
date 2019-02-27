@@ -10,6 +10,6 @@
 
 <link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
 
-<script type="text/javascript" src="${ctx}/static/js/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="${ctx}/static/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/common.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/calendar/WdatePicker.js"></script>

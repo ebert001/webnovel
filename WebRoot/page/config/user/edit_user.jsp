@@ -8,8 +8,8 @@
 		<%@include file="/css-js.jsp"%>
 	</head>
 	
-	<body>
-		<%@include page="../setup_common.jsp"%>
+	<body class="body">
+		<%@include file="../setup_common.jsp"%>
 		<div id="embed_area">
 			<div class="content_title">用户设置</div>
 			<form name="userForm" action="${ctx}/user/update" method="post">

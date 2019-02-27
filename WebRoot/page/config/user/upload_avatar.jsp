@@ -8,8 +8,8 @@
 		<%@include file="/css-js.jsp"%>
 	</head>
 	
-	<body>
-		<%@include file="/page/config/user_setup.jsp"%>
+	<body class="body">
+		<%@include file="/page/config/setup_common.jsp"%>
 		<div id="embed_area">
 			<div class="content_title">上传头像</div>
 			
@@ -18,7 +18,7 @@
 					<tr>
 						<td colspan="2">
 							<div style="border: 2px solid red; width: 200px; height: 200px;">
-							<img src="${ctx}/imgs/d_avatar.png">
+							<img src="${ctx}/static/imgs/d_avatar.png">
 							</div>
 						</td>
 					</tr>

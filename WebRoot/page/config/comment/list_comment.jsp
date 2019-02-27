@@ -8,8 +8,8 @@
 		<%@include file="/css-js.jsp"%>
 	</head>
 	
-	<body>
-		<%@include file="/page/config/user_setup.jsp"%>
+	<body class="body">
+		<%@include file="/page/config/setup_common.jsp"%>
 		<div id="embed_area">
 		</div>
 		<script type="text/javascript" src="${ctx}/static/js/auto_load.js"></script>

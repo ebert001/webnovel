@@ -17,8 +17,8 @@
 
   </head>
   
-   <body>
-  	<%@include file="user_setup.jsp"%>
+   <body class="body">
+  	<%@include file="setup_common.jsp"%>
   	<div id="embed_area">
 	</div>
     <script type="text/javascript">

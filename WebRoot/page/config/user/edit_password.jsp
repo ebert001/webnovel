@@ -18,8 +18,8 @@
 		</script>
 	</head>
 	
-	<body>
-		<%@include file="/page/config/user_setup.jsp"%>
+	<body class="body">
+		<%@include file="/page/config/setup_common.jsp"%>
 		<div id="embed_area">
 			<div class="content_title">修改密码</div>
 			<div style="width: 80%; margin-left: 10%; padding-top: 68px;">

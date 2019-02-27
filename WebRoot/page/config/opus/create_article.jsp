@@ -50,8 +50,8 @@
 		</style>
 	</head>
 	
-	<body>
-		<%@include file="/page/config/user_setup.jsp"%>
+	<body class="body">
+		<%@include file="/page/config/setup_common.jsp"%>
 		<div id="embed_area">
 			<div class="content_title">写文章</div>
 			

@@ -8,7 +8,7 @@
 		<%@include file="/css-js.jsp"%>
 	</head>
 	
-	<body>
+	<body class="body">
 		<%@include file="/page/config/setup_common.jsp"%>
 		<div id="embed_area">
 			<div class="content_title">蜘蛛网站</div>

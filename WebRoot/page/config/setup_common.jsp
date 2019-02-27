@@ -54,7 +54,4 @@
 	
 	<%@include file="../frame/footer.jsp"%>
 	
-	<script type="text/javascript">
-	popLoginDiv();
-	</script>
 </div>
