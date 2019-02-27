@@ -29,8 +29,5 @@
   	</div>
   	
   	<%@include file="footer.jsp"%>
-  	<script type="text/javascript">
-  	popLoginDiv();
-  	</script>
   </body>
 </html>

@@ -50,7 +50,7 @@
 				
 			 	<ul style="width: 80%; margin: 20px 10%; list-style: none; line-height: 58px;">
 					<li style="margin-left: 20%;">
-						<a class="a_btn medium" href="#" onclick="check()">修改密码</a>
+						<a class="btn btn-success" href="#" onclick="check()">修改密码</a>
 					</li>
 					<li style="text-align: right;">
 						<span class="required_color">输入框左侧有红线，表明必须输入</span>
