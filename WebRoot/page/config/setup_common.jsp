@@ -47,9 +47,7 @@
 			</div>
 			
 			<!-- 动态内容加载区域 -->
-			<div class="setup_content">
-				<div id="content_title" class="content_title"></div>
-				<div id="setup_content" ></div>
+			<div id="__setup_content" class="setup_content">
 			</div>
  		</div>
 	</div>

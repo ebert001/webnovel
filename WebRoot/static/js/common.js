@@ -299,3 +299,47 @@ function pageNode(property, text) {
 	return node;
 }
 
+function selectOption(selectId) {
+	var value = $("#" + selectId).attr("default-value");
+	if (value == undefined) {
+		return;
+	}
+	var arr = value.split(",");
+	if (arr.length < 1) {
+		return;
+	}
+	$("#" + selectId + " option").each(function() {
+		var val = $(this).val();
+		for (var i = 0; i < arr.length; i++) {
+			if (val == arr[i]) {
+				$(this).attr("selected", "selected");
+				break;
+			}
+		}
+	});
+}
+
+function autoSelectOption() {
+	$("select").each(function() {
+		var select = $(this);
+		var value = select.attr("default-value");
+		if (value == undefined) {
+			return;
+		}
+		var arr = value.split(",");
+		if (arr.length < 1) {
+			return;
+		}
+		$("option", select).each(function() {
+			var option = $(this);
+			var val = option.val();
+			for (var i = 0; i < arr.length; i++) {
+				if (val == arr[i]) {
+					option.attr("selected", "selected");
+					break;
+				}
+			}
+		});
+	});
+}
+
