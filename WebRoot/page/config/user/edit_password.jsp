@@ -32,7 +32,7 @@
 							</td>
 						</tr>
 						<tr class="bottom_border">
-							<td class="table_form_label">新&nbsp;密&nbsp;码：</td>
+							<td class="table_form_label">新密码：</td>
 							<td class="table_form_field">
 								<input class="input_required" type="password" id="new_password" name="newPassword"/>
 							</td>

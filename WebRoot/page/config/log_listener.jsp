@@ -3,26 +3,16 @@
 
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <title>My JSP 'letter_box.jsp' starting page</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
-  </head>
-  
-   <body class="body">
-  	<%@include file="setup_common.jsp"%>
-  	<div id="embed_area">
-	</div>
-    <script type="text/javascript">
-    loadEmbedPage("setup_content", "embed_area");
-    </script>
-  </body>
+	<head>
+		<title>日志监控</title>
+		<%@include file="/css-js.jsp"%>
+	</head>
+	
+	 <body class="body">
+		<%@include file="setup_common.jsp"%>
+		<div class="content_title">日志监控</div>
+		<div id="embed_area">
+		</div>
+		<script type="text/javascript" src="${ctx}/static/js/auto_load.js"></script>
+	</body>
 </html>

@@ -22,15 +22,12 @@
 					<li><a href="">我的帖子</a></li>
 					<li><a href="${ctx}/memo/list">我的备忘</a></li>
 					<li><a href="${ctx}/bookshelf/toList">我的书架</a></li>
-					<li><a href="#">回收站</a></li>
 					
 					<li class="tree_group">作家专区</li>
 					<li><a href="${ctx}/user/toCreateAuthor">信息注册</a></li>
 					<li><a href="${ctx}/book/list">我的作品</a></li>
 					<li><a href="${ctx}/book/toWritePage">我要写作</a></li>
 					<li><a href="${ctx}/user/toAuthorPrincple" target="_blank">作者协议</a></li>
-					
-					<li class="tree_group">我的彩票</li>
 					
 					<li class="tree_group">运维监控</li>
 					<li>日志监控</li>
