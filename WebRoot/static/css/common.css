@@ -116,6 +116,9 @@ div#embed_area {
 	width: 100%; 
 	margin-top: 6px;
 	border: 1px solid #8BB8F2;
+	border-collapse: collapse;
+	margin: 0 auto;
+	table-layout: fixed;
 }
 
 .table_list tr {
