@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -80,7 +80,7 @@
   </head>
   
   <body class="body">
-    <jsp:include page="/page/frame/header.jsp"></jsp:include>
+    <%@include file="/page/frame/header.jsp"%>
     
     <div class="container">
   		<div class="content_wrapper none_space upper_border_radius">

@@ -12,10 +12,10 @@
 	</head>
 	
 	<body class="body">
-	<jsp:include page="/page/frame/header.jsp"></jsp:include>
+	<%@include file="/page/frame/header.jsp"%>
 		  	
   	<div class="container">
-  		<jsp:include page="joke_menu.jsp"></jsp:include>	
+  		<%@include file="joke_menu.jsp"%>	
   		<div style="float: left; width: 745px; display: inline-block; margin-right: 8px;">
 	  		<div class="content_wrapper border_radius none_space">
 	  			<div style="background-color: #FFFFFF; height: 100px;">

@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -17,10 +17,10 @@
   </head>
   
   <body class="body">
-  	<jsp:include page="/page/frame/header.jsp"></jsp:include>
+  	<%@include file="/page/frame/header.jsp"%>
   	
     <div class="container">
-    	<jsp:include page="joke_menu.jsp"></jsp:include>
+    	<%@include file="joke_menu.jsp"%>
     
   		<div style="background-color: #FFFFFF; height: 300px;">
   			<div style="background-color: #FFFDDD; font: 24px bolder;">写段子</div>

@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -14,7 +14,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
+  	<%@include file="/page/config/user_setup.jsp"%>
   	<div id="embed_area">
     <table class="table_list">
     	<caption style="margin-top: 30px; font-weight: bold; font-size: 28px;">我的浏览历史</caption>

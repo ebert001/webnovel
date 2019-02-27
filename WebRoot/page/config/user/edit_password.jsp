@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -20,7 +20,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
+  	<%@include file="/page/config/user_setup.jsp"%>
   	<div id="embed_area">
   	<div style="width: 80%; margin-left: 10%; padding-top: 68px;">
     <form action="${ctx}/user/updatePassword" method="post">

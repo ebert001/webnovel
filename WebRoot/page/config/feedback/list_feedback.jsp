@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -16,7 +16,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
+  	<%@include file="/page/config/user_setup.jsp"%>
   	<div id="embed_area">
   	<form>
   		<table class="table_form has_border">

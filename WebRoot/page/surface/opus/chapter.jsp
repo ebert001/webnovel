@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -49,7 +49,7 @@
   </head>
   
   <body class="body">
-  	<jsp:include page="/page/frame/header.jsp"></jsp:include>
+  	<%@include file="/page/frame/header.jsp"%>
   	
   	<div class="container">
   		<div class="content_wrapper upper_border_radius">
@@ -65,7 +65,7 @@
 	  	</div>
   	</div>
   	
-  	<jsp:include page="/page/frame/footer.jsp"></jsp:include>
+  	<%@include file="/page/frame/footer.jsp"%>
   	<script type="text/javascript">
   	popLoginDiv();
   	</script>

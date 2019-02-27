@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -18,7 +18,7 @@
   </head>
   
    <body>
-  	<jsp:include page="user_setup.jsp"></jsp:include>
+  	<%@include file="user_setup.jsp"%>
   	<div id="embed_area">
 	</div>
     <script type="text/javascript">

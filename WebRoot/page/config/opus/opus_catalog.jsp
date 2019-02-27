@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -140,7 +140,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
+  	<%@include file="/page/config/user_setup.jsp"%>
   	<div id="embed_area">
     	<div class="content_wrapper upper_border_radius" style="overflow: hidden;">
  			<div class="book_title">${book.bookName}</div>

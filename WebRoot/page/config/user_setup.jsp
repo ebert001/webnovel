@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -14,6 +14,6 @@
   </head>
   
   <body class="body">
-  	<jsp:include page="setup_common.jsp"></jsp:include>
+  	<%@include file="setup_common.jsp"%>
   </body>
 </html>

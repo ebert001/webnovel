@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -40,7 +40,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
+  	<%@include file="/page/config/user_setup.jsp"%>
   	<div id="embed_area">
     <div id="input_area">
     	<form name="memoForm" action="${ctx}/Memo.action?addMemo" method="post">

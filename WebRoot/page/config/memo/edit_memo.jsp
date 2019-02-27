@@ -27,7 +27,7 @@
   </head>
   
   <body>
-  	<jsp:include page="/page/config/user_setup.jsp"></jsp:include>
+  	<%@include file="/page/config/user_setup.jsp"%>
   	<div id="embed_area">
     <div id="input_area">
     	<form name="memoForm" action="${ctx}/Memo.action?updateMemo" method="post">

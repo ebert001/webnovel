@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/taglibs.jsp"%>
+<%@include file="/taglibs.jsp"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -17,13 +17,13 @@
 				<table class="table_form has_border">
 					<tr class="bottom_border">
 						<td class="table_form_label">帐号：</td>
-						<td class="table_form_field"><input class="input_wrapper"
-							type="text" name="username" readonly value="${user.name}">
+						<td class="table_form_field">
+							<input class="input_wrapper" type="text" name="username" readonly value="${user.name}">
 						</td>
 						<td class="table_form_label">注册时间：</td>
-						<td class="table_form_field"><input class="input_wrapper"
-							type="text" name="register_time" readonly
-							value="<fmt:formatDate value="${user.regTime}" pattern="yyyy-MM-dd HH:mm:ss"/>">
+						<td class="table_form_field">
+							<input class="input_wrapper" type="text" name="register_time" readonly
+								value="<fmt:formatDate value="${user.regTime}" pattern="yyyy-MM-dd HH:mm:ss"/>">
 						</td>
 					</tr>
 					<tr class="bottom_border">
