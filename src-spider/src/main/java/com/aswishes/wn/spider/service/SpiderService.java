@@ -27,8 +27,10 @@ import com.aswishes.wn.spider.DownloadBook;
 import com.aswishes.wn.spider.DownloadBookList;
 import com.aswishes.wn.spider.IBookInfo;
 import com.aswishes.wn.spider.dao.WnSpiderBookDao;
+import com.aswishes.wn.spider.dao.WnSpiderRuleDao;
 import com.aswishes.wn.spider.dao.WnSpiderWebsiteDao;
 import com.aswishes.wn.spider.entity.WnSpiderBook;
+import com.aswishes.wn.spider.entity.WnSpiderRule;
 import com.aswishes.wn.spider.entity.WnSpiderWebsite;
 
 @Service
@@ -39,6 +41,8 @@ public class SpiderService extends AbstractService {
 	private WnSpiderWebsiteDao spiderWebsiteDao;
 	@Autowired
 	private WnSpiderBookDao spiderBookDao;
+	@Autowired
+	private WnSpiderRuleDao spiderRuleDao;
 	
 	@Override
 	public void setDao() {
@@ -61,6 +65,10 @@ public class SpiderService extends AbstractService {
 	public WnSpiderBook getBook(String name, Long websiteId) {
 		return spiderBookDao.getObjectBy(MapperHelper.getMapper(WnSpiderBook.class), 
 				Restriction.eq("name", name), Restriction.eq("website_id", websiteId));
+	}
+	
+	public WnSpiderRule getRule(Long id) {
+		return spiderRuleDao.getObjectBy(MapperHelper.getMapper(WnSpiderRule.class), Restriction.eq("id", id));
 	}
 	
 	public PageResultWrapper<WnSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
@@ -108,20 +116,18 @@ public class SpiderService extends AbstractService {
 	@Transactional
 	public void loopBookList(final Long websiteId, final boolean loopChapters) {
 		WnSpiderWebsite website = getWebsite(websiteId);
-		String bookListUrlPrefix = website.getBookListUrlPrefix();
-		int pageNo = website.getPageNo();
-		String bookListUrlSuffix = website.getBookListUrlSuffix();
-		DownloadBookList downloadBookList = new DownloadBookList(bookListUrlPrefix, pageNo, bookListUrlSuffix);
-		downloadBookList.setBookListCharset(website.getBookListCharset());
-		downloadBookList.setBookNodePath(website.getBookNodePath());
-		downloadBookList.setBookNamePath(website.getBookNamePath());
-		downloadBookList.setBookUrlPath(website.getBookUrlPath());
-		downloadBookList.setTotalPagePath(website.getTotalPagePath());
-		downloadBookList.setTotalPageExpress(website.getTotalPageExpress());
-		downloadBookList.setAuthorPath(website.getAuthorPath());
-		downloadBookList.setImgUrlPath(website.getImgPath());
-		downloadBookList.setIntroductionPath(website.getIntroductionPath());
-		downloadBookList.setLastUpdateTimePath(website.getLastUpdateTimePath());
+		WnSpiderRule rule = getRule(website.getRuleId());
+		DownloadBookList downloadBookList = new DownloadBookList(rule.getBookListUrlFormat(), rule.getBookListStartPageNo());
+		downloadBookList.setBookListCharset(rule.getBookListCharset());
+		downloadBookList.setTotalPagePath(rule.getBookListTotalPagePath());
+		downloadBookList.setTotalPageExpress(rule.getBookListTotalPageRegular());
+		downloadBookList.setBookNodePath(rule.getBookNodePath());
+		downloadBookList.setBookNodeNamePath(rule.getBookNodeNamePath());
+		downloadBookList.setBookNodeUrlPath(rule.getBookNodeUrlPath());
+		downloadBookList.setBookNodeAuthorPath(rule.getBookNodeAuthorPath());
+		downloadBookList.setBookNodeImgUrlPath(rule.getBookNodeImgPath());
+		downloadBookList.setBookNodeIntroductionPath(rule.getBookNodeIntroductionPath());
+		downloadBookList.setBookNodeLastUpdateTimePath(rule.getBookNodeLastUpdateTimePath());
 		
 		downloadBookList.discovery(new IBookInfo() {
 			@Override
@@ -136,15 +142,23 @@ public class SpiderService extends AbstractService {
 				if (!loopChapters) {
 					return;
 				}
-				loopChapters(info);
+				loopChapters(info, website, rule);
 			}
 		});
 	}
 	
 	@Transactional
-	public void loopChapters(BookInfo info) {
+	public void loopChapters(BookInfo info, WnSpiderWebsite website, WnSpiderRule rule) {
+		WnSpiderBook book = getBook(info.getBookName(), website.getId());
 		DownloadBook downloadBook = new DownloadBook(info.getBookUrl());
-//		downloadBook.setCatalogCharset(catalogCharset);
+		downloadBook.setCatalogCharset(rule.getCatalogCharset());
+		downloadBook.setChapterNodePath(rule.getCatalogChapterNodePath());
+		downloadBook.setChapterUrlNode(rule.getCatalogChapterUrlPath());
+		
+		downloadBook.setContentCharset(rule.getChapterCharset());
+		downloadBook.setContentNodePath(rule.getChapterNodePath());
+		downloadBook.setReplaceKeywords(rule.getChapterWeed().split(","));
+		downloadBook.discovery();
 	}
 	
 	public File loadBookImg(String imgUrl) {

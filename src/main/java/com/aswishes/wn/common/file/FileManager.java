@@ -13,4 +13,6 @@ public abstract class FileManager {
 	}
 
 	public abstract String storeBookImg(File file);
+	
+	public abstract void deleteBookImg(String storeName);
 }

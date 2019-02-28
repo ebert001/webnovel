@@ -1,5 +1,6 @@
 package com.aswishes.wn.spider;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,43 +14,41 @@ public class DownloadBookList {
 	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
 	private String bookListCharset = "UTF-8";
 	private String bookNodePath;
-	private String bookNamePath;
-	private String bookUrlPath;
+	private String bookNodeNamePath;
+	private String bookNodeUrlPath;
 	private String totalPagePath;
 	private String totalPageExpress;
-	private String imgUrlPath;
+	private String bookNodeImgUrlPath;
 	private String authorPath;
-	private String introductionPath;
-	private String lastUpdateTimePath;
+	private String bookNodeIntroductionPath;
+	private String bookNodeLastUpdateTimePath;
 	private boolean showDebug = false;
 	
-	private String bookListUrlPrefix;
-	private String bookListUrlSuffix;
+	private String bookListUrlFormat;
 	private int pageNo = 1;
 	private int totalPage = 1;
 	
-	public DownloadBookList(String bookListUrlPrefix, int pageNo, String bookListUrlSuffix) {
+	public DownloadBookList(String bookListUrlFormat, int pageNo) {
 		this.pageNo = pageNo;
-		this.bookListUrlPrefix = bookListUrlPrefix;
-		this.bookListUrlSuffix = bookListUrlSuffix;
+		this.bookListUrlFormat = bookListUrlFormat;
 	}
 	
 	public DownloadBookList discovery(IBookInfo bookInfo) {
 		do {
-			String bookListUrl = getBookListPageUrl(bookListUrlPrefix, pageNo, bookListUrlSuffix);
+			String bookListUrl = getBookListPageUrl(bookListUrlFormat, pageNo);
 			try {
 				String bookListContent = new String(Request.Get(bookListUrl).execute().returnContent().asBytes(), bookListCharset);
 				List<Node> nodes = HtmlTools.findFromHtml(bookListContent, bookNodePath, showDebug);
 				logger.debug("node size: {}", nodes.size());
 				for (int i = 0; i < nodes.size(); i++) {
 					Node tnode = nodes.get(i);
-					Node bookNameNode = tnode.selectSingleNode(bookNamePath);
+					Node bookNameNode = tnode.selectSingleNode(bookNodeNamePath);
 					if (bookNameNode == null) {
-						throw new IllegalAccessException("Cant find book name by path: " + bookNamePath);
+						throw new IllegalAccessException("Cant find book name by path: " + bookNodeNamePath);
 					}
-					Node bookUrlNode = tnode.selectSingleNode(bookUrlPath);
+					Node bookUrlNode = tnode.selectSingleNode(bookNodeUrlPath);
 					if (bookUrlNode == null) {
-						throw new IllegalAccessException("Cant find book url by path: " + bookUrlPath);
+						throw new IllegalAccessException("Cant find book url by path: " + bookNodeUrlPath);
 					}
 					String bookName = bookNameNode.getText().trim();
 					String bookUrl = bookUrlNode.getText().trim();
@@ -60,10 +59,10 @@ public class DownloadBookList {
 					BookInfo info = new BookInfo();
 					info.setBookName(bookName);
 					info.setBookUrl(bookUrl);
-					info.setImgUrl(findInfo(tnode, imgUrlPath));
+					info.setImgUrl(findInfo(tnode, bookNodeImgUrlPath));
 					info.setAuthor(findInfo(tnode, authorPath));
-					info.setIntroduction(findInfo(tnode, introductionPath));
-					info.setLastUpdateTime(findInfo(tnode, lastUpdateTimePath));
+					info.setIntroduction(findInfo(tnode, bookNodeIntroductionPath));
+					info.setLastUpdateTime(findInfo(tnode, bookNodeLastUpdateTimePath));
 					bookInfo.extract(info);
 				}
 				findTotalPage(bookListContent);
@@ -96,8 +95,8 @@ public class DownloadBookList {
 		logger.debug("total page: {}", totalPage);
 	}
 	
-	private String getBookListPageUrl(String prefix, int pageNo, String suffix) {
-		return prefix + pageNo + suffix;
+	private String getBookListPageUrl(String urlFormat, int pageNo) {
+		return MessageFormat.format(urlFormat, pageNo);
 	}
 	
 	private String findInfo(Node node, String nodePath) {
@@ -126,33 +125,33 @@ public class DownloadBookList {
 		return this;
 	}
 	
-	public DownloadBookList setBookNamePath(String bookNamePath) {
-		this.bookNamePath = bookNamePath;
+	public DownloadBookList setBookNodeNamePath(String bookNamePath) {
+		this.bookNodeNamePath = bookNamePath;
 		return this;
 	}
 	
-	public DownloadBookList setBookUrlPath(String bookUrlPath) {
-		this.bookUrlPath = bookUrlPath;
+	public DownloadBookList setBookNodeUrlPath(String bookUrlPath) {
+		this.bookNodeUrlPath = bookUrlPath;
 		return this;
 	}
 	
-	public DownloadBookList setImgUrlPath(String imgUrlPath) {
-		this.imgUrlPath = imgUrlPath;
+	public DownloadBookList setBookNodeImgUrlPath(String imgUrlPath) {
+		this.bookNodeImgUrlPath = imgUrlPath;
 		return this;
 	}
 	
-	public DownloadBookList setAuthorPath(String authorPath) {
+	public DownloadBookList setBookNodeAuthorPath(String authorPath) {
 		this.authorPath = authorPath;
 		return this;
 	}
 	
-	public DownloadBookList setLastUpdateTimePath(String lastUpdateTimePath) {
-		this.lastUpdateTimePath = lastUpdateTimePath;
+	public DownloadBookList setBookNodeLastUpdateTimePath(String lastUpdateTimePath) {
+		this.bookNodeLastUpdateTimePath = lastUpdateTimePath;
 		return this;
 	}
 	
-	public DownloadBookList setIntroductionPath(String introductionPath) {
-		this.introductionPath = introductionPath;
+	public DownloadBookList setBookNodeIntroductionPath(String introductionPath) {
+		this.bookNodeIntroductionPath = introductionPath;
 		return this;
 	}
 	

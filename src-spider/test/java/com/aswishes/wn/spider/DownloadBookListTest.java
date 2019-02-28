@@ -23,8 +23,8 @@ public class DownloadBookListTest {
 			.setBookListCharset("GBK")
 			.setShowDebug(false)
 			.setBookNodePath("//div[@id='alist']//div[@id='alistbox']")
-			.setBookNamePath(".//div[@class='title']/h2/a")
-			.setBookUrlPath(".//div[@class='title']/h2/a/@href")
+			.setBookNodeNamePath(".//div[@class='title']/h2/a")
+			.setBookNodeUrlPath(".//div[@class='title']/h2/a/@href")
 			.setTotalPagePath("//div[@class='pagelink']/a[@class='last']/@href")
 			.setTotalPageExpress("\\d+")
 			.discovery(null);

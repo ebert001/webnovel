@@ -26,6 +26,12 @@ public class LocalFileManager extends FileManager {
 		return storeName;
 	}
 
+	@Override
+	public void deleteBookImg(String storeName) {
+		File storeFile = new File(StoreProperties.get().getBookImgDir(), storeName);
+		FileUtils.deleteQuietly(storeFile);
+	}
+
 	
 
 }
