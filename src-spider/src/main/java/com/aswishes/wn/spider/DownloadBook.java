@@ -35,7 +35,7 @@ public class DownloadBook {
 		this.catalogUrl = catalogUrl;
 	}
 	
-	public DownloadBook discovery() {
+	public DownloadBook discovery(IChapterInfo chapterInfo) {
 		try {
 			loadCatalog();
 			for (ChapterInfo info : chapters) {
