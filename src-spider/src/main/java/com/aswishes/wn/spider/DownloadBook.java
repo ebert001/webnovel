@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.client.fluent.Request;
-import org.dom4j.Attribute;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.slf4j.Logger;
@@ -21,15 +20,14 @@ public class DownloadBook {
 	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
 	private String catalogUrl;
 	private String catalogCharset = "UTF-8";
+	private String catalogChapterNodePath;
+	private String catalogChapterUrlPath;
+	
+	private String chapterCharset = "UTF-8";
 	private String chapterNodePath;
-	private String chapterUrlNode;
 	
-	private String contentCharset = "UTF-8";
-	private String contentNodePath;
-	
-	private List<String> excludeAttrs = new ArrayList<String>();
 	private List<ChapterInfo> chapters = new ArrayList<ChapterInfo>();
-	private List<String> replaceKeywords = new ArrayList<String>();
+	private List<String> weeds = new ArrayList<String>();
 	
 	private boolean showDebug = false;
 	
@@ -56,25 +54,15 @@ public class DownloadBook {
 		try {
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
-			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, chapterNodePath, showDebug);
+			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, catalogChapterNodePath, showDebug);
 			for (Node tnode : nodes) {
 				Element ele = (Element) tnode;
-				boolean isContinue = false;
-				for (Attribute att : ele.attributes()) {
-					if (excludeAttrs.contains(att.getName())) {
-						isContinue = true;
-						break;
-					}
-				}
-				if (isContinue) {
-					continue;
-				}
 				ChapterInfo chapterInfo = new ChapterInfo();
 
 				String title = tnode.getText().trim();
 				chapterInfo.setChapterTitle(replace(title));
 				
-				String chapterUrl = ele.attributeValue(chapterUrlNode);
+				String chapterUrl = ele.attributeValue(catalogChapterUrlPath);
 				String scheme = catalogURI.getScheme();
 				// 说明是项目路径，需要处理
 				if (!chapterUrl.startsWith(scheme)) {
@@ -96,9 +84,8 @@ public class DownloadBook {
 	
 	private String loadContent(String chapterUrl) {
 		try {
-			String originContent = new String(Request.Get(chapterUrl).execute().returnContent().asBytes(), contentCharset);
-//			String xml = HtmlTools.html2Xml(originContent);
-			List<Node> nodess = HtmlTools.findFromHtml(originContent, contentNodePath, showDebug);
+			String originContent = new String(Request.Get(chapterUrl).execute().returnContent().asBytes(), chapterCharset);
+			List<Node> nodess = HtmlTools.findFromHtml(originContent, chapterNodePath, showDebug);
 			if (nodess == null || nodess.isEmpty()) {
 				throw new WnException("Retrive content xpath error.");
 			}
@@ -113,12 +100,12 @@ public class DownloadBook {
 	}
 	
 	private String replace(String str) {
-		if (replaceKeywords.size() == 0) {
+		if (weeds.size() == 0) {
 			return str;
 		}
 		String r = str;
-		for (int i = 0; i < replaceKeywords.size(); i += 2) {
-			r = r.replaceAll(replaceKeywords.get(i), replaceKeywords.get(i + 1));
+		for (int i = 0; i < weeds.size(); i += 2) {
+			r = r.replaceAll(weeds.get(i), weeds.get(i + 1));
 		}
 		return r;
 	}
@@ -128,28 +115,23 @@ public class DownloadBook {
 		return this;
 	}
 	
+	public DownloadBook setCatalogChapterNodePath(String catalogChapterNodePath) {
+		this.catalogChapterNodePath = catalogChapterNodePath;
+		return this;
+	}
+	
+	public DownloadBook setCatalogChapterUrlPath(String catalogChapterUrlPath) {
+		this.catalogChapterUrlPath = catalogChapterUrlPath;
+		return this;
+	}
+	
 	public DownloadBook setChapterNodePath(String chapterNodePath) {
 		this.chapterNodePath = chapterNodePath;
 		return this;
 	}
 	
-	public DownloadBook setChapterUrlNode(String chapterUrlNode) {
-		this.chapterUrlNode = chapterUrlNode;
-		return this;
-	}
-	
-	public DownloadBook setIgnoreMarkOfChapterAttribute(String...attrs) {
-		this.excludeAttrs.addAll(Arrays.asList(attrs));
-		return this;
-	}
-	
-	public DownloadBook setContentNodePath(String contentNodePath) {
-		this.contentNodePath = contentNodePath;
-		return this;
-	}
-	
-	public DownloadBook setContentCharset(String contentCharset) {
-		this.contentCharset = contentCharset;
+	public DownloadBook setChapterCharset(String chapterCharset) {
+		this.chapterCharset = chapterCharset;
 		return this;
 	}
 	
@@ -158,11 +140,11 @@ public class DownloadBook {
 		return this;
 	}
 	
-	public DownloadBook setReplaceKeywords(String...words) {
+	public DownloadBook setChapterWeeds(String...words) {
 		if (words.length % 2 != 0) {
 			throw new IllegalArgumentException("Replace key words are not key pairs.");
 		}
-		this.replaceKeywords.addAll(Arrays.asList(words));
+		this.weeds.addAll(Arrays.asList(words));
 		return this;
 	}
 	

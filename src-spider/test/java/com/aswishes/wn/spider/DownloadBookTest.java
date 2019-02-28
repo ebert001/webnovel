@@ -16,12 +16,12 @@ public class DownloadBookTest {
 		// https://www.lingyu.org/wjsw/21/21995/25250300.html
 		new DownloadBook("https://www.lingyu.org/wjsw/21/21995/")
 			.setShowDebug(true)
-			.setChapterNodePath("//div[@class='ml_list']/ul/li/a")
+			.setCatalogChapterNodePath("//div[@class='ml_list']/ul/li/a")
 			.setCatalogCharset("GBK")
-			.setChapterUrlNode("href")
-			.setContentCharset("GBK")
-			.setContentNodePath("//div[@class='novelcontent']/p/self::*")
-			.setReplaceKeywords("./www.lingyu.org", "", "./领域文学", "", " ♂领♂域♂文♂学♂*♂www.li♂ng♂yu.or♂g", "")
+			.setCatalogChapterUrlPath("href")
+			.setChapterCharset("GBK")
+			.setChapterNodePath("//div[@class='novelcontent']/p/self::*")
+			.setChapterWeeds("./www.lingyu.org", "", "./领域文学", "", " ♂领♂域♂文♂学♂*♂www.li♂ng♂yu.or♂g", "")
 			.discovery();
 		
 //		new DownloadBook("http://www.77xsw.la/book/10647/")

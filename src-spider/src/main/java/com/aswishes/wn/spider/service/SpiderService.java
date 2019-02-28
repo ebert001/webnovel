@@ -152,12 +152,12 @@ public class SpiderService extends AbstractService {
 		WnSpiderBook book = getBook(info.getBookName(), website.getId());
 		DownloadBook downloadBook = new DownloadBook(info.getBookUrl());
 		downloadBook.setCatalogCharset(rule.getCatalogCharset());
-		downloadBook.setChapterNodePath(rule.getCatalogChapterNodePath());
-		downloadBook.setChapterUrlNode(rule.getCatalogChapterUrlPath());
+		downloadBook.setCatalogChapterNodePath(rule.getCatalogChapterNodePath());
+		downloadBook.setCatalogChapterUrlPath(rule.getCatalogChapterUrlPath());
 		
-		downloadBook.setContentCharset(rule.getChapterCharset());
-		downloadBook.setContentNodePath(rule.getChapterNodePath());
-		downloadBook.setReplaceKeywords(rule.getChapterWeed().split(","));
+		downloadBook.setChapterCharset(rule.getChapterCharset());
+		downloadBook.setChapterNodePath(rule.getChapterNodePath());
+		downloadBook.setChapterWeeds(rule.getChapterWeed().split(","));
 		downloadBook.discovery();
 	}
 	
