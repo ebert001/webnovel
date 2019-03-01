@@ -22,7 +22,7 @@ public class DownloadBookTest {
 			.setChapterCharset("GBK")
 			.setChapterNodePath("//div[@class='novelcontent']/p/self::*")
 			.setChapterWeeds("./www.lingyu.org", "", "./领域文学", "", " ♂领♂域♂文♂学♂*♂www.li♂ng♂yu.or♂g", "")
-			.discovery();
+			.discovery(null);
 		
 //		new DownloadBook("http://www.77xsw.la/book/10647/")
 //			.setShowDebug(false)

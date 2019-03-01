@@ -19,7 +19,7 @@ public class DownloadBookListTest {
 		
 		// 千千小说
 		// https://www.qqxsw.co/toptime/
-		new DownloadBookList("https://www.qqxsw.co/toptime/", 1, ".html")
+		new DownloadBookList("https://www.qqxsw.co/toptime/{0}.html", 1)
 			.setBookListCharset("GBK")
 			.setShowDebug(false)
 			.setBookNodePath("//div[@id='alist']//div[@id='alistbox']")
