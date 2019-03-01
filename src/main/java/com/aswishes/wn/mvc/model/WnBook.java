@@ -56,6 +56,9 @@ public class WnBook {
 	
 	private String author;
 	
+	/** 书籍状态 1 未审核 2 审核未通过 3 审核通过 4 锁定 5 关闭 */
+	private Integer state;
+	
 	public Long getId() {
 		return id;
 	}
@@ -166,6 +169,14 @@ public class WnBook {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 	
 	

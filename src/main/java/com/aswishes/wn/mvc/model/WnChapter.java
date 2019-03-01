@@ -41,6 +41,8 @@ public class WnChapter {
 	/** 书籍id */
 	@Mapper(name = "book_id")
 	private Long bookId;
+	/** 书籍状态 1 未审核 2 审核未通过 3 审核通过 4 锁定 5 关闭 */
+	private Integer state;
 
 	public Long getId() {
 		return id;
@@ -112,6 +114,14 @@ public class WnChapter {
 
 	public void setSerialNo(int serialNo) {
 		this.serialNo = serialNo;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 	
 	

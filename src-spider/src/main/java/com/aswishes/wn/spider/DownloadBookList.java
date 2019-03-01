@@ -10,7 +10,7 @@ import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DownloadBookList {
+public class DownloadBookList extends Thread {
 	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
 	private String bookListCharset = "UTF-8";
 	private String bookNodePath;
@@ -23,6 +23,7 @@ public class DownloadBookList {
 	private String bookNodeIntroductionPath;
 	private String bookNodeLastUpdateTimePath;
 	private boolean showDebug = false;
+	private WorkState workState = WorkState.RUNNING; 
 	
 	private String bookListUrlFormat;
 	private int pageNo = 1;
@@ -41,6 +42,11 @@ public class DownloadBookList {
 				List<Node> nodes = HtmlTools.findFromHtml(bookListContent, bookNodePath, showDebug);
 				logger.debug("node size: {}", nodes.size());
 				for (int i = 0; i < nodes.size(); i++) {
+					if (workState == WorkState.STOP) {
+						return this;
+					} else if (workState == WorkState.PAUSE) {
+						Thread.sleep(10 * 1000);
+					}
 					Node tnode = nodes.get(i);
 					Node bookNameNode = tnode.selectSingleNode(bookNodeNamePath);
 					if (bookNameNode == null) {
@@ -165,4 +171,11 @@ public class DownloadBookList {
 		return this;
 	}
 	
+	public DownloadBookList setWorkState(WorkState workState) {
+		this.workState = workState;
+		if (this.workState == WorkState.PAUSE) {
+			Thread.interrupted();
+		}
+		return this;
+	}
 }

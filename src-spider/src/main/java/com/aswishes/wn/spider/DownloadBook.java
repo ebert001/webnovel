@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.client.fluent.Request;
-import org.dom4j.Element;
 import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,7 @@ import com.aswishes.wn.exception.WnException;
 /**
  * 爬取网络书籍
  */
-public class DownloadBook {
+public class DownloadBook extends Thread {
 	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
 	private String catalogUrl;
 	private String catalogCharset = "UTF-8";
@@ -26,43 +25,34 @@ public class DownloadBook {
 	private String chapterCharset = "UTF-8";
 	private String chapterNodePath;
 	
-	private List<ChapterInfo> chapters = new ArrayList<ChapterInfo>();
 	private List<String> weeds = new ArrayList<String>();
 	
+	private boolean loadChapter = true;
 	private boolean showDebug = false;
+	private WorkState workState = WorkState.RUNNING; 
 	
 	public DownloadBook(String catalogUrl) {
 		this.catalogUrl = catalogUrl;
 	}
 	
-	public DownloadBook discovery(IChapterInfo chapterInfo) {
-		try {
-			loadCatalog();
-			for (ChapterInfo info : chapters) {
-				logger.debug("Loading chapter: {}, {}", info.getChapterUrl(), info.getChapterTitle());
-				String content = loadContent(info.getChapterUrl());
-				info.setChapterContent(content);
-			}
-		} catch (Exception e) {
-			logger.error("Load book error: " + catalogUrl, e);
-		}
-		logger.debug("chapters: {}", chapters);
-		return this;
-	}
-	
-	private void loadCatalog() {
+	public DownloadBook discovery(IChapterInfo info) {
 		try {
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
 			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, catalogChapterNodePath, showDebug);
 			for (Node tnode : nodes) {
-				Element ele = (Element) tnode;
+				if (workState == WorkState.STOP) {
+					return this;
+				} else if (workState == WorkState.PAUSE) {
+					Thread.sleep(10 * 1000);
+				}
+				
 				ChapterInfo chapterInfo = new ChapterInfo();
 
 				String title = tnode.getText().trim();
 				chapterInfo.setChapterTitle(replace(title));
 				
-				String chapterUrl = ele.attributeValue(catalogChapterUrlPath);
+				String chapterUrl = tnode.selectSingleNode(catalogChapterUrlPath).getText().trim();
 				String scheme = catalogURI.getScheme();
 				// 说明是项目路径，需要处理
 				if (!chapterUrl.startsWith(scheme)) {
@@ -71,18 +61,27 @@ public class DownloadBook {
 						chapterUrl = catalogUrl + chapterUrl;
 					} else {
 						logger.error("Unkown chapter url: {}, catalog url: {}", chapterUrl, catalogUrl);
-						return;
+						return this;
 					}
 				}
 				chapterInfo.setChapterUrl(chapterUrl);
-				chapters.add(chapterInfo);
+				
+				if (loadChapter) {
+					String content = loadChapter(chapterUrl);
+					chapterInfo.setChapterContent(content);
+				}
+				if (info == null) {
+					continue;
+				}
+				info.extract(chapterInfo);
 			}
 		} catch (Exception e) {
 			logger.error("Load book error: " + catalogUrl, e);
 		}
+		return this;
 	}
 	
-	private String loadContent(String chapterUrl) {
+	private String loadChapter(String chapterUrl) {
 		try {
 			String originContent = new String(Request.Get(chapterUrl).execute().returnContent().asBytes(), chapterCharset);
 			List<Node> nodess = HtmlTools.findFromHtml(originContent, chapterNodePath, showDebug);
@@ -135,6 +134,11 @@ public class DownloadBook {
 		return this;
 	}
 	
+	public DownloadBook setLoadChapter(boolean loadChapter) {
+		this.loadChapter = loadChapter;
+		return this;
+	}
+	
 	public DownloadBook setShowDebug(boolean showDebug) {
 		this.showDebug = showDebug;
 		return this;
@@ -148,7 +152,11 @@ public class DownloadBook {
 		return this;
 	}
 	
-	public List<ChapterInfo> getChapters() {
-		return chapters;
+	public DownloadBook setWorkState(WorkState workState) {
+		this.workState = workState;
+		if (this.workState == WorkState.PAUSE) {
+			Thread.interrupted();
+		}
+		return this;
 	}
 }

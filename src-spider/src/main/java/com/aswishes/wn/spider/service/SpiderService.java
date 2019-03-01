@@ -23,9 +23,11 @@ import com.aswishes.wn.common.WnStatus;
 import com.aswishes.wn.common.file.FileManager;
 import com.aswishes.wn.exception.ServiceException;
 import com.aswishes.wn.spider.BookInfo;
+import com.aswishes.wn.spider.ChapterInfo;
 import com.aswishes.wn.spider.DownloadBook;
 import com.aswishes.wn.spider.DownloadBookList;
 import com.aswishes.wn.spider.IBookInfo;
+import com.aswishes.wn.spider.IChapterInfo;
 import com.aswishes.wn.spider.dao.WnSpiderBookDao;
 import com.aswishes.wn.spider.dao.WnSpiderRuleDao;
 import com.aswishes.wn.spider.dao.WnSpiderWebsiteDao;
@@ -158,7 +160,12 @@ public class SpiderService extends AbstractService {
 		downloadBook.setChapterCharset(rule.getChapterCharset());
 		downloadBook.setChapterNodePath(rule.getChapterNodePath());
 		downloadBook.setChapterWeeds(rule.getChapterWeed().split(","));
-		downloadBook.discovery();
+		downloadBook.discovery(new IChapterInfo() {
+			@Override
+			public void extract(ChapterInfo info) {
+				
+			}
+		});
 	}
 	
 	public File loadBookImg(String imgUrl) {
