@@ -21,9 +21,7 @@
 							网站列表
 						</div>
 						<div class="action">
-							<button>Add</button>
-							<button>Delete</button>
-							<button>Update</button>
+							<button type="button" onclick="javascript:alert('xx');location.href='${ctx}/spider/toAddWebsite';">增加网站</button>
 						</div>
 					</div>
 					<div class="table_body">
@@ -55,11 +53,6 @@
 						</table>
 					</div>
 					<div class="table_footer" load-page="true">
-						<div class="action">
-							<button>Add</button>
-							<button>Delete</button>
-							<button>Update</button>
-						</div>
 					</div>
 				</div>
 			</form>

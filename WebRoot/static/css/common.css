@@ -27,16 +27,16 @@ div#embed_area {
 }
 
 button {
-	border: 1px solid #008000;
+	border: 1px solid #0000FF;
 	padding: 5px 8px;
 	min-width: 60px;
-	background-color: #e0e0e0;
-	color: #000000;
+	background-color: #0099FF;
+	color: #FFFFFF;
 	margin: auto;
 }
 
 button:hover {
-	background-color: #808080;
+	background-color: #0000FF;
 	color: #FFFFFF;
 	cursor: pointer;
 }
