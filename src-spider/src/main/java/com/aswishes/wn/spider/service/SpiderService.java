@@ -4,6 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
@@ -45,6 +50,11 @@ public class SpiderService extends AbstractService {
 	private WnSpiderBookDao spiderBookDao;
 	@Autowired
 	private WnSpiderRuleDao spiderRuleDao;
+	/** key:网站名称 */
+	private Map<String, DownloadBookList> bookListCache = new ConcurrentHashMap<String, DownloadBookList>();
+	/** key 书记名称 */
+	private Map<String, DownloadBook> bookCache = new ConcurrentHashMap<String, DownloadBook>();
+	private ExecutorService executor = Executors.newFixedThreadPool(3);
 	
 	@Override
 	public void setDao() {
@@ -130,8 +140,7 @@ public class SpiderService extends AbstractService {
 		downloadBookList.setBookNodeImgUrlPath(rule.getBookNodeImgPath());
 		downloadBookList.setBookNodeIntroductionPath(rule.getBookNodeIntroductionPath());
 		downloadBookList.setBookNodeLastUpdateTimePath(rule.getBookNodeLastUpdateTimePath());
-		
-		downloadBookList.discovery(new IBookInfo() {
+		downloadBookList.setBookInfo(new IBookInfo() {
 			@Override
 			public void extract(BookInfo info) {
 				try {
@@ -144,13 +153,14 @@ public class SpiderService extends AbstractService {
 				if (!loopChapters) {
 					return;
 				}
-				loopChapters(info, website, rule);
+				loopChapters(info, website, rule, true);
 			}
 		});
+		executor.submit(downloadBookList);
 	}
 	
 	@Transactional
-	public void loopChapters(BookInfo info, WnSpiderWebsite website, WnSpiderRule rule) {
+	public void loopChapters(BookInfo info, WnSpiderWebsite website, WnSpiderRule rule, boolean callFromBook) {
 		WnSpiderBook book = getBook(info.getBookName(), website.getId());
 		DownloadBook downloadBook = new DownloadBook(info.getBookUrl());
 		downloadBook.setCatalogCharset(rule.getCatalogCharset());
@@ -160,12 +170,19 @@ public class SpiderService extends AbstractService {
 		downloadBook.setChapterCharset(rule.getChapterCharset());
 		downloadBook.setChapterNodePath(rule.getChapterNodePath());
 		downloadBook.setChapterWeeds(rule.getChapterWeed().split(","));
-		downloadBook.discovery(new IChapterInfo() {
+		downloadBook.setChapterInfo(new IChapterInfo() {
 			@Override
 			public void extract(ChapterInfo info) {
 				
 			}
 		});
+		// 单独抓取一本书籍内容
+		if (!callFromBook) {
+			bookCache.put(book.getName(), downloadBook);
+			Future<?> future = executor.submit(downloadBook);
+			future.isDone();
+			
+		}
 	}
 	
 	public File loadBookImg(String imgUrl) {

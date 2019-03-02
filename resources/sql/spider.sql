@@ -5,8 +5,13 @@ create table wn_spider_website (
 	url varchar(200) comment '网站地址',
 	
 	rule_id bigint comment '规则id',
-		
-	last_retrive_time datetime comment '最近检索时间',
+	
+	retrive_count bigint not null default 0 comment '检索次数',
+	retrive_state tinyint comment '检索状态 1 检索完成(成功) 2 等待检索 3 正在检索 4 检索失败',
+	retrive_start_time datetime comment '检索开始时间',
+	retrive_stop_time datetime comment '检索结束时间',
+	retrive_fail_cause text comment '检索失败原因',
+	
 	update_time datetime comment '修改时间',
 	create_time datetime comment '添加时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -23,7 +28,13 @@ create table wn_spider_book (
 	last_update_time varchar(100) comment '最近更新',
 	
 	last_chapter_url varchar(200) comment '最近检索的章节地址',
-	last_retrive_time datetime comment '最近检索时间',
+	
+	retrive_count bigint not null default 0 comment '检索次数',
+	retrive_state tinyint comment '检索状态 1 检索完成(成功) 2 等待检索 3 正在检索 4 检索失败',
+	retrive_start_time datetime comment '检索开始时间',
+	retrive_stop_time datetime comment '检索结束时间',
+	retrive_fail_cause text comment '检索失败原因',
+	
 	update_time datetime comment '修改时间',
 	create_time datetime comment '添加时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

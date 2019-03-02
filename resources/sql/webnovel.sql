@@ -95,7 +95,7 @@ CREATE TABLE wn_role_permission (
  * 书籍表。存储所有的书籍信息，并对书籍进行分类。
  */
 CREATE TABLE wn_book (
-	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
+	`id` bigint NOT NULL auto_increment primary key COMMENT '主键，唯一标识符',
 	`book_name` varchar(120) DEFAULT NULL COMMENT '书籍名称',
 	`description` varchar(2000) DEFAULT NULL COMMENT '书籍的简要描述',
 	`create_time` datetime DEFAULT NULL COMMENT '创建时间(开始写作时间)',
@@ -110,7 +110,7 @@ CREATE TABLE wn_book (
 	`comment_times` int DEFAULT NULL COMMENT '评论次数',
 	`author_id` bigint DEFAULT NULL COMMENT '外键，作者id',
 	`author` varchar(32) comment '作者名称',
-	PRIMARY KEY(id)
+	`state` tinyint not null default 1 COMMENT '状态 1 正常 2 关闭 3 未审核'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
@@ -132,15 +132,17 @@ CREATE TABLE wn_volume (
  */
 CREATE TABLE wn_chapter (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
+	`book_id` bigint DEFAULT NULL COMMENT '外键，书籍id',
 	`subject` varchar(64) DEFAULT NULL COMMENT '章节标题',
+	`volume_id` bigint DEFAULT NULL COMMENT '外键，分卷id',
 	`content` text DEFAULT NULL COMMENT '章节内容',
 	`serial_no` int DEFAULT 0 COMMENT '章节序列号', 
 	`charged` int DEFAULT NULL COMMENT '是否收费，默认不收费',
 	`price` int NOT NULL DEFAULT 0 COMMENT '计费单价',
+	`state` tinyint not null defualt 1 comment '状态. 1 正常 2 关闭 3 未审核',
+	`audit_time` datetime DEFAULT NULL COMMENT '审核时间',
 	`write_time` datetime DEFAULT NULL COMMENT '写作时间',
 	`input_time` datetime DEFAULT NULL COMMENT '录入时间',
-	`volume_id` bigint DEFAULT NULL COMMENT '外键，分卷id',
-	`book_id` bigint DEFAULT NULL COMMENT '外键，书籍id',
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

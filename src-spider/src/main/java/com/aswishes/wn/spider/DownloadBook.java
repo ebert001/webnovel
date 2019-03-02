@@ -15,7 +15,7 @@ import com.aswishes.wn.exception.WnException;
 /**
  * 爬取网络书籍
  */
-public class DownloadBook extends Thread {
+public class DownloadBook implements Runnable {
 	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
 	private String catalogUrl;
 	private String catalogCharset = "UTF-8";
@@ -31,11 +31,18 @@ public class DownloadBook extends Thread {
 	private boolean showDebug = false;
 	private WorkState workState = WorkState.RUNNING; 
 	
+	private IChapterInfo chapterInfo;
+	
 	public DownloadBook(String catalogUrl) {
 		this.catalogUrl = catalogUrl;
 	}
 	
-	public DownloadBook discovery(IChapterInfo info) {
+	@Override
+	public void run() {
+		discovery();
+	}
+	
+	public DownloadBook discovery() {
 		try {
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
@@ -47,10 +54,10 @@ public class DownloadBook extends Thread {
 					Thread.sleep(10 * 1000);
 				}
 				
-				ChapterInfo chapterInfo = new ChapterInfo();
+				ChapterInfo info = new ChapterInfo();
 
 				String title = tnode.getText().trim();
-				chapterInfo.setChapterTitle(replace(title));
+				info.setChapterTitle(replace(title));
 				
 				String chapterUrl = tnode.selectSingleNode(catalogChapterUrlPath).getText().trim();
 				String scheme = catalogURI.getScheme();
@@ -64,16 +71,16 @@ public class DownloadBook extends Thread {
 						return this;
 					}
 				}
-				chapterInfo.setChapterUrl(chapterUrl);
+				info.setChapterUrl(chapterUrl);
 				
 				if (loadChapter) {
 					String content = loadChapter(chapterUrl);
-					chapterInfo.setChapterContent(content);
+					info.setChapterContent(content);
 				}
-				if (info == null) {
+				if (chapterInfo == null) {
 					continue;
 				}
-				info.extract(chapterInfo);
+				chapterInfo.extract(info);
 			}
 		} catch (Exception e) {
 			logger.error("Load book error: " + catalogUrl, e);
@@ -157,6 +164,11 @@ public class DownloadBook extends Thread {
 		if (this.workState == WorkState.PAUSE) {
 			Thread.interrupted();
 		}
+		return this;
+	}
+	
+	public DownloadBook setChapterInfo(IChapterInfo chapterInfo) {
+		this.chapterInfo = chapterInfo;
 		return this;
 	}
 }

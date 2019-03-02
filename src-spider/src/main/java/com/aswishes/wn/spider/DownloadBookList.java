@@ -10,7 +10,7 @@ import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DownloadBookList extends Thread {
+public class DownloadBookList implements Runnable {
 	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
 	private String bookListCharset = "UTF-8";
 	private String bookNodePath;
@@ -29,12 +29,19 @@ public class DownloadBookList extends Thread {
 	private int pageNo = 1;
 	private int totalPage = 1;
 	
+	private IBookInfo bookInfo;
+	
 	public DownloadBookList(String bookListUrlFormat, int pageNo) {
 		this.pageNo = pageNo;
 		this.bookListUrlFormat = bookListUrlFormat;
 	}
 	
-	public DownloadBookList discovery(IBookInfo bookInfo) {
+	@Override
+	public void run() {
+		discovery();
+	}
+	
+	public DownloadBookList discovery() {
 		do {
 			String bookListUrl = getBookListPageUrl(bookListUrlFormat, pageNo);
 			try {
@@ -176,6 +183,11 @@ public class DownloadBookList extends Thread {
 		if (this.workState == WorkState.PAUSE) {
 			Thread.interrupted();
 		}
+		return this;
+	}
+	
+	public DownloadBookList setBookInfo(IBookInfo bookInfo) {
+		this.bookInfo = bookInfo;
 		return this;
 	}
 }

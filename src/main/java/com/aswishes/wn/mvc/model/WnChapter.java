@@ -8,11 +8,29 @@ import com.aswishes.spring.mapper.Mapper;
  * 作品章节
  */
 @Mapper(tableName = "wn_chapter", primaryKey = {"id"})
-public class WnChapter {
-
-	/** 主键 */
-	private Long id;
+public class WnChapter extends BaseIdAuto {
 	
+	public enum State {
+		NORMALE(1),
+		CLOSED(2),
+		UNAUDITED(3);
+		private int value;
+		private State(int value) {
+			this.value = value;
+		}
+		public int getValue() {
+			return value;
+		}
+	}
+	
+	/** 书籍id */
+	@Mapper(name = "book_id")
+	private Long bookId;
+	
+	/** 分卷id */
+	@Mapper(name = "volume_id")
+	private Long volumeId;
+		
 	/** 章节名称 */
 	private String subject;
 	
@@ -34,23 +52,8 @@ public class WnChapter {
 	@Mapper(name = "input_time")
 	private Date inputTime;
 	
-	/** 分卷id */
-	@Mapper(name = "volume_id")
-	private Long volumeId;
-	
-	/** 书籍id */
-	@Mapper(name = "book_id")
-	private Long bookId;
-	/** 书籍状态 1 未审核 2 审核未通过 3 审核通过 4 锁定 5 关闭 */
+	/** 书籍状态 1 正常 2 关闭 3 未审核  */
 	private Integer state;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getSubject() {
 		return subject;

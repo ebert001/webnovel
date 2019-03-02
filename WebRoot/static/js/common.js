@@ -299,6 +299,84 @@ function pageNode(property, text) {
 	return node;
 }
 
+/**
+ * 分页栏
+ * @param pageUrl 分页地址，表单提交可以为空
+ * @param pageFunc 分页表单函数， 没有表单可以为空
+ * @param pageNo 当前页数
+ * @param pageSize 每页数量
+ * @param totalPage 总页数
+ * @param totalCount 总记录数
+ * @returns 分页栏
+ */
+function laodPageBar(pageUrl, pageFunc, pageNo, pageSize, totalPage, totalCount) {
+	var pageWithForm = false;
+	// 有表单查询条件
+	if (pageUrl == undefined || pageUrl == null || pageUrl == "") {
+		pageWithForm = true;
+	}
+	// 单纯的分页
+	else {
+		// 地址上没有参数
+		if (pageUrl.indexOf("?") == -1) {
+			pageUrl += "?pageSize=" + pageSize;
+		} else {
+			pageUrl += "&pageSize=" + pageSize;
+		}
+	}
+	var bar = "";
+	bar += '<div class="page">';
+	if (pageWithForm) {
+		bar += '<input type="hidden" name="pageSize" value="' + pageSize + '">';
+	}
+	if (pageNo == 1 || totalPage == 1) {
+		bar += '<a>首页</a>';
+	} else {
+		if (pageWithForm) {
+			bar += '<input type="hidden" name="pageNo" value="1">';
+			bar += '<a href="javascript:' + pageFunc + '">首页</a>';
+		} else {
+			bar += '<a href="' + pageUrl + '*pageNo=1">首页</a>';
+		}
+	}
+	if (pageNo == 1) {
+		bar += '<a>上一页</a>';
+	} else {
+		if (pageWithForm) {
+			bar += '<input type="hidden" name="pageNo" value="' + (pageNo - 1) + '">';
+			bar += '<a href="javascript:' + pageFunc + '">上一页</a>';
+		} else {
+			bar += '<a href="' + pageUrl + '&pageNo=' + (pageNo - 1) + '">上一页</a>';
+		}
+	}
+	if (pageNo == totalPage) {
+		bar += '<a>下一页</a>';
+	} else {
+		if (pageWithForm) {
+			bar += '<input type="hidden" name="pageNo" value="' + (pageNo + 1) + '">';
+			bar += '<a href="javascript:' + pageFunc + '">下一页</a>';
+		} else {
+			bar += '<a href="' + pageUrl + '&pageNo=' + (pageNo + 1) + '">下一页</a>';
+		}
+	}
+	if (pageNo == totalPage) {
+		bar += '<a>尾页</a>';
+	} else {
+		if (pageWithForm) {
+			bar += '<input type="hidden" name="pageNo" value="' + pageSize + '">';
+			bar += '<a href="javascript:' + pageFunc + '">尾页</a>';
+		} else {
+			bar += '<a href="' + pageUrl + '&pageNo=' + pageSize + '">尾页</a>';
+		}
+	}
+	bar += ' ' + pageNo + '/' + totalPage;
+	if (totalCount != undefined && totalCount != null) {
+		bar += '(' + totalCount + ')';
+	}
+	bar += '</div>';
+	return bar;
+}
+
 function selectOption(selectId) {
 	var value = $("#" + selectId).attr("default-value");
 	if (value == undefined) {
