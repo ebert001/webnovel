@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
+import com.aswishes.wn.common.AppConstants;
 import com.aswishes.wn.common.Codes;
 
 /**
@@ -30,6 +31,9 @@ public abstract class AbstractController {
 	protected HttpServletRequest request = null;
 	@Autowired
 	protected HttpServletResponse response = null;
+	
+	protected int pageNo = AppConstants.PAGE_NO;
+	protected int pageSize = AppConstants.PAGE_SIZE;
 	
 	@InitBinder
     public void InitBinder(ServletRequestDataBinder binder) {

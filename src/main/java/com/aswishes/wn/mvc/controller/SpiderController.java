@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.wn.spider.entity.WnSpiderBook;
+import com.aswishes.wn.spider.entity.WnSpiderRule;
 import com.aswishes.wn.spider.entity.WnSpiderWebsite;
 import com.aswishes.wn.spider.service.SpiderService;
 
@@ -20,7 +21,7 @@ public class SpiderController extends AbstractController {
 	@RequestMapping(value = "/toSpiderWebsite")
 	public ModelAndView toSpiderWebsite(ModelAndView mv, 
 			@RequestParam(defaultValue = "1") int pageNo, 
-			@RequestParam(defaultValue = "15") int pageSize) {
+			@RequestParam(defaultValue = "20") int pageSize) {
 		PageResultWrapper<WnSpiderWebsite> page = spiderService.getSpiderWebsite(pageNo, pageSize);
 		mv.addObject("page", page);
 		mv.setViewName("config/spider/list_website");
@@ -36,8 +37,43 @@ public class SpiderController extends AbstractController {
 	@RequestMapping(value = "/addWebsite")
 	public ModelAndView addWebsite(ModelAndView mv, WnSpiderWebsite website) {
 		spiderService.addSpiderWebsite(website);
-		mv.setViewName("config/spider/add_website");
+		mv.setViewName("forward:/spider/toSpiderWebsite");
 		return mv;
+	}
+	
+	@RequestMapping(value = "/deleteWebsite")
+	public ModelAndView deleteWebsite(ModelAndView mv, Long id) {
+		spiderService.deleteWebsite(id);
+		return toSpiderWebsite(mv, pageNo, pageSize);
+	}
+	
+	@RequestMapping(value = "/closeWebsite")
+	public ModelAndView closeWebsite(ModelAndView mv, Long id) {
+		spiderService.closeWebsite(id);
+		return toSpiderWebsite(mv, pageNo, pageSize);
+	}
+	
+	@RequestMapping(value = "/openWebsite")
+	public ModelAndView openWebsite(ModelAndView mv, Long id) {
+		spiderService.openWebsite(id);
+		return toSpiderWebsite(mv, pageNo, pageSize);
+	}
+	
+	@RequestMapping(value = "/toAddRule")
+	public ModelAndView toAddRule(ModelAndView mv, Long id) {
+		WnSpiderWebsite website = spiderService.getWebsite(id);
+		WnSpiderRule rule = spiderService.getRule(website.getId());
+		
+		mv.addObject("website", website);
+		mv.addObject("rule", rule);
+		mv.setViewName("/config/spider/add_rule");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/addRule")
+	public ModelAndView addRule(ModelAndView mv, WnSpiderRule rule) {
+		
+		return toSpiderWebsite(mv, pageNo, pageSize);
 	}
 	
 	

@@ -5,6 +5,7 @@ create table wn_spider_website (
 	url varchar(200) comment '网站地址',
 	
 	rule_id bigint comment '规则id',
+	state tinyint not null default 1 comment '状态 1 正常 2 关闭',
 	
 	retrive_count bigint not null default 0 comment '检索次数',
 	retrive_state tinyint comment '检索状态 1 检索完成(成功) 2 等待检索 3 正在检索 4 检索失败',

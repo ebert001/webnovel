@@ -84,7 +84,7 @@ public class SpiderService extends AbstractService {
 	}
 	
 	public PageResultWrapper<WnSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
-		return spiderWebsiteDao.getPage(MapperHelper.getMapper(WnSpiderWebsite.class), pageNo, pageSize);
+		return spiderWebsiteDao.getPage(MapperHelper.getMapper(WnSpiderWebsite.class), pageNo, pageSize, Restriction.orderByDesc("id"));
 	}
 	
 	public List<WnSpiderBook> getSpiderBook(int pageNo, int pageSize) {
@@ -106,6 +106,27 @@ public class SpiderService extends AbstractService {
 	
 	@Transactional
 	public void addSpiderBook(Long websiteId, BookInfo info) {
+		WnSpiderBook bean = getBook(info.getBookName(), websiteId);
+		if (bean != null) {
+			throw new ServiceException(WnStatus.WEBSITE_BOOK_EXISTS);
+		}
+		bean = new WnSpiderBook();
+		bean.setWebsiteId(websiteId);
+		bean.setName(info.getBookName());
+		bean.setUrl(info.getBookUrl());
+		bean.setAuthor(info.getAuthor());
+		bean.setImg(FileManager.get().storeBookImg(loadBookImg(info.getImgUrl())));
+		bean.setIntroduction(info.getIntroduction());
+		bean.setLastUpdateTime(DateUtil.parseDate(info.getLastUpdateTime(), AppConstants.DATE_PATTERNS));
+		
+		Date date = new Date();
+		bean.setUpdateTime(date);
+		bean.setCreateTime(date);
+		spiderBookDao.save(bean);
+	}
+	
+	@Transactional
+	public void addSpiderRule(Long websiteId, WnSpiderRule rule) {
 		WnSpiderBook bean = getBook(info.getBookName(), websiteId);
 		if (bean != null) {
 			throw new ServiceException(WnStatus.WEBSITE_BOOK_EXISTS);
@@ -196,6 +217,21 @@ public class SpiderService extends AbstractService {
 			logger.error("Load book image error: " + imgUrl, e);
 		}
 		return null;
+	}
+	
+	@Transactional
+	public void deleteWebsite(Long id) {
+		spiderWebsiteDao.delete(id);
+	}
+	
+	@Transactional
+	public void closeWebsite(Long id) {
+		spiderWebsiteDao.updateState(id, WnSpiderWebsite.State.CLOSED.getValue());
+	}
+	
+	@Transactional
+	public void openWebsite(Long id) {
+		spiderWebsiteDao.updateState(id, WnSpiderWebsite.State.OPENED.getValue());
 	}
 
 }

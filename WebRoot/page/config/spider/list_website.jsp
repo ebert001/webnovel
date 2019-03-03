@@ -21,38 +21,53 @@
 							网站列表
 						</div>
 						<div class="action">
-							<button type="button" onclick="javascript:alert('xx');location.href='${ctx}/spider/toAddWebsite';">增加网站</button>
+							<button type="button" onclick="javascript:location.href='${ctx}/spider/toAddWebsite';">增加网站</button>
 						</div>
 					</div>
 					<div class="table_body">
 						<table class="table_list">
 							<thead>
 								<tr class="title">
-									<td width="10%">作品名称</td>
+									<td width="10%">网站名称</td>
 									<td width="10%">创建时间</td>
 									<td width="8%">最近更新时间</td>
-									<td width="8%">状态</td>
-									<td width="3%">操作</td>
+									<td width="3%">状态</td>
+									<td width="10%">操作</td>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${bookList}" varStatus="i" var="book">
+								<c:forEach items="${page.pageResult}" varStatus="i" var="website">
 									<tr>
-										<td><a href="${ctx}/book/listChapter?bookId=${book.id}&a=r">${book.bookName}</a>
+										<td>
+											<a href="${ctx}/book/listChapter?bookId=${book.id}&a=r">${website.name}</a>
 										</td>
-										<td><fmt:formatDate value="${book.createTime}"
-												pattern="yyyy-MM-dd HH:mm:ss" /></td>
-										<td><fmt:formatDate value="${book.updateTime}"
-												pattern="yyyy-MM-dd HH:mm:ss" /></td>
-										<td>${book.status}</td>
-										<td><a href="${ctx}/Book.action?deleteBook&id=${book.id}">删除</a>
+										<td>
+											<fmt:formatDate value="${website.createTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+										</td>
+										<td>
+											<fmt:formatDate value="${website.updateTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+										</td>
+										<td>
+											${website.stateText}
+										</td>
+										<td>
+											<a href="${ctx}/spider/toAddRule?id=${website.id}">规则</a>
+											<c:if test="${website.state == 1}">
+												<a href="${ctx}/spider/closeWebsite?id=${website.id}">关闭</a>
+											</c:if>
+											<c:if test="${website.state == 2 }">
+												<a href="${ctx}/spider/openWebsite?id=${website.id}">打开</a>
+											</c:if>
+											<a href="${ctx}/spider/deleteWebsite?id=${website.id}">删除</a>
 										</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
-					<div class="table_footer" load-page="true">
+					<div class="table_footer" load-page="true" 
+						page-no="${page.pageNo}" page-size="${page.pageSize}" 
+						total-page="${page.pageCount}" total-count="${page.totalCount}">
 					</div>
 				</div>
 			</form>

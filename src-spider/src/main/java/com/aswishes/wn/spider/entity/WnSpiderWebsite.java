@@ -8,9 +8,28 @@ import com.aswishes.wn.mvc.model.BaseIdAuto;
 @Mapper(tableName = "wn_spider_website", primaryKey = {"id"})
 public class WnSpiderWebsite extends BaseIdAuto {
 	
+	public static enum State {
+		OPENED(1),
+		CLOSED(2);
+		private int value;
+		private State(int value) {
+			this.value = value;
+		}
+		public int getValue() {
+			return value;
+		}
+	}
+	
+	@Mapper(ignore = true)
+	private String stateText;
+	
 	private String name;
 	private String url;
 
+	/** 状态：1 正常 2 关闭 */
+	@Mapper(name = "state")
+	private Integer state = 1;
+	
 	@Mapper(name = "rule_id")
 	private Long ruleId;
 	
@@ -39,14 +58,6 @@ public class WnSpiderWebsite extends BaseIdAuto {
 		this.url = url;
 	}
 
-	public Long getRuleId() {
-		return ruleId;
-	}
-
-	public void setRuleId(Long ruleId) {
-		this.ruleId = ruleId;
-	}
-
 	public Date getLastRetriveTime() {
 		return lastRetriveTime;
 	}
@@ -69,6 +80,35 @@ public class WnSpiderWebsite extends BaseIdAuto {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public String getStateText() {
+		if (this.state == null || this.state.intValue() == 1) {
+			this.stateText = "正常";
+		} else if (this.state.intValue() == 2) {
+			this.stateText = "关闭";
+		}
+		return stateText;
+	}
+
+	public void setStateText(String stateText) {
+		this.stateText = stateText;
+	}
+
+	public Long getRuleId() {
+		return ruleId;
+	}
+
+	public void setRuleId(Long ruleId) {
+		this.ruleId = ruleId;
 	}
 
 }

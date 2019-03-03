@@ -20,4 +20,7 @@ public class AppConstants {
 	public static final int CONNECT_TIMEOUT = 3 * 1000;
 	/** 单位：毫秒 */
 	public static final int SO_TIMEOUT = 10 * 1000;
+	
+	public static final int PAGE_NO = 1;
+	public static final int PAGE_SIZE = 20;
 }
