@@ -27,7 +27,7 @@ public class FeedbackService extends AbstractService {
 	}
 
 	public void update(WnFeedback feedback) {
-		feedbackDao.updateByPK(feedback);
+		feedbackDao.updateByPK(feedback, true);
 	}
 
 	public void delete(Long id) {

@@ -37,7 +37,7 @@ public class ForumService extends AbstractService {
 	}
 
 	public void updateForum(WnForum forum) {
-		forumDao.updateByPK(forum);
+		forumDao.updateByPK(forum, true);
 	}
 
 	public void deleteForum(Long id) {
@@ -78,7 +78,7 @@ public class ForumService extends AbstractService {
 	}
 
 	public void updateForumSubject(WnForumSubject forumSubject) {
-		forumSubjectDao.updateByPK(forumSubject);
+		forumSubjectDao.updateByPK(forumSubject, true);
 	}
 
 	public void deleteForumSubject(Long id) {

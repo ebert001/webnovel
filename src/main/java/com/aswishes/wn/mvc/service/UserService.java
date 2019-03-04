@@ -76,7 +76,7 @@ public class UserService extends AbstractService {
 	}
 	
 	public void update(WnUser user) {
-		userDao.updateByPK(user);
+		userDao.updateByPK(user, true);
 	}
 
 	@Override

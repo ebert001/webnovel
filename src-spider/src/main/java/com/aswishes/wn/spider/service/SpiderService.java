@@ -126,23 +126,28 @@ public class SpiderService extends AbstractService {
 	}
 	
 	@Transactional
-	public void addSpiderRule(Long websiteId, WnSpiderRule rule) {
+	public void saveSpiderRule(Long websiteId, WnSpiderRule rule) {
 		WnSpiderWebsite website = getWebsite(websiteId);
-		if (website != null) {
-			throw new ServiceException(WnStatus.WEBSITE_EXISTS);
+		if (website == null) {
+			throw new ServiceException(WnStatus.WEBSITE_NOT_EXISTS);
 		}
 		Date date = new Date();
+		if (rule.getId() == null) {
+			rule.setUpdateTime(date);
+			rule.setCreateTime(date);
+			Long ruleId = spiderRuleDao.saveAndGetId(rule);;
+			spiderWebsiteDao.updateRule(websiteId, ruleId);
+			return;
+		}
 		rule.setUpdateTime(date);
-		rule.setCreateTime(date);
-		Long ruleId = spiderRuleDao.saveAndGetId(rule);;
-		spiderWebsiteDao.updateRule(websiteId, ruleId);
+		spiderRuleDao.updateByPK(rule, true);
 	}
 	
 	@Transactional
 	public void loopBookList(final Long websiteId, final boolean loopChapters) {
 		WnSpiderWebsite website = getWebsite(websiteId);
 		WnSpiderRule rule = getRule(website.getRuleId());
-		DownloadBookList downloadBookList = new DownloadBookList(rule.getBookListUrlFormat(), rule.getBookListStartPageNo());
+		DownloadBookList downloadBookList = new DownloadBookList(rule.getBookListUrlFormat(), Integer.parseInt(rule.getBookListStartPageNo()));
 		downloadBookList.setBookListCharset(rule.getBookListCharset());
 		downloadBookList.setTotalPagePath(rule.getBookListTotalPagePath());
 		downloadBookList.setTotalPageExpress(rule.getBookListTotalPageRegular());

@@ -10,6 +10,7 @@ public enum WnStatus {
 	SUCCESS(1, "OK", "lbl.ok"),
 	WEBSITE_EXISTS(2, "Website exists"),
 	WEBSITE_BOOK_EXISTS(3, "Website book exists"),
+	WEBSITE_NOT_EXISTS(4, "Website do not exist"),
 	;
 
 	private int code;

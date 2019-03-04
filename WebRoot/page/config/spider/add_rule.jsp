@@ -37,7 +37,10 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍列表页面编码：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookListCharset" value="${rule.bookListCharset}" />
+							<select name="bookListCharset" default-value="${rule.bookListCharset}">
+								<option>UTF-8</option>
+								<option>GBK</option>
+							</select>
 						</td>
 					</tr>
 					<tr class="bottom_border">
@@ -97,7 +100,10 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">目录页编码：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="catalogCharset" value="${rule.catalogCharset}" />
+							<select name="catalogCharset" default-value="${rule.catalogCharset}">
+								<option>UTF-8</option>
+								<option>GBK</option>
+							</select>
 						</td>
 					</tr>
 					<tr class="bottom_border">
@@ -115,7 +121,10 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">章节页编码：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="chapterCharset" value="${rule.chapterCharset}" />
+							<select name="chapterCharset" default-value="${rule.chapterCharset}">
+								<option>UTF-8</option>
+								<option>GBK</option>
+							</select>
 						</td>
 					</tr>
 					<tr class="bottom_border">

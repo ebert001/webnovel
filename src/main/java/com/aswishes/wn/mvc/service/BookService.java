@@ -56,7 +56,7 @@ public class BookService extends AbstractService {
 	}
 	
 	public void updateVolume(WnVolume volume) {
-		volumeDao.updateByPK(volume);
+		volumeDao.updateByPK(volume, true);
 	}
 	
 	@Override

@@ -62,7 +62,7 @@ public class SpiderController extends AbstractController {
 	@RequestMapping(value = "/toAddRule")
 	public ModelAndView toAddRule(ModelAndView mv, Long id) {
 		WnSpiderWebsite website = spiderService.getWebsite(id);
-		WnSpiderRule rule = spiderService.getRule(website.getId());
+		WnSpiderRule rule = spiderService.getRule(website.getRuleId());
 		
 		mv.addObject("website", website);
 		mv.addObject("rule", rule);
@@ -72,7 +72,7 @@ public class SpiderController extends AbstractController {
 	
 	@RequestMapping(value = "/addRule")
 	public ModelAndView addRule(ModelAndView mv, Long websiteId, WnSpiderRule rule) {
-		spiderService.addSpiderRule(websiteId, rule);
+		spiderService.saveSpiderRule(websiteId, rule);
 		mv.setViewName("redirect:/spider/toSpiderWebsite");
 		return mv;
 	}

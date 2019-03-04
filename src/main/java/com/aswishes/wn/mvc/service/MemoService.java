@@ -27,7 +27,7 @@ public class MemoService extends AbstractService {
 	}
 
 	public void update(WnMemo memo) {
-		memoDao.updateByPK(memo);
+		memoDao.updateByPK(memo, true);
 	}
 
 	public void delete(Long id) {

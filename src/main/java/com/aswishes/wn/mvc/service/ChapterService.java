@@ -43,7 +43,7 @@ public class ChapterService extends AbstractService {
 	}
 
 	public void updateChapter(WnChapter chapter) {
-		chapterDao.updateByPK(chapter);
+		chapterDao.updateByPK(chapter, true);
 		if (chapter.getBookId() != null) {
 			bookDao.updateBook(chapter.getBookId(), chapter.getInputTime());
 		}

@@ -5,7 +5,7 @@ import java.util.Date;
 import com.aswishes.spring.mapper.Mapper;
 import com.aswishes.wn.mvc.model.BaseIdAuto;
 
-@Mapper(tableName = "wn_spider_website", primaryKey = {"id"})
+@Mapper(tableName = "wn_spider_rule", primaryKey = {"id"})
 public class WnSpiderRule extends BaseIdAuto {
 
 	@Mapper(name = "name")
@@ -15,7 +15,7 @@ public class WnSpiderRule extends BaseIdAuto {
 	private String bookListUrlFormat;
 	
 	@Mapper(name = "book_list_start_page_no")
-	private Integer bookListStartPageNo = 1;
+	private String bookListStartPageNo;
 	
 	@Mapper(name = "book_list_charset")
 	private String bookListCharset;
@@ -79,7 +79,7 @@ public class WnSpiderRule extends BaseIdAuto {
 		return bookListUrlFormat;
 	}
 
-	public Integer getBookListStartPageNo() {
+	public String getBookListStartPageNo() {
 		return bookListStartPageNo;
 	}
 
@@ -163,7 +163,7 @@ public class WnSpiderRule extends BaseIdAuto {
 		this.bookListUrlFormat = bookListUrlFormat;
 	}
 
-	public void setBookListStartPageNo(Integer bookListStartPageNo) {
+	public void setBookListStartPageNo(String bookListStartPageNo) {
 		this.bookListStartPageNo = bookListStartPageNo;
 	}
 
