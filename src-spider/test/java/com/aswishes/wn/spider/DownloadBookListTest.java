@@ -27,6 +27,6 @@ public class DownloadBookListTest {
 			.setBookNodeUrlPath(".//div[@class='title']/h2/a/@href")
 			.setTotalPagePath("//div[@class='pagelink']/a[@class='last']/@href")
 			.setTotalPageExpress("\\d+")
-			.discovery(null);
+			.discovery();
 	}
 }

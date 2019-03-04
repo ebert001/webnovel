@@ -127,23 +127,15 @@ public class SpiderService extends AbstractService {
 	
 	@Transactional
 	public void addSpiderRule(Long websiteId, WnSpiderRule rule) {
-		WnSpiderBook bean = getBook(info.getBookName(), websiteId);
-		if (bean != null) {
-			throw new ServiceException(WnStatus.WEBSITE_BOOK_EXISTS);
+		WnSpiderWebsite website = getWebsite(websiteId);
+		if (website != null) {
+			throw new ServiceException(WnStatus.WEBSITE_EXISTS);
 		}
-		bean = new WnSpiderBook();
-		bean.setWebsiteId(websiteId);
-		bean.setName(info.getBookName());
-		bean.setUrl(info.getBookUrl());
-		bean.setAuthor(info.getAuthor());
-		bean.setImg(FileManager.get().storeBookImg(loadBookImg(info.getImgUrl())));
-		bean.setIntroduction(info.getIntroduction());
-		bean.setLastUpdateTime(DateUtil.parseDate(info.getLastUpdateTime(), AppConstants.DATE_PATTERNS));
-		
 		Date date = new Date();
-		bean.setUpdateTime(date);
-		bean.setCreateTime(date);
-		spiderBookDao.save(bean);
+		rule.setUpdateTime(date);
+		rule.setCreateTime(date);
+		Long ruleId = spiderRuleDao.saveAndGetId(rule);;
+		spiderWebsiteDao.updateRule(websiteId, ruleId);
 	}
 	
 	@Transactional
@@ -177,7 +169,9 @@ public class SpiderService extends AbstractService {
 				loopChapters(info, website, rule, true);
 			}
 		});
+		bookListCache.put(website.getName(), downloadBookList);
 		executor.submit(downloadBookList);
+		
 	}
 	
 	@Transactional

@@ -19,5 +19,10 @@ public class WnSpiderWebsiteDao extends AbstractJdbcDao {
 		String sql = Update.table(tableName).setColumns("state").whereColumns("id");
 		update(sql, state, id);
 	}
+	
+	public void updateRule(Long id, Long ruleId) {
+		String sql = Update.table(tableName).setColumns("rule_id").whereColumns("id");
+		update(sql, ruleId, id);
+	}
 
 }
