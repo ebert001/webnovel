@@ -100,17 +100,17 @@ CREATE TABLE wn_book (
 	`description` varchar(2000) DEFAULT NULL COMMENT '书籍的简要描述',
 	`create_time` datetime DEFAULT NULL COMMENT '创建时间(开始写作时间)',
 	`update_time` datetime DEFAULT NULL COMMENT '更新时间(最新章节更新时间)',
-	`status` int DEFAULT NULL COMMENT '状态：1、写作中 2、已完结',
-	`type_by_time` int DEFAULT NULL COMMENT '类型细分(古典文学、网络文学、近代文学....)',
-	`type_by_area` int DEFAULT NULL COMMENT '类型细分，按地域(中国、英国、美国....)',
-	`type_by_field` int DEFAULT NULL COMMENT '类型细分，按领域(玄幻、武侠、科幻、校园....)',
+	`serialize_status` tinyint DEFAULT NULL COMMENT '状态：1、写作中 2、已完结',
+	`tags` varchar(30) DEFAULT NULL COMMENT '标签',
 	`words` int DEFAULT NULL COMMENT '字数',
-	`charged` int DEFAULT NULL COMMENT '是否收费，默认不收费',
+	`charged` tinyint not null DEFAULT 0 COMMENT '是否收费，0不收费 1收费',
+	`charge` int comment '费用, 单位: 分',
 	`click_times` int DEFAULT NULL COMMENT '点击次数',
 	`comment_times` int DEFAULT NULL COMMENT '评论次数',
 	`author_id` bigint DEFAULT NULL COMMENT '外键，作者id',
 	`author` varchar(32) comment '作者名称',
 	`state` tinyint not null default 1 COMMENT '状态 1 正常 2 关闭 3 未审核'
+	`website_id` bigint comment '网站id',
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
@@ -145,6 +145,23 @@ CREATE TABLE wn_chapter (
 	`input_time` datetime DEFAULT NULL COMMENT '录入时间',
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE wn_tag (
+	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
+	`name` varchar(120) DEFAULT NULL COMMENT '卷名称',
+	`create_time` datetime DEFAULT NULL COMMENT '添加时间',
+	PRIMARY KEY(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into wn_tag (name, create_time) values ('古典', now());
+insert into wn_tag (name, create_time) values ('科幻', now());
+insert into wn_tag (name, create_time) values ('玄幻', now());
+insert into wn_tag (name, create_time) values ('言情', now());
+insert into wn_tag (name, create_time) values ('散文', now());
+insert into wn_tag (name, create_time) values ('武侠', now());
+insert into wn_tag (name, create_time) values ('历史', now());
+insert into wn_tag (name, create_time) values ('纪实文学', now());
+insert into wn_tag (name, create_time) values ('诗歌', now());
 
 /**
  * 书籍的评论表。存储用户对书籍的评论信息。

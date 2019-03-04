@@ -106,9 +106,33 @@
 							<input class="input_required" type="text" name="catalogChapterNodePath" value="${rule.catalogChapterNodePath}" />
 						</td>
 					</tr>
+					<tr class="bottom_border">
+						<td class="table_form_label">目录章节地址XPATH：</td>
+						<td class="table_form_field">
+							<input class="input_required" type="text" name="catalogChapterUrlPath" value="${rule.catalogChapterUrlPath}" />
+						</td>
+					</tr>
+					<tr class="bottom_border">
+						<td class="table_form_label">章节页编码：</td>
+						<td class="table_form_field">
+							<input class="input_required" type="text" name="chapterCharset" value="${rule.chapterCharset}" />
+						</td>
+					</tr>
+					<tr class="bottom_border">
+						<td class="table_form_label">章节XPATH：</td>
+						<td class="table_form_field">
+							<input class="input_required" type="text" name="chapterNodePath" value="${rule.chapterNodePath}" />
+						</td>
+					</tr>
+					<tr class="bottom_border">
+						<td class="table_form_label">干扰词：</td>
+						<td class="table_form_field">
+							<input class="input_required" type="text" name="chapterWeed" value="${rule.chapterWeed}" />
+						</td>
+					</tr>
 				</table>
 				
-				<div style="width: 100%; text-align: center; margin: 26px auto 16px auto;">
+				<div class="button_area">
 					<button type="submit">保存</button>
 				</div>
 			</form>

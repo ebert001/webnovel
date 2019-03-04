@@ -71,11 +71,11 @@ public class SpiderController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/addRule")
-	public ModelAndView addRule(ModelAndView mv, WnSpiderRule rule) {
-		
-		return toSpiderWebsite(mv, pageNo, pageSize);
+	public ModelAndView addRule(ModelAndView mv, Long websiteId, WnSpiderRule rule) {
+		spiderService.addSpiderRule(websiteId, rule);
+		mv.setViewName("redirect:/spider/toSpiderWebsite");
+		return mv;
 	}
-	
 	
 	@RequestMapping(value = "/loopBookList")
 	public ModelAndView loopBookList(ModelAndView mv, Long websiteId, boolean loopChapters) {
