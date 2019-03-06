@@ -46,55 +46,55 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍列表总页数XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookListTotalPagePath" value="${rule.bookListTotalPagePath}" />
+							<input class="input_required" type="text" name="bookListTotalPagePath" value="${fn:escapeXml(rule.bookListTotalPagePath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍列表总页数正则：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookListTotalPageRegular" value="${rule.bookListTotalPageRegular}" />
+							<input class="input_required" type="text" name="bookListTotalPageRegular" value="${fn:escapeXml(rule.bookListTotalPageRegular)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍节点XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookNodePath" value="${rule.bookNodePath}" />
+							<input class="input_required" type="text" name="bookNodePath" value="${fn:escapeXml(rule.bookNodePath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍名称XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookNodeNamePath" value="${rule.bookNodeNamePath}" />
+							<input class="input_required" type="text" name="bookNodeNamePath" value="${fn:escapeXml(rule.bookNodeNamePath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍地址XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookNodeUrlPath" value="${rule.bookNodeUrlPath}" />
+							<input class="input_required" type="text" name="bookNodeUrlPath" value="${fn:escapeXml(rule.bookNodeUrlPath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍作者XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookNodeAuthorPath" value="${rule.bookNodeAuthorPath}" />
+							<input class="input_required" type="text" name="bookNodeAuthorPath" value="${fn:escapeXml(rule.bookNodeAuthorPath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍图片XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookNodeImgPath" value="${rule.bookNodeImgPath}" />
+							<input class="input_required" type="text" name="bookNodeImgPath" value="${fn:escapeXml(rule.bookNodeImgPath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍简介XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookNodeIntroductionPath" value="${rule.bookNodeIntroductionPath}" />
+							<input class="input_required" type="text" name="bookNodeIntroductionPath" value="${fn:escapeXml(rule.bookNodeIntroductionPath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">书籍最近更新时间XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="bookNodeLastUpdateTimePath" value="${rule.bookNodeLastUpdateTimePath}" />
+							<input class="input_required" type="text" name="bookNodeLastUpdateTimePath" value="${fn:escapeXml(rule.bookNodeLastUpdateTimePath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
@@ -109,13 +109,13 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">目录章节XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="catalogChapterNodePath" value="${rule.catalogChapterNodePath}" />
+							<input class="input_required" type="text" name="catalogChapterNodePath" value="${fn:escapeXml(rule.catalogChapterNodePath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">目录章节地址XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="catalogChapterUrlPath" value="${rule.catalogChapterUrlPath}" />
+							<input class="input_required" type="text" name="catalogChapterUrlPath" value="${fn:escapeXml(rule.catalogChapterUrlPath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
@@ -130,13 +130,13 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">章节XPATH：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="chapterNodePath" value="${rule.chapterNodePath}" />
+							<input class="input_required" type="text" name="chapterNodePath" value="${fn:escapeXml(rule.chapterNodePath)}" />
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">干扰词：</td>
 						<td class="table_form_field">
-							<input class="input_required" type="text" name="chapterWeed" value="${rule.chapterWeed}" />
+							<input class="input_required" type="text" name="chapterWeed" value="${fn:escapeXml(rule.chapterWeed)}" />
 						</td>
 					</tr>
 				</table>
