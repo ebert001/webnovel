@@ -13,8 +13,6 @@
 		<div id="embed_area">
 			<div class="content_title">蜘蛛网站</div>
 			<form action="">
-				
-					
 				<div class="table_area">
 					<div class="table_header">
 						<div class="title">

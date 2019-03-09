@@ -15,7 +15,7 @@ import com.aswishes.wn.exception.WnException;
 /**
  * 爬取网络书籍
  */
-public class DownloadBook implements Runnable {
+public class DownloadBook extends Thread {
 	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
 	private String catalogUrl;
 	private String catalogCharset = "UTF-8";
@@ -85,6 +85,7 @@ public class DownloadBook implements Runnable {
 		} catch (Exception e) {
 			logger.error("Load book error: " + catalogUrl, e);
 		}
+		workState = WorkState.STOP;
 		return this;
 	}
 	
@@ -165,6 +166,10 @@ public class DownloadBook implements Runnable {
 			Thread.interrupted();
 		}
 		return this;
+	}
+	
+	public WorkState getWorkState() {
+		return workState;
 	}
 	
 	public DownloadBook setChapterInfo(IChapterInfo chapterInfo) {

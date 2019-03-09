@@ -1,7 +1,6 @@
 package com.aswishes.wn.mvc.controller;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.mail.Multipart;
 
@@ -13,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.wn.common.AppConstants;
 import com.aswishes.wn.common.Codes;
-import com.aswishes.wn.common.DateUtil;
 import com.aswishes.wn.common.web.SessionUtils;
 import com.aswishes.wn.mvc.model.WnUser;
 import com.aswishes.wn.mvc.service.UserService;
@@ -102,8 +101,8 @@ public class UserController extends AbstractController {
 	public ModelAndView list(ModelAndView mv, 
 			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo, 
 			@RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-		List<WnUser> userList = userService.queryList(pageNo, pageSize);
-		mv.addObject("userList", userList);
+		PageResultWrapper<WnUser> page = userService.queryPage(pageNo, pageSize);
+		mv.addObject("page", page);
 		mv.setViewName("config/user/list_user");
 		return mv;
 	}
@@ -191,21 +190,19 @@ public class UserController extends AbstractController {
 		mv.setViewName("/config/user/list_user.jsp");
 		return mv;
 	}
+	
+	@RequestMapping(value = "/toAddUser")
+	public ModelAndView toAddUser(ModelAndView mv) {
+		mv.setViewName("/config/user/create_user");
+		return mv;
+	}
 
 	@RequestMapping(value = "/add")
-	public ModelAndView addUser(ModelAndView mv) {
-		WnUser user = new WnUser();
-		String username = request.getParameter("username");
-		user.setName(username);
-		user.setAlias(username);
-
+	public ModelAndView addUser(ModelAndView mv, WnUser user) {
 		String salt = RandomStringUtils.random(16);
 		user.setAlg(AppConstants.ALG_SHA256);
 		user.setSalt(salt);
 		user.setPwd(userService.calPassword(salt, Codes.INIT_PASSWORD));
-		user.setEmail(request.getParameter("email"));
-		user.setPhone(request.getParameter("phone"));
-		user.setBirthday(DateUtil.parseDate(request.getParameter("birthday"), DateUtil.PATTERN_DAY));
 		user.setRegTime(new Date());
 		userService.save(user);
 		return list(mv, 1, 10);

@@ -1,7 +1,6 @@
 package com.aswishes.wn.mvc.service;
 
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -12,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.mapper.MapperHelper;
 import com.aswishes.spring.service.AbstractService;
 import com.aswishes.wn.common.AppConstants;
 import com.aswishes.wn.common.web.SessionUtils;
@@ -32,8 +33,8 @@ public class UserService extends AbstractService {
 		return userDao.getUser(username);
 	}
 	
-	public List<WnUser> queryList(int pageNo, int pageSize) {
-		return userDao.queryList(pageNo, pageSize);
+	public PageResultWrapper<WnUser> queryPage(int pageNo, int pageSize) {
+		return userDao.getPage(MapperHelper.getMapper(WnUser.class), pageNo, pageSize);
 	}
 	
 	public String calPassword(WnUser user, String password) {

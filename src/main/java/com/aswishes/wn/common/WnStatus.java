@@ -11,6 +11,8 @@ public enum WnStatus {
 	WEBSITE_EXISTS(2, "Website exists"),
 	WEBSITE_BOOK_EXISTS(3, "Website book exists"),
 	WEBSITE_NOT_EXISTS(4, "Website do not exist"),
+	BOOK_LIST_CACHE_FULL(5, "Book list cache is full"),
+	BOOK_CACHE_FULL(6, "Book cache is full"),
 	;
 
 	private int code;

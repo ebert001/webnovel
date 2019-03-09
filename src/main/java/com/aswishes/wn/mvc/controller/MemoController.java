@@ -38,6 +38,7 @@ public class MemoController extends AbstractController {
 	public ModelAndView queryOne(Long id) {
 		WnMemo memo = memoService.getMemo(id);
 		request.setAttribute("memo", memo);
+		
 		return new ModelAndView("/config/memo/edit_memo.jsp");
 	}
 	

@@ -16,7 +16,7 @@
 				<input type="hidden" name="id" value="${user.id}">
 				<table class="table_form has_border">
 					<tr class="bottom_border">
-						<td class="table_form_label">帐号：</td>
+						<td class="table_form_label">用户名：</td>
 						<td class="table_form_field">
 							<input type="text" name="username" readonly value="${user.name}">
 						</td>
@@ -38,7 +38,7 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">角色：</td>
 						<td class="table_form_field">
-							<select name="role" class="input_wrapper">
+							<select name="role">
 								<option value="1">管理员</option>
 								<option value="2">后台监控</option>
 								<option value="3">文章审阅</option>
@@ -65,13 +65,13 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">所在地址：</td>
 						<td class="table_form_field" colspan="3">
-							<input style="width: 380px;" type="text" name="address" value="${user.name}">
+							<input type="text" name="address" value="${user.name}">
 						</td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_label">简介：</td>
 						<td class="table_form_field" colspan="3">
-							<textarea name="remark" style="width: 80%; height: 128px; margin-top: 18px;">${user.remark}</textarea>
+							<textarea name="remark" style="height: 128px;">${user.remark}</textarea>
 						</td>
 					</tr>
 				</table>

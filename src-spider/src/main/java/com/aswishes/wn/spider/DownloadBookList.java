@@ -10,7 +10,7 @@ import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DownloadBookList implements Runnable {
+public class DownloadBookList extends Thread {
 	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
 	private String bookListCharset = "UTF-8";
 	private String bookNodePath;
@@ -83,6 +83,7 @@ public class DownloadBookList implements Runnable {
 				logger.error("Load book list error: " + bookListUrl, e);
 			}
 		} while ((++pageNo) <= totalPage);
+		workState = WorkState.STOP;
 		return this;
 	}
 	
@@ -184,6 +185,10 @@ public class DownloadBookList implements Runnable {
 			Thread.interrupted();
 		}
 		return this;
+	}
+	
+	public WorkState getWorkState() {
+		return workState;
 	}
 	
 	public DownloadBookList setBookInfo(IBookInfo bookInfo) {

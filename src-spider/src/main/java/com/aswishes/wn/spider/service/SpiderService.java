@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
@@ -33,6 +31,7 @@ import com.aswishes.wn.spider.DownloadBook;
 import com.aswishes.wn.spider.DownloadBookList;
 import com.aswishes.wn.spider.IBookInfo;
 import com.aswishes.wn.spider.IChapterInfo;
+import com.aswishes.wn.spider.WorkState;
 import com.aswishes.wn.spider.dao.WnSpiderBookDao;
 import com.aswishes.wn.spider.dao.WnSpiderRuleDao;
 import com.aswishes.wn.spider.dao.WnSpiderWebsiteDao;
@@ -54,7 +53,8 @@ public class SpiderService extends AbstractService {
 	private Map<String, DownloadBookList> bookListCache = new ConcurrentHashMap<String, DownloadBookList>();
 	/** key 书记名称 */
 	private Map<String, DownloadBook> bookCache = new ConcurrentHashMap<String, DownloadBook>();
-	private ExecutorService executor = Executors.newFixedThreadPool(3);
+	
+	private static int spiderThreadCount = 3;
 	
 	@Override
 	public void setDao() {
@@ -143,8 +143,18 @@ public class SpiderService extends AbstractService {
 		spiderRuleDao.updateByPK(rule, true);
 	}
 	
+	/**
+	 * 循环所有的网站
+	 */
+	public synchronized void loopWebsite() {
+		
+	}
+	
 	@Transactional
-	public void loopBookList(final Long websiteId, final boolean loopChapters) {
+	public synchronized void loopBookList(final Long websiteId, final boolean loopChapters) {
+		if (isFullOfBookListCache()) {
+			throw new ServiceException(WnStatus.BOOK_LIST_CACHE_FULL);
+		}
 		WnSpiderWebsite website = getWebsite(websiteId);
 		WnSpiderRule rule = getRule(website.getRuleId());
 		DownloadBookList downloadBookList = new DownloadBookList(rule.getBookListUrlFormat(), Integer.parseInt(rule.getBookListStartPageNo()));
@@ -175,12 +185,15 @@ public class SpiderService extends AbstractService {
 			}
 		});
 		bookListCache.put(website.getName(), downloadBookList);
-		executor.submit(downloadBookList);
-		
+		downloadBookList.start();
 	}
 	
 	@Transactional
-	public void loopChapters(BookInfo info, WnSpiderWebsite website, WnSpiderRule rule, boolean callFromBook) {
+	public synchronized void loopChapters(BookInfo info, WnSpiderWebsite website, WnSpiderRule rule, boolean callFromBook) {
+		// 单独抓取一本书籍内容
+		if (!callFromBook && isFullOfBookCache()) {
+			throw new ServiceException(WnStatus.BOOK_CACHE_FULL);
+		}
 		WnSpiderBook book = getBook(info.getBookName(), website.getId());
 		DownloadBook downloadBook = new DownloadBook(info.getBookUrl());
 		downloadBook.setCatalogCharset(rule.getCatalogCharset());
@@ -199,10 +212,38 @@ public class SpiderService extends AbstractService {
 		// 单独抓取一本书籍内容
 		if (!callFromBook) {
 			bookCache.put(book.getName(), downloadBook);
-			Future<?> future = executor.submit(downloadBook);
-			future.isDone();
-			
+			downloadBook.start();
 		}
+	}
+	
+	private boolean isFullOfBookListCache() {
+		if (bookListCache.size() < spiderThreadCount) {
+			return false;
+		}
+		for (Entry<String, DownloadBookList> entry : bookListCache.entrySet()) {
+			DownloadBookList bean = entry.getValue();
+			if (bean.getWorkState() != WorkState.STOP) {
+				continue;
+			}
+			bookListCache.remove(entry.getKey());
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean isFullOfBookCache() {
+		if (bookCache.size() < spiderThreadCount) {
+			return false;
+		}
+		for (Entry<String, DownloadBook> entry : bookCache.entrySet()) {
+			DownloadBook bean = entry.getValue();
+			if (bean.getWorkState() != WorkState.STOP) {
+				continue;
+			}
+			bookCache.remove(entry.getKey());
+			return false;
+		}
+		return true;
 	}
 	
 	public File loadBookImg(String imgUrl) {
