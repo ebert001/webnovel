@@ -44,6 +44,7 @@ public class DownloadBook extends Thread {
 	
 	public DownloadBook discovery() {
 		try {
+			logger.debug("Load catalog. url: {}", catalogUrl);
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
 			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, catalogChapterNodePath, showDebug);
@@ -79,6 +80,7 @@ public class DownloadBook extends Thread {
 				}
 				boolean loadChapter = chapterInfo.extract(info);
 				if (loadChapter) {
+					logger.debug("Load chapter. name: {}, url: {}", title, chapterUrl);
 					String content = replace(loadChapter(chapterUrl));
 					info.setChapterContent(content);
 					chapterInfo.extractContent(info, content);
@@ -100,7 +102,7 @@ public class DownloadBook extends Thread {
 			}
 			StringBuilder sb = new StringBuilder();
 			for (Node n : nodess) {
-				sb.append(n.asXML());
+				sb.append(n.getStringValue());
 			}
 			return sb.toString();
 		} catch (Exception e) {

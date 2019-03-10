@@ -148,6 +148,8 @@ public class SpiderService extends AbstractService {
 		chapter.setContent(info.getChapterContent());
 		chapter.setWriteTime(DateUtil.parseDate(info.getDeployTime(), AppConstants.DATE_PATTERNS));
 		chapter.setState(WnChapter.State.UNAUDITED.getValue());
+		chapter.setSerialNo(info.getSerialNo());
+		chapter.setInputTime(new Date());
 		chapterService.addChapter(chapter);
 	}
 	
@@ -182,7 +184,11 @@ public class SpiderService extends AbstractService {
 	public synchronized void loopWebsite() {
 		 List<WnSpiderWebsite> list = getOpenedWebsite();
 		 for (WnSpiderWebsite website : list) {
-			 loopBookList(website.getId(), true);
+			 try {
+				 loopBookList(website.getId(), true);
+			 } catch (Exception e) {
+				 logger.error("Loop website error.", e);
+			 }
 		 }
 	}
 	
@@ -197,6 +203,9 @@ public class SpiderService extends AbstractService {
 			throw new ServiceException(WnStatus.BOOK_LIST_CACHE_FULL);
 		}
 		WnSpiderWebsite website = getWebsite(websiteId);
+		if (bookListCache.get(website.getName()) != null) {
+			throw new ServiceException(WnStatus.WEBSITE_EXISTS_IN_CACHE);
+		}
 		WnSpiderRule rule = getRule(website.getRuleId());
 		DownloadBookList downloadBookList = new DownloadBookList(rule.getBookListUrlFormat(), Integer.parseInt(rule.getBookListStartPageNo()));
 		downloadBookList.setBookListCharset(rule.getBookListCharset());
@@ -234,6 +243,9 @@ public class SpiderService extends AbstractService {
 		// 单独抓取一本书籍内容
 		if (!callFromBook && isFullOfBookCache()) {
 			throw new ServiceException(WnStatus.BOOK_CACHE_FULL);
+		}
+		if (bookCache.get(info.getBookName()) != null) {
+			throw new ServiceException(WnStatus.BOOK_EXISTS_IN_CACHE);
 		}
 		WnBook book = bookDao.getBook(info.getBookName(), website.getId());
 		DownloadBook downloadBook = new DownloadBook(info.getBookUrl());
