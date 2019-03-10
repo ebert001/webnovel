@@ -14,16 +14,18 @@ public abstract class AbstractProperties {
 	protected PropertiesConfiguration configuration = null;
 	
 	protected void load() {
+		String fileName = null;
 		try {
 			configuration = new PropertiesConfiguration();
 			// 禁用值解析
 			configuration.setDelimiterParsingDisabled(true);
-			File file = EnvInfo.getClasspathFile(getFileName());
+			fileName = getFileName();
+			File file = EnvInfo.getClasspathFile(fileName);
 			configuration.load(file);
 			// 如果文件发生改变，重新加载该文件
 			configuration.setReloadingStrategy(new FileChangedReloadingStrategy());
 		} catch (Exception e) {
-			logger.error("Load properties file error", e);
+			logger.error("Load properties file error. File name: " + fileName, e);
 		}
 	}
 	

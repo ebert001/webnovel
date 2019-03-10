@@ -107,8 +107,9 @@ CREATE TABLE wn_book (
 	
 	`create_time` datetime DEFAULT NULL COMMENT '创建时间(开始写作时间)',
 	`update_time` datetime DEFAULT NULL COMMENT '更新时间(最新章节更新时间)',
+	`url` varchar(100) comment '书籍地址',
 	
-	`retrive_count` bigint not null default 0 comment '检索次数',
+	`retrive_count` int not null default 0 comment '检索次数',
 	`retrive_state` tinyint comment '检索状态 1 检索完成(成功) 2 等待检索 3 正在检索 4 检索失败',
 	`retrive_start_time` datetime comment '检索开始时间',
 	`retrive_stop_time` datetime comment '检索结束时间',
@@ -152,7 +153,7 @@ CREATE TABLE wn_chapter (
 	`serial_no` int DEFAULT 0 COMMENT '章节序列号', 
 	`charged` int DEFAULT NULL COMMENT '是否收费，默认不收费',
 	`price` int NOT NULL DEFAULT 0 COMMENT '计费单价',
-	`state` tinyint not null defualt 1 comment '状态. 1 正常 2 关闭 3 未审核',
+	`state` tinyint not null default 1 comment '状态. 1 正常 2 关闭 3 未审核',
 	`audit_time` datetime DEFAULT NULL COMMENT '审核时间',
 	`write_time` datetime DEFAULT NULL COMMENT '写作时间',
 	`input_time` datetime DEFAULT NULL COMMENT '录入时间',

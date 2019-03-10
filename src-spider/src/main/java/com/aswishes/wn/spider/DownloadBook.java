@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.fluent.Request;
 import org.dom4j.Node;
 import org.slf4j.Logger;
@@ -78,7 +79,7 @@ public class DownloadBook extends Thread {
 				}
 				boolean loadChapter = chapterInfo.extract(info);
 				if (loadChapter) {
-					String content = loadChapter(chapterUrl);
+					String content = replace(loadChapter(chapterUrl));
 					info.setChapterContent(content);
 					chapterInfo.extractContent(info, content);
 				}
@@ -113,7 +114,15 @@ public class DownloadBook extends Thread {
 		}
 		String r = str;
 		for (int i = 0; i < weeds.size(); i += 2) {
-			r = r.replaceAll(weeds.get(i), weeds.get(i + 1));
+			String key = weeds.get(i);
+			if (StringUtils.isEmpty(key)) {
+				continue;
+			}
+			String value = weeds.get(i + 1);
+			if (value == null) {
+				value = "";
+			}
+			r = r.replaceAll(key.trim(), value);
 		}
 		return r;
 	}
@@ -149,10 +158,14 @@ public class DownloadBook extends Thread {
 	}
 	
 	public DownloadBook setChapterWeeds(String...words) {
-		if (words.length % 2 != 0) {
-			throw new IllegalArgumentException("Replace key words are not key pairs.");
+		if (words == null) {
+			return this;
 		}
-		this.weeds.addAll(Arrays.asList(words));
+		List<String> list = Arrays.asList(words);
+		this.weeds.addAll(list);
+		if (words.length % 2 != 0) {
+			this.weeds.add("");
+		}
 		return this;
 	}
 	

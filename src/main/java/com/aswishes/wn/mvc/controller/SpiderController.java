@@ -84,9 +84,9 @@ public class SpiderController extends AbstractController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/loopBookChapter")
-	public ModelAndView loopBookChapter(ModelAndView mv, Long bookId) {
-		
+	@RequestMapping(value = "/loopWebsite")
+	public ModelAndView loopWebsite(ModelAndView mv, Long id) {
+		spiderService.loopWebsite(id);
 		mv.setViewName("config/spider/list_website");
 		return mv;
 	}

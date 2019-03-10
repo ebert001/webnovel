@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -185,6 +186,11 @@ public class SpiderService extends AbstractService {
 		 }
 	}
 	
+	public synchronized void loopWebsite(Long websiteId) {
+		WnSpiderWebsite website = getWebsite(websiteId);
+		loopBookList(website.getId(), true);
+	}
+	
 	@Transactional
 	public synchronized void loopBookList(final Long websiteId, final boolean loopChapters) {
 		if (isFullOfBookListCache()) {
@@ -237,7 +243,9 @@ public class SpiderService extends AbstractService {
 		
 		downloadBook.setChapterCharset(rule.getChapterCharset());
 		downloadBook.setChapterNodePath(rule.getChapterNodePath());
-		downloadBook.setChapterWeeds(rule.getChapterWeed().split(","));
+		if (StringUtils.isNotBlank(rule.getChapterWeed())) {
+			downloadBook.setChapterWeeds(rule.getChapterWeed().split(","));
+		}
 		downloadBook.setChapterInfo(new IChapterInfo() {
 			@Override
 			public boolean extract(ChapterInfo info) {
@@ -245,7 +253,7 @@ public class SpiderService extends AbstractService {
 					saveSpiderChapter(book, info);
 				} catch (ServiceException e) {
 					if (e.getStatus() == WnStatus.BOOK_CHAPTER_EXISTS) {
-						// do nothing
+						logger.error("Book chapter exists. {}", info.getChapterTitle());
 					}
 					return false;
 				}
@@ -260,6 +268,8 @@ public class SpiderService extends AbstractService {
 		if (!callFromBook) {
 			bookCache.put(book.getName(), downloadBook);
 			downloadBook.start();
+		} else {
+			downloadBook.discovery();
 		}
 	}
 	
@@ -300,7 +310,7 @@ public class SpiderService extends AbstractService {
 					.socketTimeout(AppConstants.SO_TIMEOUT)
 					.execute().returnContent().asBytes();
 			return TempFile.getTempFile(bs);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error("Load book image error: " + imgUrl, e);
 		}
 		return null;

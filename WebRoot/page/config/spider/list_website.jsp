@@ -57,6 +57,7 @@
 												<a href="${ctx}/spider/openWebsite?id=${website.id}">打开</a>
 											</c:if>
 											<a href="${ctx}/spider/deleteWebsite?id=${website.id}">删除</a>
+											<a href="#" onclick="javascript:location.href='${ctx}/spider/loopWebsite?id=${website.id}'">执行</a>
 										</td>
 									</tr>
 								</c:forEach>

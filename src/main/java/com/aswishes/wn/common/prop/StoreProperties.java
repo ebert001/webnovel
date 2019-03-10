@@ -10,7 +10,7 @@ public class StoreProperties extends AbstractProperties {
 
 	@Override
 	public String getFileName() {
-		return "res-" + EnvInfo.getRunningEnv() + "/store.properties";
+		return "/res-" + EnvInfo.getRunningEnv() + "/store.properties";
 	}
 	
 	public static StoreProperties get() {

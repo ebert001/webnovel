@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.fluent.Request;
 import org.dom4j.Node;
 import org.slf4j.Logger;
@@ -95,7 +96,7 @@ public class DownloadBookList extends Thread {
 		logger.debug("node size: {}", nodes.size());
 		Node node = nodes.get(0);
 		String text = node.getText().trim();
-		if (totalPageExpress == null) {
+		if (StringUtils.isBlank(totalPageExpress)) {
 			totalPage = Integer.parseInt(text);
 		} else {
 			Matcher matcher = Pattern.compile(totalPageExpress).matcher(text);
@@ -114,7 +115,7 @@ public class DownloadBookList extends Thread {
 	}
 	
 	private String findInfo(Node node, String nodePath) {
-		if (nodePath == null) {
+		if (StringUtils.isBlank(nodePath)) {
 			return null;
 		}
 		Node tnode = node.selectSingleNode(nodePath);
