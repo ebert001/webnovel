@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +51,9 @@ public class DateUtil {
 	}
 	
 	public static Date parseDate(String date, String...patterns) {
+		if (StringUtils.isBlank(date)) {
+			return null;
+		}
 		try {
 			return DateUtils.parseDate(date, patterns);
 		} catch (ParseException e) {

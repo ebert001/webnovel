@@ -42,7 +42,7 @@ public class WnChapter extends BaseIdAuto {
 	private int serialNo;
 	
 	/** 是否收费 */
-	private Integer charged;
+	private Integer charged = 0;
 	
 	/** 写作时间 */
 	@Mapper(name = "write_time")

@@ -5,6 +5,8 @@ public class ChapterInfo {
 	private String chapterUrl;
 	private String chapterTitle;
 	private String chapterContent;
+	private String deployTime;
+	private int serialNo;
 	
 	public String getChapterUrl() {
 		return chapterUrl;
@@ -24,7 +26,18 @@ public class ChapterInfo {
 	public void setChapterContent(String chapterContent) {
 		this.chapterContent = chapterContent;
 	}
-	
+	public String getDeployTime() {
+		return deployTime;
+	}
+	public void setDeployTime(String deployTime) {
+		this.deployTime = deployTime;
+	}
+	public int getSerialNo() {
+		return serialNo;
+	}
+	public void setSerialNo(int serialNo) {
+		this.serialNo = serialNo;
+	}
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

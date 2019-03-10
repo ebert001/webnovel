@@ -33,7 +33,12 @@ public class WnBookDao extends AbstractJdbcDao {
 	}
 	
 	public WnBook getBook(String bookName) {
-		return getObjectBy(MapperHelper.getMapper(WnBook.class), Restriction.eq("book_name", bookName));
+		return getObjectBy(MapperHelper.getMapper(WnBook.class), Restriction.eq("name", bookName));
+	}
+	
+	public WnBook getBook(String bookName, Long websiteId) {
+		return getObjectBy(MapperHelper.getMapper(WnBook.class), 
+				Restriction.eq("name", bookName), Restriction.eq("website_id", websiteId));
 	}
 	
 	public void deleteBook(Long bookId) {

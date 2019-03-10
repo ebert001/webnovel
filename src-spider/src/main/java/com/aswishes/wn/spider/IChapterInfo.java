@@ -1,5 +1,6 @@
 package com.aswishes.wn.spider;
 
 public interface IChapterInfo {
-	void extract(ChapterInfo info);
+	boolean extract(ChapterInfo info);
+	void extractContent(ChapterInfo info, String content);
 }

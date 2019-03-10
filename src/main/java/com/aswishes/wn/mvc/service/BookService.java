@@ -27,8 +27,12 @@ public class BookService extends AbstractService {
 		return bookDao.getBookList(userId);
 	}
 	
-	public WnBook getBook(String bookName) {
-		return bookDao.getBook(bookName);
+	public WnBook getBook(String name) {
+		return bookDao.getBook(name);
+	}
+	
+	public WnBook getBook(String name, Long websiteId) {
+		return bookDao.getBook(name, websiteId);
 	}
 
 	public WnBook getBook(Long bookId) {

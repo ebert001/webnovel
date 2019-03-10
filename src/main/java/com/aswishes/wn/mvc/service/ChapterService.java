@@ -33,6 +33,10 @@ public class ChapterService extends AbstractService {
 	public WnChapter getChapter(Long chapterId) {
 		return chapterDao.getChapter(chapterId);
 	}
+	
+	public WnChapter getChapter(Long bookId, String subject) {
+		return chapterDao.getChapter(bookId, subject);
+	}
 
 	@Transactional
 	public void addChapter(WnChapter chapter) {
@@ -47,6 +51,10 @@ public class ChapterService extends AbstractService {
 		if (chapter.getBookId() != null) {
 			bookDao.updateBook(chapter.getBookId(), chapter.getInputTime());
 		}
+	}
+	
+	public void updateContent(Long id, String content) {
+		chapterDao.updateContent(id, content);
 	}
 	
 	@Override

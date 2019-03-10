@@ -43,8 +43,8 @@ public class BookController extends AbstractController {
 		}
 		book = new WnBook();
 		
-		book.setBookName(bookName);
-		book.setDescription(desc);
+		book.setName(bookName);
+		book.setIntroduction(desc);
 		
 		Date cdate = new Date();
 		book.setCreateTime(cdate);

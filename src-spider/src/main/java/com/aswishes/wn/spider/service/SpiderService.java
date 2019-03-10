@@ -25,6 +25,11 @@ import com.aswishes.wn.common.TempFile;
 import com.aswishes.wn.common.WnStatus;
 import com.aswishes.wn.common.file.FileManager;
 import com.aswishes.wn.exception.ServiceException;
+import com.aswishes.wn.mvc.dao.WnBookDao;
+import com.aswishes.wn.mvc.model.WnBook;
+import com.aswishes.wn.mvc.model.WnChapter;
+import com.aswishes.wn.mvc.model.WnBook.RetriveState;
+import com.aswishes.wn.mvc.service.ChapterService;
 import com.aswishes.wn.spider.BookInfo;
 import com.aswishes.wn.spider.ChapterInfo;
 import com.aswishes.wn.spider.DownloadBook;
@@ -32,10 +37,8 @@ import com.aswishes.wn.spider.DownloadBookList;
 import com.aswishes.wn.spider.IBookInfo;
 import com.aswishes.wn.spider.IChapterInfo;
 import com.aswishes.wn.spider.WorkState;
-import com.aswishes.wn.spider.dao.WnSpiderBookDao;
 import com.aswishes.wn.spider.dao.WnSpiderRuleDao;
 import com.aswishes.wn.spider.dao.WnSpiderWebsiteDao;
-import com.aswishes.wn.spider.entity.WnSpiderBook;
 import com.aswishes.wn.spider.entity.WnSpiderRule;
 import com.aswishes.wn.spider.entity.WnSpiderWebsite;
 
@@ -46,9 +49,11 @@ public class SpiderService extends AbstractService {
 	@Autowired
 	private WnSpiderWebsiteDao spiderWebsiteDao;
 	@Autowired
-	private WnSpiderBookDao spiderBookDao;
-	@Autowired
 	private WnSpiderRuleDao spiderRuleDao;
+	@Autowired
+	private WnBookDao bookDao;
+	@Autowired
+	private ChapterService chapterService;
 	/** key:网站名称 */
 	private Map<String, DownloadBookList> bookListCache = new ConcurrentHashMap<String, DownloadBookList>();
 	/** key 书记名称 */
@@ -58,7 +63,7 @@ public class SpiderService extends AbstractService {
 	
 	@Override
 	public void setDao() {
-		this.dao = spiderBookDao;
+		this.dao = spiderWebsiteDao;
 	}
 	
 	public WnSpiderWebsite getWebsite(Long id) {
@@ -69,15 +74,6 @@ public class SpiderService extends AbstractService {
 		return spiderWebsiteDao.getObjectBy(MapperHelper.getMapper(WnSpiderWebsite.class), Restriction.eq("name", name));
 	}
 	
-	public WnSpiderBook getBook(Long id) {
-		return spiderBookDao.getObjectBy(MapperHelper.getMapper(WnSpiderBook.class), 
-				Restriction.eq("id", id));
-	}
-	
-	public WnSpiderBook getBook(String name, Long websiteId) {
-		return spiderBookDao.getObjectBy(MapperHelper.getMapper(WnSpiderBook.class), 
-				Restriction.eq("name", name), Restriction.eq("website_id", websiteId));
-	}
 	
 	public WnSpiderRule getRule(Long id) {
 		return spiderRuleDao.getObjectBy(MapperHelper.getMapper(WnSpiderRule.class), Restriction.eq("id", id));
@@ -87,8 +83,13 @@ public class SpiderService extends AbstractService {
 		return spiderWebsiteDao.getPage(MapperHelper.getMapper(WnSpiderWebsite.class), pageNo, pageSize, Restriction.orderByDesc("id"));
 	}
 	
-	public List<WnSpiderBook> getSpiderBook(int pageNo, int pageSize) {
-		return spiderBookDao.getList(MapperHelper.getMapper(WnSpiderBook.class), pageNo, pageSize);
+	public List<WnSpiderWebsite> getOpenedWebsite() {
+		return spiderWebsiteDao.getList(MapperHelper.getMapper(WnSpiderWebsite.class), 
+				Restriction.eq("state", WnSpiderWebsite.State.OPENED.getValue()));
+	}
+	
+	public List<WnBook> getSpiderBook(int pageNo, int pageSize) {
+		return bookDao.getList(MapperHelper.getMapper(WnBook.class), pageNo, pageSize);
 	}
 	
 	@Transactional
@@ -105,25 +106,56 @@ public class SpiderService extends AbstractService {
 	}
 	
 	@Transactional
-	public void addSpiderBook(Long websiteId, BookInfo info) {
-		WnSpiderBook bean = getBook(info.getBookName(), websiteId);
-		if (bean != null) {
-			throw new ServiceException(WnStatus.WEBSITE_BOOK_EXISTS);
+	public void saveSpiderBook(Long websiteId, BookInfo info) {
+		WnBook bean = bookDao.getBook(info.getBookName(), websiteId);
+		if (bean == null) {
+			addSpiderBook(websiteId, info);
+			return;
 		}
-		bean = new WnSpiderBook();
+		throw new ServiceException(WnStatus.WEBSITE_BOOK_EXISTS);
+	}
+
+	private void addSpiderBook(Long websiteId, BookInfo info) {
+		WnBook bean = new WnBook();
+		Date date = new Date();
+		
 		bean.setWebsiteId(websiteId);
 		bean.setName(info.getBookName());
 		bean.setUrl(info.getBookUrl());
 		bean.setAuthor(info.getAuthor());
 		bean.setImg(FileManager.get().storeBookImg(loadBookImg(info.getImgUrl())));
 		bean.setIntroduction(info.getIntroduction());
-		bean.setLastUpdateTime(DateUtil.parseDate(info.getLastUpdateTime(), AppConstants.DATE_PATTERNS));
+		bean.setUpdateTime(DateUtil.parseDate(info.getLastUpdateTime(), AppConstants.DATE_PATTERNS));
 		
-		Date date = new Date();
-		bean.setUpdateTime(date);
+		bean.setRetriveCount(1);
+		bean.setRetriveStartTime(date);
+		bean.setRetriveState(RetriveState.RETRIVING.getValue());
+		
 		bean.setCreateTime(date);
-		spiderBookDao.save(bean);
+		bookDao.save(bean);
 	}
+	
+	@Transactional
+	public void saveSpiderChapter(WnBook book, ChapterInfo info) {
+		WnChapter chapter = chapterService.getChapter(book.getId(), info.getChapterTitle());
+		if (chapter != null) {
+			throw new ServiceException(WnStatus.BOOK_CHAPTER_EXISTS);
+		}
+		chapter = new WnChapter();
+		chapter.setBookId(book.getId());
+		chapter.setSubject(info.getChapterTitle());
+		chapter.setContent(info.getChapterContent());
+		chapter.setWriteTime(DateUtil.parseDate(info.getDeployTime(), AppConstants.DATE_PATTERNS));
+		chapter.setState(WnChapter.State.UNAUDITED.getValue());
+		chapterService.addChapter(chapter);
+	}
+	
+	@Transactional
+	public void updateChapterContent(WnBook book, ChapterInfo info) {
+		WnChapter chapter = chapterService.getChapter(book.getId(), info.getChapterTitle());
+		chapterService.updateContent(chapter.getId(), info.getChapterContent());
+	}
+	
 	
 	@Transactional
 	public void saveSpiderRule(Long websiteId, WnSpiderRule rule) {
@@ -147,7 +179,10 @@ public class SpiderService extends AbstractService {
 	 * 循环所有的网站
 	 */
 	public synchronized void loopWebsite() {
-		
+		 List<WnSpiderWebsite> list = getOpenedWebsite();
+		 for (WnSpiderWebsite website : list) {
+			 loopBookList(website.getId(), true);
+		 }
 	}
 	
 	@Transactional
@@ -172,7 +207,7 @@ public class SpiderService extends AbstractService {
 			@Override
 			public void extract(BookInfo info) {
 				try {
-					addSpiderBook(websiteId, info);
+					saveSpiderBook(websiteId, info);
 				} catch (ServiceException e) {
 					if (e.getStatus() != null && e.getStatus() == WnStatus.WEBSITE_BOOK_EXISTS) {
 						// do nothing.
@@ -194,7 +229,7 @@ public class SpiderService extends AbstractService {
 		if (!callFromBook && isFullOfBookCache()) {
 			throw new ServiceException(WnStatus.BOOK_CACHE_FULL);
 		}
-		WnSpiderBook book = getBook(info.getBookName(), website.getId());
+		WnBook book = bookDao.getBook(info.getBookName(), website.getId());
 		DownloadBook downloadBook = new DownloadBook(info.getBookUrl());
 		downloadBook.setCatalogCharset(rule.getCatalogCharset());
 		downloadBook.setCatalogChapterNodePath(rule.getCatalogChapterNodePath());
@@ -205,8 +240,20 @@ public class SpiderService extends AbstractService {
 		downloadBook.setChapterWeeds(rule.getChapterWeed().split(","));
 		downloadBook.setChapterInfo(new IChapterInfo() {
 			@Override
-			public void extract(ChapterInfo info) {
-				
+			public boolean extract(ChapterInfo info) {
+				try {
+					saveSpiderChapter(book, info);
+				} catch (ServiceException e) {
+					if (e.getStatus() == WnStatus.BOOK_CHAPTER_EXISTS) {
+						// do nothing
+					}
+					return false;
+				}
+				return true;
+			}
+			@Override
+			public void extractContent(ChapterInfo info, String content) {
+				updateChapterContent(book, info);
 			}
 		});
 		// 单独抓取一本书籍内容

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.spring.PageResultWrapper;
-import com.aswishes.wn.spider.entity.WnSpiderBook;
 import com.aswishes.wn.spider.entity.WnSpiderRule;
 import com.aswishes.wn.spider.entity.WnSpiderWebsite;
 import com.aswishes.wn.spider.service.SpiderService;
@@ -87,7 +86,6 @@ public class SpiderController extends AbstractController {
 	
 	@RequestMapping(value = "/loopBookChapter")
 	public ModelAndView loopBookChapter(ModelAndView mv, Long bookId) {
-		WnSpiderBook book = spiderService.getBook(bookId);
 		
 		mv.setViewName("config/spider/list_website");
 		return mv;

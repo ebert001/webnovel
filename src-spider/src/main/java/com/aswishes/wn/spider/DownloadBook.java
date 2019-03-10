@@ -27,7 +27,6 @@ public class DownloadBook extends Thread {
 	
 	private List<String> weeds = new ArrayList<String>();
 	
-	private boolean loadChapter = true;
 	private boolean showDebug = false;
 	private WorkState workState = WorkState.RUNNING; 
 	
@@ -47,6 +46,7 @@ public class DownloadBook extends Thread {
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
 			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, catalogChapterNodePath, showDebug);
+			int serialNo = 1;
 			for (Node tnode : nodes) {
 				if (workState == WorkState.STOP) {
 					return this;
@@ -72,15 +72,16 @@ public class DownloadBook extends Thread {
 					}
 				}
 				info.setChapterUrl(chapterUrl);
-				
-				if (loadChapter) {
-					String content = loadChapter(chapterUrl);
-					info.setChapterContent(content);
-				}
+				info.setSerialNo(serialNo++);
 				if (chapterInfo == null) {
 					continue;
 				}
-				chapterInfo.extract(info);
+				boolean loadChapter = chapterInfo.extract(info);
+				if (loadChapter) {
+					String content = loadChapter(chapterUrl);
+					info.setChapterContent(content);
+					chapterInfo.extractContent(info, content);
+				}
 			}
 		} catch (Exception e) {
 			logger.error("Load book error: " + catalogUrl, e);
@@ -139,11 +140,6 @@ public class DownloadBook extends Thread {
 	
 	public DownloadBook setChapterCharset(String chapterCharset) {
 		this.chapterCharset = chapterCharset;
-		return this;
-	}
-	
-	public DownloadBook setLoadChapter(boolean loadChapter) {
-		this.loadChapter = loadChapter;
 		return this;
 	}
 	

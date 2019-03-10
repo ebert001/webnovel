@@ -92,14 +92,29 @@ CREATE TABLE wn_role_permission (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
- * 书籍表。存储所有的书籍信息，并对书籍进行分类。
+ * 书籍表。存储所有的书籍信息，并对书籍进行分类。后续可能会进行调整。书籍检索，会单独作为一个服务存在。
  */
 CREATE TABLE wn_book (
 	`id` bigint NOT NULL auto_increment primary key COMMENT '主键，唯一标识符',
-	`book_name` varchar(120) DEFAULT NULL COMMENT '书籍名称',
-	`description` varchar(2000) DEFAULT NULL COMMENT '书籍的简要描述',
+	`name` varchar(120) DEFAULT NULL COMMENT '名称',
+	`introduction` text DEFAULT NULL COMMENT '简介',
+
+	`author_id` bigint DEFAULT NULL COMMENT '外键，作者id',
+	`author` varchar(32) comment '作者名称',
+	`img` varchar(100) comment '封面',
+	
+	`last_chapter_url` varchar(200) comment '最近检索的章节地址',
+	
 	`create_time` datetime DEFAULT NULL COMMENT '创建时间(开始写作时间)',
 	`update_time` datetime DEFAULT NULL COMMENT '更新时间(最新章节更新时间)',
+	
+	`retrive_count` bigint not null default 0 comment '检索次数',
+	`retrive_state` tinyint comment '检索状态 1 检索完成(成功) 2 等待检索 3 正在检索 4 检索失败',
+	`retrive_start_time` datetime comment '检索开始时间',
+	`retrive_stop_time` datetime comment '检索结束时间',
+	`retrive_fail_cause` text comment '检索失败原因',
+	
+	`state` tinyint not null default 1 COMMENT '状态 1 正常 2 关闭 3 未审核',
 	`serialize_status` tinyint DEFAULT NULL COMMENT '状态：1、写作中 2、已完结',
 	`tags` varchar(30) DEFAULT NULL COMMENT '标签',
 	`words` int DEFAULT NULL COMMENT '字数',
@@ -107,10 +122,8 @@ CREATE TABLE wn_book (
 	`charge` int comment '费用, 单位: 分',
 	`click_times` int DEFAULT NULL COMMENT '点击次数',
 	`comment_times` int DEFAULT NULL COMMENT '评论次数',
-	`author_id` bigint DEFAULT NULL COMMENT '外键，作者id',
-	`author` varchar(32) comment '作者名称',
-	`state` tinyint not null default 1 COMMENT '状态 1 正常 2 关闭 3 未审核'
-	`website_id` bigint comment '网站id',
+	
+	`website_id` bigint comment '网站id'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**

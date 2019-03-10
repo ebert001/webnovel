@@ -17,29 +17,6 @@ create table wn_spider_website (
 	create_time datetime comment '添加时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-create table wn_spider_book (
-	id bigint not null auto_increment primary key comment '主键',
-	website_id bigint comment '网站id',
-	name varchar(100) comment '书籍名称',
-	url varchar(200) comment '书籍地址',
-	
-	author varchar(100) comment '作者',
-	img varchar(100) comment '封面',
-	introduction varchar(100) comment '简介',
-	last_update_time varchar(100) comment '最近更新',
-	
-	last_chapter_url varchar(200) comment '最近检索的章节地址',
-	
-	retrive_count bigint not null default 0 comment '检索次数',
-	retrive_state tinyint comment '检索状态 1 检索完成(成功) 2 等待检索 3 正在检索 4 检索失败',
-	retrive_start_time datetime comment '检索开始时间',
-	retrive_stop_time datetime comment '检索结束时间',
-	retrive_fail_cause text comment '检索失败原因',
-	
-	update_time datetime comment '修改时间',
-	create_time datetime comment '添加时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 create table wn_spider_rule (
 	id bigint not null auto_increment primary key comment '主键',
 	name varchar(100) comment '网站名称',
