@@ -18,8 +18,17 @@ import com.aswishes.wn.exception.WnException;
  */
 public class DownloadBook extends Thread {
 	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
+	/** 目录页地址 */
 	private String catalogUrl;
 	private String catalogCharset = "UTF-8";
+	/** 目录页标题 */
+	private String catalogSubjectPath;
+	private String catalogStatePath;
+	private String catalogAuthorPath;
+	private String catalogLastUpdateTimePath;
+	private String catalogLastUpdateChapterPath;
+	private String catalogImgPath;
+	
 	private String catalogChapterNodePath;
 	private String catalogChapterUrlPath;
 	
@@ -32,6 +41,7 @@ public class DownloadBook extends Thread {
 	private WorkState workState = WorkState.RUNNING; 
 	
 	private IChapterInfo chapterInfo;
+	private int lastSerialNo = -1;
 	
 	public DownloadBook(String catalogUrl) {
 		this.catalogUrl = catalogUrl;
@@ -48,14 +58,18 @@ public class DownloadBook extends Thread {
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
 			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, catalogChapterNodePath, showDebug);
-			int serialNo = 1;
-			for (Node tnode : nodes) {
+			for (int i = 0; i < nodes.size(); i++) {
 				if (workState == WorkState.STOP) {
 					return this;
 				} else if (workState == WorkState.PAUSE) {
+					i--;
 					Thread.sleep(10 * 1000);
+					continue;
 				}
-				
+				if (lastSerialNo != -1 && i < lastSerialNo) {
+					continue;
+				}
+				Node tnode = nodes.get(i);
 				ChapterInfo info = new ChapterInfo();
 
 				String title = tnode.getText().trim();
@@ -74,7 +88,7 @@ public class DownloadBook extends Thread {
 					}
 				}
 				info.setChapterUrl(chapterUrl);
-				info.setSerialNo(serialNo++);
+				info.setSerialNo(i + 1);
 				if (chapterInfo == null) {
 					continue;
 				}
@@ -187,4 +201,33 @@ public class DownloadBook extends Thread {
 		this.chapterInfo = chapterInfo;
 		return this;
 	}
+
+	public void setCatalogSubjectPath(String catalogSubjectPath) {
+		this.catalogSubjectPath = catalogSubjectPath;
+	}
+
+	public void setCatalogStatePath(String catalogStatePath) {
+		this.catalogStatePath = catalogStatePath;
+	}
+
+	public void setCatalogAuthorPath(String catalogAuthorPath) {
+		this.catalogAuthorPath = catalogAuthorPath;
+	}
+
+	public void setCatalogLastUpdateTimePath(String catalogLastUpdateTimePath) {
+		this.catalogLastUpdateTimePath = catalogLastUpdateTimePath;
+	}
+
+	public void setCatalogLastUpdateChapterPath(String catalogLastUpdateChapterPath) {
+		this.catalogLastUpdateChapterPath = catalogLastUpdateChapterPath;
+	}
+
+	public void setCatalogImgPath(String catalogImgPath) {
+		this.catalogImgPath = catalogImgPath;
+	}
+	
+	public void setLastSerialNo(int lastSerialNo) {
+		this.lastSerialNo = lastSerialNo;
+	}
+	
 }

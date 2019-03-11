@@ -3,10 +3,12 @@
 
 <div class="search_wraper">
 	<div class="search_content">
-		<input type="text" class="search_input" id="s_k" name="s_k" placeholder="书名/作者">
-		<a class="btn btn-success" href="#"  onclick="javascript: window.open('${ctx}/frame/search_list.jsp')"> 搜 索 </a>
+		<form action="${ctx}/book/search" method="get">
+			<input type="text" class="search_input" id="q" name="q" autocomplete="off" autofocus="true" placeholder="书名/作者">
+			<button> 搜 索 </button>
+		</form>
 	</div>
 	<div class="search_hot">
-		热搜文章：<a href="${ctx}/book/view?id=1">莎翁全集</a>
+		
 	</div>
 </div>

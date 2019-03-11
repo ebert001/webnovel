@@ -258,6 +258,13 @@ public class BookController extends AbstractController {
 		return mv;
 	}
 	
+	@RequestMapping("/search")
+	public ModelAndView search(ModelAndView mv, String q) {
+		
+		mv.setViewName("/surface/list_search.jsp");
+		return mv;
+	}
+	
 	@Autowired
 	private BookService bookService;
 	@Autowired

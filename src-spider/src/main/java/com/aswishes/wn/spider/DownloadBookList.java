@@ -53,7 +53,9 @@ public class DownloadBookList extends Thread {
 					if (workState == WorkState.STOP) {
 						return this;
 					} else if (workState == WorkState.PAUSE) {
+						i--;
 						Thread.sleep(10 * 1000);
+						continue;
 					}
 					Node tnode = nodes.get(i);
 					Node bookNameNode = tnode.selectSingleNode(bookNodeNamePath);

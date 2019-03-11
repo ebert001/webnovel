@@ -1,7 +1,6 @@
 package com.aswishes.wn.spider.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +27,8 @@ import com.aswishes.wn.common.file.FileManager;
 import com.aswishes.wn.exception.ServiceException;
 import com.aswishes.wn.mvc.dao.WnBookDao;
 import com.aswishes.wn.mvc.model.WnBook;
-import com.aswishes.wn.mvc.model.WnChapter;
 import com.aswishes.wn.mvc.model.WnBook.RetriveState;
+import com.aswishes.wn.mvc.model.WnChapter;
 import com.aswishes.wn.mvc.service.ChapterService;
 import com.aswishes.wn.spider.BookInfo;
 import com.aswishes.wn.spider.ChapterInfo;
@@ -255,6 +254,7 @@ public class SpiderService extends AbstractService {
 		
 		downloadBook.setChapterCharset(rule.getChapterCharset());
 		downloadBook.setChapterNodePath(rule.getChapterNodePath());
+		downloadBook.setLastSerialNo(bookDao.getMaxSerialNo(book.getId()));
 		if (StringUtils.isNotBlank(rule.getChapterWeed())) {
 			downloadBook.setChapterWeeds(rule.getChapterWeed().split(","));
 		}

@@ -107,9 +107,13 @@ form div.button_area {
 	border: 1px solid silver;
 }
 
-.table_form .bottom_border {
+.table_form tr {
 	border-bottom: 1px solid silver;
 	height: 32px;
+}
+
+.table_form .group {
+	background-color: #eeeeec;
 }
 
 .table_form input,select,textarea {
@@ -127,11 +131,6 @@ form div.button_area {
 
 .table_form_field {
 	padding: 6px;
-}
-
-.table_form.hover tr:hover {
-	border-bottom: 1px dotted gray;
-	background-color: #AFDFE4;
 }
 
 /********************* 列表 ***********************/

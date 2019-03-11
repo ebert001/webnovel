@@ -12,10 +12,7 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="shortcut icon" href="${ctx}/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
-	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
-	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
+	<%@include file="/surface-head.jsp"%>
   </head>
   
   <body class="body">
@@ -36,14 +33,10 @@
 	  					<div>内容简介：水浒传</div>
 	  					<div>最后更新时间：</div>
 	  				</li>
-	  				<li>第二节</li>
-	  				<li>第三节</li>
-	  				<li>第四节</li>
-	  				<li>第五节</li>
 	  			</ul>
 	  			<div>
 	  				<script type="text/javascript">
-	  				document.write(paginationBar(2, 15, "${ctx}/Forum.action?queryOne&id=${forumSubject.id}"));
+	  				document.write(paginationBar(2, 15, "${ctx}/book/search?queryOne&id=${forumSubject.id}"));
 	  				</script>
 	  			</div>
   			</div>
@@ -51,8 +44,5 @@
   	</div>
   	
   	<%@include file="/page/frame/footer.jsp"%>
-  	<script type="text/javascript">
-  	popLoginDiv();
-  	</script>
   </body>
 </html>

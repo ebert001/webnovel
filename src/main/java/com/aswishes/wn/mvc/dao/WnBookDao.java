@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.SqlHelper;
+import com.aswishes.spring.SqlHelper.Select;
 import com.aswishes.spring.dao.AbstractJdbcDao;
 import com.aswishes.spring.mapper.MapperHelper;
 import com.aswishes.wn.mvc.model.WnBook;
@@ -39,6 +40,12 @@ public class WnBookDao extends AbstractJdbcDao {
 	public WnBook getBook(String bookName, Long websiteId) {
 		return getObjectBy(MapperHelper.getMapper(WnBook.class), 
 				Restriction.eq("name", bookName), Restriction.eq("website_id", websiteId));
+	}
+	
+	public int getMaxSerialNo(Long id) {
+		String sql = Select.table(tableName).columns("max(serial_no)").where("id = ?").toSqlString();
+		Integer result = getObject(sql, Integer.class, id);
+		return result == null ? 0 : result;
 	}
 	
 	public void deleteBook(Long bookId) {
