@@ -100,7 +100,8 @@ public class UserController extends AbstractController {
 	@RequestMapping(value = "/list")
 	public ModelAndView list(ModelAndView mv, 
 			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo, 
-			@RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
+			@RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
+			String name) {
 		PageResultWrapper<WnUser> page = userService.queryPage(pageNo, pageSize);
 		mv.addObject("page", page);
 		mv.setViewName("config/user/list_user");
@@ -145,7 +146,7 @@ public class UserController extends AbstractController {
 		user.setSex(sex);
 		user.setRemark(remark);
 		userService.update(user);
-		return list(mv, 1, 10);
+		return list(mv, 1, 10, null);
 	}
 	
 	@RequestMapping(value = "/toUploadAvatar")
@@ -205,7 +206,7 @@ public class UserController extends AbstractController {
 		user.setPwd(userService.calPassword(salt, Codes.INIT_PASSWORD));
 		user.setRegTime(new Date());
 		userService.save(user);
-		return list(mv, 1, 10);
+		return list(mv, 1, 10, null);
 	}
 	
 	

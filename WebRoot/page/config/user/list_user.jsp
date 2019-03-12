@@ -18,23 +18,12 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">帐号：</td>
 						<td class="table_form_field">
-							<input type="text" name="username" value="ebert">
+							<input type="text" name="username" value="">
 						</td>
 						<td class="table_form_label">注册时间：</td>
 						<td class="table_form_field">
-							<input type="text" name="register_time" value="2012-02-15 15:52:43" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
+							<input type="text" name="register_time" value="" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
 						</td>
-					</tr>
-					<tr class="bottom_border">
-						<td class="table_form_label">性别：</td>
-						<td class="table_form_field">
-							<select name="sex">
-								<option value="1">男</option>
-								<option value="0">女</option>
-							</select>
-						</td>
-						<td></td>
-						<td></td>
 					</tr>
 					<tr class="bottom_border">
 						<td class="table_form_ele" colspan="4" align="center">
