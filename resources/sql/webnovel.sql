@@ -193,24 +193,15 @@ CREATE TABLE wn_comment (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
- * 书架表。存储书架信息。
+ * 书架表。存储书架图书信息。
  */
 CREATE TABLE wn_bookshelf (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
-	`shelf_name` varchar(64) DEFAULT NULL COMMENT '书架名称',
-	`user_id` bigint DEFAULT NULL COMMENT '外键，用户id',
-	PRIMARY KEY(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/**
- * 书架书籍表。存储书架上的图书信息。
- */
-CREATE TABLE wn_bookshelf_books (
-	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`book_id` bigint DEFAULT NULL COMMENT '外键，书籍id',
 	`book_name` varchar(64) COMMENT '书籍名称',
-	`shelf_id` bigint DEFAULT NULL COMMENT '外键，书架id',
-	`shelf_name` varchar(64) COMMENT '书架名称',
+	`user_id` bigint DEFAULT NULL COMMENT '外键，用户id',
+	`update_time` datetime comment '更新时间',
+	`create_time` datetime comment '添加时间',
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -8,15 +8,17 @@ import org.slf4j.LoggerFactory;
 
 public enum WnStatus {
 	SUCCESS(1, "OK", "lbl.ok"),
-	WEBSITE_EXISTS(2, "Website exists"),
-	WEBSITE_BOOK_EXISTS(3, "Website book exists"),
-	WEBSITE_NOT_EXISTS(4, "Website do not exist"),
-	BOOK_LIST_CACHE_FULL(5, "Book list cache is full"),
-	BOOK_CACHE_FULL(6, "Book cache is full"),
-	BOOK_CHAPTER_EXISTS(7, "Book chapter exists"),
-	BOOK_EXISTS_IN_CACHE(8, "Book exists in cache"),
-	WEBSITE_EXISTS_IN_CACHE(9, "Website exists in cache"),
-	
+	USER_NOT_LOGIN(2, "User dont login"),
+	WEBSITE_EXISTS(3, "Website exists"),
+	WEBSITE_BOOK_EXISTS(4, "Website book exists"),
+	WEBSITE_NOT_EXISTS(5, "Website do not exist"),
+	BOOK_LIST_CACHE_FULL(6, "Book list cache is full"),
+	BOOK_CACHE_FULL(7, "Book cache is full"),
+	BOOK_CHAPTER_EXISTS(8, "Book chapter exists"),
+	BOOK_EXISTS_IN_CACHE(9, "Book exists in cache"),
+	WEBSITE_EXISTS_IN_CACHE(10, "Website exists in cache"),
+	BOOK_LOST(11, "Book lost."),
+	BOOK_IS_FAVORiTE(12, "Book is favorite."),
 	;
 
 	private int code;

@@ -12,7 +12,20 @@
 		<%@include file="/page/config/setup_common.jsp"%>
 		<div id="embed_area">
 			<div class="content_title">蜘蛛网站</div>
-			<form action="">
+			<form action="${ctx}/spider/list" method="post">
+				<table>
+					<tr>
+						<td>名称</td>
+						<td>
+							<input type="text" name="Q-name">
+						</td>
+						<td></td>
+						<td>
+							<button>查找</button>
+						</td>
+					</tr>
+				</table>
+			
 				<div class="table_area">
 					<div class="table_header">
 						<div class="title">
