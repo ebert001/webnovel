@@ -1,7 +1,7 @@
-package com.aswishes.wn.spider;
+package com.aswishes.wn.spider.looper;
 
 public class ChapterInfo {
-
+	
 	private String chapterUrl;
 	private String chapterTitle;
 	private String chapterContent;

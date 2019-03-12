@@ -1,4 +1,4 @@
-package com.aswishes.wn.spider;
+package com.aswishes.wn.spider.looper;
 
 public class BookInfo {
 	private String bookName;
@@ -7,6 +7,8 @@ public class BookInfo {
 	private String author;
 	private String introduction;
 	private String lastUpdateTime;
+	private String lastUpdateChapter;
+	private String state;
 	
 	public String getBookName() {
 		return bookName;
@@ -43,6 +45,18 @@ public class BookInfo {
 	}
 	public void setLastUpdateTime(String lastUpdateTime) {
 		this.lastUpdateTime = lastUpdateTime;
+	}
+	public String getLastUpdateChapter() {
+		return lastUpdateChapter;
+	}
+	public void setLastUpdateChapter(String lastUpdateChapter) {
+		this.lastUpdateChapter = lastUpdateChapter;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 }

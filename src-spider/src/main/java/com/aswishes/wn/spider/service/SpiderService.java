@@ -30,17 +30,17 @@ import com.aswishes.wn.mvc.model.WnBook;
 import com.aswishes.wn.mvc.model.WnBook.RetriveState;
 import com.aswishes.wn.mvc.model.WnChapter;
 import com.aswishes.wn.mvc.service.ChapterService;
-import com.aswishes.wn.spider.BookInfo;
-import com.aswishes.wn.spider.ChapterInfo;
-import com.aswishes.wn.spider.DownloadBook;
-import com.aswishes.wn.spider.DownloadBookList;
-import com.aswishes.wn.spider.IBookInfo;
-import com.aswishes.wn.spider.IChapterInfo;
-import com.aswishes.wn.spider.WorkState;
 import com.aswishes.wn.spider.dao.WnSpiderRuleDao;
 import com.aswishes.wn.spider.dao.WnSpiderWebsiteDao;
 import com.aswishes.wn.spider.entity.WnSpiderRule;
 import com.aswishes.wn.spider.entity.WnSpiderWebsite;
+import com.aswishes.wn.spider.looper.BookInfo;
+import com.aswishes.wn.spider.looper.ChapterInfo;
+import com.aswishes.wn.spider.looper.DownloadBook;
+import com.aswishes.wn.spider.looper.DownloadBookList;
+import com.aswishes.wn.spider.looper.IBookInfo;
+import com.aswishes.wn.spider.looper.IChapterInfo;
+import com.aswishes.wn.spider.looper.WorkState;
 
 @Service
 @Transactional
@@ -259,6 +259,11 @@ public class SpiderService extends AbstractService {
 			downloadBook.setChapterWeeds(rule.getChapterWeed().split(","));
 		}
 		downloadBook.setChapterInfo(new IChapterInfo() {
+			@Override
+			public void extractBookInfo(BookInfo bookInfo) {
+				
+			}
+			
 			@Override
 			public boolean extract(ChapterInfo info) {
 				try {

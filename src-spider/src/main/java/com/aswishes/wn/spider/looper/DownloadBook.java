@@ -1,4 +1,4 @@
-package com.aswishes.wn.spider;
+package com.aswishes.wn.spider.looper;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.fluent.Request;
+import org.dom4j.Document;
 import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,12 @@ public class DownloadBook extends Thread {
 	private String catalogUrl;
 	private String catalogCharset = "UTF-8";
 	/** 目录页标题 */
-	private String catalogSubjectPath;
-	private String catalogStatePath;
-	private String catalogAuthorPath;
-	private String catalogLastUpdateTimePath;
-	private String catalogLastUpdateChapterPath;
-	private String catalogImgPath;
+	private String bookNamePath;
+	private String statePath;
+	private String authorPath;
+	private String lastUpdateTimePath;
+	private String lastUpdateChapterPath;
+	private String imgPath;
 	
 	private String catalogChapterNodePath;
 	private String catalogChapterUrlPath;
@@ -57,6 +58,17 @@ public class DownloadBook extends Thread {
 			logger.debug("Load catalog. url: {}", catalogUrl);
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
+			if (chapterInfo != null) {
+				Document doc = HtmlTools.makeDocument(originCatalog);
+				BookInfo bookInfoBean = new BookInfo();
+				bookInfoBean.setAuthor(findInfo(doc, authorPath));
+				bookInfoBean.setImgUrl(findInfo(doc, imgPath));
+				bookInfoBean.setLastUpdateChapter(findInfo(doc, lastUpdateChapterPath));
+				bookInfoBean.setLastUpdateTime(findInfo(doc, lastUpdateTimePath));
+				bookInfoBean.setState(findInfo(doc, statePath));
+				bookInfoBean.setBookName(findInfo(doc, bookNamePath));
+				chapterInfo.extractBookInfo(bookInfoBean);
+			}
 			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, catalogChapterNodePath, showDebug);
 			for (int i = 0; i < nodes.size(); i++) {
 				if (workState == WorkState.STOP) {
@@ -122,6 +134,21 @@ public class DownloadBook extends Thread {
 		} catch (Exception e) {
 			throw new WnException(e.getCause());
 		}
+	}
+	
+	private String findInfo(Node node, String nodePath) {
+		if (StringUtils.isBlank(nodePath)) {
+			return null;
+		}
+		Node tnode = node.selectSingleNode(nodePath);
+		if (tnode == null) {
+			return null;
+		}
+		String value = tnode.getText();
+		if (value == null) {
+			return null;
+		}
+		return value.trim();
 	}
 	
 	private String replace(String str) {
@@ -203,27 +230,27 @@ public class DownloadBook extends Thread {
 	}
 
 	public void setCatalogSubjectPath(String catalogSubjectPath) {
-		this.catalogSubjectPath = catalogSubjectPath;
+		this.bookNamePath = catalogSubjectPath;
 	}
 
 	public void setCatalogStatePath(String catalogStatePath) {
-		this.catalogStatePath = catalogStatePath;
+		this.statePath = catalogStatePath;
 	}
 
 	public void setCatalogAuthorPath(String catalogAuthorPath) {
-		this.catalogAuthorPath = catalogAuthorPath;
+		this.authorPath = catalogAuthorPath;
 	}
 
 	public void setCatalogLastUpdateTimePath(String catalogLastUpdateTimePath) {
-		this.catalogLastUpdateTimePath = catalogLastUpdateTimePath;
+		this.lastUpdateTimePath = catalogLastUpdateTimePath;
 	}
 
 	public void setCatalogLastUpdateChapterPath(String catalogLastUpdateChapterPath) {
-		this.catalogLastUpdateChapterPath = catalogLastUpdateChapterPath;
+		this.lastUpdateChapterPath = catalogLastUpdateChapterPath;
 	}
 
 	public void setCatalogImgPath(String catalogImgPath) {
-		this.catalogImgPath = catalogImgPath;
+		this.imgPath = catalogImgPath;
 	}
 	
 	public void setLastSerialNo(int lastSerialNo) {

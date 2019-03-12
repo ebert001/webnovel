@@ -1,4 +1,4 @@
-package com.aswishes.wn.spider;
+package com.aswishes.wn.spider.looper;
 
 public enum WorkState {
 	RUNNING,

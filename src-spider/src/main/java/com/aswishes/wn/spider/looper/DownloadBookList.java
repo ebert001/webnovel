@@ -1,4 +1,4 @@
-package com.aswishes.wn.spider;
+package com.aswishes.wn.spider.looper;
 
 import java.text.MessageFormat;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.aswishes.wn.spider;
+package com.aswishes.wn.spider.looper;
 
 import java.io.StringReader;
 import java.util.List;

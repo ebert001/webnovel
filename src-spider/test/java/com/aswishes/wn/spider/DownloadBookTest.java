@@ -2,6 +2,8 @@ package com.aswishes.wn.spider;
 
 import org.junit.Test;
 
+import com.aswishes.wn.spider.looper.DownloadBook;
+
 public class DownloadBookTest {
 
 	@Test
