@@ -1,24 +1,19 @@
 package com.aswishes.wn.spider.looper;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.fluent.Request;
 import org.dom4j.Document;
 import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.aswishes.wn.exception.WnException;
-
 /**
  * 爬取网络书籍
  */
-public class DownloadBook extends Thread {
-	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
+public class PickCatalog extends AbstractPicker {
+	private static final Logger logger = LoggerFactory.getLogger(PickCatalog.class);
 	/** 目录页地址 */
 	private String catalogUrl;
 	private String catalogCharset = "UTF-8";
@@ -29,50 +24,33 @@ public class DownloadBook extends Thread {
 	private String lastUpdateTimePath;
 	private String lastUpdateChapterPath;
 	private String imgPath;
+	private String tagPath;
 	
 	private String catalogChapterNodePath;
 	private String catalogChapterUrlPath;
 	
-	private String chapterCharset = "UTF-8";
+	private String chapterCharset;
 	private String chapterNodePath;
 	
-	private List<String> weeds = new ArrayList<String>();
-	
-	private boolean showDebug = false;
 	private WorkState workState = WorkState.RUNNING; 
 	
 	private IChapterInfo chapterInfo;
 	private int lastSerialNo = -1;
 	
-	public DownloadBook(String catalogUrl) {
+	public PickCatalog(String catalogUrl) {
 		this.catalogUrl = catalogUrl;
 	}
 	
-	@Override
-	public void run() {
-		discovery();
-	}
-	
-	public DownloadBook discovery() {
+	public void discovery() {
 		try {
 			logger.debug("Load catalog. url: {}", catalogUrl);
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
-			if (chapterInfo != null) {
-				Document doc = HtmlTools.makeDocument(originCatalog);
-				BookInfo bookInfoBean = new BookInfo();
-				bookInfoBean.setAuthor(findInfo(doc, authorPath));
-				bookInfoBean.setImgUrl(findInfo(doc, imgPath));
-				bookInfoBean.setLastUpdateChapter(findInfo(doc, lastUpdateChapterPath));
-				bookInfoBean.setLastUpdateTime(findInfo(doc, lastUpdateTimePath));
-				bookInfoBean.setState(findInfo(doc, statePath));
-				bookInfoBean.setBookName(findInfo(doc, bookNamePath));
-				chapterInfo.extractBookInfo(bookInfoBean);
-			}
+			extractBookInfo(originCatalog);
 			List<Node> nodes = HtmlTools.findFromHtml(originCatalog, catalogChapterNodePath, showDebug);
 			for (int i = 0; i < nodes.size(); i++) {
 				if (workState == WorkState.STOP) {
-					return this;
+					return;
 				} else if (workState == WorkState.PAUSE) {
 					i--;
 					Thread.sleep(10 * 1000);
@@ -96,7 +74,7 @@ public class DownloadBook extends Thread {
 						chapterUrl = catalogUrl + chapterUrl;
 					} else {
 						logger.error("Unkown chapter url: {}, catalog url: {}", chapterUrl, catalogUrl);
-						return this;
+						return;
 					}
 				}
 				info.setChapterUrl(chapterUrl);
@@ -106,8 +84,12 @@ public class DownloadBook extends Thread {
 				}
 				boolean loadChapter = chapterInfo.extract(info);
 				if (loadChapter) {
-					logger.debug("Load chapter. name: {}, url: {}", title, chapterUrl);
-					String content = replace(loadChapter(chapterUrl));
+					PickChapter picker = new PickChapter(title, chapterUrl);
+					picker.setChapterCharset(chapterCharset);
+					picker.setChapterNodePath(chapterNodePath);
+					picker.addWeeds(weeds);
+					picker.discovery();
+					String content = picker.getChapterContent();
 					info.setChapterContent(content);
 					chapterInfo.extractContent(info, content);
 				}
@@ -116,103 +98,39 @@ public class DownloadBook extends Thread {
 			logger.error("Load book error: " + catalogUrl, e);
 		}
 		workState = WorkState.STOP;
-		return this;
 	}
-	
-	private String loadChapter(String chapterUrl) {
-		try {
-			String originContent = new String(Request.Get(chapterUrl).execute().returnContent().asBytes(), chapterCharset);
-			List<Node> nodess = HtmlTools.findFromHtml(originContent, chapterNodePath, showDebug);
-			if (nodess == null || nodess.isEmpty()) {
-				throw new WnException("Retrive content xpath error.");
-			}
-			StringBuilder sb = new StringBuilder();
-			for (Node n : nodess) {
-				sb.append(n.getStringValue());
-			}
-			return sb.toString();
-		} catch (Exception e) {
-			throw new WnException(e.getCause());
+
+	private void extractBookInfo(String originCatalog) {
+		if (chapterInfo != null) {
+			Document doc = HtmlTools.makeDocument(originCatalog);
+			BookInfo bookInfoBean = new BookInfo();
+			bookInfoBean.setAuthor(findInfo(doc, authorPath));
+			bookInfoBean.setImgUrl(findInfo(doc, imgPath));
+			bookInfoBean.setLastUpdateChapter(findInfo(doc, lastUpdateChapterPath));
+			bookInfoBean.setLastUpdateTime(findInfo(doc, lastUpdateTimePath));
+			bookInfoBean.setState(findInfo(doc, statePath));
+			bookInfoBean.setBookName(findInfo(doc, bookNamePath));
+			bookInfoBean.setTag(findInfo(doc, tagPath));
+			chapterInfo.extractBookInfo(bookInfoBean);
 		}
 	}
 	
-	private String findInfo(Node node, String nodePath) {
-		if (StringUtils.isBlank(nodePath)) {
-			return null;
-		}
-		Node tnode = node.selectSingleNode(nodePath);
-		if (tnode == null) {
-			return null;
-		}
-		String value = tnode.getText();
-		if (value == null) {
-			return null;
-		}
-		return value.trim();
-	}
-	
-	private String replace(String str) {
-		if (weeds.size() == 0) {
-			return str;
-		}
-		String r = str;
-		for (int i = 0; i < weeds.size(); i += 2) {
-			String key = weeds.get(i);
-			if (StringUtils.isEmpty(key)) {
-				continue;
-			}
-			String value = weeds.get(i + 1);
-			if (value == null) {
-				value = "";
-			}
-			r = r.replaceAll(key.trim(), value);
-		}
-		return r;
-	}
-	
-	public DownloadBook setCatalogCharset(String catalogCharset) {
+	public PickCatalog setCatalogCharset(String catalogCharset) {
 		this.catalogCharset = catalogCharset;
 		return this;
 	}
 	
-	public DownloadBook setCatalogChapterNodePath(String catalogChapterNodePath) {
+	public PickCatalog setCatalogChapterNodePath(String catalogChapterNodePath) {
 		this.catalogChapterNodePath = catalogChapterNodePath;
 		return this;
 	}
 	
-	public DownloadBook setCatalogChapterUrlPath(String catalogChapterUrlPath) {
+	public PickCatalog setCatalogChapterUrlPath(String catalogChapterUrlPath) {
 		this.catalogChapterUrlPath = catalogChapterUrlPath;
 		return this;
 	}
 	
-	public DownloadBook setChapterNodePath(String chapterNodePath) {
-		this.chapterNodePath = chapterNodePath;
-		return this;
-	}
-	
-	public DownloadBook setChapterCharset(String chapterCharset) {
-		this.chapterCharset = chapterCharset;
-		return this;
-	}
-	
-	public DownloadBook setShowDebug(boolean showDebug) {
-		this.showDebug = showDebug;
-		return this;
-	}
-	
-	public DownloadBook setChapterWeeds(String...words) {
-		if (words == null) {
-			return this;
-		}
-		List<String> list = Arrays.asList(words);
-		this.weeds.addAll(list);
-		if (words.length % 2 != 0) {
-			this.weeds.add("");
-		}
-		return this;
-	}
-	
-	public DownloadBook setWorkState(WorkState workState) {
+	public PickCatalog setWorkState(WorkState workState) {
 		this.workState = workState;
 		if (this.workState == WorkState.PAUSE) {
 			Thread.interrupted();
@@ -224,7 +142,7 @@ public class DownloadBook extends Thread {
 		return workState;
 	}
 	
-	public DownloadBook setChapterInfo(IChapterInfo chapterInfo) {
+	public PickCatalog setChapterInfo(IChapterInfo chapterInfo) {
 		this.chapterInfo = chapterInfo;
 		return this;
 	}
@@ -256,5 +174,16 @@ public class DownloadBook extends Thread {
 	public void setLastSerialNo(int lastSerialNo) {
 		this.lastSerialNo = lastSerialNo;
 	}
+
+	public void setTagPath(String tagPath) {
+		this.tagPath = tagPath;
+	}
 	
+	public void setChapterCharset(String chapterCharset) {
+		this.chapterCharset = chapterCharset;
+	}
+	
+	public void setChapterNodePath(String chapterNodePath) {
+		this.chapterNodePath = chapterNodePath;
+	}
 }

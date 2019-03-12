@@ -2,7 +2,7 @@ package com.aswishes.wn.spider;
 
 import org.junit.Test;
 
-import com.aswishes.wn.spider.looper.DownloadBook;
+import com.aswishes.wn.spider.looper.PickCatalog;
 
 public class DownloadBookTest {
 
@@ -16,15 +16,15 @@ public class DownloadBookTest {
 //			.discovery();
 
 		// https://www.lingyu.org/wjsw/21/21995/25250300.html
-		new DownloadBook("https://www.lingyu.org/wjsw/21/21995/")
-			.setShowDebug(true)
-			.setCatalogChapterNodePath("//div[@class='ml_list']/ul/li/a")
-			.setCatalogCharset("GBK")
-			.setCatalogChapterUrlPath("href")
-			.setChapterCharset("GBK")
-			.setChapterNodePath("//div[@class='novelcontent']/p/self::*")
-			.setChapterWeeds("./www.lingyu.org", "", "./领域文学", "", " ♂领♂域♂文♂学♂*♂www.li♂ng♂yu.or♂g", "")
-			.discovery();
+		PickCatalog bean = new PickCatalog("https://www.lingyu.org/wjsw/21/21995/");
+		bean.setShowDebug(true);
+		bean.setCatalogChapterNodePath("//div[@class='ml_list']/ul/li/a");
+		bean.setCatalogCharset("GBK");
+		bean.setCatalogChapterUrlPath("href");
+		bean.setChapterCharset("GBK");
+		bean.setChapterNodePath("//div[@class='novelcontent']/p/self::*");
+		bean.setWeeds("./www.lingyu.org", "", "./领域文学", "", " ♂领♂域♂文♂学♂*♂www.li♂ng♂yu.or♂g", "");
+		bean.discovery();
 		
 //		new DownloadBook("http://www.77xsw.la/book/10647/")
 //			.setShowDebug(false)

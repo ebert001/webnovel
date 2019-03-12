@@ -11,8 +11,8 @@ import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DownloadBookList extends Thread {
-	private static final Logger logger = LoggerFactory.getLogger(DownloadBook.class);
+public class PickBooks extends AbstractPicker {
+	private static final Logger logger = LoggerFactory.getLogger(PickCatalog.class);
 	private String bookListCharset = "UTF-8";
 	private String bookNodePath;
 	private String bookNodeNamePath;
@@ -32,17 +32,12 @@ public class DownloadBookList extends Thread {
 	
 	private IBookInfo bookInfo;
 	
-	public DownloadBookList(String bookListUrlFormat, int pageNo) {
+	public PickBooks(String bookListUrlFormat, int pageNo) {
 		this.pageNo = pageNo;
 		this.bookListUrlFormat = bookListUrlFormat;
 	}
 	
-	@Override
-	public void run() {
-		discovery();
-	}
-	
-	public DownloadBookList discovery() {
+	public void discovery() {
 		do {
 			String bookListUrl = getBookListPageUrl(bookListUrlFormat, pageNo);
 			try {
@@ -51,7 +46,7 @@ public class DownloadBookList extends Thread {
 				logger.debug("node size: {}", nodes.size());
 				for (int i = 0; i < nodes.size(); i++) {
 					if (workState == WorkState.STOP) {
-						return this;
+						return;
 					} else if (workState == WorkState.PAUSE) {
 						i--;
 						Thread.sleep(10 * 1000);
@@ -87,7 +82,6 @@ public class DownloadBookList extends Thread {
 			}
 		} while ((++pageNo) <= totalPage);
 		workState = WorkState.STOP;
-		return this;
 	}
 	
 	private void findTotalPage(String bookListContent) {
@@ -116,73 +110,57 @@ public class DownloadBookList extends Thread {
 		return MessageFormat.format(urlFormat, pageNo);
 	}
 	
-	private String findInfo(Node node, String nodePath) {
-		if (StringUtils.isBlank(nodePath)) {
-			return null;
-		}
-		Node tnode = node.selectSingleNode(nodePath);
-		if (tnode == null) {
-			return null;
-		}
-		return tnode.getText().trim();
-	}
-	
-	public DownloadBookList setShowDebug(boolean showDebug) {
-		this.showDebug = showDebug;
-		return this;
-	}
-	
-	public DownloadBookList setBookListCharset(String bookListCharset) {
+	public PickBooks setBookListCharset(String bookListCharset) {
 		this.bookListCharset = bookListCharset;
 		return this;
 	}
 	
-	public DownloadBookList setBookNodePath(String bookNodePath) {
+	public PickBooks setBookNodePath(String bookNodePath) {
 		this.bookNodePath = bookNodePath;
 		return this;
 	}
 	
-	public DownloadBookList setBookNodeNamePath(String bookNamePath) {
+	public PickBooks setBookNodeNamePath(String bookNamePath) {
 		this.bookNodeNamePath = bookNamePath;
 		return this;
 	}
 	
-	public DownloadBookList setBookNodeUrlPath(String bookUrlPath) {
+	public PickBooks setBookNodeUrlPath(String bookUrlPath) {
 		this.bookNodeUrlPath = bookUrlPath;
 		return this;
 	}
 	
-	public DownloadBookList setBookNodeImgUrlPath(String imgUrlPath) {
+	public PickBooks setBookNodeImgUrlPath(String imgUrlPath) {
 		this.bookNodeImgUrlPath = imgUrlPath;
 		return this;
 	}
 	
-	public DownloadBookList setBookNodeAuthorPath(String authorPath) {
+	public PickBooks setBookNodeAuthorPath(String authorPath) {
 		this.authorPath = authorPath;
 		return this;
 	}
 	
-	public DownloadBookList setBookNodeLastUpdateTimePath(String lastUpdateTimePath) {
+	public PickBooks setBookNodeLastUpdateTimePath(String lastUpdateTimePath) {
 		this.bookNodeLastUpdateTimePath = lastUpdateTimePath;
 		return this;
 	}
 	
-	public DownloadBookList setBookNodeIntroductionPath(String introductionPath) {
+	public PickBooks setBookNodeIntroductionPath(String introductionPath) {
 		this.bookNodeIntroductionPath = introductionPath;
 		return this;
 	}
 	
-	public DownloadBookList setTotalPagePath(String totalPagePath) {
+	public PickBooks setTotalPagePath(String totalPagePath) {
 		this.totalPagePath = totalPagePath;
 		return this;
 	}
 	
-	public DownloadBookList setTotalPageExpress(String totalPageExpress) {
+	public PickBooks setTotalPageExpress(String totalPageExpress) {
 		this.totalPageExpress = totalPageExpress;
 		return this;
 	}
 	
-	public DownloadBookList setWorkState(WorkState workState) {
+	public PickBooks setWorkState(WorkState workState) {
 		this.workState = workState;
 		if (this.workState == WorkState.PAUSE) {
 			Thread.interrupted();
@@ -194,7 +172,7 @@ public class DownloadBookList extends Thread {
 		return workState;
 	}
 	
-	public DownloadBookList setBookInfo(IBookInfo bookInfo) {
+	public PickBooks setBookInfo(IBookInfo bookInfo) {
 		this.bookInfo = bookInfo;
 		return this;
 	}

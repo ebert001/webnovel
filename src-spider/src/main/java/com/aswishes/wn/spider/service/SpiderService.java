@@ -36,8 +36,8 @@ import com.aswishes.wn.spider.entity.WnSpiderRule;
 import com.aswishes.wn.spider.entity.WnSpiderWebsite;
 import com.aswishes.wn.spider.looper.BookInfo;
 import com.aswishes.wn.spider.looper.ChapterInfo;
-import com.aswishes.wn.spider.looper.DownloadBook;
-import com.aswishes.wn.spider.looper.DownloadBookList;
+import com.aswishes.wn.spider.looper.PickCatalog;
+import com.aswishes.wn.spider.looper.PickBooks;
 import com.aswishes.wn.spider.looper.IBookInfo;
 import com.aswishes.wn.spider.looper.IChapterInfo;
 import com.aswishes.wn.spider.looper.WorkState;
@@ -55,9 +55,9 @@ public class SpiderService extends AbstractService {
 	@Autowired
 	private ChapterService chapterService;
 	/** key:网站名称 */
-	private Map<String, DownloadBookList> bookListCache = new ConcurrentHashMap<String, DownloadBookList>();
+	private Map<String, PickBooks> bookListCache = new ConcurrentHashMap<String, PickBooks>();
 	/** key 书记名称 */
-	private Map<String, DownloadBook> bookCache = new ConcurrentHashMap<String, DownloadBook>();
+	private Map<String, PickCatalog> bookCache = new ConcurrentHashMap<String, PickCatalog>();
 	
 	private static int spiderThreadCount = 3;
 	
@@ -206,7 +206,7 @@ public class SpiderService extends AbstractService {
 			throw new ServiceException(WnStatus.WEBSITE_EXISTS_IN_CACHE);
 		}
 		WnSpiderRule rule = getRule(website.getRuleId());
-		DownloadBookList downloadBookList = new DownloadBookList(rule.getBookListUrlFormat(), Integer.parseInt(rule.getBookListStartPageNo()));
+		PickBooks downloadBookList = new PickBooks(rule.getBookListUrlFormat(), Integer.parseInt(rule.getBookListStartPageNo()));
 		downloadBookList.setBookListCharset(rule.getBookListCharset());
 		downloadBookList.setTotalPagePath(rule.getBookListTotalPagePath());
 		downloadBookList.setTotalPageExpress(rule.getBookListTotalPageRegular());
@@ -247,16 +247,16 @@ public class SpiderService extends AbstractService {
 			throw new ServiceException(WnStatus.BOOK_EXISTS_IN_CACHE);
 		}
 		WnBook book = bookDao.getBook(info.getBookName(), website.getId());
-		DownloadBook downloadBook = new DownloadBook(info.getBookUrl());
+		PickCatalog downloadBook = new PickCatalog(info.getBookUrl());
 		downloadBook.setCatalogCharset(rule.getCatalogCharset());
 		downloadBook.setCatalogChapterNodePath(rule.getCatalogChapterNodePath());
 		downloadBook.setCatalogChapterUrlPath(rule.getCatalogChapterUrlPath());
+		downloadBook.setLastSerialNo(bookDao.getMaxSerialNo(book.getId()));
 		
 		downloadBook.setChapterCharset(rule.getChapterCharset());
 		downloadBook.setChapterNodePath(rule.getChapterNodePath());
-		downloadBook.setLastSerialNo(bookDao.getMaxSerialNo(book.getId()));
 		if (StringUtils.isNotBlank(rule.getChapterWeed())) {
-			downloadBook.setChapterWeeds(rule.getChapterWeed().split(","));
+			downloadBook.setWeeds(rule.getChapterWeed().split(","));
 		}
 		downloadBook.setChapterInfo(new IChapterInfo() {
 			@Override
@@ -294,8 +294,8 @@ public class SpiderService extends AbstractService {
 		if (bookListCache.size() < spiderThreadCount) {
 			return false;
 		}
-		for (Entry<String, DownloadBookList> entry : bookListCache.entrySet()) {
-			DownloadBookList bean = entry.getValue();
+		for (Entry<String, PickBooks> entry : bookListCache.entrySet()) {
+			PickBooks bean = entry.getValue();
 			if (bean.getWorkState() != WorkState.STOP) {
 				continue;
 			}
@@ -309,8 +309,8 @@ public class SpiderService extends AbstractService {
 		if (bookCache.size() < spiderThreadCount) {
 			return false;
 		}
-		for (Entry<String, DownloadBook> entry : bookCache.entrySet()) {
-			DownloadBook bean = entry.getValue();
+		for (Entry<String, PickCatalog> entry : bookCache.entrySet()) {
+			PickCatalog bean = entry.getValue();
 			if (bean.getWorkState() != WorkState.STOP) {
 				continue;
 			}

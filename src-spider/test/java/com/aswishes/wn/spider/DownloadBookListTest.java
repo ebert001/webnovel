@@ -2,7 +2,7 @@ package com.aswishes.wn.spider;
 
 import org.junit.Test;
 
-import com.aswishes.wn.spider.looper.DownloadBookList;
+import com.aswishes.wn.spider.looper.PickBooks;
 
 public class DownloadBookListTest {
 
@@ -21,14 +21,14 @@ public class DownloadBookListTest {
 		
 		// 千千小说
 		// https://www.qqxsw.co/toptime/
-		new DownloadBookList("https://www.qqxsw.co/toptime/{0}.html", 1)
-			.setBookListCharset("GBK")
-			.setShowDebug(false)
-			.setBookNodePath("//div[@id='alist']//div[@id='alistbox']")
-			.setBookNodeNamePath(".//div[@class='title']/h2/a")
-			.setBookNodeUrlPath(".//div[@class='title']/h2/a/@href")
-			.setTotalPagePath("//div[@class='pagelink']/a[@class='last']/@href")
-			.setTotalPageExpress("\\d+")
-			.discovery();
+		PickBooks bean = new PickBooks("https://www.qqxsw.co/toptime/{0}.html", 1);
+		bean.setBookListCharset("GBK");
+		bean.setShowDebug(false);
+		bean.setBookNodePath("//div[@id='alist']//div[@id='alistbox']");
+		bean.setBookNodeNamePath(".//div[@class='title']/h2/a");
+		bean.setBookNodeUrlPath(".//div[@class='title']/h2/a/@href");
+		bean.setTotalPagePath("//div[@class='pagelink']/a[@class='last']/@href");
+		bean.setTotalPageExpress("\\d+");
+		bean.discovery();
 	}
 }

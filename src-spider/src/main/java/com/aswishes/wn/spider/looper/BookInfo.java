@@ -9,6 +9,7 @@ public class BookInfo {
 	private String lastUpdateTime;
 	private String lastUpdateChapter;
 	private String state;
+	private String tag;
 	
 	public String getBookName() {
 		return bookName;
@@ -57,6 +58,12 @@ public class BookInfo {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 	
 }
