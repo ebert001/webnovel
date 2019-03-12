@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.SqlHelper;
 import com.aswishes.spring.SqlHelper.Select;
@@ -44,8 +45,12 @@ public class WnBookDao extends AbstractJdbcDao {
 	
 	public int getMaxSerialNo(Long id) {
 		String sql = Select.table(tableName).columns("max(serial_no)").where("id = ?").toSqlString();
-		Integer result = getObject(sql, Integer.class, id);
-		return result == null ? 0 : result;
+		return getCount(sql, id);
+	}
+	
+	public PageResultWrapper<WnBook> getUnauditBooks(int pageNo, int pageSize, int state) {
+		return getPage(MapperHelper.getMapper(WnBook.class), pageNo, pageSize, 
+				Restriction.eq("state", state));
 	}
 	
 	public void deleteBook(Long bookId) {

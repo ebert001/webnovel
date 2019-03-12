@@ -76,17 +76,24 @@ public class SpiderController extends AbstractController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/loopBookList")
-	public ModelAndView loopBookList(ModelAndView mv, Long websiteId, boolean loopChapters) {
-		WnSpiderWebsite website = spiderService.getWebsite(websiteId);
-		spiderService.loopBookList(websiteId, loopChapters);
+	@RequestMapping(value = "/loopWebsite")
+	public ModelAndView loopWebsite(ModelAndView mv, Long id) {
+		spiderService.loopWebsite(id);
 		mv.setViewName("config/spider/list_website");
 		return mv;
 	}
 	
-	@RequestMapping(value = "/loopWebsite")
-	public ModelAndView loopWebsite(ModelAndView mv, Long id) {
+	@RequestMapping(value = "/toUnauditBooks")
+	public ModelAndView toUnauditBooks(ModelAndView mv, Long id) {
 		spiderService.loopWebsite(id);
+		mv.setViewName("config/spider/list_website");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/loopBookList")
+	public ModelAndView loopBookList(ModelAndView mv, Long websiteId, boolean loopChapters) {
+		WnSpiderWebsite website = spiderService.getWebsite(websiteId);
+		spiderService.loopBookList(websiteId, loopChapters);
 		mv.setViewName("config/spider/list_website");
 		return mv;
 	}
