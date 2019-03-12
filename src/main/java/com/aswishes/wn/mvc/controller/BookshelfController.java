@@ -40,8 +40,7 @@ public class BookshelfController extends AbstractController {
 	@RequestMapping(value = "/toRead")
 	public ModelAndView toRead(ModelAndView mv, Long id) {
 		WnBook book = bookshelfService.readBook(id);
-		
-		mv.setViewName("redirect:/book/");
+		mv.setViewName("redirect:/book/listChapter?bookId=" + book.getId());
 		return mv;
 	}
 	

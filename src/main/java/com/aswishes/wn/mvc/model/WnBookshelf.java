@@ -17,6 +17,10 @@ public class WnBookshelf extends BaseIdAuto {
 	@Mapper(name = "book_name")
 	private String bookName;
 	
+	/** 书籍作者 */
+	@Mapper(name = "book_author")
+	private String bookAuthor;
+	
 	/** 用户id */
 	@Mapper(name = "user_id")
 	private Long userId;
@@ -65,6 +69,14 @@ public class WnBookshelf extends BaseIdAuto {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getBookAuthor() {
+		return bookAuthor;
+	}
+
+	public void setBookAuthor(String bookAuthor) {
+		this.bookAuthor = bookAuthor;
 	}
 
 }

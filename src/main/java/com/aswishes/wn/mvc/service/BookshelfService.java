@@ -55,7 +55,7 @@ public class BookshelfService extends AbstractService {
 		WnBookshelf fbook = getBook(id);
 		WnBook book = bookService.getBook(fbook.getBookId());
 		if (book == null) {
-			throw new ServiceException(WnStatus.BOOK_LOST);
+			return null;
 		}
 		fbook.setUpdateTime(new Date());
 		update(fbook);

@@ -199,6 +199,8 @@ CREATE TABLE wn_bookshelf (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`book_id` bigint DEFAULT NULL COMMENT '外键，书籍id',
 	`book_name` varchar(64) COMMENT '书籍名称',
+	`book_author` varchar(64) COMMENT '书籍作者',
+	
 	`user_id` bigint DEFAULT NULL COMMENT '外键，用户id',
 	`update_time` datetime comment '更新时间',
 	`create_time` datetime comment '添加时间',
