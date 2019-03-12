@@ -85,6 +85,7 @@ public class PickCatalog extends AbstractPicker {
 				boolean loadChapter = chapterInfo.extract(info);
 				if (loadChapter) {
 					PickChapter picker = new PickChapter(title, chapterUrl);
+					picker.setShowDebug(showDebug);
 					picker.setChapterCharset(chapterCharset);
 					picker.setChapterNodePath(chapterNodePath);
 					picker.addWeeds(weeds);
