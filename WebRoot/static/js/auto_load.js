@@ -27,7 +27,7 @@ $(document).ready(function() {
 		if (totalPage == undefined) {
 			totalPage = 1
 		}
-		var bar = laodPageBar(pageUrl, pageFunc, pageNo, pageSize, totalPage, totalCount);
+		var bar = loadPageBar(pageUrl, pageFunc, parseInt(pageNo), parseInt(pageSize), parseInt(totalPage), parseInt(totalCount));
 		pageDiv.append(bar);
 	}
 });

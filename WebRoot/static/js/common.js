@@ -309,7 +309,7 @@ function pageNode(property, text) {
  * @param totalCount 总记录数
  * @returns 分页栏
  */
-function laodPageBar(pageUrl, pageFunc, pageNo, pageSize, totalPage, totalCount) {
+function loadPageBar(pageUrl, pageFunc, pageNo, pageSize, totalPage, totalCount) {
 	var pageWithForm = false;
 	// 有表单查询条件
 	if (pageUrl == undefined || pageUrl == null || pageUrl == "") {
@@ -363,10 +363,10 @@ function laodPageBar(pageUrl, pageFunc, pageNo, pageSize, totalPage, totalCount)
 		bar += '<a>尾页</a>';
 	} else {
 		if (pageWithForm) {
-			bar += '<input type="hidden" name="pageNo" value="' + pageSize + '">';
+			bar += '<input type="hidden" name="pageNo" value="' + totalPage + '">';
 			bar += '<a href="javascript:' + pageFunc + '">尾页</a>';
 		} else {
-			bar += '<a href="' + pageUrl + '&pageNo=' + pageSize + '">尾页</a>';
+			bar += '<a href="' + pageUrl + '&pageNo=' + totalPage + '">尾页</a>';
 		}
 	}
 	bar += ' ' + pageNo + '/' + totalPage;
