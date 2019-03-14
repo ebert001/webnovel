@@ -21,7 +21,7 @@ public class MChapterDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_chapter";
+		this.tableName = "m_chapter";
 	}
 	
 	public void deleteChapter(Long chapterId) {

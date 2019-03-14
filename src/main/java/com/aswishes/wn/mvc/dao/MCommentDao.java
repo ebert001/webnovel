@@ -14,7 +14,7 @@ public class MCommentDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_comment";
+		this.tableName = "m_comment";
 	}
 	
 }

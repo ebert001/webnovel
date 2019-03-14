@@ -19,7 +19,7 @@ public class MFeedbackDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_feedback";
+		this.tableName = "m_feedback";
 	}
 	
 	public MFeedback query(Long id) {

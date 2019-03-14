@@ -19,7 +19,7 @@ public class MVolumeDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_volume";
+		this.tableName = "m_volume";
 	}
 	
 	public List<MVolume> getVolumeList(Long bookId) {

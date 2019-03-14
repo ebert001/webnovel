@@ -21,7 +21,7 @@ public class MUserDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_user";
+		this.tableName = "m_user";
 	}
 	
 	public MUser getUser(Long userId) {

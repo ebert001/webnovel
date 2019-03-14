@@ -19,7 +19,7 @@ public class MForumSubjectDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_forum_subject";
+		this.tableName = "m_forum_subject";
 	}
 	
 	public void updateReadTimes(Long id) {

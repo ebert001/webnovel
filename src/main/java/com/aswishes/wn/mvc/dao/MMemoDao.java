@@ -19,7 +19,7 @@ public class MMemoDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_memo";
+		this.tableName = "m_memo";
 	}
 	
 	public MMemo getMemo(Long id) {

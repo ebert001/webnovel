@@ -23,7 +23,7 @@ public class MBookDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_book";
+		this.tableName = "m_book";
 	}
 	
 	public List<MBook> getBookList(Long userId) {

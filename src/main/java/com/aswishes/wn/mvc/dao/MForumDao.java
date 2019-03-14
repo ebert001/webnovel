@@ -19,7 +19,7 @@ public class MForumDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_forum";
+		this.tableName = "m_forum";
 	}
 	
 	public MForum queryForum(Long id) {
