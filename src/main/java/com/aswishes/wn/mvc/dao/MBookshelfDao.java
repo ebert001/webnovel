@@ -18,7 +18,7 @@ public class MBookshelfDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "wn_bookshelf";
+		this.tableName = "m_bookshelf";
 	}
 	
 	public MBookshelf getBook(Long id) {
