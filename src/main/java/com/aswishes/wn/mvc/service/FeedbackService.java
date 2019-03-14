@@ -7,26 +7,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.spring.service.AbstractService;
-import com.aswishes.wn.mvc.dao.WnFeedbackDao;
-import com.aswishes.wn.mvc.model.WnFeedback;
+import com.aswishes.wn.mvc.dao.MFeedbackDao;
+import com.aswishes.wn.mvc.model.MFeedback;
 
 @Service
 @Transactional
 public class FeedbackService extends AbstractService {
 
-	public WnFeedback query(Long id) {
+	public MFeedback query(Long id) {
 		return feedbackDao.query(id);
 	}
 
-	public List<WnFeedback> queryList(Long userId) {
+	public List<MFeedback> queryList(Long userId) {
 		return feedbackDao.queryList(userId);
 	}
 
-	public void save(WnFeedback feedback) {
+	public void save(MFeedback feedback) {
 		feedbackDao.save(feedback);
 	}
 
-	public void update(WnFeedback feedback) {
+	public void update(MFeedback feedback) {
 		feedbackDao.updateByPK(feedback, true);
 	}
 
@@ -35,7 +35,7 @@ public class FeedbackService extends AbstractService {
 	}
 
 	@Autowired
-	private WnFeedbackDao feedbackDao;
+	private MFeedbackDao feedbackDao;
 
 	@Override
 	public void setDao() {

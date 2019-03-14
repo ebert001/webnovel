@@ -8,9 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.wn.common.web.SessionUtils;
-import com.aswishes.wn.mvc.model.WnBook;
-import com.aswishes.wn.mvc.model.WnBookshelf;
-import com.aswishes.wn.mvc.model.WnUser;
+import com.aswishes.wn.mvc.model.MBook;
+import com.aswishes.wn.mvc.model.MBookshelf;
+import com.aswishes.wn.mvc.model.MUser;
 import com.aswishes.wn.mvc.service.BookshelfService;
 
 /**
@@ -26,11 +26,11 @@ public class BookshelfController extends AbstractController {
 	public ModelAndView toList(ModelAndView mv, 
 			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo, 
 			@RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-		WnUser user = SessionUtils.getUser();
+		MUser user = SessionUtils.getUser();
 		if (user == null) {
 			
 		} else {
-			PageResultWrapper<WnBookshelf> page = bookshelfService.getBooks(pageNo, pageSize, user.getId());
+			PageResultWrapper<MBookshelf> page = bookshelfService.getBooks(pageNo, pageSize, user.getId());
 			mv.addObject("page", page);
 			mv.setViewName("config/shelf/list_shelf");
 		}
@@ -39,7 +39,7 @@ public class BookshelfController extends AbstractController {
 	
 	@RequestMapping(value = "/toRead")
 	public ModelAndView toRead(ModelAndView mv, Long id) {
-		WnBook book = bookshelfService.readBook(id);
+		MBook book = bookshelfService.readBook(id);
 		mv.setViewName("redirect:/book/listChapter?bookId=" + book.getId());
 		return mv;
 	}

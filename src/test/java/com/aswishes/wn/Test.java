@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.aswishes.wn.mvc.model.WnUser;
+import com.aswishes.wn.mvc.model.MUser;
 
 public class Test {
 	
@@ -41,7 +41,7 @@ public class Test {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("uName", "ebert");
 			map.put("uPwd", "1231231");
-			WnUser bean = new WnUser();
+			MUser bean = new MUser();
 			mapToBean3(map, bean);
 //			System.out.print(bean.getUName() + " ");
 		}
@@ -61,7 +61,7 @@ public class Test {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("uName", "ebert");
 			map.put("uPwd", "1231231");
-			WnUser bean = new WnUser();
+			MUser bean = new MUser();
 			mapToBean4(map, bean);
 //			System.out.print(bean.getUName() + " ");
 		}
@@ -70,7 +70,7 @@ public class Test {
 	}
 
 	public static void beanToMap() {
-		WnUser bean = new WnUser();
+		MUser bean = new MUser();
 		try {
 			Map<String, String> map = BeanUtils.describe(bean);
 			System.out.println(map);
@@ -84,7 +84,7 @@ public class Test {
 	}
 	
 	public static void mapToBean() {
-		WnUser bean = new WnUser();
+		MUser bean = new MUser();
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put("setUName", "ebert");
 		try {

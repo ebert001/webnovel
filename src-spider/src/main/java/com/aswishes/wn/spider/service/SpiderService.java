@@ -25,15 +25,15 @@ import com.aswishes.wn.common.TempFile;
 import com.aswishes.wn.common.WnStatus;
 import com.aswishes.wn.common.file.FileManager;
 import com.aswishes.wn.exception.ServiceException;
-import com.aswishes.wn.mvc.dao.WnBookDao;
-import com.aswishes.wn.mvc.model.WnBook;
-import com.aswishes.wn.mvc.model.WnBook.RetriveState;
-import com.aswishes.wn.mvc.model.WnChapter;
+import com.aswishes.wn.mvc.dao.MBookDao;
+import com.aswishes.wn.mvc.model.MBook;
+import com.aswishes.wn.mvc.model.MBook.RetriveState;
+import com.aswishes.wn.mvc.model.MChapter;
 import com.aswishes.wn.mvc.service.ChapterService;
-import com.aswishes.wn.spider.dao.WnSpiderRuleDao;
-import com.aswishes.wn.spider.dao.WnSpiderWebsiteDao;
-import com.aswishes.wn.spider.entity.WnSpiderRule;
-import com.aswishes.wn.spider.entity.WnSpiderWebsite;
+import com.aswishes.wn.spider.dao.MSpiderRuleDao;
+import com.aswishes.wn.spider.dao.MSpiderWebsiteDao;
+import com.aswishes.wn.spider.entity.MSpiderRule;
+import com.aswishes.wn.spider.entity.MSpiderWebsite;
 import com.aswishes.wn.spider.looper.BookInfo;
 import com.aswishes.wn.spider.looper.ChapterInfo;
 import com.aswishes.wn.spider.looper.PickCatalog;
@@ -47,11 +47,11 @@ import com.aswishes.wn.spider.looper.WorkState;
 public class SpiderService extends AbstractService {
 	private static final Logger logger = LoggerFactory.getLogger(SpiderService.class);
 	@Autowired
-	private WnSpiderWebsiteDao spiderWebsiteDao;
+	private MSpiderWebsiteDao spiderWebsiteDao;
 	@Autowired
-	private WnSpiderRuleDao spiderRuleDao;
+	private MSpiderRuleDao spiderRuleDao;
 	@Autowired
-	private WnBookDao bookDao;
+	private MBookDao bookDao;
 	@Autowired
 	private ChapterService chapterService;
 	/** key:网站名称 */
@@ -66,35 +66,35 @@ public class SpiderService extends AbstractService {
 		this.dao = spiderWebsiteDao;
 	}
 	
-	public WnSpiderWebsite getWebsite(Long id) {
-		return spiderWebsiteDao.getObjectBy(MapperHelper.getMapper(WnSpiderWebsite.class), Restriction.eq("id", id));
+	public MSpiderWebsite getWebsite(Long id) {
+		return spiderWebsiteDao.getObjectBy(MapperHelper.getMapper(MSpiderWebsite.class), Restriction.eq("id", id));
 	}
 	
-	public WnSpiderWebsite getWebsite(String name) {
-		return spiderWebsiteDao.getObjectBy(MapperHelper.getMapper(WnSpiderWebsite.class), Restriction.eq("name", name));
+	public MSpiderWebsite getWebsite(String name) {
+		return spiderWebsiteDao.getObjectBy(MapperHelper.getMapper(MSpiderWebsite.class), Restriction.eq("name", name));
 	}
 	
 	
-	public WnSpiderRule getRule(Long id) {
-		return spiderRuleDao.getObjectBy(MapperHelper.getMapper(WnSpiderRule.class), Restriction.eq("id", id));
+	public MSpiderRule getRule(Long id) {
+		return spiderRuleDao.getObjectBy(MapperHelper.getMapper(MSpiderRule.class), Restriction.eq("id", id));
 	}
 	
-	public PageResultWrapper<WnSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
-		return spiderWebsiteDao.getPage(MapperHelper.getMapper(WnSpiderWebsite.class), pageNo, pageSize, Restriction.orderByDesc("id"));
+	public PageResultWrapper<MSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
+		return spiderWebsiteDao.getPage(MapperHelper.getMapper(MSpiderWebsite.class), pageNo, pageSize, Restriction.orderByDesc("id"));
 	}
 	
-	public List<WnSpiderWebsite> getOpenedWebsite() {
-		return spiderWebsiteDao.getList(MapperHelper.getMapper(WnSpiderWebsite.class), 
-				Restriction.eq("state", WnSpiderWebsite.State.OPENED.getValue()));
+	public List<MSpiderWebsite> getOpenedWebsite() {
+		return spiderWebsiteDao.getList(MapperHelper.getMapper(MSpiderWebsite.class), 
+				Restriction.eq("state", MSpiderWebsite.State.OPENED.getValue()));
 	}
 	
-	public List<WnBook> getSpiderBook(int pageNo, int pageSize) {
-		return bookDao.getList(MapperHelper.getMapper(WnBook.class), pageNo, pageSize);
+	public List<MBook> getSpiderBook(int pageNo, int pageSize) {
+		return bookDao.getList(MapperHelper.getMapper(MBook.class), pageNo, pageSize);
 	}
 	
 	@Transactional
-	public void addSpiderWebsite(WnSpiderWebsite website) {
-		WnSpiderWebsite bean = getWebsite(website.getName());
+	public void addSpiderWebsite(MSpiderWebsite website) {
+		MSpiderWebsite bean = getWebsite(website.getName());
 		if (bean != null) {
 			throw new ServiceException(WnStatus.WEBSITE_EXISTS);
 		}
@@ -107,7 +107,7 @@ public class SpiderService extends AbstractService {
 	
 	@Transactional
 	public void saveSpiderBook(Long websiteId, BookInfo info) {
-		WnBook bean = bookDao.getBook(info.getBookName(), websiteId);
+		MBook bean = bookDao.getBook(info.getBookName(), websiteId);
 		if (bean == null) {
 			addSpiderBook(websiteId, info);
 			return;
@@ -116,7 +116,7 @@ public class SpiderService extends AbstractService {
 	}
 
 	private void addSpiderBook(Long websiteId, BookInfo info) {
-		WnBook bean = new WnBook();
+		MBook bean = new MBook();
 		Date date = new Date();
 		
 		bean.setWebsiteId(websiteId);
@@ -136,32 +136,32 @@ public class SpiderService extends AbstractService {
 	}
 	
 	@Transactional
-	public void saveSpiderChapter(WnBook book, ChapterInfo info) {
-		WnChapter chapter = chapterService.getChapter(book.getId(), info.getChapterTitle());
+	public void saveSpiderChapter(MBook book, ChapterInfo info) {
+		MChapter chapter = chapterService.getChapter(book.getId(), info.getChapterTitle());
 		if (chapter != null) {
 			throw new ServiceException(WnStatus.BOOK_CHAPTER_EXISTS);
 		}
-		chapter = new WnChapter();
+		chapter = new MChapter();
 		chapter.setBookId(book.getId());
 		chapter.setSubject(info.getChapterTitle());
 		chapter.setContent(info.getChapterContent());
 		chapter.setWriteTime(DateUtil.parseDate(info.getDeployTime(), AppConstants.DATE_PATTERNS));
-		chapter.setState(WnChapter.State.UNAUDITED.getValue());
+		chapter.setState(MChapter.State.UNAUDITED.getValue());
 		chapter.setSerialNo(info.getSerialNo());
 		chapter.setInputTime(new Date());
 		chapterService.addChapter(chapter);
 	}
 	
 	@Transactional
-	public void updateChapterContent(WnBook book, ChapterInfo info) {
-		WnChapter chapter = chapterService.getChapter(book.getId(), info.getChapterTitle());
+	public void updateChapterContent(MBook book, ChapterInfo info) {
+		MChapter chapter = chapterService.getChapter(book.getId(), info.getChapterTitle());
 		chapterService.updateContent(chapter.getId(), info.getChapterContent());
 	}
 	
 	
 	@Transactional
-	public void saveSpiderRule(Long websiteId, WnSpiderRule rule) {
-		WnSpiderWebsite website = getWebsite(websiteId);
+	public void saveSpiderRule(Long websiteId, MSpiderRule rule) {
+		MSpiderWebsite website = getWebsite(websiteId);
 		if (website == null) {
 			throw new ServiceException(WnStatus.WEBSITE_NOT_EXISTS);
 		}
@@ -181,8 +181,8 @@ public class SpiderService extends AbstractService {
 	 * 循环所有的网站
 	 */
 	public synchronized void loopWebsite() {
-		 List<WnSpiderWebsite> list = getOpenedWebsite();
-		 for (WnSpiderWebsite website : list) {
+		 List<MSpiderWebsite> list = getOpenedWebsite();
+		 for (MSpiderWebsite website : list) {
 			 try {
 				 loopBookList(website.getId(), true);
 			 } catch (Exception e) {
@@ -192,7 +192,7 @@ public class SpiderService extends AbstractService {
 	}
 	
 	public synchronized void loopWebsite(Long websiteId) {
-		WnSpiderWebsite website = getWebsite(websiteId);
+		MSpiderWebsite website = getWebsite(websiteId);
 		loopBookList(website.getId(), true);
 	}
 	
@@ -201,11 +201,11 @@ public class SpiderService extends AbstractService {
 		if (isFullOfBookListCache()) {
 			throw new ServiceException(WnStatus.BOOK_LIST_CACHE_FULL);
 		}
-		WnSpiderWebsite website = getWebsite(websiteId);
+		MSpiderWebsite website = getWebsite(websiteId);
 		if (bookListCache.get(website.getName()) != null) {
 			throw new ServiceException(WnStatus.WEBSITE_EXISTS_IN_CACHE);
 		}
-		WnSpiderRule rule = getRule(website.getRuleId());
+		MSpiderRule rule = getRule(website.getRuleId());
 		PickBooks downloadBookList = new PickBooks(rule.getBookListUrlFormat(), Integer.parseInt(rule.getBookListStartPageNo()));
 		downloadBookList.setBookListCharset(rule.getBookListCharset());
 		downloadBookList.setTotalPagePath(rule.getBookListTotalPagePath());
@@ -238,7 +238,7 @@ public class SpiderService extends AbstractService {
 	}
 	
 	@Transactional
-	public synchronized void loopChapters(BookInfo info, WnSpiderWebsite website, WnSpiderRule rule, boolean callFromBook) {
+	public synchronized void loopChapters(BookInfo info, MSpiderWebsite website, MSpiderRule rule, boolean callFromBook) {
 		// 单独抓取一本书籍内容
 		if (!callFromBook && isFullOfBookCache()) {
 			throw new ServiceException(WnStatus.BOOK_CACHE_FULL);
@@ -246,7 +246,7 @@ public class SpiderService extends AbstractService {
 		if (bookCache.get(info.getBookName()) != null) {
 			throw new ServiceException(WnStatus.BOOK_EXISTS_IN_CACHE);
 		}
-		WnBook book = bookDao.getBook(info.getBookName(), website.getId());
+		MBook book = bookDao.getBook(info.getBookName(), website.getId());
 		PickCatalog downloadBook = new PickCatalog(info.getBookUrl());
 		downloadBook.setCatalogCharset(rule.getCatalogCharset());
 		downloadBook.setCatalogChapterNodePath(rule.getCatalogChapterNodePath());
@@ -340,12 +340,12 @@ public class SpiderService extends AbstractService {
 	
 	@Transactional
 	public void closeWebsite(Long id) {
-		spiderWebsiteDao.updateState(id, WnSpiderWebsite.State.CLOSED.getValue());
+		spiderWebsiteDao.updateState(id, MSpiderWebsite.State.CLOSED.getValue());
 	}
 	
 	@Transactional
 	public void openWebsite(Long id) {
-		spiderWebsiteDao.updateState(id, WnSpiderWebsite.State.OPENED.getValue());
+		spiderWebsiteDao.updateState(id, MSpiderWebsite.State.OPENED.getValue());
 	}
 
 }

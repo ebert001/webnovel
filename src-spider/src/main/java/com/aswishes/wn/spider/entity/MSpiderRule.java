@@ -5,8 +5,8 @@ import java.util.Date;
 import com.aswishes.spring.mapper.Mapper;
 import com.aswishes.wn.mvc.model.BaseIdAuto;
 
-@Mapper(tableName = "wn_spider_rule", primaryKey = {"id"})
-public class WnSpiderRule extends BaseIdAuto {
+@Mapper(tableName = "m_spider_rule", primaryKey = {"id"})
+public class MSpiderRule extends BaseIdAuto {
 
 	@Mapper(name = "name")
 	private String name;

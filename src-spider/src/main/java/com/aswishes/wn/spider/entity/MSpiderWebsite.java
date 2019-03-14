@@ -5,8 +5,8 @@ import java.util.Date;
 import com.aswishes.spring.mapper.Mapper;
 import com.aswishes.wn.mvc.model.BaseIdAuto;
 
-@Mapper(tableName = "wn_spider_website", primaryKey = {"id"})
-public class WnSpiderWebsite extends BaseIdAuto {
+@Mapper(tableName = "m_spider_website", primaryKey = {"id"})
+public class MSpiderWebsite extends BaseIdAuto {
 	
 	public static enum State {
 		OPENED(1),

@@ -1,5 +1,5 @@
 package com.aswishes.wn.mvc.model;
 
-public class WnPermission {
+public class MPermission {
 
 }

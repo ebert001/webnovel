@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.AppUtil;
 import com.aswishes.wn.common.web.SessionUtils;
-import com.aswishes.wn.mvc.model.WnFeedback;
+import com.aswishes.wn.mvc.model.MFeedback;
 import com.aswishes.wn.mvc.service.FeedbackService;
 
 @Controller
@@ -26,7 +26,7 @@ public class FeedbackController extends AbstractController {
 	
 	public ModelAndView listByUser() {
 		Long userId = SessionUtils.getUser().getId();
-		List<WnFeedback> feedbackList = feedbackService.queryList(userId);
+		List<MFeedback> feedbackList = feedbackService.queryList(userId);
 		request.setAttribute("feedbackList", feedbackList);
 		return new ModelAndView("/config/feedback/list_feedback.jsp");
 	}
@@ -35,7 +35,7 @@ public class FeedbackController extends AbstractController {
 	 * 反馈详细信息 
 	 */
 	public ModelAndView queryOne(Long id) {
-		WnFeedback feedback = feedbackService.query(id);
+		MFeedback feedback = feedbackService.query(id);
 		request.setAttribute("feedback", feedback);
 		return new ModelAndView("/config/feedback/list_feedback.jsp");
 	}
@@ -44,7 +44,7 @@ public class FeedbackController extends AbstractController {
 	 * 增加新反馈 
 	 */
 	public ModelAndView addFeedback() {
-		WnFeedback feedback = new WnFeedback();
+		MFeedback feedback = new MFeedback();
 		feedback.setId(AppUtil.getUuid());
 		feedback.setTitle(request.getParameter("title"));
 		feedback.setAdvice(request.getParameter("advice"));
@@ -59,7 +59,7 @@ public class FeedbackController extends AbstractController {
 	 */
 	public ModelAndView updateFeedback(Long id) {
 		String status = request.getParameter("status");
-		WnFeedback feedback = feedbackService.query(id);
+		MFeedback feedback = feedbackService.query(id);
 		feedback.setStatus(Integer.parseInt(status));
 		feedbackService.update(feedback);
 		return list();

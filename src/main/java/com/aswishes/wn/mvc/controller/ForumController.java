@@ -12,8 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.AppUtil;
 import com.aswishes.wn.common.web.SessionUtils;
-import com.aswishes.wn.mvc.model.WnForum;
-import com.aswishes.wn.mvc.model.WnForumSubject;
+import com.aswishes.wn.mvc.model.MForum;
+import com.aswishes.wn.mvc.model.MForumSubject;
 import com.aswishes.wn.mvc.service.ForumService;
 
 /**
@@ -31,7 +31,7 @@ public class ForumController extends AbstractController {
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
 		
-		List<WnForumSubject> forumSubjectList = forumMapper.queryForumSubjectList(no, perCount);
+		List<MForumSubject> forumSubjectList = forumMapper.queryForumSubjectList(no, perCount);
 		
 		int count = forumMapper.getForumSubjectCount();
 		int pageCount = AppUtil.calPageCount(count, perCount);
@@ -48,7 +48,7 @@ public class ForumController extends AbstractController {
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
 		
-		List<WnForumSubject> forumSubjectList = forumMapper.queryForumSubjectList(userId, no, perCount);
+		List<MForumSubject> forumSubjectList = forumMapper.queryForumSubjectList(userId, no, perCount);
 		
 		int count = forumMapper.getForumSubjectCount(userId);
 		int pageCount = AppUtil.calPageCount(count, perCount);
@@ -65,9 +65,9 @@ public class ForumController extends AbstractController {
 		int startPage = getStartPage(request);
 		int no = AppUtil.calStartNo(startPage, perCount);
 		
-		WnForumSubject forumSubject = forumMapper.queryForumSubject(id);
+		MForumSubject forumSubject = forumMapper.queryForumSubject(id);
 		
-		List<WnForum> forumList = forumMapper.queryForumList(id, no, perCount);
+		List<MForum> forumList = forumMapper.queryForumList(id, no, perCount);
 		
 		int count = forumMapper.queryForumListCount();
 		int pageCount = AppUtil.calPageCount(count, perCount);
@@ -87,7 +87,7 @@ public class ForumController extends AbstractController {
 		int perCount = 20;
 		int no = AppUtil.calStartNo(getStartPage(request), perCount);
 		
-		List<WnForum> forumList = forumMapper.queryForumList(id, no, perCount);
+		List<MForum> forumList = forumMapper.queryForumList(id, no, perCount);
 		
 		int count = forumMapper.queryForumListCount();
 		int pageCount = AppUtil.calPageCount(count, perCount);
@@ -102,12 +102,12 @@ public class ForumController extends AbstractController {
 	 * 添加帖子信息 
 	 */
 	public ModelAndView addForumSubject() {
-		WnForumSubject forumSubject = new WnForumSubject();
+		MForumSubject forumSubject = new MForumSubject();
 		forumSubject.setId(AppUtil.getUuid());
 		forumSubject.setSubject(request.getParameter("subject"));
 		forumSubject.setContent(request.getParameter("content"));
 		forumSubject.setType(Integer.parseInt(request.getParameter("type") == null ? "0" : request.getParameter("type")));
-		forumSubject.setStatus(WnForumSubject.Status.OPEN);
+		forumSubject.setStatus(MForumSubject.Status.OPEN);
 		
 		Date cdate = new Date();
 		forumSubject.setCreateTime(cdate);
@@ -127,11 +127,11 @@ public class ForumController extends AbstractController {
 	 * 回复帖子 
 	 */
 	public ModelAndView replyForum(Long subjectId) {
-		WnForum forum = new WnForum();
+		MForum forum = new MForum();
 		forum.setContent(request.getParameter("content"));
 		
 		forum.setSubjectId(subjectId);
-		forum.setStatus(WnForumSubject.Status.OPEN);
+		forum.setStatus(MForumSubject.Status.OPEN);
 		
 		Date cdate = new Date();
 		forum.setCreateTime(cdate);
@@ -149,10 +149,10 @@ public class ForumController extends AbstractController {
 	 * 更新帖子信息，帖子类型和状态 
 	 */
 	public ModelAndView updateForumSubject(Long id) {
-		WnForumSubject forumSubject = forumMapper.queryForumSubject(id);
+		MForumSubject forumSubject = forumMapper.queryForumSubject(id);
 		
 		forumSubject.setType(Integer.parseInt(request.getParameter("type") == null ? "0" : request.getParameter("type")));
-		forumSubject.setStatus(WnForumSubject.Status.OPEN);
+		forumSubject.setStatus(MForumSubject.Status.OPEN);
 		
 		forumMapper.updateForumSubject(forumSubject);
 		return list();

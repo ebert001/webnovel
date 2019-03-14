@@ -16,28 +16,28 @@ import com.aswishes.spring.mapper.MapperHelper;
 import com.aswishes.spring.service.AbstractService;
 import com.aswishes.wn.common.AppConstants;
 import com.aswishes.wn.common.web.SessionUtils;
-import com.aswishes.wn.mvc.dao.WnUserDao;
-import com.aswishes.wn.mvc.model.WnUser;
+import com.aswishes.wn.mvc.dao.MUserDao;
+import com.aswishes.wn.mvc.model.MUser;
 
 @Service
 @Transactional
 public class UserService extends AbstractService {
 	@Autowired
-	private WnUserDao userDao;
+	private MUserDao userDao;
 	
-	public WnUser getUser(Long userId) {
+	public MUser getUser(Long userId) {
 		return userDao.getUser(userId);
 	}
 	
-	public WnUser getUser(String username) {
+	public MUser getUser(String username) {
 		return userDao.getUser(username);
 	}
 	
-	public PageResultWrapper<WnUser> queryPage(int pageNo, int pageSize) {
-		return userDao.getPage(MapperHelper.getMapper(WnUser.class), pageNo, pageSize);
+	public PageResultWrapper<MUser> queryPage(int pageNo, int pageSize) {
+		return userDao.getPage(MapperHelper.getMapper(MUser.class), pageNo, pageSize);
 	}
 	
-	public String calPassword(WnUser user, String password) {
+	public String calPassword(MUser user, String password) {
 		String salt = user.getSalt();
 		return calPassword(salt, password);
 	}
@@ -56,7 +56,7 @@ public class UserService extends AbstractService {
 		subject.login(token);
 		
 		// 更新最近登录时间
-		WnUser user = SessionUtils.getUser();
+		MUser user = SessionUtils.getUser();
 		userDao.updateLastLoginTime(user.getId(), new Date());
 		
 		return true;
@@ -67,16 +67,16 @@ public class UserService extends AbstractService {
 	}
 	
 	@Transactional
-	public void updatePassword(WnUser user, String newPassword) {
+	public void updatePassword(MUser user, String newPassword) {
 		String tpwd = calPassword(user, newPassword);
 		userDao.updatePassword(user.getId(), tpwd);
 	}
 	
-	public void save(WnUser user) {
+	public void save(MUser user) {
 		userDao.save(user);
 	}
 	
-	public void update(WnUser user) {
+	public void update(MUser user) {
 		userDao.updateByPK(user, true);
 	}
 

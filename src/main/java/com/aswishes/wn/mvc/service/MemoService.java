@@ -7,26 +7,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.spring.service.AbstractService;
-import com.aswishes.wn.mvc.dao.WnMemoDao;
-import com.aswishes.wn.mvc.model.WnMemo;
+import com.aswishes.wn.mvc.dao.MMemoDao;
+import com.aswishes.wn.mvc.model.MMemo;
 
 @Service
 @Transactional
 public class MemoService extends AbstractService {
 
-	public WnMemo getMemo(Long id) {
+	public MMemo getMemo(Long id) {
 		return memoDao.getMemo(id);
 	}
 
-	public List<WnMemo> queryList(Long userId) {
+	public List<MMemo> queryList(Long userId) {
 		return memoDao.queryList(userId);
 	}
 
-	public void save(WnMemo memo) {
+	public void save(MMemo memo) {
 		memoDao.save(memo);
 	}
 
-	public void update(WnMemo memo) {
+	public void update(MMemo memo) {
 		memoDao.updateByPK(memo, true);
 	}
 
@@ -35,7 +35,7 @@ public class MemoService extends AbstractService {
 	}
 
 	@Autowired
-	private WnMemoDao memoDao;
+	private MMemoDao memoDao;
 
 	@Override
 	public void setDao() {

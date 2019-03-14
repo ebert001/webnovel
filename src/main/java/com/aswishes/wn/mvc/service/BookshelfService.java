@@ -11,35 +11,35 @@ import com.aswishes.spring.service.AbstractService;
 import com.aswishes.wn.common.WnStatus;
 import com.aswishes.wn.common.web.SessionUtils;
 import com.aswishes.wn.exception.ServiceException;
-import com.aswishes.wn.mvc.dao.WnBookshelfDao;
-import com.aswishes.wn.mvc.model.WnBook;
-import com.aswishes.wn.mvc.model.WnBookshelf;
-import com.aswishes.wn.mvc.model.WnUser;
+import com.aswishes.wn.mvc.dao.MBookshelfDao;
+import com.aswishes.wn.mvc.model.MBook;
+import com.aswishes.wn.mvc.model.MBookshelf;
+import com.aswishes.wn.mvc.model.MUser;
 
 @Service
 @Transactional
 public class BookshelfService extends AbstractService {
 
-	public WnBookshelf getBook(Long id) {
+	public MBookshelf getBook(Long id) {
 		return bookshelfDao.getBook(id);
 	}
 
-	public PageResultWrapper<WnBookshelf> getBooks(int pageNo, int pageSize, Long userId) {
+	public PageResultWrapper<MBookshelf> getBooks(int pageNo, int pageSize, Long userId) {
 		return bookshelfDao.getBooks(pageNo, pageSize, userId);
 	}
 	
 	@Transactional
 	public void addBook(Long bookId, String bookName) {
-		WnUser user = SessionUtils.getUser();
+		MUser user = SessionUtils.getUser();
 		if (user == null) {
 			throw new ServiceException(WnStatus.USER_NOT_LOGIN);
 		}
-		WnBookshelf tbean = bookshelfDao.getBook(user.getId(), bookId);
+		MBookshelf tbean = bookshelfDao.getBook(user.getId(), bookId);
 		if (tbean != null) {
 			throw new ServiceException(WnStatus.BOOK_IS_FAVORiTE);
 		}
 		
-		WnBookshelf bookshelf = new WnBookshelf();
+		MBookshelf bookshelf = new MBookshelf();
 		bookshelf.setBookId(bookId);
 		bookshelf.setBookName(bookName);
 		
@@ -51,9 +51,9 @@ public class BookshelfService extends AbstractService {
 	}
 	
 	@Transactional
-	public WnBook readBook(Long id) {
-		WnBookshelf fbook = getBook(id);
-		WnBook book = bookService.getBook(fbook.getBookId());
+	public MBook readBook(Long id) {
+		MBookshelf fbook = getBook(id);
+		MBook book = bookService.getBook(fbook.getBookId());
 		if (book == null) {
 			return null;
 		}
@@ -63,7 +63,7 @@ public class BookshelfService extends AbstractService {
 		return book;
 	}
 	
-	public void update(WnBookshelf memo) {
+	public void update(MBookshelf memo) {
 		bookshelfDao.updateByPK(memo, true);
 	}
 
@@ -72,7 +72,7 @@ public class BookshelfService extends AbstractService {
 	}
 
 	@Autowired
-	private WnBookshelfDao bookshelfDao;
+	private MBookshelfDao bookshelfDao;
 	@Autowired
 	private BookService bookService;
 

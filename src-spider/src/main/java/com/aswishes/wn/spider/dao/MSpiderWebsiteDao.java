@@ -8,7 +8,7 @@ import com.aswishes.spring.dao.AbstractJdbcDao;
 
 @Repository
 @Transactional
-public class WnSpiderWebsiteDao extends AbstractJdbcDao {
+public class MSpiderWebsiteDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {

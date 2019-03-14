@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.web.SessionUtils;
-import com.aswishes.wn.mvc.model.WnMemo;
+import com.aswishes.wn.mvc.model.MMemo;
 import com.aswishes.wn.mvc.service.MemoService;
 
 /**
@@ -27,7 +27,7 @@ public class MemoController extends AbstractController {
 		logger.debug("enter memo list page......");
 		Long userId = SessionUtils.getUser().getId();
 		
-		List<WnMemo> memoList = memoService.queryList(userId);
+		List<MMemo> memoList = memoService.queryList(userId);
 		request.setAttribute("memoList", memoList);
 		return new ModelAndView("config/memo/create_memo");
 	}
@@ -36,7 +36,7 @@ public class MemoController extends AbstractController {
 	 * 备忘录详细信息 
 	 */
 	public ModelAndView queryOne(Long id) {
-		WnMemo memo = memoService.getMemo(id);
+		MMemo memo = memoService.getMemo(id);
 		request.setAttribute("memo", memo);
 		
 		return new ModelAndView("/config/memo/edit_memo.jsp");
@@ -46,7 +46,7 @@ public class MemoController extends AbstractController {
 	 * 增加备忘 
 	 */
 	public ModelAndView addMemo() {
-		WnMemo memo = new WnMemo();
+		MMemo memo = new MMemo();
 		memo.setTitle(request.getParameter("title"));
 		memo.setContent(request.getParameter("content"));
 		
@@ -65,7 +65,7 @@ public class MemoController extends AbstractController {
 	 * 更新备忘 
 	 */
 	public ModelAndView updateMemo(Long id) {
-		WnMemo memo = new WnMemo();
+		MMemo memo = new MMemo();
 		
 		memo.setId(id);
 		memo.setTitle(request.getParameter("title"));

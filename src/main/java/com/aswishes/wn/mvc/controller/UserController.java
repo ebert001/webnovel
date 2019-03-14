@@ -16,7 +16,7 @@ import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.wn.common.AppConstants;
 import com.aswishes.wn.common.Codes;
 import com.aswishes.wn.common.web.SessionUtils;
-import com.aswishes.wn.mvc.model.WnUser;
+import com.aswishes.wn.mvc.model.MUser;
 import com.aswishes.wn.mvc.service.UserService;
 
 @Controller
@@ -58,7 +58,7 @@ public class UserController extends AbstractController {
 	
 	@RequestMapping(value = "/register", method = {RequestMethod.POST})
 	public ModelAndView register(ModelAndView mv, String wnUsername, String wnEmail, String password) {
-		WnUser user = new WnUser();
+		MUser user = new MUser();
 		user.setName(wnUsername);
 		user.setEmail(wnEmail);
 		userService.save(user);
@@ -81,7 +81,7 @@ public class UserController extends AbstractController {
 	
 	@RequestMapping(value = "/updatePassword", method = {RequestMethod.POST})
 	public ModelAndView updatePassword(ModelAndView mv, String oldPassword, String newPassword, String confirmPassword) {
-		WnUser user = SessionUtils.getUser();
+		MUser user = SessionUtils.getUser();
 		if (user == null) {
 			mv.setViewName("frame/homepage");
 			return mv;
@@ -102,7 +102,7 @@ public class UserController extends AbstractController {
 			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo, 
 			@RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
 			String name) {
-		PageResultWrapper<WnUser> page = userService.queryPage(pageNo, pageSize);
+		PageResultWrapper<MUser> page = userService.queryPage(pageNo, pageSize);
 		mv.addObject("page", page);
 		mv.setViewName("config/user/list_user");
 		return mv;
@@ -113,7 +113,7 @@ public class UserController extends AbstractController {
 	 */
 	@RequestMapping(value = "/info")
 	public ModelAndView queryOne(ModelAndView mv, String username) {
-		WnUser user = SessionUtils.getUser();
+		MUser user = SessionUtils.getUser();
 		if (user == null) {
 			mv.setViewName("redirect:homepage");
 			return mv;
@@ -125,7 +125,7 @@ public class UserController extends AbstractController {
 	
 	@RequestMapping(value = "/toEdit")
 	public ModelAndView toEdit(ModelAndView mv, Long userId) {
-		WnUser user = userService.getUser(userId);
+		MUser user = userService.getUser(userId);
 		if (user == null) {
 			mv.setViewName("redirect:homepage");
 			return mv;
@@ -139,7 +139,7 @@ public class UserController extends AbstractController {
 	public ModelAndView updateUser(ModelAndView mv, Long id, 
 			String username, String email, String phone,
 			Date birthday, int sex, String remark) {
-		WnUser user = userService.getUser(id);
+		MUser user = userService.getUser(id);
 		user.setEmail(email);
 		user.setPhone(phone);
 		user.setBirthday(birthday);
@@ -151,7 +151,7 @@ public class UserController extends AbstractController {
 	
 	@RequestMapping(value = "/toUploadAvatar")
 	public ModelAndView toUploadAvatar(ModelAndView mv) {
-		WnUser user = SessionUtils.getUser();
+		MUser user = SessionUtils.getUser();
 		if (user == null) {
 			mv.setViewName("redirect:/homepage");
 			return mv;
@@ -170,7 +170,7 @@ public class UserController extends AbstractController {
 	
 	@RequestMapping(value = "/toCreateAuthor")
 	public ModelAndView toCreateAuthor(ModelAndView mv) {
-		WnUser user = SessionUtils.getUser();
+		MUser user = SessionUtils.getUser();
 		if (user == null) {
 			mv.setViewName("redirect:/homepage");
 			return mv;
@@ -199,7 +199,7 @@ public class UserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/add")
-	public ModelAndView addUser(ModelAndView mv, WnUser user) {
+	public ModelAndView addUser(ModelAndView mv, MUser user) {
 		String salt = RandomStringUtils.random(16);
 		user.setAlg(AppConstants.ALG_SHA256);
 		user.setSalt(salt);

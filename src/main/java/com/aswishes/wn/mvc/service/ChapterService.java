@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.spring.service.AbstractService;
-import com.aswishes.wn.mvc.dao.WnBookDao;
-import com.aswishes.wn.mvc.dao.WnChapterDao;
-import com.aswishes.wn.mvc.model.WnChapter;
+import com.aswishes.wn.mvc.dao.MBookDao;
+import com.aswishes.wn.mvc.dao.MChapterDao;
+import com.aswishes.wn.mvc.model.MChapter;
 
 /**
  * 书籍相关的业务处理类
@@ -18,35 +18,35 @@ import com.aswishes.wn.mvc.model.WnChapter;
 @Transactional
 public class ChapterService extends AbstractService {
 	@Autowired
-	private WnChapterDao chapterDao;
+	private MChapterDao chapterDao;
 	@Autowired
-	private WnBookDao bookDao;
+	private MBookDao bookDao;
 
 	public void deleteChapter(Long chapterId) {
 		chapterDao.deleteChapter(chapterId);
 	}
 
-	public List<WnChapter> readCatalogs(Long bookId) {
+	public List<MChapter> readCatalogs(Long bookId) {
 		return chapterDao.readCatalogs(bookId);
 	}
 
-	public WnChapter getChapter(Long chapterId) {
+	public MChapter getChapter(Long chapterId) {
 		return chapterDao.getChapter(chapterId);
 	}
 	
-	public WnChapter getChapter(Long bookId, String subject) {
+	public MChapter getChapter(Long bookId, String subject) {
 		return chapterDao.getChapter(bookId, subject);
 	}
 
 	@Transactional
-	public void addChapter(WnChapter chapter) {
+	public void addChapter(MChapter chapter) {
 		chapterDao.save(chapter);
 		if (chapter.getBookId() != null) {
 			bookDao.updateBook(chapter.getBookId(), chapter.getInputTime());
 		}
 	}
 
-	public void updateChapter(WnChapter chapter) {
+	public void updateChapter(MChapter chapter) {
 		chapterDao.updateByPK(chapter, true);
 		if (chapter.getBookId() != null) {
 			bookDao.updateBook(chapter.getBookId(), chapter.getInputTime());

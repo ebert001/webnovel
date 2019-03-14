@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.aswishes.wn.common.web.SessionUtils;
-import com.aswishes.wn.mvc.model.WnUser;
+import com.aswishes.wn.mvc.model.MUser;
 import com.aswishes.wn.mvc.service.UserService;
 
 @Component
@@ -24,7 +24,7 @@ public class UserAuthorizingRealm extends AuthenticatingRealm  {
 		String username = token.getUsername();
 		String password = new String(token.getPassword());
 		
-		WnUser user = userService.getUser(username);
+		MUser user = userService.getUser(username);
 		if (user == null) {
 			throw new AuthenticationException("用户名或密码错误");
 		}

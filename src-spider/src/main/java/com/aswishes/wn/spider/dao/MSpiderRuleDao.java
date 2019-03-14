@@ -7,7 +7,7 @@ import com.aswishes.spring.dao.AbstractJdbcDao;
 
 @Repository
 @Transactional
-public class WnSpiderRuleDao extends AbstractJdbcDao {
+public class MSpiderRuleDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {

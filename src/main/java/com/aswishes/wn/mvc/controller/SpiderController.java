@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.spring.PageResultWrapper;
-import com.aswishes.wn.spider.entity.WnSpiderRule;
-import com.aswishes.wn.spider.entity.WnSpiderWebsite;
+import com.aswishes.wn.spider.entity.MSpiderRule;
+import com.aswishes.wn.spider.entity.MSpiderWebsite;
 import com.aswishes.wn.spider.service.SpiderService;
 
 @Controller
@@ -21,7 +21,7 @@ public class SpiderController extends AbstractController {
 	public ModelAndView toSpiderWebsite(ModelAndView mv, 
 			@RequestParam(defaultValue = "1") int pageNo, 
 			@RequestParam(defaultValue = "20") int pageSize) {
-		PageResultWrapper<WnSpiderWebsite> page = spiderService.getSpiderWebsite(pageNo, pageSize);
+		PageResultWrapper<MSpiderWebsite> page = spiderService.getSpiderWebsite(pageNo, pageSize);
 		mv.addObject("page", page);
 		mv.setViewName("config/spider/list_website");
 		return mv;
@@ -34,7 +34,7 @@ public class SpiderController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/addWebsite")
-	public ModelAndView addWebsite(ModelAndView mv, WnSpiderWebsite website) {
+	public ModelAndView addWebsite(ModelAndView mv, MSpiderWebsite website) {
 		spiderService.addSpiderWebsite(website);
 		mv.setViewName("forward:/spider/toSpiderWebsite");
 		return mv;
@@ -60,8 +60,8 @@ public class SpiderController extends AbstractController {
 	
 	@RequestMapping(value = "/toAddRule")
 	public ModelAndView toAddRule(ModelAndView mv, Long id) {
-		WnSpiderWebsite website = spiderService.getWebsite(id);
-		WnSpiderRule rule = spiderService.getRule(website.getRuleId());
+		MSpiderWebsite website = spiderService.getWebsite(id);
+		MSpiderRule rule = spiderService.getRule(website.getRuleId());
 		
 		mv.addObject("website", website);
 		mv.addObject("rule", rule);
@@ -70,7 +70,7 @@ public class SpiderController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/addRule")
-	public ModelAndView addRule(ModelAndView mv, Long websiteId, WnSpiderRule rule) {
+	public ModelAndView addRule(ModelAndView mv, Long websiteId, MSpiderRule rule) {
 		spiderService.saveSpiderRule(websiteId, rule);
 		mv.setViewName("redirect:/spider/toSpiderWebsite");
 		return mv;
@@ -92,7 +92,7 @@ public class SpiderController extends AbstractController {
 	
 	@RequestMapping(value = "/loopBookList")
 	public ModelAndView loopBookList(ModelAndView mv, Long websiteId, boolean loopChapters) {
-		WnSpiderWebsite website = spiderService.getWebsite(websiteId);
+		MSpiderWebsite website = spiderService.getWebsite(websiteId);
 		spiderService.loopBookList(websiteId, loopChapters);
 		mv.setViewName("config/spider/list_website");
 		return mv;

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.spring.service.AbstractService;
-import com.aswishes.wn.mvc.dao.WnBookDao;
-import com.aswishes.wn.mvc.dao.WnVolumeDao;
-import com.aswishes.wn.mvc.model.WnBook;
-import com.aswishes.wn.mvc.model.WnVolume;
+import com.aswishes.wn.mvc.dao.MBookDao;
+import com.aswishes.wn.mvc.dao.MVolumeDao;
+import com.aswishes.wn.mvc.model.MBook;
+import com.aswishes.wn.mvc.model.MVolume;
 
 /**
  * 书籍相关的业务处理类
@@ -19,27 +19,27 @@ import com.aswishes.wn.mvc.model.WnVolume;
 @Transactional
 public class BookService extends AbstractService {
 	@Autowired
-	private WnBookDao bookDao;
+	private MBookDao bookDao;
 	@Autowired
-	private WnVolumeDao volumeDao;
+	private MVolumeDao volumeDao;
 
-	public List<WnBook> getBookList(Long userId) {
+	public List<MBook> getBookList(Long userId) {
 		return bookDao.getBookList(userId);
 	}
 	
-	public WnBook getBook(String name) {
+	public MBook getBook(String name) {
 		return bookDao.getBook(name);
 	}
 	
-	public WnBook getBook(String name, Long websiteId) {
+	public MBook getBook(String name, Long websiteId) {
 		return bookDao.getBook(name, websiteId);
 	}
 
-	public WnBook getBook(Long bookId) {
+	public MBook getBook(Long bookId) {
 		return bookDao.getBook(bookId);
 	}
 	
-	public void addBook(WnBook book) {
+	public void addBook(MBook book) {
 		bookDao.save(book);
 	}
 
@@ -47,19 +47,19 @@ public class BookService extends AbstractService {
 		bookDao.deleteBook(bookId);
 	}
 	
-	public List<WnVolume> getVolumeList(Long bookId) {
+	public List<MVolume> getVolumeList(Long bookId) {
 		return volumeDao.getVolumeList(bookId);
 	}
 	
-	public void addVolume(WnVolume volume) {
+	public void addVolume(MVolume volume) {
 		volumeDao.save(volume);
 	}
 	
-	public WnVolume getVolume(Long id) {
+	public MVolume getVolume(Long id) {
 		return volumeDao.getVolume(id);
 	}
 	
-	public void updateVolume(WnVolume volume) {
+	public void updateVolume(MVolume volume) {
 		volumeDao.updateByPK(volume, true);
 	}
 	

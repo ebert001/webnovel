@@ -2,10 +2,17 @@
 CREATE DATABASE webnovel default character set utf8 collate utf8_general_ci;
 USE webnovel;
 
+CREATE TABLE m_version (
+	`db_version` int NOT NULL COMMENT '数据库版本',
+	`app_version` varchar(32) DEFAULT NULL COMMENT '应用版本'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into m_version(db_version, app_version) values(1, '1.0');
+
 /**
  * 系统用户表
  */
-CREATE TABLE wn_user (
+CREATE TABLE m_user (
 	`id` bigint NOT NULL auto_increment COMMENT '主键',
 	`name` varchar(32) NOT NULL COMMENT '用户名',
 	`email` varchar(64) DEFAULT NULL COMMENT '邮件地址',
@@ -29,12 +36,12 @@ CREATE TABLE wn_user (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /** 默认密码 111111 */
-insert into wn_user(name, alias, state, alg, salt, pwd, system, reg_time) values('admin', 'admin', 1, 'SHA256', '1', 'JVijTU0glkyh0nKrJszOlRHYgFeVk81MngGrke0A8yU=', 1, now());
+insert into m_user(name, alias, state, alg, salt, pwd, system, reg_time) values('admin', 'admin', 1, 'SHA256', '1', 'JVijTU0glkyh0nKrJszOlRHYgFeVk81MngGrke0A8yU=', 1, now());
 
 /**
  * 角色表
  */
-CREATE TABLE wn_role (
+CREATE TABLE m_role (
 	`id` bigint NOT NULL auto_increment COMMENT '主键',
 	`name` varchar(32) NOT NULL COMMENT '角色名',
 	`description` varchar(128) DEFAULT NULL COMMENT '描述信息',
@@ -46,13 +53,13 @@ CREATE TABLE wn_role (
 	UNIQUE KEY `uq_role_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into wn_role(name, system) values('admin', 1);
+insert into m_role(name, system) values('admin', 1);
 
 
 /**
  * 权限表
  */
-CREATE TABLE wn_permission (
+CREATE TABLE m_permission (
 	`id` bigint NOT NULL auto_increment COMMENT '主键',
 	`menu` varchar(100) NOT NULL COMMENT '菜单(功能区域)名',
 	`name` varchar(100) NOT NULL COMMENT '权限名',
@@ -69,7 +76,7 @@ CREATE TABLE wn_permission (
 /**
  * 用户-角色表
  */
-CREATE TABLE wn_user_role (
+CREATE TABLE m_user_role (
 	`id` bigint NOT NULL auto_increment COMMENT '主键',
 	`user_id` bigint NOT NULL COMMENT '用户id',
 	`role_id` bigint NOT NULL COMMENT '角色id',
@@ -82,7 +89,7 @@ CREATE TABLE wn_user_role (
 /**
  * 角色-权限表
  */
-CREATE TABLE wn_role_permission (
+CREATE TABLE m_role_permission (
 	`id` bigint NOT NULL auto_increment COMMENT '主键',
 	`role_id` bigint NOT NULL COMMENT '角色id',
 	`permission_id` bigint NOT NULL COMMENT '权限id',
@@ -94,7 +101,7 @@ CREATE TABLE wn_role_permission (
 /**
  * 书籍表。存储所有的书籍信息，并对书籍进行分类。后续可能会进行调整。书籍检索，会单独作为一个服务存在。
  */
-CREATE TABLE wn_book (
+CREATE TABLE m_book (
 	`id` bigint NOT NULL auto_increment primary key COMMENT '主键，唯一标识符',
 	`name` varchar(120) DEFAULT NULL COMMENT '名称',
 	`introduction` text DEFAULT NULL COMMENT '简介',
@@ -130,7 +137,7 @@ CREATE TABLE wn_book (
 /**
  * 书籍--分卷表。存储所有的书籍分卷信息。
  */
-CREATE TABLE wn_volume (
+CREATE TABLE m_volume (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`volume_name` varchar(120) DEFAULT NULL COMMENT '卷名称',
 	`charged` int DEFAULT NULL COMMENT '是否收费',
@@ -144,7 +151,7 @@ CREATE TABLE wn_volume (
 /**
  * 书籍章节表。存储书籍的章节信息。该表的信息量会比较大，需要考虑存取的效率问题。
  */
-CREATE TABLE wn_chapter (
+CREATE TABLE m_chapter (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`book_id` bigint DEFAULT NULL COMMENT '外键，书籍id',
 	`subject` varchar(64) DEFAULT NULL COMMENT '章节标题',
@@ -160,27 +167,27 @@ CREATE TABLE wn_chapter (
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE wn_tag (
+CREATE TABLE m_tag (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`name` varchar(120) DEFAULT NULL COMMENT '卷名称',
 	`create_time` datetime DEFAULT NULL COMMENT '添加时间',
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into wn_tag (name, create_time) values ('古典', now());
-insert into wn_tag (name, create_time) values ('科幻', now());
-insert into wn_tag (name, create_time) values ('玄幻', now());
-insert into wn_tag (name, create_time) values ('言情', now());
-insert into wn_tag (name, create_time) values ('散文', now());
-insert into wn_tag (name, create_time) values ('武侠', now());
-insert into wn_tag (name, create_time) values ('历史', now());
-insert into wn_tag (name, create_time) values ('纪实文学', now());
-insert into wn_tag (name, create_time) values ('诗歌', now());
+insert into m_tag (name, create_time) values ('古典', now());
+insert into m_tag (name, create_time) values ('科幻', now());
+insert into m_tag (name, create_time) values ('玄幻', now());
+insert into m_tag (name, create_time) values ('言情', now());
+insert into m_tag (name, create_time) values ('散文', now());
+insert into m_tag (name, create_time) values ('武侠', now());
+insert into m_tag (name, create_time) values ('历史', now());
+insert into m_tag (name, create_time) values ('纪实文学', now());
+insert into m_tag (name, create_time) values ('诗歌', now());
 
 /**
  * 书籍的评论表。存储用户对书籍的评论信息。
  */
-CREATE TABLE wn_comment (
+CREATE TABLE m_comment (
 	`id` bigint NOT NULL COMMENT '主键，唯一标识符',
 	`content` text DEFAULT NULL COMMENT '评论内容',
 	`status` int COMMENT '帖子状态。0、关闭，1、审核，2、打开',
@@ -195,7 +202,7 @@ CREATE TABLE wn_comment (
 /**
  * 书架表。存储书架图书信息。
  */
-CREATE TABLE wn_bookshelf (
+CREATE TABLE m_bookshelf (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`book_id` bigint DEFAULT NULL COMMENT '外键，书籍id',
 	`book_name` varchar(64) COMMENT '书籍名称',
@@ -210,7 +217,7 @@ CREATE TABLE wn_bookshelf (
 /**
  * 论坛主题表。
  */
-CREATE TABLE wn_forum_subject (
+CREATE TABLE m_forum_subject (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`subject` varchar(120) COMMENT '帖子标题',
 	`type` int COMMENT '帖子类型',
@@ -228,7 +235,7 @@ CREATE TABLE wn_forum_subject (
 /**
  * 论坛表。
  */
-CREATE TABLE wn_forum (
+CREATE TABLE m_forum (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`content` text COMMENT '帖子内容',
 	`status` int COMMENT '帖子状态。0、关闭，1、审核，2、打开',
@@ -243,7 +250,7 @@ CREATE TABLE wn_forum (
 /**
  * 备忘表。
  */
-CREATE TABLE wn_memo (
+CREATE TABLE m_memo (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`title` varchar(120) COMMENT '备忘标题',
 	`content` text COMMENT '备忘内容',
@@ -256,7 +263,7 @@ CREATE TABLE wn_memo (
 /**
  * 用户反馈表。
  */
-CREATE TABLE wn_feedback (
+CREATE TABLE m_feedback (
 	`id` bigint NOT NULL auto_increment COMMENT '主键，唯一标识符',
 	`title` varchar(120) COMMENT '备忘标题',
 	`advice` text COMMENT '备忘内容',
@@ -267,7 +274,7 @@ CREATE TABLE wn_feedback (
 	PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-create table wn_spider_website (
+create table m_spider_website (
 	id bigint not null auto_increment primary key comment '主键',
 	name varchar(100) comment '网站名称',
 	url varchar(200) comment '网站地址',
@@ -285,7 +292,7 @@ create table wn_spider_website (
 	create_time datetime comment '添加时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-create table wn_spider_rule (
+create table m_spider_rule (
 	id bigint not null auto_increment primary key comment '主键',
 	name varchar(100) comment '网站名称',
 		

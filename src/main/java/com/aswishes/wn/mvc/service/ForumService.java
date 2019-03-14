@@ -7,24 +7,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.spring.service.AbstractService;
-import com.aswishes.wn.mvc.dao.WnForumDao;
-import com.aswishes.wn.mvc.dao.WnForumSubjectDao;
-import com.aswishes.wn.mvc.model.WnForum;
-import com.aswishes.wn.mvc.model.WnForumSubject;
+import com.aswishes.wn.mvc.dao.MForumDao;
+import com.aswishes.wn.mvc.dao.MForumSubjectDao;
+import com.aswishes.wn.mvc.model.MForum;
+import com.aswishes.wn.mvc.model.MForumSubject;
 
 @Service
 @Transactional
 public class ForumService extends AbstractService {
 
-	public WnForum queryForum(Long id) {
+	public MForum queryForum(Long id) {
 		return forumDao.queryForum(id);
 	}
 
-	public List<WnForum> queryForumList(Long userId) {
+	public List<MForum> queryForumList(Long userId) {
 		return forumDao.queryForumList(userId);
 	}
 	
-	public List<WnForum> queryForumList(Long userId, int startNo, int perNo) {
+	public List<MForum> queryForumList(Long userId, int startNo, int perNo) {
 		return forumDao.queryForumList(userId, startNo, perNo);
 	}
 	
@@ -32,11 +32,11 @@ public class ForumService extends AbstractService {
 		return forumDao.queryForumListCount();
 	}
 
-	public void saveForum(WnForum forum) {
+	public void saveForum(MForum forum) {
 		forumDao.save(forum);
 	}
 
-	public void updateForum(WnForum forum) {
+	public void updateForum(MForum forum) {
 		forumDao.updateByPK(forum, true);
 	}
 
@@ -53,7 +53,7 @@ public class ForumService extends AbstractService {
 	}
 	
 	
-	public WnForumSubject queryForumSubject(Long id) {
+	public MForumSubject queryForumSubject(Long id) {
 		return forumSubjectDao.queryForumSubject(id);
 	}
 	
@@ -61,11 +61,11 @@ public class ForumService extends AbstractService {
 		return forumSubjectDao.getForumSubjectCount(userId);
 	}
 
-	public List<WnForumSubject> queryForumSubjectList(Long userId, int startNo, int perNo) {
+	public List<MForumSubject> queryForumSubjectList(Long userId, int startNo, int perNo) {
 		return forumSubjectDao.queryForumSubjectList(userId, startNo, perNo);
 	}
 	
-	public List<WnForumSubject> queryForumSubjectList(int startNo, int perNo) {
+	public List<MForumSubject> queryForumSubjectList(int startNo, int perNo) {
 		return forumSubjectDao.queryForumSubjectList(startNo, perNo);
 	}
 	
@@ -73,11 +73,11 @@ public class ForumService extends AbstractService {
 		return forumSubjectDao.getForumSubjectCount();
 	}
 
-	public void saveForumSubject(WnForumSubject forumSubject) {
+	public void saveForumSubject(MForumSubject forumSubject) {
 		forumSubjectDao.save(forumSubject);
 	}
 
-	public void updateForumSubject(WnForumSubject forumSubject) {
+	public void updateForumSubject(MForumSubject forumSubject) {
 		forumSubjectDao.updateByPK(forumSubject, true);
 	}
 
@@ -86,10 +86,10 @@ public class ForumService extends AbstractService {
 	}
 
 	@Autowired
-	private WnForumDao forumDao;
+	private MForumDao forumDao;
 	
 	@Autowired
-	private WnForumSubjectDao forumSubjectDao;
+	private MForumSubjectDao forumSubjectDao;
 
 	@Override
 	public void setDao() {

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.wn.common.web.SessionUtils;
-import com.aswishes.wn.mvc.model.WnBook;
-import com.aswishes.wn.mvc.model.WnChapter;
-import com.aswishes.wn.mvc.model.WnUser;
-import com.aswishes.wn.mvc.model.WnVolume;
+import com.aswishes.wn.mvc.model.MBook;
+import com.aswishes.wn.mvc.model.MChapter;
+import com.aswishes.wn.mvc.model.MUser;
+import com.aswishes.wn.mvc.model.MVolume;
 import com.aswishes.wn.mvc.service.BookService;
 import com.aswishes.wn.mvc.service.ChapterService;
 
@@ -36,12 +36,12 @@ public class BookController extends AbstractController {
 	 */
 	@RequestMapping(value = "/add", method = {RequestMethod.POST})
 	public ModelAndView addBook(ModelAndView mv, String bookName, String desc) {
-		WnBook book = bookService.getBook(bookName);
+		MBook book = bookService.getBook(bookName);
 		if (book != null) {
 			// 书籍名称已经存在
 			return mv;
 		}
-		book = new WnBook();
+		book = new MBook();
 		
 		book.setName(bookName);
 		book.setIntroduction(desc);
@@ -50,7 +50,7 @@ public class BookController extends AbstractController {
 		book.setCreateTime(cdate);
 		book.setUpdateTime(cdate);
 		
-		WnUser user = SessionUtils.getUser();
+		MUser user = SessionUtils.getUser();
 		if (user == null) {
 			// 用户尚未登录
 			return mv;
@@ -67,12 +67,12 @@ public class BookController extends AbstractController {
 	 */
 	@RequestMapping(value = "/delete")
 	public ModelAndView deleteBook(ModelAndView mv, Long id) {
-		WnBook book = bookService.getBook(id);
+		MBook book = bookService.getBook(id);
 		if (book == null) {
 			// 书籍不存在
 			return mv;
 		}
-		WnUser user = SessionUtils.getUser();
+		MUser user = SessionUtils.getUser();
 		if (user == null) {
 			// 尚未登录
 			return mv;
@@ -94,7 +94,7 @@ public class BookController extends AbstractController {
 		Long userId = SessionUtils.getUser().getId();
 		
 //		bookService.getPage(WnBook.class, pageNo, pageSize, restrictions);
-		List<WnBook> bookList = bookService.getBookList(userId);
+		List<MBook> bookList = bookService.getBookList(userId);
 		mv.addObject("bookList", bookList);
 		
 		mv.setViewName("config/opus/create_opus");
@@ -109,9 +109,9 @@ public class BookController extends AbstractController {
 			@RequestParam(name = "a")String action) {
 		logger.debug("enter chapter list page......");
 		
-		List<WnChapter> chapterList = chapterService.readCatalogs(bookId);
-		WnBook book = bookService.getBook(bookId);
-		List<WnVolume> volumeList = bookService.getVolumeList(bookId);
+		List<MChapter> chapterList = chapterService.readCatalogs(bookId);
+		MBook book = bookService.getBook(bookId);
+		List<MVolume> volumeList = bookService.getVolumeList(bookId);
 		
 		mv.addObject("volumeList", volumeList);
 		mv.addObject("chapterList", chapterList);
@@ -126,7 +126,7 @@ public class BookController extends AbstractController {
 	
 	@RequestMapping(value = "/readChapter")
 	public ModelAndView readChapter(ModelAndView mv, Long chapterId) {
-		WnChapter chapter = chapterService.getChapter(chapterId);
+		MChapter chapter = chapterService.getChapter(chapterId);
 		logger.debug(chapter.getContent());
 		mv.addObject("chapter", chapter);
 		
@@ -142,7 +142,7 @@ public class BookController extends AbstractController {
 		Long userId = SessionUtils.getUser().getId();
 		logger.debug("my book id:" + bookId);
 
-		List<WnBook> bookList = bookService.getBookList(userId);
+		List<MBook> bookList = bookService.getBookList(userId);
 		mv.addObject("bookList", bookList);
 		mv.addObject("bookId", bookId);
 		mv.setViewName("config/opus/create_article");
@@ -153,7 +153,7 @@ public class BookController extends AbstractController {
 	 * 书籍详细信息 
 	 */
 	public ModelAndView queryOne(ModelAndView mv, Long id) {
-		WnBook book = bookService.getBook(id);
+		MBook book = bookService.getBook(id);
 		
 		mv.addObject("book", book);
 		mv.setViewName("/config/opus/opus_catalog.jsp");
@@ -165,7 +165,7 @@ public class BookController extends AbstractController {
 	/** 添加书籍分卷 
 	 *  */
 	public ModelAndView addVolume(ModelAndView mv, Long bookId, String volumeName) {
-		WnVolume volume = new WnVolume();
+		MVolume volume = new MVolume();
 		volume.setBookId(bookId);
 		volume.setVolumeName(volumeName);
 		
@@ -178,7 +178,7 @@ public class BookController extends AbstractController {
 	}
 	
 	public ModelAndView updateVolume(ModelAndView mv, Long volumeId, String volumeName) {
-		WnVolume volume = bookService.getVolume(volumeId);
+		MVolume volume = bookService.getVolume(volumeId);
 		volume.setVolumeName(volumeName);
 		bookService.updateVolume(volume);
 		return listChapter(mv, volume.getBookId(), "a");
@@ -190,9 +190,9 @@ public class BookController extends AbstractController {
 	public ModelAndView addChapter(ModelAndView mv, Long bookId, Long volumeId, String subject, String content, Long chapterId) {
 		logger.debug("my book id:" + bookId);
 		
-		WnChapter chapter = null;
+		MChapter chapter = null;
 		if (chapterId == null) {
-			chapter = new WnChapter();
+			chapter = new MChapter();
 			
 			Date cdate = new Date();
 			chapter.setInputTime(cdate);
@@ -217,7 +217,7 @@ public class BookController extends AbstractController {
 	public ModelAndView addChapterSubject(ModelAndView mv, Long bookId, Long volumeId, String subject) {
 		logger.debug("my book id:" + bookId);
 		
-		WnChapter chapter = new WnChapter();
+		MChapter chapter = new MChapter();
 		
 		Date cdate = new Date();
 		chapter.setInputTime(cdate);
@@ -232,8 +232,8 @@ public class BookController extends AbstractController {
 	}
 	
 	public ModelAndView deleteChapter(ModelAndView mv, Long chapterId) {
-		WnChapter chapter = chapterService.getChapter(chapterId);
-		WnBook book = bookService.getBook(chapter.getBookId());
+		MChapter chapter = chapterService.getChapter(chapterId);
+		MBook book = bookService.getBook(chapter.getBookId());
 		
 		chapterService.deleteChapter(chapterId);
 		return listChapter(mv, book.getId(), "a");
@@ -247,11 +247,11 @@ public class BookController extends AbstractController {
 		String bookId = request.getParameter("bookId");
 		logger.debug("my book id:" + bookId);
 
-		List<WnBook> bookList = bookService.getBookList(userId);
+		List<MBook> bookList = bookService.getBookList(userId);
 		mv.addObject("bookList", bookList);
 		mv.addObject("bookId", bookId);
 		
-		WnChapter chapter = chapterService.getChapter(chapterId);
+		MChapter chapter = chapterService.getChapter(chapterId);
 		mv.addObject("chapter", chapter);
 		
 		mv.setViewName("/config/opus/create_article.jsp");
