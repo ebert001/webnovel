@@ -11,7 +11,7 @@ public class MSpiderRuleDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "novel_spider_rule";
+		this.tableName = "m_spider_rule";
 	}
 	
 	

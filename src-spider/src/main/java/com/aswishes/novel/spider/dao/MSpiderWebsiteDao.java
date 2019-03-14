@@ -12,7 +12,7 @@ public class MSpiderWebsiteDao extends AbstractJdbcDao {
 
 	@Override
 	protected void setTableName() {
-		this.tableName = "novel_spider_website";
+		this.tableName = "m_spider_website";
 	}
 	
 	public void updateState(Long id, Integer state) {
