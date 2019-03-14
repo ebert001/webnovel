@@ -9,7 +9,7 @@
 			<AppenderRef ref="DebugFile" />
 			<AppenderRef ref="ErrorFile" />
 		</Root>
-		<Logger name="com.aswishes.wn" level="debug" additivity="false">
+		<Logger name="com.aswishes.novel" level="debug" additivity="false">
 			<!--
 			-->
 			<AppenderRef ref="Console" />

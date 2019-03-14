@@ -8,7 +8,7 @@
 
 	<!-- 启动spring -->
 	<listener>
-		<listener-class>com.aswishes.wn.listener.WnContextListener</listener-class>
+		<listener-class>com.aswishes.novel.listener.WnContextListener</listener-class>
 	</listener>
 	
 	<listener>

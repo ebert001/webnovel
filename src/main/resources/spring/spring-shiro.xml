@@ -23,7 +23,7 @@
 	</bean>
 	
 	<!-- 配置进行授权和认证的 Realm -->
-	<bean id="myRealm" class="com.aswishes.wn.mvc.service.realm.UserAuthorizingRealm"></bean>
+	<bean id="myRealm" class="com.aswishes.novel.mvc.service.realm.UserAuthorizingRealm"></bean>
 
 	<!-- 配置缓存管理器 -->
 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">

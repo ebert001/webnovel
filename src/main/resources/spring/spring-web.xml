@@ -13,7 +13,7 @@
 		http://www.springframework.org/schema/context/spring-context.xsd
 	">
 
-	<context:component-scan base-package="com.aswishes.wn.mvc.controller" />
+	<context:component-scan base-package="com.aswishes.novel.mvc.controller" />
 
 	<!-- 允许访问/WebContent/static/目录下的任何资源文件. -->
 	<mvc:resources mapping="/static/**" location="/static/" />
