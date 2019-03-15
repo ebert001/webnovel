@@ -124,7 +124,6 @@ public class SpiderController extends AbstractController {
 	
 	@RequestMapping(value = "/loopBookList")
 	public ModelAndView loopBookList(ModelAndView mv, Long websiteId, boolean loopChapters) {
-		MSpiderWebsite website = spiderService.getWebsite(websiteId);
 		spiderService.loopBookList(websiteId, loopChapters);
 		mv.setViewName("config/spider/list_website");
 		return mv;
