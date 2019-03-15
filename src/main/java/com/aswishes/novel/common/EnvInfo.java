@@ -19,6 +19,7 @@ public class EnvInfo {
 	private static final String envFileName = "env.properties";
 	
 	public static void loadEnvironment(ServletContext servletContext) {
+		logger.info("User home: {}", System.getProperty("user.home"));
 		logger.info("Ready load environment file.");
 		Properties prop = new Properties();
 		String projectName = getProjectName(servletContext);
