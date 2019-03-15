@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.mvc.model.MBook;
+import com.aswishes.novel.mvc.model.MChapter;
 import com.aswishes.novel.mvc.service.BookService;
+import com.aswishes.novel.mvc.service.ChapterService;
 import com.aswishes.novel.spider.entity.MSpiderRule;
 import com.aswishes.novel.spider.entity.MSpiderWebsite;
 import com.aswishes.novel.spider.service.SpiderService;
@@ -20,6 +22,9 @@ public class SpiderController extends AbstractController {
 	private SpiderService spiderService;
 	@Autowired
 	private BookService bookService;
+	@Autowired
+	private ChapterService chapterService;
+	
 
 	@RequestMapping(value = "/toSpiderWebsite")
 	public ModelAndView toSpiderWebsite(ModelAndView mv, 
@@ -94,6 +99,26 @@ public class SpiderController extends AbstractController {
 		PageResultWrapper<MBook> page = bookService.findUnauditBooks(pageNo, pageSize);
 		mv.addObject("page", page);
 		mv.setViewName("config/spider/list_unaudit_books");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/toUnauditChapters")
+	public ModelAndView toUnauditChapters(ModelAndView mv, Long bookId,
+			@RequestParam(defaultValue = "1") int pageNo, 
+			@RequestParam(defaultValue = "20") int pageSize) {
+		MBook book = bookService.getBook(bookId);
+		PageResultWrapper<MChapter> page = chapterService.findUnauditBooks(bookId, pageNo, pageSize);
+		mv.addObject("page", page);
+		mv.addObject("book", book);
+		mv.setViewName("config/spider/list_unaudit_chapters");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/toUnauditChapter")
+	public ModelAndView toUnauditChapter(ModelAndView mv, Long chapterId) {
+		MChapter chapter = chapterService.getChapter(chapterId);
+		mv.addObject("chapter", chapter);
+		mv.setViewName("config/spider/unaudit_chapter");
 		return mv;
 	}
 	

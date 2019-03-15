@@ -130,9 +130,18 @@ public class SpiderService extends AbstractService {
 		bean.setRetriveCount(1);
 		bean.setRetriveStartTime(date);
 		bean.setRetriveState(RetriveState.RETRIVING.getValue());
+		bean.setState(MBook.State.UNAUDITED.getValue());
 		
 		bean.setCreateTime(date);
 		bookDao.save(bean);
+	}
+	
+	@Transactional
+	public void updateSpiderBook(Long websiteId, BookInfo info) {
+		MBook bean = bookDao.getBook(info.getBookName(), websiteId);
+		bean.setRetriveStopTime(new Date());
+		bean.setRetriveState(RetriveState.FINISHED.getValue());
+		bookDao.updateByPK(bean, false);
 	}
 	
 	@Transactional
@@ -206,6 +215,10 @@ public class SpiderService extends AbstractService {
 			throw new ServiceException(NovelStatus.WEBSITE_EXISTS_IN_CACHE);
 		}
 		MSpiderRule rule = getRule(website.getRuleId());
+		if (website.getRuleId() == null || rule == null) {
+			logger.warn("Website has no rule. {}", website.getName());
+			return;
+		}
 		PickBooks donovelloadBookList = new PickBooks(rule.getBookListUrlFormat(), Integer.parseInt(rule.getBookListStartPageNo()));
 		donovelloadBookList.setBookListCharset(rule.getBookListCharset());
 		donovelloadBookList.setTotalPagePath(rule.getBookListTotalPagePath());
@@ -228,9 +241,11 @@ public class SpiderService extends AbstractService {
 					}
 				}
 				if (!loopChapters) {
+					updateSpiderBook(websiteId, info);
 					return;
 				}
 				loopChapters(info, website, rule, true);
+				updateSpiderBook(websiteId, info);
 			}
 		});
 		bookListCache.put(website.getName(), donovelloadBookList);
@@ -247,7 +262,7 @@ public class SpiderService extends AbstractService {
 			throw new ServiceException(NovelStatus.BOOK_EXISTS_IN_CACHE);
 		}
 		MBook book = bookDao.getBook(info.getBookName(), website.getId());
-		PickCatalog donovelloadBook = new PickCatalog(info.getBookUrl());
+		PickCatalog donovelloadBook = new PickCatalog(info.getBookName(), info.getBookUrl());
 		donovelloadBook.setCatalogCharset(rule.getCatalogCharset());
 		donovelloadBook.setCatalogChapterNodePath(rule.getCatalogChapterNodePath());
 		donovelloadBook.setCatalogChapterUrlPath(rule.getCatalogChapterUrlPath());

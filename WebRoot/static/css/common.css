@@ -7,6 +7,13 @@
 
 a {
 	text-decoration: none;
+	color: #0000FF;
+}
+a:hover {
+	color: #204a87;
+}
+a:visited, a:active {
+	color: #0000FF;
 }
 
 ul {
@@ -186,7 +193,7 @@ form div.button_area {
 }
 
 .table_list {
-	border: 1px solid #8BB8F2;
+	/**border: 1px solid #8BB8F2;*/
 	border-collapse: collapse;
 	width: 100%;
 	table-layout: fixed;
@@ -202,12 +209,12 @@ form div.button_area {
 	line-height: 32px;
 }
 
-.table_list tbody tr:hover {
+.table_list tbody tr:hover td {
 	background-color: #AFDFE4;
 }
 
-.table_list tbody tr:nth-of-type(even) {
-	background-color: #cde6c7;
+.table_list tbody tr:nth-child(2n) {
+	background-color: #eeeeec;
 }
 
 .common_table {

@@ -4,15 +4,16 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>待审核书籍</title>
+		<title>待审核章节</title>
 		<%@include file="/css-js.jsp"%>
 	</head>
 	
 	<body class="body">
 		<%@include file="/page/config/setup_common.jsp"%>
 		<div id="embed_area">
-			<div class="content_title">待审核书籍</div>
-			<form id="form_unaudit_books" action="${ctx}/spider/toUnauditBooks" method="post">
+			<div class="content_title">待审核章节</div>
+			<form id="form_unaudit_chapters" action="${ctx}/spider/toUnauditChapters" method="post">
+				<input type="hidden" name="bookId" value="${book.id}">
 				<table>
 					<tr>
 						<td>名称</td>
@@ -29,19 +30,15 @@
 				<div class="table_area">
 					<div class="table_header">
 						<div class="title">
-							书籍列表
-						</div>
-						<div class="action">
-							<button type="button" onclick="javascript:location.href='${ctx}/spider/toAddWebsite';">增加网站</button>
+							${book.name}-章节列表
 						</div>
 					</div>
 					<div class="table_body">
 						<table class="table_list">
 							<thead>
 								<tr class="title">
-									<td width="10%">书籍名称</td>
+									<td width="10%">章节名称</td>
 									<td width="10%">创建时间</td>
-									<td width="8%">最近更新时间</td>
 									<td width="3%">状态</td>
 									<td width="10%">操作</td>
 								</tr>
@@ -50,24 +47,18 @@
 								<c:forEach items="${page.pageResult}" varStatus="i" var="bean">
 									<tr>
 										<td>
-											<a href="${ctx}/spider/toUnauditChapters?bookId=${bean.id}">${bean.name}</a>
+											<a href="${ctx}/spider/toUnauditChapter?chapterId=${bean.id}">${bean.subject}</a>
 										</td>
 										<td>
-											<fmt:formatDate value="${bean.createTime}" pattern="yyyy-MM-dd HH:mm:ss" />
-										</td>
-										<td>
-											<fmt:formatDate value="${bean.updateTime}" pattern="yyyy-MM-dd HH:mm:ss" />
+											<fmt:formatDate value="${bean.inputTime}" pattern="yyyy-MM-dd HH:mm:ss" />
 										</td>
 										<td>
 											${bean.state}
 										</td>
 										<td>
-											<a href="${ctx}/spider/toAddRule?id=${bean.id}">发布</a>
+											<a href="${ctx}/spider/toUnauditChapter?chapterId=${bean.id}">发布</a>
 											<c:if test="${bean.state == 1}">
 												<a href="${ctx}/spider/closeWebsite?id=${bean.id}">关闭</a>
-											</c:if>
-											<c:if test="${website.state == 2 }">
-												<a href="${ctx}/spider/openWebsite?id=${bean.id}">打开</a>
 											</c:if>
 											<a href="${ctx}/spider/deleteWebsite?id=${bean.id}">删除</a>
 										</td>

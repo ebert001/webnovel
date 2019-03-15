@@ -340,7 +340,7 @@ function pageWithForm(formId, pageNo, pageSize, totalPage, totalCount) {
 /** 私有方法，外部不要调用 */
 function pageBlockWithForm(text, formId, pageNo, shown) {
 	if (shown) {
-		return '<a onclick="doPage(' + pageNo + ', \'' + formId + '\')">' + text + '</a>';
+		return '<a href="#" onclick="doPage(' + pageNo + ', \'' + formId + '\')">' + text + '</a>';
 	}
 	return '<a>' + text + '</a>';
 }

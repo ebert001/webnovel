@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.mvc.model.MChapter;
+import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.SqlHelper.Select;
 import com.aswishes.spring.SqlHelper.Update;
 import com.aswishes.spring.dao.AbstractJdbcDao;
 import com.aswishes.spring.mapper.MapperHelper;
-import com.aswishes.novel.mvc.model.MChapter;
 
 /**
  * 对应的数据库表为 novel_book
@@ -41,6 +42,14 @@ public class MChapterDao extends AbstractJdbcDao {
 	public int getMaxSerialNo(Long bookId) {
 		String sql = Select.table(tableName).columns("max(serial_no)").where("book_id = ?").toSqlString();
 		return getCount(sql, bookId);
+	}
+	
+	public PageResultWrapper<MChapter> getUnauditChapters(int pageNo, int pageSize, Long bookId, int state) {
+		Select select = Select.table(tableName).columns("id,subject,book_id,state,write_time,input_time").where("book_id = ? and state = ? ");
+		String countSql = select.toCountString();
+		String dataSql = select.toSqlString();
+		return getPage(countSql, dataSql, MapperHelper.getMapper(MChapter.class), pageNo, pageSize, 
+				Restriction.eq("book_id", bookId), Restriction.eq("state", state));
 	}
 	
 	public void updateContent(Long id, String content) {

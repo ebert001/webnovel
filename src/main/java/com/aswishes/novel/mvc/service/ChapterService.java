@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aswishes.novel.mvc.dao.MBookDao;
 import com.aswishes.novel.mvc.dao.MChapterDao;
 import com.aswishes.novel.mvc.model.MChapter;
+import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.service.AbstractService;
 
 /**
@@ -36,6 +37,10 @@ public class ChapterService extends AbstractService {
 	
 	public int getMaxSerialNo(Long bookId) {
 		return chapterDao.getMaxSerialNo(bookId);
+	}
+	
+	public PageResultWrapper<MChapter> findUnauditBooks(Long bookId, int pageNo, int pageSize) {
+		return chapterDao.getUnauditChapters(pageNo, pageSize, bookId, MChapter.State.UNAUDITED.getValue());
 	}
 	
 	@Transactional

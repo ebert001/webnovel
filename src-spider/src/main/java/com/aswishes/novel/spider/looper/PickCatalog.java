@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PickCatalog extends AbstractPicker {
 	private static final Logger logger = LoggerFactory.getLogger(PickCatalog.class);
+	private String bookName;
 	/** 目录页地址 */
 	private String catalogUrl;
 	private String catalogCharset = "UTF-8";
@@ -37,13 +38,14 @@ public class PickCatalog extends AbstractPicker {
 	private IChapterInfo chapterInfo;
 	private int lastSerialNo = -1;
 	
-	public PickCatalog(String catalogUrl) {
+	public PickCatalog(String bookName, String catalogUrl) {
+		this.bookName = bookName;
 		this.catalogUrl = catalogUrl;
 	}
 	
 	public void discovery() {
 		try {
-			logger.debug("Load catalog. url: {}", catalogUrl);
+			logger.debug("Load catalog. book name: {}, url: {}", bookName, catalogUrl);
 			URI catalogURI = URI.create(catalogUrl);
 			String originCatalog = new String(Request.Get(catalogURI).execute().returnContent().asBytes(), catalogCharset);
 			extractBookInfo(originCatalog);
@@ -84,7 +86,7 @@ public class PickCatalog extends AbstractPicker {
 				}
 				boolean loadChapter = chapterInfo.extract(info);
 				if (loadChapter) {
-					PickChapter picker = new PickChapter(title, chapterUrl);
+					PickChapter picker = new PickChapter(bookName, title, chapterUrl);
 					picker.setShowDebug(showDebug);
 					picker.setChapterCharset(chapterCharset);
 					picker.setChapterNodePath(chapterNodePath);

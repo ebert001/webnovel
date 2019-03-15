@@ -22,7 +22,6 @@ $(document).ready(function() {
 		} else {
 			formId = form.attr("id");
 		}
-		var pageFunc = pageDiv.attr("page-func");
 		var pageNo = pageDiv.attr("page-no");
 		var pageSize = pageDiv.attr("page-size");
 		var totalPage = pageDiv.attr("total-page");

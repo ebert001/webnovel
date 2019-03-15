@@ -16,7 +16,7 @@ public class DownloadBookTest {
 //			.discovery();
 
 		// https://www.lingyu.org/wjsw/21/21995/25250300.html
-		PickCatalog bean = new PickCatalog("https://www.lingyu.org/wjsw/21/21995/");
+		PickCatalog bean = new PickCatalog(null, "https://www.lingyu.org/wjsw/21/21995/");
 		bean.setShowDebug(true);
 		bean.setCatalogChapterNodePath("//div[@class='ml_list']/ul/li/a");
 		bean.setCatalogCharset("GBK");
