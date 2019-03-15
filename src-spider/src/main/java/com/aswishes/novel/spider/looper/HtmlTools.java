@@ -37,12 +37,17 @@ public class HtmlTools {
 		return newContent;
 	}
 	
-	public static List<Node> findFromHtml(String html, String xpath, boolean showDebug) {
+	public static Document html2Document(String html, boolean showDebug) {
 		String xml = html2Xml(html);
 		if (showDebug) {
 			logger.debug("XML: \n{}", xml);
 		}
 		Document doc = HtmlTools.makeDocument(xml);
+		return doc;
+	}
+	
+	public static List<Node> findFromHtml(String html, String xpath, boolean showDebug) {
+		Document doc = html2Document(html, showDebug);
 		List<Node> nodes = doc.selectNodes(xpath);
 		return nodes;
 	}

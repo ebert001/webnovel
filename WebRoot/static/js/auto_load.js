@@ -12,7 +12,16 @@ $(document).ready(function() {
 	// 加载分页栏
 	var pageDiv = $("div[load-page='true']");
 	if (pageDiv) {
+		// 查找父元素中是否有form，返回0或1个元素
+		var form = pageDiv.closest('form');
 		var pageUrl = pageDiv.attr("page-url");
+		var formId = null;
+		if ((form == undefined || form == null) && (pageUrl == undefined || pageUrl == null)) {
+			alert("请为分页节点增加 page-url 属性.");
+			return;
+		} else {
+			formId = form.attr("id");
+		}
 		var pageFunc = pageDiv.attr("page-func");
 		var pageNo = pageDiv.attr("page-no");
 		var pageSize = pageDiv.attr("page-size");
@@ -27,7 +36,7 @@ $(document).ready(function() {
 		if (totalPage == undefined) {
 			totalPage = 1
 		}
-		var bar = loadPageBar(pageUrl, pageFunc, parseInt(pageNo), parseInt(pageSize), parseInt(totalPage), parseInt(totalCount));
+		var bar = loadPageBar(pageUrl, formId, parseInt(pageNo), parseInt(pageSize), parseInt(totalPage), parseInt(totalCount));
 		pageDiv.append(bar);
 	}
 });

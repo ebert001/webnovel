@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.spring.service.AbstractService;
 import com.aswishes.novel.mvc.dao.MBookDao;
 import com.aswishes.novel.mvc.dao.MChapterDao;
 import com.aswishes.novel.mvc.model.MChapter;
+import com.aswishes.spring.service.AbstractService;
 
 /**
  * 书籍相关的业务处理类
@@ -22,10 +22,6 @@ public class ChapterService extends AbstractService {
 	@Autowired
 	private MBookDao bookDao;
 
-	public void deleteChapter(Long chapterId) {
-		chapterDao.deleteChapter(chapterId);
-	}
-
 	public List<MChapter> readCatalogs(Long bookId) {
 		return chapterDao.readCatalogs(bookId);
 	}
@@ -37,7 +33,11 @@ public class ChapterService extends AbstractService {
 	public MChapter getChapter(Long bookId, String subject) {
 		return chapterDao.getChapter(bookId, subject);
 	}
-
+	
+	public int getMaxSerialNo(Long bookId) {
+		return chapterDao.getMaxSerialNo(bookId);
+	}
+	
 	@Transactional
 	public void addChapter(MChapter chapter) {
 		chapterDao.save(chapter);
@@ -56,6 +56,11 @@ public class ChapterService extends AbstractService {
 	public void updateContent(Long id, String content) {
 		chapterDao.updateContent(id, content);
 	}
+	
+	public void deleteChapter(Long chapterId) {
+		chapterDao.deleteChapter(chapterId);
+	}
+
 	
 	@Override
 	public void setDao() {

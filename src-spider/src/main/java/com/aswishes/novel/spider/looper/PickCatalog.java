@@ -103,7 +103,7 @@ public class PickCatalog extends AbstractPicker {
 
 	private void extractBookInfo(String originCatalog) {
 		if (chapterInfo != null) {
-			Document doc = HtmlTools.makeDocument(originCatalog);
+			Document doc = HtmlTools.html2Document(originCatalog, showDebug);
 			BookInfo bookInfoBean = new BookInfo();
 			bookInfoBean.setAuthor(findInfo(doc, authorPath));
 			bookInfoBean.setImgUrl(findInfo(doc, imgPath));

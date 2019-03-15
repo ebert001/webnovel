@@ -251,7 +251,7 @@ public class SpiderService extends AbstractService {
 		donovelloadBook.setCatalogCharset(rule.getCatalogCharset());
 		donovelloadBook.setCatalogChapterNodePath(rule.getCatalogChapterNodePath());
 		donovelloadBook.setCatalogChapterUrlPath(rule.getCatalogChapterUrlPath());
-		donovelloadBook.setLastSerialNo(bookDao.getMaxSerialNo(book.getId()));
+		donovelloadBook.setLastSerialNo(chapterService.getMaxSerialNo(book.getId()));
 		
 		donovelloadBook.setChapterCharset(rule.getChapterCharset());
 		donovelloadBook.setChapterNodePath(rule.getChapterNodePath());

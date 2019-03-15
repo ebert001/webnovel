@@ -6,13 +6,12 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.mvc.model.MBook;
 import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.SqlHelper;
-import com.aswishes.spring.SqlHelper.Select;
 import com.aswishes.spring.dao.AbstractJdbcDao;
 import com.aswishes.spring.mapper.MapperHelper;
-import com.aswishes.novel.mvc.model.MBook;
 
 /**
  * 对应的数据库表为 novel_book
@@ -41,11 +40,6 @@ public class MBookDao extends AbstractJdbcDao {
 	public MBook getBook(String bookName, Long websiteId) {
 		return getObjectBy(MapperHelper.getMapper(MBook.class), 
 				Restriction.eq("name", bookName), Restriction.eq("website_id", websiteId));
-	}
-	
-	public int getMaxSerialNo(Long id) {
-		String sql = Select.table(tableName).columns("max(serial_no)").where("id = ?").toSqlString();
-		return getCount(sql, id);
 	}
 	
 	public PageResultWrapper<MBook> getUnauditBooks(int pageNo, int pageSize, int state) {

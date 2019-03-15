@@ -302,79 +302,81 @@ function pageNode(property, text) {
 /**
  * 分页栏
  * @param pageUrl 分页地址，表单提交可以为空
- * @param pageFunc 分页表单函数， 没有表单可以为空
+ * @param formId 分页表单函数， 没有表单可以为空
  * @param pageNo 当前页数
  * @param pageSize 每页数量
  * @param totalPage 总页数
  * @param totalCount 总记录数
  * @returns 分页栏
  */
-function loadPageBar(pageUrl, pageFunc, pageNo, pageSize, totalPage, totalCount) {
-	var pageWithForm = false;
+function loadPageBar(pageUrl, formId, pageNo, pageSize, totalPage, totalCount) {
 	// 有表单查询条件
-	if (pageUrl == undefined || pageUrl == null || pageUrl == "") {
-		pageWithForm = true;
+	if (formId != null) {
+		return pageWithForm(formId, pageNo, pageSize, totalPage, totalCount);
 	}
-	// 单纯的分页
-	else {
-		// 地址上没有参数
-		if (pageUrl.indexOf("?") == -1) {
-			pageUrl += "?pageSize=" + pageSize;
-		} else {
-			pageUrl += "&pageSize=" + pageSize;
-		}
-	}
+	return pageWithUrl(pageUrl, pageNo, pageSize, totalPage, totalCount);
+}
+
+/** 私有方法，外部不要调用 */
+function pageWithForm(formId, pageNo, pageSize, totalPage, totalCount) {
 	var bar = "";
 	bar += '<div class="page">';
-	if (pageWithForm) {
-		bar += '<input type="hidden" name="pageSize" value="' + pageSize + '">';
-	}
-	if (pageNo == 1 || totalPage == 1) {
-		bar += '<a>首页</a>';
-	} else {
-		if (pageWithForm) {
-			bar += '<input type="hidden" name="pageNo" value="1">';
-			bar += '<a href="javascript:' + pageFunc + '">首页</a>';
-		} else {
-			bar += '<a href="' + pageUrl + '*pageNo=1">首页</a>';
-		}
-	}
-	if (pageNo == 1) {
-		bar += '<a>上一页</a>';
-	} else {
-		if (pageWithForm) {
-			bar += '<input type="hidden" name="pageNo" value="' + (pageNo - 1) + '">';
-			bar += '<a href="javascript:' + pageFunc + '">上一页</a>';
-		} else {
-			bar += '<a href="' + pageUrl + '&pageNo=' + (pageNo - 1) + '">上一页</a>';
-		}
-	}
-	if (pageNo == totalPage) {
-		bar += '<a>下一页</a>';
-	} else {
-		if (pageWithForm) {
-			bar += '<input type="hidden" name="pageNo" value="' + (pageNo + 1) + '">';
-			bar += '<a href="javascript:' + pageFunc + '">下一页</a>';
-		} else {
-			bar += '<a href="' + pageUrl + '&pageNo=' + (pageNo + 1) + '">下一页</a>';
-		}
-	}
-	if (pageNo == totalPage) {
-		bar += '<a>尾页</a>';
-	} else {
-		if (pageWithForm) {
-			bar += '<input type="hidden" name="pageNo" value="' + totalPage + '">';
-			bar += '<a href="javascript:' + pageFunc + '">尾页</a>';
-		} else {
-			bar += '<a href="' + pageUrl + '&pageNo=' + totalPage + '">尾页</a>';
-		}
-	}
+	bar += '<input type="hidden" name="pageSize" value="' + pageSize + '">';
+	bar += '<input type="hidden" name="pageNo" value="1">';
+	
+	bar += pageBlockWithForm("首页", formId, 1, (totalPage > 1));
+	bar += pageBlockWithForm("上一页", formId, (pageNo - 1), (pageNo > 1));
+	bar += pageBlockWithForm("下一页", formId, (pageNo + 1), (pageNo < totalPage));
+	bar += pageBlockWithForm("尾页", formId, totalPage, (pageNo < totalPage));
+	
 	bar += ' ' + pageNo + '/' + totalPage;
 	if (totalCount != undefined && totalCount != null) {
 		bar += '(' + totalCount + ')';
 	}
 	bar += '</div>';
 	return bar;
+}
+
+/** 私有方法，外部不要调用 */
+function pageBlockWithForm(text, formId, pageNo, shown) {
+	if (shown) {
+		return '<a onclick="doPage(' + pageNo + ', \'' + formId + '\')">' + text + '</a>';
+	}
+	return '<a>' + text + '</a>';
+}
+
+/** 私有方法，外部不要调用 */
+function doPage(pageNo, formId) {
+	$("#" + formId + " input[name=pageNo]").val(pageNo);
+	$("#" + formId).submit();
+}
+
+/** 私有方法，外部不要调用 */
+function pageWithUrl(pageUrl, pageNo, pageSize, totalPage, totalCount) {
+	pageUrl += (pageUrl.indexOf("?") == -1 ? "?" : "&") + "pageSize=" + pageSize;
+	var bar = "";
+	bar += '<div class="page">';
+	
+	bar += pageBlockWithUrl("首页", pageUrl, 1, (totalPage > 1));
+	bar += pageBlockWithUrl("上一页", pageUrl, (pageNo - 1), (pageNo > 1));
+	bar += pageBlockWithUrl("下一页", pageUrl, (pageNo + 1), (pageNo < totalPage));
+	bar += pageBlockWithUrl("尾页", pageUrl, totalPage, (pageNo < totalPage));
+	
+	bar += ' ' + pageNo + '/' + totalPage;
+	if (totalCount != undefined && totalCount != null) {
+		bar += '(' + totalCount + ')';
+	}
+	bar += '</div>';
+	return bar;
+}
+
+/** 私有方法，外部不要调用 */
+function pageBlockWithUrl(text, pageUrl, pageNo, shown) {
+	pageUrl += '&pageNo=' + pageNo;
+	if (shown) {
+		return '<a href="' + pageUrl + '">' + text + '</a>';
+	}
+	return '<a>' + text + '</a>';
 }
 
 function selectOption(selectId) {

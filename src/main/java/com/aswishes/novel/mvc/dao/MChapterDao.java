@@ -24,10 +24,6 @@ public class MChapterDao extends AbstractJdbcDao {
 		this.tableName = "m_chapter";
 	}
 	
-	public void deleteChapter(Long chapterId) {
-		delete(Restriction.eq("id", chapterId));
-	}
-
 	public List<MChapter> readCatalogs(Long bookId) {
 		return getList(Select.table(tableName).columns("id,subject,book_id,write_time").where("book_id = ?").toSqlString(), 
 				MapperHelper.getMapper(MChapter.class), bookId);
@@ -42,9 +38,18 @@ public class MChapterDao extends AbstractJdbcDao {
 				Restriction.eq("book_id", bookId), Restriction.eq("subject", subject));
 	}
 	
+	public int getMaxSerialNo(Long bookId) {
+		String sql = Select.table(tableName).columns("max(serial_no)").where("book_id = ?").toSqlString();
+		return getCount(sql, bookId);
+	}
+	
 	public void updateContent(Long id, String content) {
 		String sql = Update.table(tableName).setColumns("content").whereColumns("id");
 		update(sql, content, id);
+	}
+	
+	public void deleteChapter(Long chapterId) {
+		delete(Restriction.eq("id", chapterId));
 	}
 	
 }
