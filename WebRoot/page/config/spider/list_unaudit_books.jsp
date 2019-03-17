@@ -13,11 +13,11 @@
 		<div id="embed_area">
 			<div class="content_title">待审核书籍</div>
 			<form id="form_unaudit_books" action="${ctx}/spider/toUnauditBooks" method="post">
-				<table>
+				<table class="table_form has_border">
 					<tr>
 						<td>名称</td>
 						<td>
-							<input type="text" name="Q-name">
+							<input type="text" name="Q-S-LIKE-name">
 						</td>
 						<td></td>
 						<td>
@@ -70,6 +70,7 @@
 												<a href="${ctx}/spider/openWebsite?id=${bean.id}">打开</a>
 											</c:if>
 											<a href="${ctx}/spider/deleteWebsite?id=${bean.id}">删除</a>
+											<a href="${ctx}/spider/loopChapters?bookId=${bean.id}">抓取</a>
 										</td>
 									</tr>
 								</c:forEach>

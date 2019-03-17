@@ -40,7 +40,7 @@ public class BookService extends AbstractService {
 		return bookDao.getBook(bookId);
 	}
 	
-	public PageResultWrapper<MBook> findUnauditBooks(int pageNo, int pageSize) {
+	public PageResultWrapper<MBook> findUnauditBooks(int pageNo, int pageSize, String name) {
 		return bookDao.getUnauditBooks(pageNo, pageSize, MBook.State.UNAUDITED.getValue());
 	}
 	

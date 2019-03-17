@@ -11,6 +11,10 @@ public abstract class AbstractPicker extends Thread {
 	protected boolean showDebug = false;
 	protected List<String> weeds = new ArrayList<String>();
 	
+	public AbstractPicker() {
+		this.setDaemon(true);
+	}
+	
 	@Override
 	public void run() {
 		discovery();

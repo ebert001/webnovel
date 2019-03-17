@@ -35,6 +35,7 @@ public class PickBooks extends AbstractPicker {
 	public PickBooks(String bookListUrlFormat, int pageNo) {
 		this.pageNo = pageNo;
 		this.bookListUrlFormat = bookListUrlFormat;
+		setName("Thread-Books-" + System.currentTimeMillis());
 	}
 	
 	public void discovery() {

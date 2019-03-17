@@ -1,11 +1,14 @@
 package com.aswishes.novel.mvc.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aswishes.novel.common.AppUtil;
 import com.aswishes.novel.mvc.model.MBook;
 import com.aswishes.novel.mvc.model.MChapter;
 import com.aswishes.novel.mvc.service.BookService;
@@ -14,6 +17,7 @@ import com.aswishes.novel.spider.entity.MSpiderRule;
 import com.aswishes.novel.spider.entity.MSpiderWebsite;
 import com.aswishes.novel.spider.service.SpiderService;
 import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.QueryProperty;
 
 @Controller
 @RequestMapping("/spider")
@@ -92,11 +96,19 @@ public class SpiderController extends AbstractController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/loopChapters")
+	public ModelAndView loopChapters(ModelAndView mv, Long bookId) {
+		spiderService.loopChapters(bookId, false);
+		mv.setViewName("config/spider/list_unaudit_books");
+		return mv;
+	}
+	
 	@RequestMapping(value = "/toUnauditBooks")
-	public ModelAndView toUnauditBooks(ModelAndView mv, 
+	public ModelAndView toUnauditBooks(ModelAndView mv, HttpServletRequest request,
 			@RequestParam(defaultValue = "1") int pageNo, 
 			@RequestParam(defaultValue = "20") int pageSize) {
-		PageResultWrapper<MBook> page = bookService.findUnauditBooks(pageNo, pageSize);
+		QueryProperty.convert(AppUtil.reuqestMap(request));
+		PageResultWrapper<MBook> page = bookService.findUnauditBooks(pageNo, pageSize, name);
 		mv.addObject("page", page);
 		mv.setViewName("config/spider/list_unaudit_books");
 		return mv;
@@ -119,13 +131,6 @@ public class SpiderController extends AbstractController {
 		MChapter chapter = chapterService.getChapter(chapterId);
 		mv.addObject("chapter", chapter);
 		mv.setViewName("config/spider/unaudit_chapter");
-		return mv;
-	}
-	
-	@RequestMapping(value = "/loopBookList")
-	public ModelAndView loopBookList(ModelAndView mv, Long websiteId, boolean loopChapters) {
-		spiderService.loopBookList(websiteId, loopChapters);
-		mv.setViewName("config/spider/list_website");
 		return mv;
 	}
 	

@@ -41,6 +41,7 @@ public class PickCatalog extends AbstractPicker {
 	public PickCatalog(String bookName, String catalogUrl) {
 		this.bookName = bookName;
 		this.catalogUrl = catalogUrl;
+		setName("Thread-" + bookName);
 	}
 	
 	public void discovery() {

@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -191,23 +192,22 @@ public class AppUtil {
 	 * @param request
 	 * @return
 	 */
-	public static Map<String, Object> reuqestMap(HttpServletRequest request) {
-		Map<?, ?> pmap = request.getParameterMap();
+	public static Map<String, String> reuqestMap(HttpServletRequest request) {
+		Map<String, String[]> pmap = request.getParameterMap();
 		if (pmap == null || pmap.size() < 1) {
-			return new HashMap<String, Object>();
+			return new HashMap<String, String>();
 		}
-		Map<String, Object> rmap = new HashMap<String, Object>();
-		for (Map.Entry<?, ?> entry : pmap.entrySet()) {
-			Object obj = entry.getValue();
-			if (obj instanceof String[]) {
-				String[] v = (String[]) obj;
-				if (v.length > 1) {
-					rmap.put(String.valueOf(entry.getKey()), v);
-				} else {
-					rmap.put(String.valueOf(entry.getKey()), v[0]);
-				}
+		Map<String, String> rmap = new HashMap<String, String>();
+		for (Map.Entry<String, String[]> entry : pmap.entrySet()) {
+			String[] v = entry.getValue();
+			if (v == null || v.length < 1) {
+				continue;
+			}
+			String key = entry.getKey();
+			if (v.length == 1) {
+				rmap.put(key, v[0]);
 			} else {
-				rmap.put(String.valueOf(entry.getKey()), entry.getValue());
+				rmap.put(key, StringUtils.join(v));
 			}
 		}
 		return rmap;

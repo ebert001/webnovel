@@ -253,9 +253,10 @@ public class SpiderService extends AbstractService {
 	}
 	
 	@Transactional
-	public synchronized void loopChapters(BookInfo info, MSpiderWebsite website, MSpiderRule rule, boolean callFromBook) {
+	public synchronized void loopChapters(BookInfo info, MSpiderWebsite website, MSpiderRule rule, 
+			boolean callFromWebsite) {
 		// 单独抓取一本书籍内容
-		if (!callFromBook && isFullOfBookCache()) {
+		if (!callFromWebsite && isFullOfBookCache()) {
 			throw new ServiceException(NovelStatus.BOOK_CACHE_FULL);
 		}
 		if (bookCache.get(info.getBookName()) != null) {
@@ -297,7 +298,55 @@ public class SpiderService extends AbstractService {
 			}
 		});
 		// 单独抓取一本书籍内容
-		if (!callFromBook) {
+		if (!callFromWebsite) {
+			bookCache.put(book.getName(), donovelloadBook);
+			donovelloadBook.start();
+		} else {
+			donovelloadBook.discovery();
+		}
+	}
+	
+	@Transactional
+	public synchronized void loopChapters(Long bookId, boolean callFromWebsite) {
+		MBook book = bookDao.getBook(bookId);
+		MSpiderWebsite website = getWebsite(book.getWebsiteId());
+		MSpiderRule rule = getRule(website.getRuleId());
+		PickCatalog donovelloadBook = new PickCatalog(book.getName(), book.getUrl());
+		donovelloadBook.setCatalogCharset(rule.getCatalogCharset());
+		donovelloadBook.setCatalogChapterNodePath(rule.getCatalogChapterNodePath());
+		donovelloadBook.setCatalogChapterUrlPath(rule.getCatalogChapterUrlPath());
+		donovelloadBook.setLastSerialNo(chapterService.getMaxSerialNo(book.getId()));
+		
+		donovelloadBook.setChapterCharset(rule.getChapterCharset());
+		donovelloadBook.setChapterNodePath(rule.getChapterNodePath());
+		if (StringUtils.isNotBlank(rule.getChapterWeed())) {
+			donovelloadBook.setWeeds(rule.getChapterWeed().split(","));
+		}
+		donovelloadBook.setChapterInfo(new IChapterInfo() {
+			@Override
+			public void extractBookInfo(BookInfo bookInfo) {
+				
+			}
+			
+			@Override
+			public boolean extract(ChapterInfo info) {
+				try {
+					saveSpiderChapter(book, info);
+				} catch (ServiceException e) {
+					if (e.getStatus() == NovelStatus.BOOK_CHAPTER_EXISTS) {
+						logger.error("Book chapter exists. {}", info.getChapterTitle());
+					}
+					return false;
+				}
+				return true;
+			}
+			@Override
+			public void extractContent(ChapterInfo info, String content) {
+				updateChapterContent(book, info);
+			}
+		});
+		// 单独抓取一本书籍内容
+		if (!callFromWebsite) {
 			bookCache.put(book.getName(), donovelloadBook);
 			donovelloadBook.start();
 		} else {
