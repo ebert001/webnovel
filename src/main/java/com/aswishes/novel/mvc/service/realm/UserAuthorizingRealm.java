@@ -5,7 +5,9 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.realm.AuthenticatingRealm;
+import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +15,8 @@ import com.aswishes.novel.common.web.SessionUtils;
 import com.aswishes.novel.mvc.model.MUser;
 import com.aswishes.novel.mvc.service.UserService;
 
-@Component
-public class UserAuthorizingRealm extends AuthenticatingRealm  {
+@Component("myRealm")
+public class UserAuthorizingRealm extends AuthorizingRealm  {
 	@Autowired
 	private UserService userService;
 	
@@ -35,6 +37,14 @@ public class UserAuthorizingRealm extends AuthenticatingRealm  {
 		SessionUtils.setUser(user);
 		SimpleAuthenticationInfo authInfo = new SimpleAuthenticationInfo(user, password, this.getName());
 		return authInfo;
+	}
+	
+	/**
+	 * 本例中该方法的调用时机为需授权资源被访问时
+	 */
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		return null;
 	}
 
 }

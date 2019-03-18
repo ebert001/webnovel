@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.spring.Restriction;
+import com.aswishes.spring.SqlHelper.Insert;
 import com.aswishes.spring.SqlHelper.Update;
 import com.aswishes.spring.dao.AbstractJdbcDao;
 import com.aswishes.spring.mapper.MapperHelper;
@@ -42,5 +43,20 @@ public class MUserDao extends AbstractJdbcDao {
 	
 	public void updateLastLoginTime(Long id, Date loginTime) {
 		update(Update.table(tableName).setColumns("last_login_time").whereColumns("id"), loginTime, id);
+	}
+	
+	@Transactional
+	public void cleanRoles(Long userId) {
+		String sql = "delete from m_user_role where user_id = ?";
+		update(sql, userId);
+	}
+	
+	@Transactional
+	public void bindRoles(Long userId, List<Long> roles) {
+		String sql = Insert.table("m_user_role").columns("user_id, role_id, create_time");
+		Date date = new Date();
+		for (Long roleId : roles) {
+			update(sql, userId, roleId, date);
+		}
 	}
 }

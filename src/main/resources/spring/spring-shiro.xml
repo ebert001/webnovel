@@ -23,8 +23,9 @@
 	</bean>
 	
 	<!-- 配置进行授权和认证的 Realm -->
+	<!--  
 	<bean id="myRealm" class="com.aswishes.novel.mvc.service.realm.UserAuthorizingRealm"></bean>
-
+	-->
 	<!-- 配置缓存管理器 -->
 	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<!-- 指定 ehcache 的配置文件 --> 

@@ -53,16 +53,15 @@ CREATE TABLE m_role (
 	UNIQUE KEY `uq_role_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into m_role(name, system) values('admin', 1);
-
+insert into m_role(name, system, update_time, create_time) values('admin', 1, now(), now());
 
 /**
  * 权限表
  */
 CREATE TABLE m_permission (
 	`id` bigint NOT NULL auto_increment COMMENT '主键',
-	`menu` varchar(100) NOT NULL COMMENT '菜单(功能区域)名',
 	`name` varchar(100) NOT NULL COMMENT '权限名',
+	`menu` varchar(100) NOT NULL COMMENT '菜单(功能区域)名',
 	`url` varchar(100) COMMENT '链接地址',
 	`sequence` int COMMENT '顺序号',
 	`description` varchar(128) DEFAULT NULL COMMENT '描述信息',
@@ -72,6 +71,10 @@ CREATE TABLE m_permission (
 	PRIMARY KEY(`id`),
 	UNIQUE KEY `uq_permission_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into m_permission (name, menu, url, sequence, update_time, create_time) values ('Config.User', '用户列表', '/user/list', 1, now(), now());
+insert into m_permission (name, menu, url, sequence, update_time, create_time) values ('Config.User', '用户列表', '/user/list', 1, now(), now());
+insert into m_permission (name, menu, url, sequence, update_time, create_time) values ('Config.User', '用户列表', '/user/list', 1, now(), now());
 
 /**
  * 用户-角色表
@@ -86,6 +89,12 @@ CREATE TABLE m_user_role (
 	UNIQUE KEY `uq_user_role` (`user_id`, `role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+insert into m_user_role (user_id, role_id, create_time) values(
+	(select id from m_user where name = 'admin'),
+	(select id from m_role where name = 'admin'),
+	now()
+);
+
 /**
  * 角色-权限表
  */
@@ -97,6 +106,8 @@ CREATE TABLE m_role_permission (
 	PRIMARY KEY(`id`),
 	UNIQUE KEY `uq_role_permission` (`role_id`, `permission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into m_role_permission
 
 /**
  * 书籍表。存储所有的书籍信息，并对书籍进行分类。后续可能会进行调整。书籍检索，会单独作为一个服务存在。

@@ -1,6 +1,7 @@
 package com.aswishes.novel.mvc.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -54,6 +55,9 @@ public class UserService extends AbstractService {
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password.toCharArray());
 		Subject subject = SecurityUtils.getSubject();
 		subject.login(token);
+		if (subject.isAuthenticated()) {
+			return false;
+		}
 		
 		// 更新最近登录时间
 		MUser user = SessionUtils.getUser();
@@ -78,6 +82,16 @@ public class UserService extends AbstractService {
 	
 	public void update(MUser user) {
 		userDao.updateByPK(user, true);
+	}
+	
+	@Transactional
+	public void cleanRoles(Long userId) {
+		userDao.cleanRoles(userId);
+	}
+	
+	@Transactional
+	public void bindRoles(Long userId, List<Long> roles) {
+		userDao.bindRoles(userId, roles);
 	}
 
 	@Override
