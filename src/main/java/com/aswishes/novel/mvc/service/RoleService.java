@@ -13,6 +13,10 @@ import com.aswishes.novel.mvc.model.MRole;
 @Transactional
 public class RoleService extends SimpleService<MRole> {
 	
+	public List<MRole> getRole(Long userId) {
+		return roleDao.getRole(userId);
+	}
+	
 	@Transactional
 	public void cleanPermissions(Long roleId) {
 		roleDao.cleanPermissions(roleId);

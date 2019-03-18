@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aswishes.novel.common.AppConstants;
 import com.aswishes.novel.common.web.SessionUtils;
 import com.aswishes.novel.mvc.dao.MUserDao;
+import com.aswishes.novel.mvc.model.MRole;
 import com.aswishes.novel.mvc.model.MUser;
 
 @Service
@@ -22,6 +23,8 @@ import com.aswishes.novel.mvc.model.MUser;
 public class UserService extends SimpleService<MUser> {
 	@Autowired
 	private MUserDao userDao;
+	@Autowired
+	private RoleService roleService;
 	
 	public MUser getUser(String username) {
 		return userDao.getByName(username);
@@ -87,7 +90,11 @@ public class UserService extends SimpleService<MUser> {
 	public void bindRoles(Long userId, List<Long> roles) {
 		userDao.bindRoles(userId, roles);
 	}
-
+	
+	public List<MRole> loadRoles(Long userId) {
+		return roleService.getRole(userId);
+	}
+	
 	@Override
 	public void setDao() {
 		this.dao = userDao;
