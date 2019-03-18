@@ -42,9 +42,9 @@ public class MBookDao extends AbstractJdbcDao {
 				Restriction.eq("name", bookName), Restriction.eq("website_id", websiteId));
 	}
 	
-	public PageResultWrapper<MBook> getUnauditBooks(int pageNo, int pageSize, int state) {
+	public PageResultWrapper<MBook> getUnauditBooks(int pageNo, int pageSize, Restriction[] restrictions) {
 		return getPage(MapperHelper.getMapper(MBook.class), pageNo, pageSize, 
-				Restriction.eq("state", state));
+				restrictions);
 	}
 	
 	public void deleteBook(Long bookId) {

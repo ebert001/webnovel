@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.QueryProperty;
 import com.aswishes.spring.service.AbstractService;
 import com.aswishes.novel.mvc.dao.MBookDao;
 import com.aswishes.novel.mvc.dao.MVolumeDao;
@@ -40,8 +41,9 @@ public class BookService extends AbstractService {
 		return bookDao.getBook(bookId);
 	}
 	
-	public PageResultWrapper<MBook> findUnauditBooks(int pageNo, int pageSize, String name) {
-		return bookDao.getUnauditBooks(pageNo, pageSize, MBook.State.UNAUDITED.getValue());
+	public PageResultWrapper<MBook> findUnauditBooks(int pageNo, int pageSize, List<QueryProperty> params) {
+		params.add(new QueryProperty("I-EQ-state", MBook.State.UNAUDITED.getValue() + ""));
+		return bookDao.getUnauditBooks(pageNo, pageSize, QueryProperty.toRestrictions(params));
 	}
 	
 	public void addBook(MBook book) {
