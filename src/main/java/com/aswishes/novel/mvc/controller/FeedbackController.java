@@ -35,7 +35,7 @@ public class FeedbackController extends AbstractController {
 	 * 反馈详细信息 
 	 */
 	public ModelAndView queryOne(Long id) {
-		MFeedback feedback = feedbackService.get.query(id);
+		MFeedback feedback = feedbackService.getById(id);
 		request.setAttribute("feedback", feedback);
 		return new ModelAndView("/config/feedback/list_feedback.jsp");
 	}
