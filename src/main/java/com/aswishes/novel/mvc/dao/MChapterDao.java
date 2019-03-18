@@ -10,7 +10,6 @@ import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.SqlHelper.Select;
 import com.aswishes.spring.SqlHelper.Update;
-import com.aswishes.spring.dao.AbstractJdbcDao;
 import com.aswishes.spring.mapper.MapperHelper;
 
 /**
@@ -18,13 +17,8 @@ import com.aswishes.spring.mapper.MapperHelper;
  */
 @Repository
 @Transactional
-public class MChapterDao extends AbstractJdbcDao {
+public class MChapterDao extends SimpleJdbcDao<MChapter> {
 
-	@Override
-	protected void setTableName() {
-		this.tableName = "m_chapter";
-	}
-	
 	public List<MChapter> readCatalogs(Long bookId) {
 		return getList(Select.table(tableName).columns("id,subject,book_id,write_time").where("book_id = ?").toSqlString(), 
 				MapperHelper.getMapper(MChapter.class), bookId);

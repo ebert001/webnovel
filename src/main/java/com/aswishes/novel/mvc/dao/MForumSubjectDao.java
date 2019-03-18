@@ -5,17 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.spring.Restriction;
-import com.aswishes.spring.dao.AbstractJdbcDao;
-import com.aswishes.spring.mapper.MapperHelper;
 import com.aswishes.novel.mvc.model.MForumSubject;
+import com.aswishes.spring.Restriction;
+import com.aswishes.spring.mapper.MapperHelper;
 
 /**
  * 对应的数据库表为 novel_book
  */
 @Repository
 @Transactional
-public class MForumSubjectDao extends AbstractJdbcDao {
+public class MForumSubjectDao extends SimpleJdbcDao<MForumSubject> {
 
 	@Override
 	protected void setTableName() {
