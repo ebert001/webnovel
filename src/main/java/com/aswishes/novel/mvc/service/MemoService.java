@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.spring.service.AbstractService;
 import com.aswishes.novel.mvc.dao.MMemoDao;
 import com.aswishes.novel.mvc.model.MMemo;
 
 @Service
 @Transactional
-public class MemoService extends AbstractService {
+public class MemoService extends SimpleService<MMemo> {
 
 	public MMemo getMemo(Long id) {
 		return memoDao.getMemo(id);

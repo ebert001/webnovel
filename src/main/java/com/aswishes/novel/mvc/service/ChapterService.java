@@ -10,14 +10,13 @@ import com.aswishes.novel.mvc.dao.MBookDao;
 import com.aswishes.novel.mvc.dao.MChapterDao;
 import com.aswishes.novel.mvc.model.MChapter;
 import com.aswishes.spring.PageResultWrapper;
-import com.aswishes.spring.service.AbstractService;
 
 /**
  * 书籍相关的业务处理类
  */
 @Service
 @Transactional
-public class ChapterService extends AbstractService {
+public class ChapterService extends SimpleService<MChapter> {
 	@Autowired
 	private MChapterDao chapterDao;
 	@Autowired

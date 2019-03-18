@@ -3,24 +3,18 @@ package com.aswishes.novel.mvc.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.mvc.model.MBookshelf;
 import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.Restriction;
-import com.aswishes.spring.dao.AbstractJdbcDao;
 import com.aswishes.spring.mapper.MapperHelper;
-import com.aswishes.novel.mvc.model.MBookshelf;
 
 /**
  * 对应的数据库表为 novel_bookshelf
  */
 @Repository
 @Transactional
-public class MBookshelfDao extends AbstractJdbcDao {
+public class MBookshelfDao extends SimpleJdbcDao<MBookshelf> {
 
-	@Override
-	protected void setTableName() {
-		this.tableName = "m_bookshelf";
-	}
-	
 	public MBookshelf getBook(Long id) {
 		return getObjectBy(MapperHelper.getMapper(MBookshelf.class), Restriction.eq("id", id));
 	}

@@ -6,17 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.spring.service.AbstractService;
 import com.aswishes.novel.mvc.dao.MFeedbackDao;
 import com.aswishes.novel.mvc.model.MFeedback;
 
 @Service
 @Transactional
-public class FeedbackService extends AbstractService {
-
-	public MFeedback query(Long id) {
-		return feedbackDao.query(id);
-	}
+public class FeedbackService extends SimpleService<MFeedback> {
 
 	public List<MFeedback> queryList(Long userId) {
 		return feedbackDao.queryList(userId);

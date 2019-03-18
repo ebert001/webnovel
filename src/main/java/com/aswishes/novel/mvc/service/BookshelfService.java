@@ -14,11 +14,10 @@ import com.aswishes.novel.mvc.model.MBook;
 import com.aswishes.novel.mvc.model.MBookshelf;
 import com.aswishes.novel.mvc.model.MUser;
 import com.aswishes.spring.PageResultWrapper;
-import com.aswishes.spring.service.AbstractService;
 
 @Service
 @Transactional
-public class BookshelfService extends AbstractService {
+public class BookshelfService extends SimpleService<MBookshelf> {
 
 	public MBookshelf getBook(Long id) {
 		return bookshelfDao.getBook(id);

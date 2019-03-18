@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.spring.service.AbstractService;
 import com.aswishes.novel.mvc.dao.MForumDao;
 import com.aswishes.novel.mvc.dao.MForumSubjectDao;
 import com.aswishes.novel.mvc.model.MForum;
@@ -14,11 +13,7 @@ import com.aswishes.novel.mvc.model.MForumSubject;
 
 @Service
 @Transactional
-public class ForumService extends AbstractService {
-
-	public MForum queryForum(Long id) {
-		return forumDao.queryForum(id);
-	}
+public class ForumService extends SimpleService<MForum> {
 
 	public List<MForum> queryForumList(Long userId) {
 		return forumDao.queryForumList(userId);

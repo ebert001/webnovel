@@ -6,20 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.spring.PageResultWrapper;
-import com.aswishes.spring.QueryProperty;
-import com.aswishes.spring.service.AbstractService;
 import com.aswishes.novel.mvc.dao.MBookDao;
 import com.aswishes.novel.mvc.dao.MVolumeDao;
 import com.aswishes.novel.mvc.model.MBook;
 import com.aswishes.novel.mvc.model.MVolume;
+import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.QueryProperty;
 
 /**
  * 书籍相关的业务处理类
  */
 @Service
 @Transactional
-public class BookService extends AbstractService {
+public class BookService extends SimpleService<MBook> {
 	@Autowired
 	private MBookDao bookDao;
 	@Autowired
