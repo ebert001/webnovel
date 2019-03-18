@@ -26,6 +26,7 @@ import com.aswishes.novel.mvc.model.MBook;
 import com.aswishes.novel.mvc.model.MBook.RetriveState;
 import com.aswishes.novel.mvc.model.MChapter;
 import com.aswishes.novel.mvc.service.ChapterService;
+import com.aswishes.novel.mvc.service.SimpleService;
 import com.aswishes.novel.spider.dao.MSpiderRuleDao;
 import com.aswishes.novel.spider.dao.MSpiderWebsiteDao;
 import com.aswishes.novel.spider.entity.MSpiderRule;
@@ -40,11 +41,10 @@ import com.aswishes.novel.spider.looper.WorkState;
 import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.mapper.MapperHelper;
-import com.aswishes.spring.service.AbstractService;
 
 @Service
 @Transactional
-public class SpiderService extends AbstractService {
+public class SpiderService extends SimpleService<MSpiderWebsite> {
 	private static final Logger logger = LoggerFactory.getLogger(SpiderService.class);
 	@Autowired
 	private MSpiderWebsiteDao spiderWebsiteDao;

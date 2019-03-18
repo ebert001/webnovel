@@ -10,7 +10,6 @@ import com.aswishes.novel.mvc.model.MBook;
 import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.SqlHelper;
-import com.aswishes.spring.dao.AbstractJdbcDao;
 import com.aswishes.spring.mapper.MapperHelper;
 
 /**
@@ -18,13 +17,8 @@ import com.aswishes.spring.mapper.MapperHelper;
  */
 @Repository
 @Transactional
-public class MBookDao extends AbstractJdbcDao {
+public class MBookDao extends SimpleJdbcDao<MBook> {
 
-	@Override
-	protected void setTableName() {
-		this.tableName = "m_book";
-	}
-	
 	public List<MBook> getBookList(Long userId) {
 		return getList(MapperHelper.getMapper(MBook.class), Restriction.eq("author_id", userId));
 	}

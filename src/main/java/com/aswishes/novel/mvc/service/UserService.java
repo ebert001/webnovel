@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.spring.PageResultWrapper;
-import com.aswishes.spring.mapper.MapperHelper;
-import com.aswishes.spring.service.AbstractService;
 import com.aswishes.novel.common.AppConstants;
 import com.aswishes.novel.common.web.SessionUtils;
 import com.aswishes.novel.mvc.dao.MUserDao;
@@ -22,20 +19,12 @@ import com.aswishes.novel.mvc.model.MUser;
 
 @Service
 @Transactional
-public class UserService extends AbstractService {
+public class UserService extends SimpleService<MUser> {
 	@Autowired
 	private MUserDao userDao;
 	
-	public MUser getUser(Long userId) {
-		return userDao.getUser(userId);
-	}
-	
 	public MUser getUser(String username) {
-		return userDao.getUser(username);
-	}
-	
-	public PageResultWrapper<MUser> queryPage(int pageNo, int pageSize) {
-		return userDao.getPage(MapperHelper.getMapper(MUser.class), pageNo, pageSize);
+		return userDao.getByName(username);
 	}
 	
 	public String calPassword(MUser user, String password) {
@@ -58,12 +47,17 @@ public class UserService extends AbstractService {
 		if (subject.isAuthenticated()) {
 			return false;
 		}
+		MUser user = SessionUtils.getUser();
+		// 加载权限信息
+		loadPermissions(user.getId());
 		
 		// 更新最近登录时间
-		MUser user = SessionUtils.getUser();
 		userDao.updateLastLoginTime(user.getId(), new Date());
-		
 		return true;
+	}
+	
+	public void loadPermissions(Long userId) {
+		
 	}
 	
 	public void logout() {
@@ -98,6 +92,4 @@ public class UserService extends AbstractService {
 	public void setDao() {
 		this.dao = userDao;
 	}
-	
-	
 }

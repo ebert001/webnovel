@@ -3,18 +3,14 @@ package com.aswishes.novel.spider.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.mvc.dao.SimpleJdbcDao;
+import com.aswishes.novel.spider.entity.MSpiderWebsite;
 import com.aswishes.spring.SqlHelper.Update;
-import com.aswishes.spring.dao.AbstractJdbcDao;
 
 @Repository
 @Transactional
-public class MSpiderWebsiteDao extends AbstractJdbcDao {
+public class MSpiderWebsiteDao extends SimpleJdbcDao<MSpiderWebsite> {
 
-	@Override
-	protected void setTableName() {
-		this.tableName = "m_spider_website";
-	}
-	
 	public void updateState(Long id, Integer state) {
 		String sql = Update.table(tableName).setColumns("state").whereColumns("id");
 		update(sql, state, id);

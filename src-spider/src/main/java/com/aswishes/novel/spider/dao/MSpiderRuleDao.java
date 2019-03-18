@@ -3,17 +3,12 @@ package com.aswishes.novel.spider.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.spring.dao.AbstractJdbcDao;
+import com.aswishes.novel.mvc.dao.SimpleJdbcDao;
+import com.aswishes.novel.spider.entity.MSpiderRule;
 
 @Repository
 @Transactional
-public class MSpiderRuleDao extends AbstractJdbcDao {
+public class MSpiderRuleDao extends SimpleJdbcDao<MSpiderRule> {
 
-	@Override
-	protected void setTableName() {
-		this.tableName = "m_spider_rule";
-	}
-	
-	
 
 }
