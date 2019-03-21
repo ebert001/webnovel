@@ -56,25 +56,36 @@ CREATE TABLE m_role (
 insert into m_role(name, system, update_time, create_time) values('admin', 1, now(), now());
 
 /**
- * 权限表
+ * 菜单表
  */
-CREATE TABLE m_permission (
+CREATE TABLE m_menu (
 	`id` bigint NOT NULL auto_increment COMMENT '主键',
-	`name` varchar(100) NOT NULL COMMENT '权限名',
-	`menu` varchar(100) NOT NULL COMMENT '菜单(功能区域)名',
-	`url` varchar(100) COMMENT '链接地址',
+	`name` varchar(100) NOT NULL COMMENT '名称',
+	`label` varchar(100) comment '标签，国际化使用',
+	`uri` varchar(100) COMMENT '地址',
 	`sequence` int COMMENT '顺序号',
-	`description` varchar(128) DEFAULT NULL COMMENT '描述信息',
 	
-	`update_time` datetime DEFAULT NULL COMMENT '更新时间',
 	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
 	PRIMARY KEY(`id`),
 	UNIQUE KEY `uq_permission_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into m_permission (name, menu, url, sequence, update_time, create_time) values ('Config.User', '用户列表', '/user/list', 1, now(), now());
-insert into m_permission (name, menu, url, sequence, update_time, create_time) values ('Config.User', '用户列表', '/user/list', 1, now(), now());
-insert into m_permission (name, menu, url, sequence, update_time, create_time) values ('Config.User', '用户列表', '/user/list', 1, now(), now());
+/**
+ * 权限表
+ */
+CREATE TABLE m_permission (
+	`id` bigint NOT NULL auto_increment COMMENT '主键',
+	`name` varchar(100) NOT NULL COMMENT '权限名',
+	`area_name` varchar(100) NOT NULL COMMENT '菜单(功能区域)名',
+	`url` varchar(100) COMMENT '链接地址',
+	`sequence` int COMMENT '顺序号',
+	`menu_id` bigint comment '菜单id',
+	
+	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
+	PRIMARY KEY(`id`),
+	FOREIGN KEY fk_menu_id (`menu_id`) REFERENCES `m_menu` (`id`),
+	UNIQUE KEY `uq_permission_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /**
  * 用户-角色表
