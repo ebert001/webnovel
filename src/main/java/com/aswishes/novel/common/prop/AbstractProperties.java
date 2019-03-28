@@ -20,7 +20,7 @@ public abstract class AbstractProperties {
 			// 禁用值解析
 			configuration.setDelimiterParsingDisabled(true);
 			fileName = getFileName();
-			File file = EnvInfo.getClasspathFile(fileName);
+			File file = EnvInfo.getFile(fileName);
 			configuration.load(file);
 			// 如果文件发生改变，重新加载该文件
 			configuration.setReloadingStrategy(new FileChangedReloadingStrategy());

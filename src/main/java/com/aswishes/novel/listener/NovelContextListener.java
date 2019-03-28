@@ -25,8 +25,6 @@ public class NovelContextListener extends ContextLoaderListener {
 		
 		super.contextInitialized(event);
 		appContext = WebApplicationContextUtils.getWebApplicationContext(event.getServletContext());
-		
-		
 	}
 	
 	@Override

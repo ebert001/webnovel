@@ -1,7 +1,5 @@
 package com.aswishes.novel.common.prop;
 
-import com.aswishes.novel.common.EnvInfo;
-
 public class StoreProperties extends AbstractProperties {
 	private static final StoreProperties instance = new StoreProperties();
 	static {
@@ -10,7 +8,7 @@ public class StoreProperties extends AbstractProperties {
 
 	@Override
 	public String getFileName() {
-		return "/res-" + EnvInfo.getRunningEnv() + "/store.properties";
+		return "store.properties";
 	}
 	
 	public static StoreProperties get() {
