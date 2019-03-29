@@ -20,7 +20,8 @@ ul {
 	list-style: none;
 }
 
-input, textarea {
+input, textarea, select {
+	box-sizing: border-box;
 	padding: 0 4px;
 	border: 1px solid #8BB8F2; 
 }

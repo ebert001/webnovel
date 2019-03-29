@@ -88,7 +88,7 @@ public class EnvInfo {
 	}
 	
 	public static File getClasspathFile(String name) {
-		return new File(EnvInfo.class.getResource(name).getFile());
+		return new File(getClasspathDir(), name);
 	}
 	
 	public static File getClasspathDir() {

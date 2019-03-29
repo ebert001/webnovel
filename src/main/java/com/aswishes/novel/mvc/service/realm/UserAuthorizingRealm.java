@@ -9,6 +9,8 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +19,8 @@ import com.aswishes.novel.mvc.model.MUser;
 import com.aswishes.novel.mvc.service.UserService;
 
 @Component("myRealm")
-public class UserAuthorizingRealm extends AuthorizingRealm  {
+public class UserAuthorizingRealm extends AuthorizingRealm {
+	private static final Logger logger = LoggerFactory.getLogger(UserAuthorizingRealm.class);
 	@Autowired
 	private UserService userService;
 	
@@ -26,7 +29,7 @@ public class UserAuthorizingRealm extends AuthorizingRealm  {
 		UsernamePasswordToken token = (UsernamePasswordToken) authToken;
 		String username = token.getUsername();
 		String password = new String(token.getPassword());
-		
+		logger.debug("User name: {}, password: {}", username, password);
 		MUser user = userService.getUser(username);
 		if (user == null) {
 			throw new AuthenticationException("用户名或密码错误");

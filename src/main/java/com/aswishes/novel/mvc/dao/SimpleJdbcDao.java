@@ -2,6 +2,9 @@ package com.aswishes.novel.mvc.dao;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.aswishes.novel.common.ReflectionUtils;
 import com.aswishes.spring.PageResultWrapper;
 import com.aswishes.spring.QueryProperty;
@@ -11,11 +14,15 @@ import com.aswishes.spring.mapper.Mapper;
 import com.aswishes.spring.mapper.MapperHelper;
 
 public class SimpleJdbcDao<T> extends AbstractJdbcDao {
+	protected static final Logger logger = LoggerFactory.getLogger(SimpleJdbcDao.class);
 	protected Class<T> entityClass;
 	
 	@SuppressWarnings("unchecked")
 	public SimpleJdbcDao() {
 		this.entityClass = (Class<T>) ReflectionUtils.getSuperClassGenricType(getClass());
+		if (this.tableName == null) {
+			setTableName();
+		}
 	}
 
 	@Override
@@ -27,7 +34,7 @@ public class SimpleJdbcDao<T> extends AbstractJdbcDao {
 		if (mapper == null) {
 			return;
 		}
-		this.tableName = mapper.name();
+		this.tableName = mapper.tableName();
 	}
 	
 	public T getById(Long id) {
@@ -35,6 +42,7 @@ public class SimpleJdbcDao<T> extends AbstractJdbcDao {
 	}
 	
 	public T getByName(String name) {
+		logger.debug("Entity class: {}", entityClass);
 		return getObjectBy(MapperHelper.getMapper(entityClass), Restriction.eq("name", name));
 	}
 	
