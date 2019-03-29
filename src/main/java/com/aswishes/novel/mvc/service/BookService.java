@@ -69,6 +69,7 @@ public class BookService extends SimpleService<MBook> {
 		volumeDao.updateByPK(volume, true);
 	}
 	
+	@Autowired
 	@Override
 	public void setDao() {
 		this.dao = bookDao;

@@ -82,10 +82,10 @@ public class ForumService extends SimpleService<MForum> {
 
 	@Autowired
 	private MForumDao forumDao;
-	
 	@Autowired
 	private MForumSubjectDao forumSubjectDao;
 
+	@Autowired
 	@Override
 	public void setDao() {
 		this.dao = forumDao;

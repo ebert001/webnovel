@@ -29,7 +29,7 @@ public class RoleService extends SimpleService<MRole> {
 
 	@Autowired
 	private MRoleDao roleDao;
-
+	@Autowired
 	@Override
 	public void setDao() {
 		this.dao = roleDao;

@@ -36,6 +36,7 @@ public class MemoService extends SimpleService<MMemo> {
 	@Autowired
 	private MMemoDao memoDao;
 
+	@Autowired
 	@Override
 	public void setDao() {
 		this.dao = memoDao;

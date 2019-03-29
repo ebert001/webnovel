@@ -96,6 +96,7 @@ public class UserService extends SimpleService<MUser> {
 	}
 	
 	@Override
+	@Autowired
 	public void setDao() {
 		this.dao = userDao;
 	}

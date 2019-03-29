@@ -32,6 +32,7 @@ public class FeedbackService extends SimpleService<MFeedback> {
 	@Autowired
 	private MFeedbackDao feedbackDao;
 
+	@Autowired
 	@Override
 	public void setDao() {
 		this.dao = feedbackDao;

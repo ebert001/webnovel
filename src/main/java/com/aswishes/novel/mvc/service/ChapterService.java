@@ -65,7 +65,7 @@ public class ChapterService extends SimpleService<MChapter> {
 		chapterDao.deleteChapter(chapterId);
 	}
 
-	
+	@Autowired
 	@Override
 	public void setDao() {
 		this.dao = chapterDao;

@@ -76,6 +76,7 @@ public class BookshelfService extends SimpleService<MBookshelf> {
 	private BookService bookService;
 
 	@Override
+	@Autowired
 	public void setDao() {
 		this.dao = bookshelfDao;
 	}
