@@ -851,6 +851,7 @@ form div.button_area {
 
 .setup_tree ul li:hover {
 	background-color: #AFDFE4;
+	cursor: pointer;
 }
 
 .tree_group, .setup_tree ul li.tree_group:hover {

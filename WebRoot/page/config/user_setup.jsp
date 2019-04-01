@@ -3,17 +3,13 @@
 
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <title>乐在文学-用户设置</title>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8">
-    
-	<link rel="shortcut icon" href="${ctx}/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
-	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
-	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
-  </head>
-  
-  <body class="body">
-  	<%@include file="setup_common.jsp"%>
-  </body>
+	<head>
+	   <title>乐在文学-用户设置</title>
+	   <%@include file="/css-js.jsp"%>
+	</head>
+	
+	<body class="body">
+		<%@include file="setup_common.jsp"%>
+		<script type="text/javascript" src="${ctx}/static/js/auto_load.js"></script>
+	</body>
 </html>

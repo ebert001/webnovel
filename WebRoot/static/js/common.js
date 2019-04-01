@@ -353,6 +353,9 @@ function doPage(pageNo, formId) {
 
 /** 私有方法，外部不要调用 */
 function pageWithUrl(pageUrl, pageNo, pageSize, totalPage, totalCount) {
+	if (pageUrl == undefined || pageUrl == null) {
+		return "";
+	}
 	pageUrl += (pageUrl.indexOf("?") == -1 ? "?" : "&") + "pageSize=" + pageSize;
 	var bar = "";
 	bar += '<div class="page">';
