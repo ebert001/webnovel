@@ -31,6 +31,12 @@ public class BookController extends AbstractController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/toAdd", method = {RequestMethod.POST})
+	public ModelAndView toAddBook(ModelAndView mv, String bookName, String desc) {
+		mv.setViewName("config/opus/create_opus");
+		return mv;
+	}
+	
 	/** 
 	 * 添加书籍 
 	 */
@@ -97,7 +103,7 @@ public class BookController extends AbstractController {
 		List<MBook> bookList = bookService.getBookList(userId);
 		mv.addObject("bookList", bookList);
 		
-		mv.setViewName("config/opus/create_opus");
+		mv.setViewName("config/opus/list_opus");
 		return mv;
 	}
 	
