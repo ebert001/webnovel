@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.common.ReflectionUtils;
 import com.aswishes.novel.mvc.dao.SimpleJdbcDao;
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 import com.aswishes.spring.QueryProperty;
 
 @Transactional
@@ -34,7 +34,7 @@ public abstract class SimpleService<T> {
 		return dao.getList(params);
 	}
 	
-	public PageResultWrapper<T> getPage(int pageNo, int pageSize, List<QueryProperty> params) {
+	public PageResult<T> getPage(int pageNo, int pageSize, List<QueryProperty> params) {
 		return dao.getPage(pageNo, pageSize, params);
 	}
 	

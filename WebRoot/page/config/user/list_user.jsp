@@ -56,7 +56,7 @@
 									<td width="8%">操作</td>
 								</tr>
 							</thead>
-							<c:forEach items="${page.pageResult}" varStatus="i" var="user">
+							<c:forEach items="${page.result}" varStatus="i" var="user">
 								<tr>
 									<td>${user.name}</td>
 									<td>${user.alias}</td>

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.mvc.model.MBook;
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.SqlHelper;
 import com.aswishes.spring.mapper.MapperHelper;
@@ -36,7 +36,7 @@ public class MBookDao extends SimpleJdbcDao<MBook> {
 				Restriction.eq("name", bookName), Restriction.eq("website_id", websiteId));
 	}
 	
-	public PageResultWrapper<MBook> getUnauditBooks(int pageNo, int pageSize, Restriction[] restrictions) {
+	public PageResult<MBook> getUnauditBooks(int pageNo, int pageSize, Restriction[] restrictions) {
 		return getPage(MapperHelper.getMapper(MBook.class), pageNo, pageSize, 
 				restrictions);
 	}

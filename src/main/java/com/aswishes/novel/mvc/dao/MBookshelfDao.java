@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.mvc.model.MBookshelf;
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.mapper.MapperHelper;
 
@@ -24,7 +24,7 @@ public class MBookshelfDao extends SimpleJdbcDao<MBookshelf> {
 				Restriction.eq("user_id", userId), Restriction.eq("book_id", bookId));
 	}
 	
-	public PageResultWrapper<MBookshelf> getBooks(int pageNo, int pageSize, Long userId) {
+	public PageResult<MBookshelf> getBooks(int pageNo, int pageSize, Long userId) {
 		return getPage(MapperHelper.getMapper(MBookshelf.class), pageNo, pageSize, 
 				Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
 	}

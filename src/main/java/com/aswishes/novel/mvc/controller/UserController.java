@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 import com.aswishes.novel.common.AppConstants;
 import com.aswishes.novel.common.Codes;
 import com.aswishes.novel.common.web.SessionUtils;
@@ -102,7 +102,7 @@ public class UserController extends AbstractController {
 	public ModelAndView list(ModelAndView mv, HttpServletRequest request,
 			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo, 
 			@RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-		PageResultWrapper<MUser> page = userService.getPage(pageNo, pageSize, toQueryPropertyList(request));
+		PageResult<MUser> page = userService.getPage(pageNo, pageSize, toQueryPropertyList(request));
 		mv.addObject("page", page);
 		mv.setViewName("config/user/list_user");
 		return mv;

@@ -47,7 +47,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${page.pageResult}" varStatus="i" var="website">
+								<c:forEach items="${page.result}" varStatus="i" var="website">
 									<tr>
 										<td>
 											<a href="${ctx}/book/listChapter?bookId=${book.id}&a=r">${website.name}</a>

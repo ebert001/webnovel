@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.mvc.model.MChapter;
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.SqlHelper.Select;
 import com.aswishes.spring.SqlHelper.Update;
@@ -38,7 +38,7 @@ public class MChapterDao extends SimpleJdbcDao<MChapter> {
 		return getCount(sql, bookId);
 	}
 	
-	public PageResultWrapper<MChapter> getUnauditChapters(int pageNo, int pageSize, Long bookId, int state) {
+	public PageResult<MChapter> getUnauditChapters(int pageNo, int pageSize, Long bookId, int state) {
 		Select select = Select.table(tableName).columns("id,subject,book_id,state,write_time,input_time").where("book_id = ? and state = ? ");
 		String countSql = select.toCountString();
 		String dataSql = select.toSqlString();

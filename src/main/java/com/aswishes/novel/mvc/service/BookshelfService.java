@@ -13,7 +13,7 @@ import com.aswishes.novel.mvc.dao.MBookshelfDao;
 import com.aswishes.novel.mvc.model.MBook;
 import com.aswishes.novel.mvc.model.MBookshelf;
 import com.aswishes.novel.mvc.model.MUser;
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 
 @Service
 @Transactional
@@ -23,7 +23,7 @@ public class BookshelfService extends SimpleService<MBookshelf> {
 		return bookshelfDao.getBook(id);
 	}
 
-	public PageResultWrapper<MBookshelf> getBooks(int pageNo, int pageSize, Long userId) {
+	public PageResult<MBookshelf> getBooks(int pageNo, int pageSize, Long userId) {
 		return bookshelfDao.getBooks(pageNo, pageSize, userId);
 	}
 	

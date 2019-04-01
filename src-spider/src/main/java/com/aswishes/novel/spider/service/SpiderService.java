@@ -38,7 +38,7 @@ import com.aswishes.novel.spider.looper.IChapterInfo;
 import com.aswishes.novel.spider.looper.PickBooks;
 import com.aswishes.novel.spider.looper.PickCatalog;
 import com.aswishes.novel.spider.looper.WorkState;
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.mapper.MapperHelper;
 
@@ -79,7 +79,7 @@ public class SpiderService extends SimpleService<MSpiderWebsite> {
 		return spiderRuleDao.getObjectBy(MapperHelper.getMapper(MSpiderRule.class), Restriction.eq("id", id));
 	}
 	
-	public PageResultWrapper<MSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
+	public PageResult<MSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
 		return spiderWebsiteDao.getPage(MapperHelper.getMapper(MSpiderWebsite.class), pageNo, pageSize, Restriction.orderByDesc("id"));
 	}
 	

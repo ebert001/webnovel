@@ -10,7 +10,7 @@ import com.aswishes.novel.mvc.dao.MBookDao;
 import com.aswishes.novel.mvc.dao.MVolumeDao;
 import com.aswishes.novel.mvc.model.MBook;
 import com.aswishes.novel.mvc.model.MVolume;
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 import com.aswishes.spring.QueryProperty;
 
 /**
@@ -40,7 +40,7 @@ public class BookService extends SimpleService<MBook> {
 		return bookDao.getBook(bookId);
 	}
 	
-	public PageResultWrapper<MBook> findUnauditBooks(int pageNo, int pageSize, List<QueryProperty> params) {
+	public PageResult<MBook> findUnauditBooks(int pageNo, int pageSize, List<QueryProperty> params) {
 		params.add(new QueryProperty("I-EQ-state", MBook.State.UNAUDITED.getValue() + ""));
 		return bookDao.getUnauditBooks(pageNo, pageSize, QueryProperty.toRestrictions(params));
 	}

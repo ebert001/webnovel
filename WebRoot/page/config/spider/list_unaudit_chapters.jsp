@@ -44,7 +44,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${page.pageResult}" varStatus="i" var="bean">
+								<c:forEach items="${page.result}" varStatus="i" var="bean">
 									<tr>
 										<td>
 											<a href="${ctx}/spider/toUnauditChapter?chapterId=${bean.id}">${bean.subject}</a>

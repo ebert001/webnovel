@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.aswishes.novel.common.ReflectionUtils;
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 import com.aswishes.spring.QueryProperty;
 import com.aswishes.spring.Restriction;
 import com.aswishes.spring.dao.AbstractJdbcDao;
@@ -50,7 +50,7 @@ public class SimpleJdbcDao<T> extends AbstractJdbcDao {
 		return getList(MapperHelper.getMapper(entityClass), QueryProperty.toRestrictions(params));
 	}
 	
-	public PageResultWrapper<T> getPage(int pageNo, int pageSize, List<QueryProperty> params) {
+	public PageResult<T> getPage(int pageNo, int pageSize, List<QueryProperty> params) {
 		return getPage(MapperHelper.getMapper(entityClass), pageNo, pageSize, QueryProperty.toRestrictions(params));
 	}
 	

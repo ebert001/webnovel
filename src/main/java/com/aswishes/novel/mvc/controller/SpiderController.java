@@ -15,7 +15,7 @@ import com.aswishes.novel.mvc.service.ChapterService;
 import com.aswishes.novel.spider.entity.MSpiderRule;
 import com.aswishes.novel.spider.entity.MSpiderWebsite;
 import com.aswishes.novel.spider.service.SpiderService;
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 
 @Controller
 @RequestMapping("/spider")
@@ -32,7 +32,7 @@ public class SpiderController extends AbstractController {
 	public ModelAndView toSpiderWebsite(ModelAndView mv, 
 			@RequestParam(defaultValue = "1") int pageNo, 
 			@RequestParam(defaultValue = "20") int pageSize) {
-		PageResultWrapper<MSpiderWebsite> page = spiderService.getSpiderWebsite(pageNo, pageSize);
+		PageResult<MSpiderWebsite> page = spiderService.getSpiderWebsite(pageNo, pageSize);
 		mv.addObject("page", page);
 		mv.setViewName("config/spider/list_website");
 		return mv;
@@ -105,7 +105,7 @@ public class SpiderController extends AbstractController {
 	public ModelAndView toUnauditBooks(ModelAndView mv, HttpServletRequest request,
 			@RequestParam(defaultValue = "1") int pageNo, 
 			@RequestParam(defaultValue = "20") int pageSize) {
-		PageResultWrapper<MBook> page = bookService.findUnauditBooks(pageNo, pageSize, toQueryPropertyList(request));
+		PageResult<MBook> page = bookService.findUnauditBooks(pageNo, pageSize, toQueryPropertyList(request));
 		mv.addObject("page", page);
 		mv.setViewName("config/spider/list_unaudit_books");
 		return mv;
@@ -116,7 +116,7 @@ public class SpiderController extends AbstractController {
 			@RequestParam(defaultValue = "1") int pageNo, 
 			@RequestParam(defaultValue = "20") int pageSize) {
 		MBook book = bookService.getBook(bookId);
-		PageResultWrapper<MChapter> page = chapterService.findUnauditBooks(bookId, pageNo, pageSize);
+		PageResult<MChapter> page = chapterService.findUnauditBooks(bookId, pageNo, pageSize);
 		mv.addObject("page", page);
 		mv.addObject("book", book);
 		mv.setViewName("config/spider/list_unaudit_chapters");

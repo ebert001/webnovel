@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aswishes.spring.PageResultWrapper;
+import com.aswishes.spring.PageResult;
 import com.aswishes.novel.common.web.SessionUtils;
 import com.aswishes.novel.mvc.model.MBook;
 import com.aswishes.novel.mvc.model.MBookshelf;
@@ -30,7 +30,7 @@ public class BookshelfController extends AbstractController {
 		if (user == null) {
 			
 		} else {
-			PageResultWrapper<MBookshelf> page = bookshelfService.getBooks(pageNo, pageSize, user.getId());
+			PageResult<MBookshelf> page = bookshelfService.getBooks(pageNo, pageSize, user.getId());
 			mv.addObject("page", page);
 			mv.setViewName("config/shelf/list_shelf");
 		}
