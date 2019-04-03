@@ -53,39 +53,10 @@ CREATE TABLE m_role (
 	UNIQUE KEY `uq_role_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into m_role(name, system, update_time, create_time) values('admin', 1, now(), now());
-
-/**
- * 菜单表
- */
-CREATE TABLE m_menu (
-	`id` bigint NOT NULL auto_increment COMMENT '主键',
-	`name` varchar(100) NOT NULL COMMENT '名称',
-	`label` varchar(100) comment '标签，国际化使用',
-	`uri` varchar(100) COMMENT '地址',
-	`sequence` int COMMENT '顺序号',
-	
-	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
-	PRIMARY KEY(`id`),
-	UNIQUE KEY `uq_permission_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/**
- * 权限表
- */
-CREATE TABLE m_permission (
-	`id` bigint NOT NULL auto_increment COMMENT '主键',
-	`name` varchar(100) NOT NULL COMMENT '权限名',
-	`area_name` varchar(100) NOT NULL COMMENT '菜单(功能区域)名',
-	`url` varchar(100) COMMENT '链接地址',
-	`sequence` int COMMENT '顺序号',
-	`menu_id` bigint comment '菜单id',
-	
-	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
-	PRIMARY KEY(`id`),
-	FOREIGN KEY fk_menu_id (`menu_id`) REFERENCES `m_menu` (`id`),
-	UNIQUE KEY `uq_permission_name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+insert into m_role(name, description, system, update_time, create_time) values('admin', '超级管理员', 1, now(), now());
+insert into m_role(name, description, system, update_time, create_time) values('maintenance', '运维人员', 1, now(), now());
+insert into m_role(name, description, system, update_time, create_time) values('author', '作者', 1, now(), now());
+insert into m_role(name, description, system, update_time, create_time) values('reader', '读者', 1, now(), now());
 
 /**
  * 用户-角色表
@@ -107,6 +78,71 @@ insert into m_user_role (user_id, role_id, create_time) values(
 );
 
 /**
+ * 菜单表
+ */
+CREATE TABLE m_menu (
+	`id` bigint NOT NULL auto_increment COMMENT '主键',
+	`name` varchar(50) NOT NULL COMMENT '名称',
+	`label` varchar(100) comment '标签',
+	`uri` varchar(100) COMMENT '地址',
+	`sequence` int COMMENT '顺序号',
+	`parent_menu_id` bigint comment '父菜单id',
+	
+	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
+	PRIMARY KEY(`id`),
+	UNIQUE KEY `uq_permission_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into m_menu (id, name, label, uri, sequence, create_time) values(1, 'UserSetting', '用户设置', null, 1, now());
+insert into m_menu (id, name, label, uri, sequence, create_time) values(2, 'AuthorArea', '作家专区', null, 2, now());
+insert into m_menu (id, name, label, uri, sequence, create_time) values(3, 'Maintenance', '运维监控', null, 3, now());
+
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('BasicInfo', '基本信息', 'user/info', 1, 1, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('ModifyPwd', '修改密码', 'user/toUpdatePwd', 2, 1, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('Bookshelf', '我的书架', 'bookshelf/toList', 3, 1, now());
+
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('MyBooks', '我的作品', 'book/list', 1, 2, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('Writing', '我要写作', 'book/toWritePage', 2, 2, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('ToAuthor', '信息注册', 'user/toCreateAuthor', 3, 2, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('AuthorProtocol', '作者协议', 'user/toAuthorPrincple', 4, 2, now());
+
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('UserManager', '用户管理', 'user/list', 1, 3, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('RuleManager', '规则管理', 'spider/toSpiderWebsite', 2, 3, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('ChapterExamine', '文章审核', 'spider/toUnauditBooks', 3, 3, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('BookManager', '文章管理', 'book/list', 4, 3, now());
+
+/**
+ * 权限表
+ */
+CREATE TABLE m_permission (
+	`id` bigint NOT NULL auto_increment COMMENT '主键',
+	`name` varchar(50) NOT NULL COMMENT '权限名',
+	`label` varchar(100) NOT NULL COMMENT '标签',
+	`uri` varchar(100) COMMENT '地址',
+	`sequence` int COMMENT '顺序号',
+	`menu_id` bigint comment '菜单id',
+	
+	`create_time` datetime DEFAULT NULL COMMENT '创建时间',
+	PRIMARY KEY(`id`),
+	FOREIGN KEY fk_menu_id (`menu_id`) REFERENCES `m_menu` (`id`),
+	UNIQUE KEY `uq_permission_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('UserManager.Add', '新增', 1, (select id from m_menu where name = 'UserManager'), now());
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('UserManager.Update', '修改', 2, (select id from m_menu where name = 'UserManager'), now());
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('UserManager.Delete', '删除', 3, (select id from m_menu where name = 'UserManager'), now());
+	
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('RuleManager.Add', '新增', 1, (select id from m_menu where name = 'RuleManager'), now());
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('RuleManager.Update', '修改', 2, (select id from m_menu where name = 'RuleManager'), now());
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('RuleManager.Delete', '删除', 3, (select id from m_menu where name = 'RuleManager'), now());
+
+/**
  * 角色-权限表
  */
 CREATE TABLE m_role_permission (
@@ -118,7 +154,11 @@ CREATE TABLE m_role_permission (
 	UNIQUE KEY `uq_role_permission` (`role_id`, `permission_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-insert into m_role_permission
+insert into m_role_permission (role_id, permission_id, create_time) values (
+	(select id from m_role where name = 'admin'),
+	(select id from m_permission where name = 'RuleManager.Add'),
+	now()
+);
 
 /**
  * 书籍表。存储所有的书籍信息，并对书籍进行分类。后续可能会进行调整。书籍检索，会单独作为一个服务存在。
