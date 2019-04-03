@@ -40,9 +40,9 @@ $(document).ready(function() {
 		}
 	}
 	function loadConfigMenu() {
-		$("#__setup_menu li").click(function() {
-			var li = $(this);
-			var url = li.attr("url");
+		$("#__setup_menu dd").click(function() {
+			var dd = $(this);
+			var url = dd.attr("url");
 			if (url == undefined || url == null) {
 				return;
 			}

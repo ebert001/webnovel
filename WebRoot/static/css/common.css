@@ -837,28 +837,28 @@ form div.button_area {
 	border-right: 1px solid #BBCDC5;
 }
 
-.setup_tree ul {
+.setup_tree dl {
 	list-style: none;
 	padding: 0 8px;
 }
 
-.setup_tree ul li {
+.setup_tree dl dt {
+	background-color: #FF8C00;
+	color: #FFFFFF;
+	font-weight: bold;
+	cursor: default;
+}
+
+.setup_tree dl dd {
 	height: 28px;
 	line-height: 28px;
 	border-bottom: 1px dashed #BBCDC5;
 	text-indent: 16px;
 }
 
-.setup_tree ul li:hover {
+.setup_tree dl dd:hover {
 	background-color: #AFDFE4;
 	cursor: pointer;
-}
-
-.tree_group, .setup_tree ul li.tree_group:hover {
-	background-color: #FF8C00;
-	color: #FFFFFF;
-	font-weight: bold;
-	cursor: default;
 }
 
 /********************* 设置：右侧 内容 **********************/

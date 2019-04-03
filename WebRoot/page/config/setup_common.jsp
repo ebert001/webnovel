@@ -8,46 +8,46 @@
 	<div class="container">
 		<div class="content_wrapper upper_border_radius none_space">
 			<div class="setup_tree padding_top">
-				<ul id="__setup_menu">
-					<li class="tree_group">用户设置</li>
-					<li url="${ctx}/user/info">基本信息</li>
-					<li url="${ctx}/user/toUpdatePwd">修改密码</li>
-					<li url="${ctx}/user/list">用户管理</li>
-					<li url="${ctx}/user/toUploadAvatar">上传头像</li>
+				<dl id="__setup_menu">
+					<dt>用户设置</dt>
+					<dd url="${ctx}/user/info">基本信息</li>
+					<dd url="${ctx}/user/toUpdatePwd">修改密码</dd>
+					<dd url="${ctx}/user/list">用户管理</dd>
+					<dd url="${ctx}/user/toUploadAvatar">上传头像</dd>
 					<!--  
-					<li url="${ctx}/config/history/list_history.jsp">访问历史</li>
+					<dd url="${ctx}/config/history/list_history.jsp">访问历史</dd>
 					-->
-					<li class="tree_group">我的乐文</li>
+					<dt>我的乐文</dt>
 					<!--  
-					<li url="">我的信箱</li>
-					<li url="">我的书评</li>
-					<li url="">我的帖子</li>
-					<li url="${ctx}/memo/list">我的备忘</li>
+					<dd url="">我的信箱</dd>
+					<dd url="">我的书评</dd>
+					<dd url="">我的帖子</dd>
+					<dd url="${ctx}/memo/list">我的备忘</dd>
 					-->
-					<li url="${ctx}/bookshelf/toList">我的书架</li>
+					<dd url="${ctx}/bookshelf/toList">我的书架</dd>
 					
-					<li class="tree_group">作家专区</li>
-					<li url="${ctx}/user/toCreateAuthor">信息注册</li>
-					<li url="${ctx}/book/list">我的作品</li>
-					<li url="${ctx}/book/toWritePage">我要写作</li>
-					<li url="${ctx}/user/toAuthorPrincple" target="_blank">作者协议</li>
+					<dt>作家专区</dt>
+					<dd url="${ctx}/user/toCreateAuthor">信息注册</dd>
+					<dd url="${ctx}/book/list">我的作品</dd>
+					<dd url="${ctx}/book/toWritePage">我要写作</dd>
+					<dd url="${ctx}/user/toAuthorPrincple" target="_blank">作者协议</dd>
 					
-					<li class="tree_group">运维监控</li>
+					<dt>运维监控</dt>
 					<!--  
-					<li>日志监控</li>
-					<li>人员维护</li>
+					<dd>日志监控</dd>
+					<dd>人员维护</dd>
 					-->
-					<li url="${ctx}/spider/toSpiderWebsite">蜘蛛</li>
-					<li url="${ctx}/spider/toUnauditBooks">文章审核</li>
+					<dd url="${ctx}/spider/toSpiderWebsite">蜘蛛</dd>
+					<dd url="${ctx}/spider/toUnauditBooks">文章审核</dd>
 					
 					<!--  
-					<li class="tree_group">意见反馈</li>
-					<li url="${ctx}/config/feedback/create_feedback.jsp">我有反馈</li>
-					<li url="${ctx}/config/feedback/create_feedback.jsp">我有建议</li>
-					<li url="${ctx}/feedback/list">所有反馈</li>
-					<li url="${ctx}/feedback/listByUser">我的反馈</li>
+					<dt>意见反馈</dt>
+					<dd url="${ctx}/config/feedback/create_feedback.jsp">我有反馈</dd>
+					<dd url="${ctx}/config/feedback/create_feedback.jsp">我有建议</dd>
+					<dd url="${ctx}/feedback/list">所有反馈</dd>
+					<dd url="${ctx}/feedback/listByUser">我的反馈</dd>
 					-->
-				</ul>
+				</dl>
 			</div>
 			
 			<!-- 动态内容加载区域 -->
