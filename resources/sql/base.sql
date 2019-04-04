@@ -107,9 +107,11 @@ insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) val
 insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('AuthorProtocol', '作者协议', 'user/toAuthorPrincple', 4, 2, now());
 
 insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('UserManager', '用户管理', 'user/list', 1, 3, now());
-insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('RuleManager', '规则管理', 'spider/toSpiderWebsite', 2, 3, now());
-insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('ChapterExamine', '文章审核', 'spider/toUnauditBooks', 3, 3, now());
-insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('BookManager', '文章管理', 'book/list', 4, 3, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('RoleManager', '角色管理', 'role/list', 2, 3, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('PermissionManager', '权限管理', 'permission/list', 3, 3, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('RuleManager', '规则管理', 'spider/toSpiderWebsite', 4, 3, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('ChapterExamine', '文章审核', 'spider/toUnauditBooks', 5, 3, now());
+insert into m_menu (name, label, uri, sequence, parent_menu_id, create_time) values('BookManager', '文章管理', 'book/list', 6, 3, now());
 
 /**
  * 权限表
@@ -134,6 +136,20 @@ insert into m_permission (name, label, sequence, menu_id, create_time)
 	values ('UserManager.Update', '修改', 2, (select id from m_menu where name = 'UserManager'), now());
 insert into m_permission (name, label, sequence, menu_id, create_time) 
 	values ('UserManager.Delete', '删除', 3, (select id from m_menu where name = 'UserManager'), now());
+	
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('RoleManager.Add', '新增', 1, (select id from m_menu where name = 'RoleManager'), now());
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('RoleManager.Update', '修改', 2, (select id from m_menu where name = 'RoleManager'), now());
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('RoleManager.Delete', '删除', 3, (select id from m_menu where name = 'RoleManager'), now());
+	
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('PermissionManager.Add', '新增', 1, (select id from m_menu where name = 'PermissionManager'), now());
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('PermissionManager.Update', '修改', 2, (select id from m_menu where name = 'PermissionManager'), now());
+insert into m_permission (name, label, sequence, menu_id, create_time) 
+	values ('PermissionManager.Delete', '删除', 3, (select id from m_menu where name = 'PermissionManager'), now());
 	
 insert into m_permission (name, label, sequence, menu_id, create_time) 
 	values ('RuleManager.Add', '新增', 1, (select id from m_menu where name = 'RuleManager'), now());
