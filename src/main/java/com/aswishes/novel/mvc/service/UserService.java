@@ -53,7 +53,6 @@ public class UserService extends SimpleService<MUser> {
 		MUser user = SessionUtils.getUser();
 		// 加载权限信息
 		loadPermissions(user.getId());
-		
 		// 更新最近登录时间
 		userDao.updateLastLoginTime(user.getId(), new Date());
 		return true;

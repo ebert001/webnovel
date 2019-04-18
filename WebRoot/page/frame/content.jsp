@@ -1,17 +1,15 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-
-<script>
-function doSearch() {
-	var sk = document.getElementById("s_k").value;
-	
-}
-
-</script>
+<%@include file="/taglibs.jsp"%>
 
 <div class="content_wrapper">
-	<script type="text/javascript">
-		arrMenu = ["唐-2", "宋-2", "元", "明", "清"]; 
-		arrContent = ["李白-2", "苏轼", "元", "王安石", "和申"];
-		createTab('2', 5, arrMenu, arrContent, 'float: left; width: 99%; margin-top: 6px;');
-	</script>
+	<!-- 默认加载阅读量最大的30本书籍 -->
+	<div>
+		<c:forEach items="${top30}" var="book">
+		<div>
+			<span><a href="${ctx}/book/listChapters?bookId=${book.id}&a=r">${book.name}</a></span>
+			<span>${book.clickTimes}</span>
+			<span>${book.updateTime}</span>
+		</div>
+		</c:forEach>
+	</div>
 </div>

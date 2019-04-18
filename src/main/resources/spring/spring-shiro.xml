@@ -44,7 +44,7 @@
 	</bean>
 	
 	<!-- 启用shrio授权注解拦截方式 -->
-	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+	<bean id="shiroFilter" class="com.aswishes.novel.mvc.service.realm.ShiroPermissionFactory">
 		<!-- 装配 securityManager -->
 		<property name="securityManager" ref="securityManager"/>
 		<!-- 配置登陆页面 -->

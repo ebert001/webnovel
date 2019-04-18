@@ -45,6 +45,11 @@ public class BookService extends SimpleService<MBook> {
 		return bookDao.getUnauditBooks(pageNo, pageSize, QueryProperty.toRestrictions(params));
 	}
 	
+	public PageResult<MBook> findReadTop(int pageNo, int pageSize, List<QueryProperty> params) {
+		params.add(new QueryProperty("OD-click_times"));
+		return bookDao.getPage(pageNo, pageSize, params);
+	}
+	
 	public void addBook(MBook book) {
 		bookDao.save(book);
 	}

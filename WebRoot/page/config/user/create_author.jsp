@@ -38,7 +38,7 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">简介：</td>
 						<td class="table_form_field">
-							<textarea class="input_required" name="intro" style="width: 400px; height: 120px; margin-top: 8px;"></textarea>
+							<textarea class="input_required" name="intro" style="height: 60px;"></textarea>
 						</td>
 					</tr>
 					<tr class="bottom_border">
@@ -50,7 +50,7 @@
 					<tr class="bottom_border">
 						<td class="table_form_label">性别：</td>
 						<td class="table_form_field">
-							<select name="sex" style="width: 48px; height: 24px;">
+							<select name="sex">
 								<option value="0">男</option>
 								<option value="1">女</option>
 							</select>

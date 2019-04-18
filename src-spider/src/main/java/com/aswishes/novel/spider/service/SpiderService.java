@@ -137,11 +137,13 @@ public class SpiderService extends SimpleService<MSpiderWebsite> {
 	}
 	
 	@Transactional
-	public void updateSpiderBook(Long websiteId, BookInfo info) {
-		MBook bean = bookDao.getBook(info.getBookName(), websiteId);
-		bean.setRetriveStopTime(new Date());
-		bean.setRetriveState(RetriveState.FINISHED.getValue());
-		bookDao.updateByPK(bean, false);
+	public void pickBookStart(Long websiteId, BookInfo info) {
+		bookDao.startPick(info.getBookName(), websiteId);
+	}
+	
+	@Transactional
+	public void pickBookStop(Long websiteId, BookInfo info) {
+		bookDao.stopPick(info.getBookName(), websiteId);
 	}
 	
 	@Transactional
@@ -238,14 +240,18 @@ public class SpiderService extends SimpleService<MSpiderWebsite> {
 				} catch (ServiceException e) {
 					if (e.getStatus() != null && e.getStatus() == NovelStatus.WEBSITE_BOOK_EXISTS) {
 						// do nothing.
+					} else {
+						logger.error("Pick book error", e);
+						return;
 					}
 				}
+				pickBookStart(websiteId, info);
 				if (!loopChapters) {
-					updateSpiderBook(websiteId, info);
+					pickBookStop(websiteId, info);
 					return;
 				}
 				loopChapters(info, website, rule, true);
-				updateSpiderBook(websiteId, info);
+				pickBookStop(websiteId, info);
 			}
 		});
 		bookListCache.put(website.getName(), donovelloadBookList);

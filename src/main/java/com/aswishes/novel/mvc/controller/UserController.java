@@ -68,7 +68,13 @@ public class UserController extends AbstractController {
 	
 	@RequestMapping(value = "/toConfig")
 	public ModelAndView toConfig(ModelAndView mv) {
-		userService.login("admin", "111111");
+		MUser user = SessionUtils.getUser();
+		if (user == null) {
+//			mv.setViewName("redirect:/login.jsp");
+			userService.login("admin", "111111");
+//			return mv;
+		}
+//		userService.login("admin", "111111");
 		
 		mv.setViewName("config/user_setup");
 		return mv;

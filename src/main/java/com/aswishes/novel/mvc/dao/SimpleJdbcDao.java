@@ -19,6 +19,7 @@ public class SimpleJdbcDao<T> extends AbstractJdbcDao {
 	
 	@SuppressWarnings("unchecked")
 	public SimpleJdbcDao() {
+		showSql = true;
 		this.entityClass = (Class<T>) ReflectionUtils.getSuperClassGenricType(getClass());
 		if (this.tableName == null) {
 			setTableName();

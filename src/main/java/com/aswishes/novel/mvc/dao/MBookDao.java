@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.mvc.model.MBook;
+import com.aswishes.novel.mvc.model.MBook.RetriveState;
 import com.aswishes.spring.PageResult;
 import com.aswishes.spring.Restriction;
+import com.aswishes.spring.SqlAppender;
 import com.aswishes.spring.SqlHelper;
 import com.aswishes.spring.mapper.MapperHelper;
 
@@ -49,5 +51,21 @@ public class MBookDao extends SimpleJdbcDao<MBook> {
 		update(SqlHelper.update(tableName).setColumns("update_time").whereColumns("id"), updateTime, bookId);
 	}
 
+	public void startPick(String bookName, Long websiteId) {
+		SqlAppender appender = SqlAppender.create("update ").append(tableName).append(" set ")
+				.append("retrive_state = ?, ", RetriveState.RETRIVING)
+				.append("retrive_start_time = ?, ", new Date())
+				.append("retrive_stop_time = null, ")
+				.append("retrive_count = retrive_count + 1 ")
+				.appendValues("where name = ? and website_id = ? ", bookName, websiteId);
+		update(appender.getSql(), appender.getParamArray());
+	}
 	
+	public void stopPick(String bookName, Long websiteId) {
+		SqlAppender appender = SqlAppender.create("update ").append(tableName).append(" set ")
+				.append("retrive_state = ?, ", RetriveState.FINISHED)
+				.append("retrive_stop_time = ?, ", new Date())
+				.appendValues("where name = ? and website_id = ? ", bookName, websiteId);
+		update(appender.getSql(), appender.getParamArray());
+	}
 }

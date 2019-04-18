@@ -42,7 +42,7 @@ public class PickChapter extends AbstractPicker {
 			}
 			chapterContent = replace(sb.toString());
 		} catch (Exception e) {
-			throw new ServiceException(e.getCause());
+			throw new ServiceException(e);
 		}
 	}
 	

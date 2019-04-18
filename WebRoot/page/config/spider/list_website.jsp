@@ -13,10 +13,10 @@
 		<div id="embed_area">
 			<div class="content_title">蜘蛛网站</div>
 			<form action="${ctx}/spider/list" method="post">
-				<table>
+				<table class="table_form has_border">
 					<tr>
-						<td>名称</td>
-						<td>
+						<td class="table_form_label">名称</td>
+						<td class="table_form_field">
 							<input type="text" name="Q-name">
 						</td>
 						<td></td>
