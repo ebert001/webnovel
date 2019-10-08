@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.aswishes.novel.spider.service.SpiderService;
+import com.aswishes.novel.spider.service.PickService;
 
 /**
  * cron expression
@@ -25,7 +25,7 @@ import com.aswishes.novel.spider.service.SpiderService;
 public class QuartzJob {
 	private static final Logger logger = LoggerFactory.getLogger(QuartzJob.class);
 	@Autowired
-	private SpiderService spiderService;
+	private PickService spiderService;
 
 	/**
 	 * 每天每隔2個小時觸發一次

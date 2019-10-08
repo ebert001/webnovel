@@ -44,8 +44,8 @@ import com.aswishes.spring.mapper.MapperHelper;
 
 @Service
 @Transactional
-public class SpiderService extends SimpleService<MSpiderWebsite> {
-	private static final Logger logger = LoggerFactory.getLogger(SpiderService.class);
+public class PickService extends SimpleService<MSpiderWebsite> {
+	private static final Logger logger = LoggerFactory.getLogger(PickService.class);
 	@Autowired
 	private MSpiderWebsiteDao spiderWebsiteDao;
 	@Autowired
