@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+		 updateCheck="false">
+	<diskStore path="${catalina.home}/temp/webnovel/cache-data" />
+	
+	<defaultCache	
+		maxElementsInMemory="10000"
+		maxElementsOnDisk="0"
+		eternal="true"
+		overflowToDisk="true"
+		diskPersistent="false"
+		timeToIdleSeconds="0"
+		timeToLiveSeconds="0"
+		diskSpoolBufferSizeMB="50"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU"
+		/>
+
+	<!-- 缓存 系统共享信息 -->
+	<cache name="shiroCache"
+		maxElementsInMemory="100"
+		memoryStoreEvictionPolicy="LRU"
+		eternal="false"
+		diskPersistent="false"
+		overflowToDisk="false"
+		maxElementsOnDisk="20" />
+</ehcache>

@@ -1,20 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>webnovel</groupId>
+	<groupId>com.aswishes.novel</groupId>
 	<artifactId>webnovel</artifactId>
 	<version>1.0</version>
-	<packaging>war</packaging>
-	
+	<packaging>pom</packaging>
+
 	<properties>
-		<project.version.code>1.1.10</project.version.code>
+		<project.version>1.0</project.version>
 
 		<!-- 文件拷贝时的编码 -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- 编译时的编码 -->
-        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- 编译时的编码 -->
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
 		<java.version>1.8</java.version>
 
@@ -26,13 +25,20 @@
 		<bouncycastle.version>1.58</bouncycastle.version>
 	</properties>
 	
+	<modules>
+		<module>novel-core</module>
+		<module>novel-pcweb</module>
+    	<module>novel-mobileweb</module>
+    	<module>novel-spider</module>
+	</modules>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.aswishes.springjdbc</groupId>
 			<artifactId>springjdbc-helper</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -67,37 +73,37 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.47</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
 		<dependency>
-		    <groupId>org.apache.shiro</groupId>
-		    <artifactId>shiro-spring</artifactId>
-		    <version>${shiro.version}</version>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-ehcache</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-		
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4.6</version>
 			<type>jar</type>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-dbcp2</artifactId>
-		    <version>2.5.0</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.5.0</version>
 		</dependency>
 
 		<!-- commons -->
@@ -112,20 +118,20 @@
 			<version>1.18</version>
 		</dependency>
 		<dependency>
-		    <groupId>commons-io</groupId>
-		    <artifactId>commons-io</artifactId>
-		    <version>2.6</version>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
 		</dependency>
 		<dependency>
-		    <groupId>commons-codec</groupId>
-		    <artifactId>commons-codec</artifactId>
-		    <version>1.11</version>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.11</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
 		<dependency>
-		    <groupId>commons-beanutils</groupId>
-		    <artifactId>commons-beanutils</artifactId>
-		    <version>1.9.3</version>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.3</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -163,9 +169,9 @@
 			<version>${log4j.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.logging.log4j</groupId>
-		    <artifactId>log4j-web</artifactId>
-		    <version>${log4j.version}</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
+			<version>${log4j.version}</version>
 		</dependency>
 		<dependency> <!-- 桥接：告诉commons logging使用Log4j2 -->
 			<groupId>org.apache.logging.log4j</groupId>
@@ -203,33 +209,33 @@
 			<artifactId>bcpkix-jdk15on</artifactId>
 			<version>${bouncycastle.version}</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
 		<dependency>
-		    <groupId>org.apache.pdfbox</groupId>
-		    <artifactId>pdfbox</artifactId>
-		    <version>2.0.12</version>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.12</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/net.sourceforge.htmlcleaner/htmlcleaner -->
 		<dependency>
-		    <groupId>net.sourceforge.htmlcleaner</groupId>
-		    <artifactId>htmlcleaner</artifactId>
-		    <version>2.22</version>
+			<groupId>net.sourceforge.htmlcleaner</groupId>
+			<artifactId>htmlcleaner</artifactId>
+			<version>2.22</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
 		<dependency>
-		    <groupId>org.dom4j</groupId>
-		    <artifactId>dom4j</artifactId>
-		    <version>2.1.1</version>
+			<groupId>org.dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>2.1.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/jaxen/jaxen -->
 		<dependency>
-		    <groupId>jaxen</groupId>
-		    <artifactId>jaxen</artifactId>
-		    <version>1.1.6</version>
+			<groupId>jaxen</groupId>
+			<artifactId>jaxen</artifactId>
+			<version>1.1.6</version>
 		</dependency>
-				
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -251,7 +257,7 @@
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -259,7 +265,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>webnovel</finalName>
 		<resources>

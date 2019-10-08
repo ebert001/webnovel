@@ -130,3 +130,6 @@ Notice that we used the ActionBean's class name in the stripes:form tag. Neverth
 Removes any package names up to and including packages called 'web', 'www', 'stripes' and 'action'
 Removes 'Action' and 'Bean' (or 'ActionBean') if it is the last part of the class name
 Converts it to a path and appends '.action'
+
+
+项目结构优化，使用分模块的方式规划，具体的: core(entity + dao + service), pcweb(电脑浏览器端), mobileweb(手机浏览器端), spider(爬取文章)
