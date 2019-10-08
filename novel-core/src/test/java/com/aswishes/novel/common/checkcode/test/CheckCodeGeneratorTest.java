@@ -15,7 +15,8 @@ public class CheckCodeGeneratorTest {
 	public void testGenerate() {
 		OutputStream outStream = null;
 		try {
-			outStream = new FileOutputStream(new File("d:/aa.jpg"));
+			File outFile = new File(System.getProperty("java.io.tmpdir"), "test.png");
+			outStream = new FileOutputStream(outFile);
 			String checkcode = VerificationCodeGenerator.generate(outStream, VerificationCodeGenerator.SIMPLE);
 			System.out.println(checkcode);
 		} catch (IOException e) {

@@ -1,5 +1,7 @@
 package com.aswishes.novel.common.test;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,39 +13,27 @@ public class AppUtilTest {
 	public void testMd5codec() {
 		String str = "qwerasdfzxcvfygjhtyuxcbcxvsthgrtysdfsdfadqwer";
 		String r = AppUtil.md5codec(str);
-		System.out.println("长度：" + r.length() + ", " + r);
+		assertEquals(32, r.length());
 		
 		str = "ebert";
 		r = AppUtil.md5codec(str);
-		System.out.println("长度：" + r.length() + ", " + r);
+		assertEquals(32, r.length());
 	}
+	
+	private String msg = "你好abcd1234-=-+";
 
 	@Test
-	public void testBase64Encode() {
-		String str = "你好abcd1234-=-+";
-		String r = AppUtil.base64Encode(str);
-		Assert.assertEquals("xOO6w2FiY2QxMjM0LT0tKw==", r);
+	public void testBase64() {
+		String r = AppUtil.base64Encode(msg);
+		String r2 = AppUtil.base64Decode(r);
+		Assert.assertEquals(msg, r2);
 	}
 	
 	@Test
-	public void testBase64Decode() {
-		String str = "xOO6w2FiY2QxMjM0LT0tKw==";
-		String r = AppUtil.base64Decode(str);
-		Assert.assertEquals("你好abcd1234-=-+", r);
-	}
-	
-	@Test
-	public void testString2Hex() {
-		String str = "你好abcd1234-=-+";
-		String r = AppUtil.string2Hex(str);
-		Assert.assertEquals("C4E3BAC361626364313233342D3D2D2B", r);
-	}
-	
-	@Test
-	public void testHex2String() {
-		String str = "C4E3BAC361626364313233342D3D2D2B";
-		String r = AppUtil.hex2String(str);
-		Assert.assertEquals("你好abcd1234-=-+", r);
+	public void testHex() {
+		String r = AppUtil.string2Hex(msg);
+		String r2 = AppUtil.hex2String(r);
+		Assert.assertEquals(msg, r2);
 	}
 	
 	@Test
@@ -63,8 +53,4 @@ public class AppUtilTest {
 		Assert.assertEquals("UUID_tar", AppUtil.upperCaseFirst("UUID_tar"));
 	}
 	
-	@Test
-	public void testGetUuid() {
-		System.out.println(AppUtil.getUuid());
-	}
 }

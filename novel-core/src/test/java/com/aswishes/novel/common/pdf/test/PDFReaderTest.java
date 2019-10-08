@@ -11,18 +11,15 @@ public class PDFReaderTest extends TestCase {
 	private PDFReader reader = null;
 	
 	protected void setUp() throws Exception {
-		reader = PDFReader.load("/home/lizhou/123/三国演义(上).pdf");
+		String name = "src/test/resources/pkcs-11v2-11r1.pdf";
+		reader = PDFReader.load(name);
 	}
 
 	@Test
 	public void testReadText() {
-		String result = reader.readText(13, 18);
-		System.out.println(reader.getTPage());
-		System.out.println(result);
+		String result = reader.readText(13, 14);
+		assertEquals(374, reader.getTPage());
+		assertTrue(result.contains("INTRODUCTION  xiii"));
 	}
 	
-	@Test
-	public void testGetSubject() {
-		System.out.println(reader.getSubject());
-	}
 }

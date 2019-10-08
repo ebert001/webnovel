@@ -2,7 +2,6 @@ package com.aswishes.novel.pcweb.controller;
 
 import java.util.Date;
 
-import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.core.common.AppConstants;
@@ -168,8 +168,7 @@ public class UserController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/uploadAvatar")
-	public ModelAndView uploadAvatar(ModelAndView mv, Multipart avatar) {
-		
+	public ModelAndView uploadAvatar(ModelAndView mv, MultipartFile avatar) {
 		mv.setViewName("/config/user/list_user.jsp");
 		return mv;
 	}
