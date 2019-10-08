@@ -1,13 +1,10 @@
 package com.aswishes.novel.spider;
 
-import org.junit.Test;
-
 import com.aswishes.novel.spider.looper.PickBooks;
 
 public class DownloadBookListTest {
 
-	@Test
-	public void testDiscovery() throws Exception {
+	public static void main(String[] args) throws Exception {
 		// 领域文学爬取
 		// "https://www.lingyu.org/wjsw/list-1-1.html"
 //		new DonovelloadBookList("https://www.lingyu.org/wjsw/list-1-", 1, ".html")

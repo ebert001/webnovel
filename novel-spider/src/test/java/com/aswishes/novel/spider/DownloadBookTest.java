@@ -1,13 +1,10 @@
 package com.aswishes.novel.spider;
 
-import org.junit.Test;
-
 import com.aswishes.novel.spider.looper.PickCatalog;
 
 public class DownloadBookTest {
 
-	@Test
-	public void testDiscovery() throws Exception {
+	public static void main(String[] args) throws Exception {
 //		new DonovelloadBook("https://m.lingyu.org/95/95050/")
 //			.setChapterNodePath("//ul/li/a")
 //			.setCatalogCharset("GBK")
