@@ -1,4 +1,4 @@
-package com.aswishes.novel.pcweb.controller;
+package com.aswishes.novel.core.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.text.ParseException;

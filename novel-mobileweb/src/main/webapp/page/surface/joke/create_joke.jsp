@@ -1,0 +1,53 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@include file="/taglibs.jsp"%>
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>写段子</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
+  </head>
+  
+  <body class="body">
+  	<%@include file="/page/frame/header.jsp"%>
+  	
+    <div class="container">
+    	<%@include file="joke_menu.jsp"%>
+    
+  		<div style="background-color: #FFFFFF; height: 300px;">
+  			<div style="background-color: #FFFDDD; font: 24px bolder;">写段子</div>
+  			<form action="" method="post">
+  				<table class="table_form full_border">
+		    		<tr class="bottom_border">
+		    			<td class="table_form_label">标题：</td>
+		    			<td class="table_form_field">
+		    				<input style="width: 520px;" type="text" name="title" value="">
+		    			</td>
+		    		</tr>
+		    		<tr class="bottom_border">
+		    			<td class="table_form_label">内容：</td>
+		    			<td class="table_form_field">
+		    				<textarea id="content" name="content" style="height: 200px; margin-top: 8px; margin-bottom: 6px;"></textarea>
+		    			</td>
+		    		</tr>
+		    		
+		    		<tr>
+		    			<td></td>
+		    			<td>
+		    				<button type="sbumit" value="发布">发布</button>
+		    			</td>
+		    		</tr>
+		    	</table>
+  			</form>
+  		</div>
+  	</div>
+  </body>
+</html>
