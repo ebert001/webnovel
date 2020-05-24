@@ -1,13 +1,9 @@
 package com.aswishes.novel.core.service;
 
-import java.util.List;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.core.common.ReflectionUtils;
 import com.aswishes.novel.core.dao.SimpleJdbcDao;
-import com.aswishes.spring.PageResult;
-import com.aswishes.spring.QueryProperty;
 
 @Transactional
 public abstract class SimpleService<T> {
@@ -30,28 +26,5 @@ public abstract class SimpleService<T> {
 		return dao.getByName(name);
 	}
 	
-	public List<T> getList(List<QueryProperty> params) {
-		return dao.getList(params);
-	}
-	
-	public PageResult<T> getPage(int pageNo, int pageSize, List<QueryProperty> params) {
-		return dao.getPage(pageNo, pageSize, params);
-	}
-	
-	public Long saveAndGetId(T t) {
-		return dao.saveAndGetId(t);
-	}
-	
-	public void save(T t) {
-		dao.save(t);
-	}
-	
-	public void update(T t) {
-		dao.updateByPK(t, false);
-	}
-	
-	public void delete(Long id) {
-		dao.delete(id);
-	}
 	
 }

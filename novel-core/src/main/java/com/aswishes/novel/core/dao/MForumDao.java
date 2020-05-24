@@ -2,12 +2,13 @@ package com.aswishes.novel.core.dao;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.core.common.db.SqlAppender;
 import com.aswishes.novel.core.model.MForum;
-import com.aswishes.spring.Restriction;
-import com.aswishes.spring.mapper.MapperHelper;
 
 /**
  * 对应的数据库表为 novel_book
@@ -16,19 +17,30 @@ import com.aswishes.spring.mapper.MapperHelper;
 @Transactional
 public class MForumDao extends SimpleJdbcDao<MForum> {
 
+	public MForumDao(DataSource dataSource) {
+		super(dataSource);
+	}
+
 	public List<MForum> queryForumList(Long userId) {
-		return getList(MapperHelper.getMapper(MForum.class), Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("where user_id = :userId", userId)
+				.append("order by create_time desc");
+		return getList(appender, MForum.class);
 	}
 	
-	public List<MForum> queryForumList(Long userId, int startNo, int perNo) {
-		return getList(MapperHelper.getMapper(MForum.class), Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
+	public List<MForum> queryForumList(Long userId, int pageNo, int pageSize) {
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("where user_id = :userId", userId)
+				.append("order by create_time desc");
+		return getList(appender, MForum.class, pageNo, pageSize);
 	}
 	
 	public int queryForumListCount() {
-		return getCount();
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select count(*) from ").append(tableName);
+		return getNumber(appender, 0).intValue();
 	}
 
-	public void deleteForum(Long id) {
-		delete(Restriction.eq("id", id));
-	}
 }

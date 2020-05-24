@@ -2,12 +2,13 @@ package com.aswishes.novel.core.dao;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.core.common.db.SqlAppender;
 import com.aswishes.novel.core.model.MMemo;
-import com.aswishes.spring.Restriction;
-import com.aswishes.spring.mapper.MapperHelper;
 
 /**
  * 对应的数据库表为 novel_book
@@ -16,16 +17,16 @@ import com.aswishes.spring.mapper.MapperHelper;
 @Transactional
 public class MMemoDao extends SimpleJdbcDao<MMemo> {
 
-	public MMemo getMemo(Long id) {
-		return getObjectBy(MapperHelper.getMapper(MMemo.class), Restriction.eq("id", id));
+	public MMemoDao(DataSource dataSource) {
+		super(dataSource);
 	}
 
 	public List<MMemo> queryList(Long userId) {
-		return getList(MapperHelper.getMapper(MMemo.class), Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("where user_id = :userId")
+				.append("order by create_time desc");
+		return getList(appender, MMemo.class);
 	}
 
-	public void delete(Long id) {
-		delete(Restriction.eq("id", id));
-	}
-	
 }

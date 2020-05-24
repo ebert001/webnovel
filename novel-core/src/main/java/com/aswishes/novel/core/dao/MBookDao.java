@@ -3,16 +3,15 @@ package com.aswishes.novel.core.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.core.common.db.PageResult;
+import com.aswishes.novel.core.common.db.SqlAppender;
 import com.aswishes.novel.core.model.MBook;
 import com.aswishes.novel.core.model.MBook.RetriveState;
-import com.aswishes.spring.PageResult;
-import com.aswishes.spring.Restriction;
-import com.aswishes.spring.SqlAppender;
-import com.aswishes.spring.SqlHelper;
-import com.aswishes.spring.mapper.MapperHelper;
 
 /**
  * 对应的数据库表为 novel_book
@@ -21,34 +20,50 @@ import com.aswishes.spring.mapper.MapperHelper;
 @Transactional
 public class MBookDao extends SimpleJdbcDao<MBook> {
 
-	public List<MBook> getBookList(Long userId) {
-		return getList(MapperHelper.getMapper(MBook.class), Restriction.eq("author_id", userId));
+	public MBookDao(DataSource dataSource) {
+		super(dataSource);
 	}
 
-	public MBook getBook(Long bookId) {
-		return getObjectBy(MapperHelper.getMapper(MBook.class), Restriction.eq("id", bookId));
+	public List<MBook> getBookList(Long userId) {
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("where author_id = :userId", userId);
+		return getList(appender, MBook.class);
 	}
-	
-	public MBook getBook(String bookName) {
-		return getObjectBy(MapperHelper.getMapper(MBook.class), Restriction.eq("name", bookName));
-	}
-	
+
 	public MBook getBook(String bookName, Long websiteId) {
-		return getObjectBy(MapperHelper.getMapper(MBook.class), 
-				Restriction.eq("name", bookName), Restriction.eq("website_id", websiteId));
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("where name = :name", bookName)
+				.append("and website_id = :websiteId", websiteId);
+		return getObject(appender, MBook.class);
 	}
 	
-	public PageResult<MBook> getUnauditBooks(int pageNo, int pageSize, Restriction[] restrictions) {
-		return getPage(MapperHelper.getMapper(MBook.class), pageNo, pageSize, 
-				restrictions);
+	public PageResult<MBook> getUnauditBooks(int pageNo, int pageSize) {
+		SqlAppender countSql = SqlAppender.namedModel()
+				.append("select count(*) from ").append(tableName)
+				.append("where state = :state", MBook.State.UNAUDITED.getValue());
+		SqlAppender sql = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("where state = :state", MBook.State.UNAUDITED.getValue());
+		
+		return getPage(countSql, sql, MBook.class, pageNo, pageSize);
 	}
 	
-	public void deleteBook(Long bookId) {
-		delete(Restriction.eq("id", bookId));
+	public PageResult<MBook> getClickTop(int pageNo, int pageSize) {
+		SqlAppender sql = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("where state = :state", MBook.State.NORMALE.getValue())
+				.append("order by click_times desc ");
+		return getPage(sql, MBook.class, pageNo, pageSize);
 	}
 	
 	public void updateBook(Long bookId, Date updateTime) {
-		update(SqlHelper.update(tableName).setColumns("update_time").whereColumns("id"), updateTime, bookId);
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("update m_book set ")
+				.append("update_time = :updateTime, ", updateTime)
+				.append("where id = :id", bookId);
+		update(appender);
 	}
 
 	public void startPick(String bookName, Long websiteId) {
@@ -57,15 +72,15 @@ public class MBookDao extends SimpleJdbcDao<MBook> {
 				.append("retrive_start_time = ?, ", new Date())
 				.append("retrive_stop_time = null, ")
 				.append("retrive_count = retrive_count + 1 ")
-				.appendValues("where name = ? and website_id = ? ", bookName, websiteId);
-		update(appender.getSql(), appender.getParamArray());
+				.append("where name = ? and website_id = ? ", bookName, websiteId);
+		update(appender);
 	}
 	
 	public void stopPick(String bookName, Long websiteId) {
 		SqlAppender appender = SqlAppender.create("update ").append(tableName).append(" set ")
 				.append("retrive_state = ?, ", RetriveState.FINISHED)
 				.append("retrive_stop_time = ?, ", new Date())
-				.appendValues("where name = ? and website_id = ? ", bookName, websiteId);
-		update(appender.getSql(), appender.getParamArray());
+				.append("where name = ? and website_id = ? ", bookName, websiteId);
+		update(appender);
 	}
 }

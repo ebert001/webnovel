@@ -113,7 +113,7 @@ public class SpiderService extends SimpleService<MSpiderWebsite> {
 	
 	@Transactional
 	public void deleteWebsite(Long id) {
-		spiderWebsiteDao.delete(id);
+		spiderWebsiteDao.deleteById(id);
 	}
 	
 	@Transactional

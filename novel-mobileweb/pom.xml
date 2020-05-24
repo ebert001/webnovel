@@ -4,6 +4,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<parent>
 		<groupId>com.aswishes.novel</groupId>
 		<artifactId>webnovel</artifactId>
@@ -16,6 +17,14 @@
 	<url>http://maven.apache.org</url>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.aswishes.novel</groupId>
+			<artifactId>novel-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<build>

@@ -3,7 +3,6 @@ package com.aswishes.novel.core.controller;
 import java.beans.PropertyEditorSupport;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import com.aswishes.novel.core.common.AppConstants;
-import com.aswishes.novel.core.common.AppUtil;
 import com.aswishes.novel.core.common.Codes;
-import com.aswishes.spring.QueryProperty;
 
 /**
  * all action bean need to extend this abstract class. otherwise, you will get an error.
@@ -73,7 +70,4 @@ public abstract class AbstractController {
 		return obj == null ? null : (T) obj;
 	}
 	
-	protected List<QueryProperty> toQueryPropertyList(HttpServletRequest request) {
-		return QueryProperty.toQueryProperty(AppUtil.reuqestMap(request));
-	}
 }

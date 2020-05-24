@@ -30,7 +30,7 @@ public class MemoService extends SimpleService<MMemo> {
 	}
 
 	public void delete(Long id) {
-		memoDao.delete(id);
+		memoDao.deleteById(id);
 	}
 
 	@Autowired

@@ -2,12 +2,13 @@ package com.aswishes.novel.core.dao;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.core.common.db.SqlAppender;
 import com.aswishes.novel.core.model.MForumSubject;
-import com.aswishes.spring.Restriction;
-import com.aswishes.spring.mapper.MapperHelper;
 
 /**
  * 对应的数据库表为 novel_book
@@ -15,6 +16,10 @@ import com.aswishes.spring.mapper.MapperHelper;
 @Repository
 @Transactional
 public class MForumSubjectDao extends SimpleJdbcDao<MForumSubject> {
+
+	public MForumSubjectDao(DataSource dataSource) {
+		super(dataSource);
+	}
 
 	@Override
 	protected void setTableName() {
@@ -29,27 +34,29 @@ public class MForumSubjectDao extends SimpleJdbcDao<MForumSubject> {
 		this.jdbcTemplate.update("update novel_forum_subject set reply_times = reply_times + 1 where id = ?", id);
 	}
 	
-	public MForumSubject queryForumSubject(Long id) {
-		return getObjectBy(MapperHelper.getMapper(MForumSubject.class), Restriction.eq("id", id));
-	}
-	
 	public int getForumSubjectCount(Long userId) {
-		return getCount(Restriction.eq("user_id", userId));
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select count(*) from ").append(tableName)
+				.append("where user_id = :userId", userId);
+		return getNumber(appender, 0).intValue();
 	}
 
-	public List<MForumSubject> queryForumSubjectList(Long userId, int startNo, int perNo) {
-		return getList(MapperHelper.getMapper(MForumSubject.class), startNo, perNo, Restriction.eq("user_id", userId), Restriction.orderByDesc("create_time"));
+	public List<MForumSubject> queryForumSubjectList(Long userId, int pageNo, int pageSize) {
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("where user_id = :userId", userId)
+				.append("order by create_time desc");
+		return getList(appender, MForumSubject.class, pageNo, pageSize);
 	}
 	
-	public List<MForumSubject> queryForumSubjectList(int startNo, int perNo) {
-		return getList(MapperHelper.getMapper(MForumSubject.class), startNo, perNo, Restriction.orderByDesc("create_time"));
+	public List<MForumSubject> queryForumSubjectList(int pageNo, int pageSize) {
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("order by create_time desc");
+		return getList(appender, MForumSubject.class, pageNo, pageSize);
 	}
 	
 	public int getForumSubjectCount() {
 		return getCount();
-	}
-
-	public void deleteForumSubject(Long id) {
-		delete(Restriction.eq("id", id));
 	}
 }

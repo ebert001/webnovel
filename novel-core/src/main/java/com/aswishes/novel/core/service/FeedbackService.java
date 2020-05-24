@@ -26,7 +26,7 @@ public class FeedbackService extends SimpleService<MFeedback> {
 	}
 
 	public void delete(Long id) {
-		feedbackDao.delete(id);
+		feedbackDao.deleteById(id);
 	}
 
 	@Autowired

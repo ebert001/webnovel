@@ -36,7 +36,7 @@ public class ForumService extends SimpleService<MForum> {
 	}
 
 	public void deleteForum(Long id) {
-		forumDao.deleteForum(id);
+		forumDao.deleteById(id);
 	}
 	
 	public void updateReadTimes(Long id) {
@@ -49,7 +49,7 @@ public class ForumService extends SimpleService<MForum> {
 	
 	
 	public MForumSubject queryForumSubject(Long id) {
-		return forumSubjectDao.queryForumSubject(id);
+		return forumSubjectDao.getById(id);
 	}
 	
 	public int getForumSubjectCount(Long userId) {
@@ -77,7 +77,7 @@ public class ForumService extends SimpleService<MForum> {
 	}
 
 	public void deleteForumSubject(Long id) {
-		forumSubjectDao.deleteForumSubject(id);
+		forumSubjectDao.deleteById(id);
 	}
 
 	@Autowired

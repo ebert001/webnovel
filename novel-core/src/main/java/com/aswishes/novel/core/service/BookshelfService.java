@@ -7,20 +7,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.core.common.NovelStatus;
+import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.dao.MBookshelfDao;
 import com.aswishes.novel.core.exception.ServiceException;
 import com.aswishes.novel.core.model.MBook;
 import com.aswishes.novel.core.model.MBookshelf;
 import com.aswishes.novel.core.model.MUser;
-import com.aswishes.spring.PageResult;
 
 @Service
 @Transactional
 public class BookshelfService extends SimpleService<MBookshelf> {
 
 	public MBookshelf getBook(Long id) {
-		return bookshelfDao.getBook(id);
+		return bookshelfDao.getById(id);
 	}
 
 	public PageResult<MBookshelf> getBooks(int pageNo, int pageSize, Long userId) {
@@ -67,7 +67,7 @@ public class BookshelfService extends SimpleService<MBookshelf> {
 	}
 
 	public void delete(Long id) {
-		bookshelfDao.delete(id);
+		bookshelfDao.deleteById(id);
 	}
 
 	@Autowired

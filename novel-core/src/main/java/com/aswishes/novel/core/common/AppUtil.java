@@ -400,5 +400,13 @@ public class AppUtil {
 		return (startPage - 1) * perCount;
 	}
 	
+	public static Object[] toArray(Object...args) {
+		Object[] rr = new Object[args.length];
+		for (int i = 0; i < args.length; i++) {
+			rr[i] = args[i];
+		}
+		return rr;
+	}
+	
 	private static final Logger logger = LoggerFactory.getLogger(AppUtil.class);
 }

@@ -2,12 +2,13 @@ package com.aswishes.novel.core.dao;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.core.common.db.SqlAppender;
 import com.aswishes.novel.core.model.MVolume;
-import com.aswishes.spring.Restriction;
-import com.aswishes.spring.mapper.MapperHelper;
 
 /**
  * 对应的数据库表为 novel_volume
@@ -16,12 +17,15 @@ import com.aswishes.spring.mapper.MapperHelper;
 @Transactional
 public class MVolumeDao extends SimpleJdbcDao<MVolume> {
 
-	public List<MVolume> getVolumeList(Long bookId) {
-		return getList(MapperHelper.getMapper(MVolume.class), Restriction.eq("book_id", bookId));
+	public MVolumeDao(DataSource dataSource) {
+		super(dataSource);
 	}
-	
-	public MVolume getVolume(Long id) {
-		return getObjectBy(MapperHelper.getMapper(MVolume.class), Restriction.eq("id", id));
+
+	public List<MVolume> getVolumeList(Long bookId) {
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from ").append(tableName)
+				.append("where book_id = :bookId", bookId);
+		return getList(appender, MVolume.class);
 	}
 	
 }

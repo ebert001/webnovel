@@ -2,15 +2,14 @@ package com.aswishes.novel.core.dao;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.core.common.db.PageResult;
+import com.aswishes.novel.core.common.db.SqlAppender;
 import com.aswishes.novel.core.model.MChapter;
-import com.aswishes.spring.PageResult;
-import com.aswishes.spring.Restriction;
-import com.aswishes.spring.SqlHelper.Select;
-import com.aswishes.spring.SqlHelper.Update;
-import com.aswishes.spring.mapper.MapperHelper;
 
 /**
  * 对应的数据库表为 novel_book
@@ -19,40 +18,57 @@ import com.aswishes.spring.mapper.MapperHelper;
 @Transactional
 public class MChapterDao extends SimpleJdbcDao<MChapter> {
 
+	public MChapterDao(DataSource dataSource) {
+		super(dataSource);
+	}
+
 	public List<MChapter> readCatalogs(Long bookId) {
-		return getList(Select.table(tableName).columns("id,subject,book_id,write_time").where("book_id = ?").toSqlString(), 
-				MapperHelper.getMapper(MChapter.class), bookId);
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select id,subject,book_id,write_time from ").append(tableName)
+				.append("where book_id = :bookId");
+		return getList(appender, MChapter.class);
 	}
 
 	public MChapter getChapter(Long chapterId) {
-		return getObjectBy(MapperHelper.getMapper(MChapter.class), Restriction.eq("id", chapterId));
+		return getById(chapterId);
 	}
 	
 	public MChapter getChapter(Long bookId, String subject) {
-		return getObjectBy(MapperHelper.getMapper(MChapter.class), 
-				Restriction.eq("book_id", bookId), Restriction.eq("subject", subject));
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from").append(tableName)
+				.append("where book_id = :bookId")
+				.append("and subject = :subject", subject);
+		return getObject(appender, MChapter.class);
 	}
 	
 	public int getMaxSerialNo(Long bookId) {
-		String sql = Select.table(tableName).columns("max(serial_no)").where("book_id = ?").toSqlString();
-		return getCount(sql, bookId);
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select max(serial_no) from ").append(tableName)
+				.append("where book_id = :book_id", bookId);
+		return getNumber(appender, 0).intValue();
 	}
 	
 	public PageResult<MChapter> getUnauditChapters(int pageNo, int pageSize, Long bookId, int state) {
-		Select select = Select.table(tableName).columns("id,subject,book_id,state,write_time,input_time").where("book_id = ? and state = ? ");
-		String countSql = select.toCountString();
-		String dataSql = select.toSqlString();
-		return getPage(countSql, dataSql, MapperHelper.getMapper(MChapter.class), pageNo, pageSize, 
-				Restriction.eq("book_id", bookId), Restriction.eq("state", state));
+		SqlAppender countSql = SqlAppender.namedModel()
+				.append("select count(*) from ").append(tableName)
+				.append("where book_id = :bookId and state = :state ", bookId, state);
+		SqlAppender sql = SqlAppender.namedModel()
+				.append("select id,subject,book_id,state,write_time,input_time from ").append(tableName)
+				.append("where book_id = :bookId and state = :state ", bookId, state);
+		
+		return getPage(countSql, sql, MChapter.class, pageNo, pageSize);
 	}
 	
 	public void updateContent(Long id, String content) {
-		String sql = Update.table(tableName).setColumns("content").whereColumns("id");
-		update(sql, content, id);
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("update ").append(tableName)
+				.append("set content = :content", content)
+				.append("where id = :id", id);
+		update(appender);
 	}
 	
 	public void deleteChapter(Long chapterId) {
-		delete(Restriction.eq("id", chapterId));
+		deleteById(chapterId);
 	}
 	
 }

@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.dao.MBookDao;
 import com.aswishes.novel.core.dao.MVolumeDao;
 import com.aswishes.novel.core.model.MBook;
 import com.aswishes.novel.core.model.MVolume;
-import com.aswishes.spring.PageResult;
 import com.aswishes.spring.QueryProperty;
 
 /**
@@ -29,7 +29,7 @@ public class BookService extends SimpleService<MBook> {
 	}
 	
 	public MBook getBook(String name) {
-		return bookDao.getBook(name);
+		return bookDao.getByName(name);
 	}
 	
 	public MBook getBook(String name, Long websiteId) {
@@ -37,25 +37,24 @@ public class BookService extends SimpleService<MBook> {
 	}
 
 	public MBook getBook(Long bookId) {
-		return bookDao.getBook(bookId);
+		return bookDao.getById(bookId);
 	}
 	
-	public PageResult<MBook> findUnauditBooks(int pageNo, int pageSize, List<QueryProperty> params) {
-		params.add(new QueryProperty("I-EQ-state", MBook.State.UNAUDITED.getValue() + ""));
-		return bookDao.getUnauditBooks(pageNo, pageSize, QueryProperty.toRestrictions(params));
+	public PageResult<MBook> findUnauditBooks(int pageNo, int pageSize) {
+		return bookDao.getUnauditBooks(pageNo, pageSize);
 	}
 	
-	public PageResult<MBook> findReadTop(int pageNo, int pageSize, List<QueryProperty> params) {
-		params.add(new QueryProperty("OD-click_times"));
-		return bookDao.getPage(pageNo, pageSize, params);
+	public PageResult<MBook> findReadTop(int pageNo, int pageSize) {
+		return bookDao.getClickTop(pageNo, pageSize);
 	}
 	
 	public void addBook(MBook book) {
-		bookDao.save(book);
+		
+//		bookDao.save(book);
 	}
 
 	public void deleteBook(Long bookId) {
-		bookDao.deleteBook(bookId);
+		bookDao.deleteById(bookId);
 	}
 	
 	public List<MVolume> getVolumeList(Long bookId) {

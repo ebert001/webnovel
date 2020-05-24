@@ -7,7 +7,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>novel-core</artifactId>
 	<name>novel-core</name>
-	<version>${project.version}</version>
+	<version>1.0</version>
 	
 	<parent>
 		<groupId>com.aswishes.novel</groupId>
@@ -20,10 +20,6 @@
 	</properties>
 	
 	<dependencies>
-		<dependency>
-			<groupId>com.aswishes.springjdbc</groupId>
-			<artifactId>springjdbc-helper</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
