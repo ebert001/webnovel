@@ -14,6 +14,10 @@ import com.aswishes.novel.core.model.MForumSubject;
 @Service
 @Transactional
 public class ForumService extends SimpleService<MForum> {
+	@Autowired
+	private MForumDao forumDao;
+	@Autowired
+	private MForumSubjectDao forumSubjectDao;
 
 	public List<MForum> queryForumList(Long userId) {
 		return forumDao.queryForumList(userId);
@@ -32,7 +36,7 @@ public class ForumService extends SimpleService<MForum> {
 	}
 
 	public void updateForum(MForum forum) {
-		forumDao.updateByPK(forum, true);
+		forumDao.update(forum);
 	}
 
 	public void deleteForum(Long id) {
@@ -73,21 +77,11 @@ public class ForumService extends SimpleService<MForum> {
 	}
 
 	public void updateForumSubject(MForumSubject forumSubject) {
-		forumSubjectDao.updateByPK(forumSubject, true);
+		forumSubjectDao.update(forumSubject);
 	}
 
 	public void deleteForumSubject(Long id) {
 		forumSubjectDao.deleteById(id);
 	}
 
-	@Autowired
-	private MForumDao forumDao;
-	@Autowired
-	private MForumSubjectDao forumSubjectDao;
-
-	@Autowired
-	@Override
-	public void setDao() {
-		this.dao = forumDao;
-	}
 }

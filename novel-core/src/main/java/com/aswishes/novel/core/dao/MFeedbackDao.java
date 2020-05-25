@@ -29,5 +29,11 @@ public class MFeedbackDao extends SimpleJdbcDao<MFeedback> {
 		return getList(appender, MFeedback.class);
 	}
 
+	public void save(MFeedback entity) {
+		
+	}
 	
+	public void update(MFeedback entity) {
+		
+	}
 }

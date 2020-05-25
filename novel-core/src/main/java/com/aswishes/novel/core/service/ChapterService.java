@@ -51,7 +51,7 @@ public class ChapterService extends SimpleService<MChapter> {
 	}
 
 	public void updateChapter(MChapter chapter) {
-		chapterDao.updateByPK(chapter, true);
+		chapterDao.update(chapter);
 		if (chapter.getBookId() != null) {
 			bookDao.updateBook(chapter.getBookId(), chapter.getInputTime());
 		}
@@ -65,9 +65,4 @@ public class ChapterService extends SimpleService<MChapter> {
 		chapterDao.deleteChapter(chapterId);
 	}
 
-	@Autowired
-	@Override
-	public void setDao() {
-		this.dao = chapterDao;
-	}
 }

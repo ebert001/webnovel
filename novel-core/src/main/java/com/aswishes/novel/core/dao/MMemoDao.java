@@ -28,5 +28,12 @@ public class MMemoDao extends SimpleJdbcDao<MMemo> {
 				.append("order by create_time desc");
 		return getList(appender, MMemo.class);
 	}
-
+	
+	public void save(MMemo entity) {
+		
+	}
+	
+	public void update(MMemo entity) {
+		
+	}
 }

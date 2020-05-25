@@ -83,4 +83,12 @@ public class MBookDao extends SimpleJdbcDao<MBook> {
 				.append("where name = ? and website_id = ? ", bookName, websiteId);
 		update(appender);
 	}
+	
+	public void save(MBook entity) {
+		
+	}
+	
+	public void update(MBook entity) {
+		
+	}
 }

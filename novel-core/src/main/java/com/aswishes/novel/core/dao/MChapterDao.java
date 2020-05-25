@@ -71,4 +71,11 @@ public class MChapterDao extends SimpleJdbcDao<MChapter> {
 		deleteById(chapterId);
 	}
 	
+	public void save(MChapter entity) {
+		
+	}
+	
+	public void update(MChapter entity) {
+		
+	}
 }

@@ -15,11 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.core.common.AppConstants;
 import com.aswishes.novel.core.common.Codes;
+import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.controller.AbstractController;
 import com.aswishes.novel.core.model.MUser;
 import com.aswishes.novel.core.service.UserService;
-import com.aswishes.spring.PageResult;
 
 @Controller
 @RequestMapping("/user")
@@ -108,8 +108,9 @@ public class UserController extends AbstractController {
 	@RequestMapping(value = "/list")
 	public ModelAndView list(ModelAndView mv, HttpServletRequest request,
 			@RequestParam(name = "pageNo", defaultValue = "1") int pageNo, 
-			@RequestParam(name = "pageSize", defaultValue = "20") int pageSize) {
-		PageResult<MUser> page = userService.getPage(pageNo, pageSize, toQueryPropertyList(request));
+			@RequestParam(name = "pageSize", defaultValue = "20") int pageSize,
+			String name, String email, String phoneNo) {
+		PageResult<MUser> page = userService.getPage(pageNo, pageSize, name, email, phoneNo);
 		mv.addObject("page", page);
 		mv.setViewName("config/user/list_user");
 		return mv;
@@ -132,7 +133,7 @@ public class UserController extends AbstractController {
 	
 	@RequestMapping(value = "/toEdit")
 	public ModelAndView toEdit(ModelAndView mv, Long userId) {
-		MUser user = userService.getById(userId);
+		MUser user = userService.get(userId);
 		if (user == null) {
 			mv.setViewName("redirect:homepage");
 			return mv;
@@ -146,14 +147,14 @@ public class UserController extends AbstractController {
 	public ModelAndView updateUser(ModelAndView mv, HttpServletRequest request, Long id, 
 			String username, String email, String phone,
 			Date birthday, int sex, String remark) {
-		MUser user = userService.getById(id);
+		MUser user = userService.get(id);
 		user.setEmail(email);
 		user.setPhone(phone);
 		user.setBirthday(birthday);
 		user.setSex(sex);
 		user.setRemark(remark);
 		userService.update(user);
-		return list(mv, request, pageNo, pageSize);
+		return list(mv, request, pageNo, pageSize, null, null, null);
 	}
 	
 	@RequestMapping(value = "/toUploadAvatar")
@@ -212,7 +213,7 @@ public class UserController extends AbstractController {
 		user.setPwd(userService.calPassword(salt, Codes.INIT_PASSWORD));
 		user.setRegTime(new Date());
 		userService.save(user);
-		return list(mv, request, pageNo, pageSize);
+		return list(mv, request, pageNo, pageSize, null, null, null);
 	}
 	
 	

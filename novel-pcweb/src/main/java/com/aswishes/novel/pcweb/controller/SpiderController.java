@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.controller.AbstractController;
 import com.aswishes.novel.core.model.MBook;
 import com.aswishes.novel.core.model.MChapter;
@@ -16,7 +17,6 @@ import com.aswishes.novel.core.model.MSpiderWebsite;
 import com.aswishes.novel.core.service.BookService;
 import com.aswishes.novel.core.service.ChapterService;
 import com.aswishes.novel.core.service.SpiderService;
-import com.aswishes.spring.PageResult;
 
 @Controller
 @RequestMapping("/spider")
@@ -106,7 +106,7 @@ public class SpiderController extends AbstractController {
 	public ModelAndView toUnauditBooks(ModelAndView mv, HttpServletRequest request,
 			@RequestParam(defaultValue = "1") int pageNo, 
 			@RequestParam(defaultValue = "20") int pageSize) {
-		PageResult<MBook> page = bookService.findUnauditBooks(pageNo, pageSize, toQueryPropertyList(request));
+		PageResult<MBook> page = bookService.findUnauditBooks(pageNo, pageSize);
 		mv.addObject("page", page);
 		mv.setViewName("config/spider/list_unaudit_books");
 		return mv;

@@ -7,10 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.controller.AbstractController;
 import com.aswishes.novel.core.model.MBook;
 import com.aswishes.novel.core.service.BookService;
-import com.aswishes.spring.PageResult;
 
 @Controller
 @RequestMapping("/homepage")
@@ -20,7 +20,7 @@ public class HomePageController extends AbstractController {
 
 	@RequestMapping("")
 	public ModelAndView toHomePage(ModelAndView mv, HttpServletRequest request) {
-		PageResult<MBook> top30Page = bookService.findReadTop(1, 30, toQueryPropertyList(request));
+		PageResult<MBook> top30Page = bookService.findReadTop(1, 30);
 		mv.addObject("top30", top30Page);
 		mv.setViewName("frame/homepage");
 		return mv;

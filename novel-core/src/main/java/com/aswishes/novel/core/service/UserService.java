@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.core.common.AppConstants;
+import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.dao.MUserDao;
 import com.aswishes.novel.core.model.MRole;
@@ -26,8 +27,16 @@ public class UserService extends SimpleService<MUser> {
 	@Autowired
 	private RoleService roleService;
 	
+	public MUser get(Long id) {
+		return userDao.getById(id);
+	}
+	
 	public MUser getUser(String username) {
 		return userDao.getByName(username);
+	}
+	
+	public PageResult<MUser> getPage(int pageNo, int pageSize, String name, String email, String phoneNo) {
+		return userDao.getPage(pageNo, pageSize, name, email, phoneNo);
 	}
 	
 	public String calPassword(MUser user, String password) {
@@ -77,7 +86,7 @@ public class UserService extends SimpleService<MUser> {
 	}
 	
 	public void update(MUser user) {
-		userDao.updateByPK(user, true);
+		userDao.update(user);
 	}
 	
 	@Transactional
@@ -92,11 +101,5 @@ public class UserService extends SimpleService<MUser> {
 	
 	public List<MRole> loadRoles(Long userId) {
 		return roleService.getRole(userId);
-	}
-	
-	@Override
-	@Autowired
-	public void setDao() {
-		this.dao = userDao;
 	}
 }

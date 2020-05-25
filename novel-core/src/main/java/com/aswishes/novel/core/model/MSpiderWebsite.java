@@ -2,7 +2,7 @@ package com.aswishes.novel.core.model;
 
 import java.util.Date;
 
-import com.aswishes.spring.mapper.Mapper;
+import com.aswishes.novel.core.common.db.Mapper;
 
 @Mapper(tableName = "m_spider_website", primaryKey = {"id"})
 public class MSpiderWebsite extends BaseIdAuto {

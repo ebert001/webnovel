@@ -12,6 +12,12 @@ import com.aswishes.novel.core.model.MFeedback;
 @Service
 @Transactional
 public class FeedbackService extends SimpleService<MFeedback> {
+	@Autowired
+	private MFeedbackDao feedbackDao;
+	
+	public MFeedback get(Long id) {
+		return feedbackDao.getById(id);
+	}
 
 	public List<MFeedback> queryList(Long userId) {
 		return feedbackDao.queryList(userId);
@@ -22,19 +28,12 @@ public class FeedbackService extends SimpleService<MFeedback> {
 	}
 
 	public void update(MFeedback feedback) {
-		feedbackDao.updateByPK(feedback, true);
+		feedbackDao.update(feedback);
 	}
 
 	public void delete(Long id) {
 		feedbackDao.deleteById(id);
 	}
 
-	@Autowired
-	private MFeedbackDao feedbackDao;
-
-	@Autowired
-	@Override
-	public void setDao() {
-		this.dao = feedbackDao;
-	}
+	
 }

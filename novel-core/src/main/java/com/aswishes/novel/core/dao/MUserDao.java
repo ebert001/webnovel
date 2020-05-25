@@ -9,6 +9,8 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.core.common.AppUtil;
+import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.common.db.SqlAppender;
 import com.aswishes.novel.core.model.MUser;
 
@@ -21,6 +23,20 @@ public class MUserDao extends SimpleJdbcDao<MUser> {
 
 	public MUserDao(DataSource dataSource) {
 		super(dataSource);
+	}
+	
+	public PageResult<MUser> getPage(int pageNo, int pageSize, String name, String email, String phoneNo) {
+		SqlAppender countSql = SqlAppender.namedModel()
+				.append("select count(*) from ").append(tableName).append("where 1")
+				.appendLikeIfNotBlank("name like :name", name)
+				.appendLikeIfNotBlank("email like :email", email)
+				.appendLikeIfNotBlank("phone like :phone", phoneNo);
+		SqlAppender sql = SqlAppender.namedModel()
+				.append("select * from ").append(tableName).append("where 1")
+				.appendLikeIfNotBlank("name like :name", name)
+				.appendLikeIfNotBlank("email like :email", email)
+				.appendLikeIfNotBlank("phone like :phone", phoneNo);
+		return getPage(countSql, sql, MUser.class, pageNo, pageSize);
 	}
 
 	public void updatePassword(Long id, String password) {
@@ -55,12 +71,16 @@ public class MUserDao extends SimpleJdbcDao<MUser> {
 		Date date = new Date();
 		List<Object[]> args = new ArrayList<Object[]>();
 		for (Long roleId : roles) {
-			Object[] aas = new Object[3];
-			aas[0] = userId;
-			aas[1] = roleId;
-			aas[2] = date;
-			args.add(aas);
+			args.add(AppUtil.toArray(userId, roleId, date));
 		}
 		jdbcTemplate.batchUpdate(sb.toString(), args);
+	}
+	
+	public void save(MUser entity) {
+		
+	}
+	
+	public void update(MUser entity) {
+		
 	}
 }

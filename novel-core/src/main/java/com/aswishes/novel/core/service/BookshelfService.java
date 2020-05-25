@@ -18,7 +18,11 @@ import com.aswishes.novel.core.model.MUser;
 @Service
 @Transactional
 public class BookshelfService extends SimpleService<MBookshelf> {
-
+	@Autowired
+	private MBookshelfDao bookshelfDao;
+	@Autowired
+	private BookService bookService;
+	
 	public MBookshelf getBook(Long id) {
 		return bookshelfDao.getById(id);
 	}
@@ -63,21 +67,11 @@ public class BookshelfService extends SimpleService<MBookshelf> {
 	}
 	
 	public void update(MBookshelf memo) {
-		bookshelfDao.updateByPK(memo, true);
+		bookshelfDao.update(memo);
 	}
 
 	public void delete(Long id) {
 		bookshelfDao.deleteById(id);
 	}
 
-	@Autowired
-	private MBookshelfDao bookshelfDao;
-	@Autowired
-	private BookService bookService;
-
-	@Override
-	@Autowired
-	public void setDao() {
-		this.dao = bookshelfDao;
-	}
 }

@@ -19,6 +19,7 @@ import com.aswishes.novel.core.common.AppConstants;
 import com.aswishes.novel.core.common.DateUtil;
 import com.aswishes.novel.core.common.NovelStatus;
 import com.aswishes.novel.core.common.TempFile;
+import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.common.file.FileManager;
 import com.aswishes.novel.core.dao.MBookDao;
 import com.aswishes.novel.core.dao.MSpiderRuleDao;
@@ -26,11 +27,11 @@ import com.aswishes.novel.core.dao.MSpiderWebsiteDao;
 import com.aswishes.novel.core.exception.ServiceException;
 import com.aswishes.novel.core.model.MBook;
 import com.aswishes.novel.core.model.MBook.RetriveState;
-import com.aswishes.novel.core.service.ChapterService;
-import com.aswishes.novel.core.service.SimpleService;
 import com.aswishes.novel.core.model.MChapter;
 import com.aswishes.novel.core.model.MSpiderRule;
 import com.aswishes.novel.core.model.MSpiderWebsite;
+import com.aswishes.novel.core.service.ChapterService;
+import com.aswishes.novel.core.service.SimpleService;
 import com.aswishes.novel.spider.looper.BookInfo;
 import com.aswishes.novel.spider.looper.ChapterInfo;
 import com.aswishes.novel.spider.looper.IBookInfo;
@@ -38,9 +39,6 @@ import com.aswishes.novel.spider.looper.IChapterInfo;
 import com.aswishes.novel.spider.looper.PickBooks;
 import com.aswishes.novel.spider.looper.PickCatalog;
 import com.aswishes.novel.spider.looper.WorkState;
-import com.aswishes.spring.PageResult;
-import com.aswishes.spring.Restriction;
-import com.aswishes.spring.mapper.MapperHelper;
 
 @Service
 @Transactional
@@ -61,35 +59,29 @@ public class PickService extends SimpleService<MSpiderWebsite> {
 	
 	private static int spiderThreadCount = 3;
 	
-	@Override
-	public void setDao() {
-		this.dao = spiderWebsiteDao;
-	}
-	
 	public MSpiderWebsite getWebsite(Long id) {
-		return spiderWebsiteDao.getObjectBy(MapperHelper.getMapper(MSpiderWebsite.class), Restriction.eq("id", id));
+		return spiderWebsiteDao.getById(id);
 	}
 	
 	public MSpiderWebsite getWebsite(String name) {
-		return spiderWebsiteDao.getObjectBy(MapperHelper.getMapper(MSpiderWebsite.class), Restriction.eq("name", name));
+		return spiderWebsiteDao.getByName(name);
 	}
 	
 	
 	public MSpiderRule getRule(Long id) {
-		return spiderRuleDao.getObjectBy(MapperHelper.getMapper(MSpiderRule.class), Restriction.eq("id", id));
+		return spiderRuleDao.getById(id);
 	}
 	
 	public PageResult<MSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
-		return spiderWebsiteDao.getPage(MapperHelper.getMapper(MSpiderWebsite.class), pageNo, pageSize, Restriction.orderByDesc("id"));
+		return spiderWebsiteDao.getPage(pageNo, pageSize);
 	}
 	
 	public List<MSpiderWebsite> getOpenedWebsite() {
-		return spiderWebsiteDao.getList(MapperHelper.getMapper(MSpiderWebsite.class), 
-				Restriction.eq("state", MSpiderWebsite.State.OPENED.getValue()));
+		return spiderWebsiteDao.getOpenedWebsite();
 	}
 	
 	public List<MBook> getSpiderBook(int pageNo, int pageSize) {
-		return bookDao.getList(MapperHelper.getMapper(MBook.class), pageNo, pageSize);
+		return bookDao.getList(pageNo, pageSize);
 	}
 	
 	@Transactional
@@ -185,7 +177,7 @@ public class PickService extends SimpleService<MSpiderWebsite> {
 			return;
 		}
 		rule.setUpdateTime(date);
-		spiderRuleDao.updateByPK(rule, true);
+		spiderRuleDao.update(rule);
 	}
 	
 	/**
@@ -314,7 +306,7 @@ public class PickService extends SimpleService<MSpiderWebsite> {
 	
 	@Transactional
 	public synchronized void loopChapters(Long bookId, boolean callFromWebsite) {
-		MBook book = bookDao.getBook(bookId);
+		MBook book = bookDao.getById(bookId);
 		MSpiderWebsite website = getWebsite(book.getWebsiteId());
 		MSpiderRule rule = getRule(website.getRuleId());
 		PickCatalog donovelloadBook = new PickCatalog(book.getName(), book.getUrl());
@@ -405,7 +397,7 @@ public class PickService extends SimpleService<MSpiderWebsite> {
 	
 	@Transactional
 	public void deleteWebsite(Long id) {
-		spiderWebsiteDao.delete(id);
+		spiderWebsiteDao.deleteById(id);
 	}
 	
 	@Transactional

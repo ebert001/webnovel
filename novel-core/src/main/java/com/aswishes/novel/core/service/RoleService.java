@@ -12,6 +12,8 @@ import com.aswishes.novel.core.model.MRole;
 @Service
 @Transactional
 public class RoleService extends SimpleService<MRole> {
+	@Autowired
+	private MRoleDao roleDao;
 	
 	public List<MRole> getRole(Long userId) {
 		return roleDao.getRole(userId);
@@ -27,11 +29,5 @@ public class RoleService extends SimpleService<MRole> {
 		roleDao.bindPermissions(roleId, permissionIds);
 	}
 
-	@Autowired
-	private MRoleDao roleDao;
-	@Autowired
-	@Override
-	public void setDao() {
-		this.dao = roleDao;
-	}
+	
 }

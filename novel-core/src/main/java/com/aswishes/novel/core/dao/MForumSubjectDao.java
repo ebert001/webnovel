@@ -59,4 +59,12 @@ public class MForumSubjectDao extends SimpleJdbcDao<MForumSubject> {
 	public int getForumSubjectCount() {
 		return getCount();
 	}
+	
+	public void save(MForumSubject entity) {
+		
+	}
+	
+	public void update(MForumSubject entity) {
+		
+	}
 }

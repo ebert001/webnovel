@@ -1,16 +1,19 @@
-package com.aswishes.novel.mw.controller;
+package com.aswishes.novel.mweb.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aswishes.novel.core.controller.AbstractController;
+import com.aswishes.novel.core.service.BookService;
+
 @Controller
 @RequestMapping("/book")
 public class BookController extends AbstractController {
-
+	@Autowired
+	private BookService bookService;
+	
 	@RequestMapping(value = "/toList")
 	public ModelAndView toList(int pageNo, int pageSize, ModelAndView mv) {
 		

@@ -47,4 +47,11 @@ public class MBookshelfDao extends SimpleJdbcDao<MBookshelf> {
 		return getNumber(appender, 0).intValue();
 	}
 
+	public void save(MBookshelf entity) {
+		
+	}
+	
+	public void update(MBookshelf entity) {
+		
+	}
 }

@@ -1,5 +1,7 @@
 package com.aswishes.novel.core.dao;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -33,6 +35,19 @@ public class SimpleJdbcDao<T> extends AbstractJdbcDao {
 			return;
 		}
 		this.tableName = mapper.tableName();
+	}
+	
+	public List<T> getList(int pageNo, int pageSize, String propName, Object propValue) {
+		SqlAppender appender = SqlAppender.namedModel()
+				.append("select * from ").append(tableName);
+		if (propName != null) {
+			appender.append("where").append(propName).append("=").append(":1", propValue);
+		}
+		return getList(appender, entityClass, pageNo, pageSize);
+	}
+	
+	public List<T> getList(int pageNo, int pageSize) {
+		return getList(pageNo, pageSize, null, null);
 	}
 	
 	public T getObject(String propName, Object propValue) {

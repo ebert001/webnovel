@@ -2,7 +2,7 @@ package com.aswishes.novel.core.model;
 
 import java.util.Date;
 
-import com.aswishes.spring.mapper.Mapper;
+import com.aswishes.novel.core.common.db.Mapper;
 
 /**
  * 论坛主帖信息

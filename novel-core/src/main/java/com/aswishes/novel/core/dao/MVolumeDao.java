@@ -28,4 +28,11 @@ public class MVolumeDao extends SimpleJdbcDao<MVolume> {
 		return getList(appender, MVolume.class);
 	}
 	
+	public void save(MVolume entity) {
+		
+	}
+	
+	public void update(MVolume entity) {
+		
+	}
 }

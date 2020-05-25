@@ -12,9 +12,11 @@ import com.aswishes.novel.core.model.MMemo;
 @Service
 @Transactional
 public class MemoService extends SimpleService<MMemo> {
-
+	@Autowired
+	private MMemoDao memoDao;
+	
 	public MMemo getMemo(Long id) {
-		return memoDao.getMemo(id);
+		return memoDao.getById(id);
 	}
 
 	public List<MMemo> queryList(Long userId) {
@@ -26,19 +28,13 @@ public class MemoService extends SimpleService<MMemo> {
 	}
 
 	public void update(MMemo memo) {
-		memoDao.updateByPK(memo, true);
+		memoDao.update(memo);
 	}
 
 	public void delete(Long id) {
 		memoDao.deleteById(id);
 	}
 
-	@Autowired
-	private MMemoDao memoDao;
+	
 
-	@Autowired
-	@Override
-	public void setDao() {
-		this.dao = memoDao;
-	}
 }

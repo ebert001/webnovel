@@ -11,7 +11,6 @@ import com.aswishes.novel.core.dao.MBookDao;
 import com.aswishes.novel.core.dao.MVolumeDao;
 import com.aswishes.novel.core.model.MBook;
 import com.aswishes.novel.core.model.MVolume;
-import com.aswishes.spring.QueryProperty;
 
 /**
  * 书籍相关的业务处理类
@@ -49,8 +48,7 @@ public class BookService extends SimpleService<MBook> {
 	}
 	
 	public void addBook(MBook book) {
-		
-//		bookDao.save(book);
+		bookDao.save(book);
 	}
 
 	public void deleteBook(Long bookId) {
@@ -66,16 +64,11 @@ public class BookService extends SimpleService<MBook> {
 	}
 	
 	public MVolume getVolume(Long id) {
-		return volumeDao.getVolume(id);
+		return volumeDao.getById(id);
 	}
 	
 	public void updateVolume(MVolume volume) {
-		volumeDao.updateByPK(volume, true);
+		volumeDao.update(volume);
 	}
 	
-	@Autowired
-	@Override
-	public void setDao() {
-		this.dao = bookDao;
-	}
 }

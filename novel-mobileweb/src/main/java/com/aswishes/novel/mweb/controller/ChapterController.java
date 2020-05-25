@@ -1,4 +1,4 @@
-package com.aswishes.novel.mw.controller;
+package com.aswishes.novel.mweb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

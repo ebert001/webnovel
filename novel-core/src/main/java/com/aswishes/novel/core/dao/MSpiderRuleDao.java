@@ -14,6 +14,17 @@ public class MSpiderRuleDao extends SimpleJdbcDao<MSpiderRule> {
 	public MSpiderRuleDao(DataSource dataSource) {
 		super(dataSource);
 	}
-
+	
+	public void save(MSpiderRule entity) {
+		
+	}
+	
+	public Long saveAndGetId(MSpiderRule entity) {
+		return null;
+	}
+	
+	public void update(MSpiderRule entity) {
+		
+	}
 
 }

@@ -43,4 +43,11 @@ public class MForumDao extends SimpleJdbcDao<MForum> {
 		return getNumber(appender, 0).intValue();
 	}
 
+	public void save(MForum entity) {
+		
+	}
+	
+	public void update(MForum entity) {
+		
+	}
 }
