@@ -1,0 +1,13 @@
+{
+	app: {
+		name: NN
+		
+	}
+	store: {
+		base: ${user.home}/temp
+		"user.avatar": ${store.base}/user/avatar/
+		"book.img": ${store.base}/book/
+	}
+	
+}
+
