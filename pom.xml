@@ -73,6 +73,19 @@
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.47</version>
 			</dependency>
+			
+			<dependency>
+			    <groupId>com.alibaba</groupId>
+			    <artifactId>druid</artifactId>
+			    <version>1.1.22</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>hikari-cp</groupId>
+			    <artifactId>hikari-cp</artifactId>
+			    <version>2.12.0</version>
+			</dependency>
+			
 	
 			<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
 			<dependency>
@@ -90,49 +103,20 @@
 				<groupId>javax.mail</groupId>
 				<artifactId>mail</artifactId>
 				<version>1.4.6</version>
-				<type>jar</type>
-			</dependency>
-	
-			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-dbcp2</artifactId>
-				<version>2.5.0</version>
 			</dependency>
 	
 			<!-- commons -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>3.8</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-compress</artifactId>
 				<version>1.18</version>
 			</dependency>
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>2.6</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>1.11</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+			
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
 				<version>1.9.3</version>
 			</dependency>
-			<dependency>
-				<groupId>commons-fileupload</groupId>
-				<artifactId>commons-fileupload</artifactId>
-				<version>1.4</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-configuration2 -->
 			<dependency>
 			    <groupId>org.apache.commons</groupId>
 			    <artifactId>commons-configuration2</artifactId>
@@ -147,43 +131,7 @@
 				<version>${httpclient.version}</version>
 			</dependency>
 	
-			<!-- logs: log4j2 -->
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-api</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-slf4j-impl</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-web</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-			<dependency> <!-- 桥接：告诉commons logging使用Log4j2 -->
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-jcl</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-	
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>1.2.59</version>
-			</dependency>
+			
 			<dependency>
 				<groupId>net.dongliu</groupId>
 				<artifactId>apk-parser</artifactId>
@@ -230,17 +178,74 @@
 				<artifactId>jaxen</artifactId>
 				<version>1.1.6</version>
 			</dependency>
-	
-			<dependency>
-			    <groupId>com.typesafe</groupId>
-			    <artifactId>config</artifactId>
-			    <version>1.4.0</version>
-			</dependency>
 			
 		</dependencies>
 	</dependencyManagement>
 	
 	<dependencies>
+		<!-- logs: log4j2 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency> <!-- 桥接：告诉commons logging使用Log4j2 -->
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.59</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.typesafe</groupId>
+		    <artifactId>config</artifactId>
+		    <version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.11</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
