@@ -1,5 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
-<%@include file="/taglibs.jsp"%>
+<#include "/taglibs.ftl">
 
 <!DOCTYPE HTML>
 <html>
@@ -15,19 +14,23 @@
 	
 	<link rel="shortcut icon" href="${ctx}/favicon.ico"/>
 	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	
+	<script type="text/javascript" src="${ctx}/static/lib/jquery/1.11.3/jquery.min.js"></script>
+
+	<script type="text/javascript" src="${ctx}/static/js/auto_load.js"></script>
 	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
 	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
   </head>
   
   <body class="body">
-  	<%@include file="header.jsp"%>
-  	<%@include file="search.jsp"%>
+  	<#include "header.ftl">
+  	<#include "search.ftl">
   	
   	<div class="container">
-  		<%@include file="menu.jsp" %>
-	  	<%@include file="content.jsp"%>
+  		<#include "menu.ftl" >
+	  	<#include "content.ftl">
   	</div>
   	
-  	<%@include file="footer.jsp"%>
+  	<#include "footer.ftl">
   </body>
 </html>

@@ -1,4 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
+<#include "/taglibs.ftl">
 
 <div class="menu_wrapper">
 	<ul class="menu">

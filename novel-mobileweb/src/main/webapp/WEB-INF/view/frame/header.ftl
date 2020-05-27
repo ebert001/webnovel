@@ -1,5 +1,4 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
-<%@include file="/taglibs.jsp"%>
+<#include "/taglibs.ftl">
 
 <div class="header_wrapper">
 	<div class="header">
