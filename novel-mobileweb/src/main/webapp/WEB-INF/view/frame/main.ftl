@@ -17,16 +17,21 @@
 	
 	<script type="text/javascript" src="${ctx}/static/lib/jquery/1.11.3/jquery.min.js"></script>
 
-	<script type="text/javascript" src="${ctx}/static/js/common.js"></script>
-	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
+	
   </head>
   
   <body class="body">
   	<#include "header.ftl">
   	
   	<div class="container">
-  		<#include "menu.ftl" >
-	  	<#include "content.ftl">
+  		<div class="menu_wrapper">
+			<ul class="menu">
+				<li><a href="#">网络文学</a></li>
+			</ul>
+		</div>
+	  	<div class="content_wrapper" id="__setup_content">
+	
+		</div>
   	</div>
   	
   	<#include "footer.ftl">

@@ -6,8 +6,10 @@ $(document).ready(function() {
 		console.log("layout...");
 		var contentArea = $("#__setup_content");
 		var embedArea = $("#embed_area");
-		contentArea.html(embedArea.html());
-		embedArea.remove();
+		embedArea.appendTo(contentArea);
+		console.log(contentArea.html());
+//		contentArea.html(embedArea.html());
+//		embedArea.remove();
 	}
 	// 加载分页栏
 	function loadPageLayout() {

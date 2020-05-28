@@ -1,14 +1,5 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
-<%@include file="/taglibs.jsp"%>
 
-<script>
-function doSearch() {
-	var sk = document.getElementById("s_k").value;
-}
-
-</script>
-
-<div class="content_wrapper">
+<div id="embed_area">
 	<div class="about_book_left">
 		<div class="nav_book about_book_border">
 			<span style="padding-left: 3px;">乐在文学 > 唐 > 李白 > 静夜思 (书号：NO.1)</span>
@@ -132,3 +123,4 @@ function doSearch() {
 		作品推荐
 	</div>
 </div>
+<#include "/frame/main.ftl">
