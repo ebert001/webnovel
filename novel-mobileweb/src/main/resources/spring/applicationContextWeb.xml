@@ -24,7 +24,7 @@
 	
 	<!-- freemarker config -->
 	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-		<property name="templateLoaderPath" value="/WEB-INF/view/"/>
+		<property name="templateLoaderPaths" value="/WEB-INF/view/, /"/>
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="freemarkerVariables">
 			<map>
@@ -45,12 +45,6 @@
 		<property name="requestContextAttribute" value="rc" />
 	</bean>
 
-	<bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		  <property name="prefix" value="/page/"></property>
-		  <property name="suffix" value=".jsp"></property>
-		  <property name="order" value="0" />
-	</bean>
-
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 2GB -->
 		<property name="maxUploadSize" value="2147483648"></property>
@@ -66,12 +60,7 @@
 			<!-- 只过滤二级结构的请求, 如/firmware/upload等url请求, 不会过滤请求资源文件. -->
 			<mvc:mapping path="/*/*"/>
 			<!-- 需要 spring-mvc.xsd -->
-			<mvc:exclude-mapping path="/login/welcome"/>
-			<mvc:exclude-mapping path="/login/login"/>
-			<mvc:exclude-mapping path="/firmware/list"/>
-			<mvc:exclude-mapping path="/firmware/find"/>
-			<mvc:exclude-mapping path="/firmware/platforms"/>
-			<mvc:exclude-mapping path="/patch/addPatchTask"/>
+			<mvc:exclude-mapping path="/book/toList"/>
 			<bean class="com.aswishes.novel.mweb.common.web.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

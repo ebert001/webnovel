@@ -1,4 +1,3 @@
-<#include "/taglibs.ftl">
 
 <div class="header_wrapper">
 	<div class="header">

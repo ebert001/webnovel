@@ -3,6 +3,7 @@ package com.aswishes.novel.mweb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.core.common.db.PageResult;
@@ -17,7 +18,8 @@ public class BookController extends AbstractController {
 	private BookService bookService;
 	
 	@RequestMapping(value = "/toList")
-	public ModelAndView toList(int pageNo, int pageSize, ModelAndView mv) {
+	public ModelAndView toList(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "20") int pageSize, ModelAndView mv) {
+		logger.debug("to book list...");
 		PageResult<MBook> page = bookService.findReadTop(pageNo, pageSize);
 		mv.addObject("page", page);
 		mv.setViewName("opus/book_list");

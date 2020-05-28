@@ -3,6 +3,7 @@
 $(document).ready(function() {
 	// 加载基本布局
 	function loadLayout() {
+		console.log("layout...");
 		var contentArea = $("#__setup_content");
 		var embedArea = $("#embed_area");
 		contentArea.html(embedArea.html());
