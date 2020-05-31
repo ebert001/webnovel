@@ -1,6 +1,6 @@
 
 
-<div class="embed_area">
+<div id="embed_area">
 	<div>
 	<#list page.result as book>
 		<div> 

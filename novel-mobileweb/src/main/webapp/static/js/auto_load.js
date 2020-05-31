@@ -6,10 +6,12 @@ $(document).ready(function() {
 		console.log("layout...");
 		var contentArea = $("#__setup_content");
 		var embedArea = $("#embed_area");
-		embedArea.appendTo(contentArea);
-		console.log(contentArea.html());
-//		contentArea.html(embedArea.html());
-//		embedArea.remove();
+		if (embedArea == undefined) {
+			console.log("embed_area is undefined.");
+		}
+		console.log("embed area", embedArea.html);
+//		embedArea.appendTo(contentArea);
+		console.log("content area", contentArea.html);
 	}
 	// 加载分页栏
 	function loadPageLayout() {
@@ -56,6 +58,6 @@ $(document).ready(function() {
 	loadLayout();
 	loadConfigMenu();
 	//自动选中下拉框默认值
-	autoSelectOption();
-	loadPageLayout();
+//	autoSelectOption();
+//	loadPageLayout();
 });

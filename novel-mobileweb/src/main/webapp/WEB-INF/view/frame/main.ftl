@@ -12,11 +12,13 @@
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
-	<link rel="shortcut icon" href="${ctx}/static/imgs/logo/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css"/>
+	<link rel="shortcut icon" href="${ctx}/static/imgs/logo/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css" />
 	
-	<script type="text/javascript" src="${ctx}/static/lib/jquery/1.11.3/jquery.min.js"></script>
-
+	<script type="text/javascript" src="${ctx}/static/lib/jquery/1.12.3/jquery.min.js" />
+	
+	<script type="text/javascript" src="${ctx}/static/js/common.js" />
+	<script type="text/javascript" src="${ctx}/static/js/floatPage.js" />
 	
   </head>
   
@@ -37,5 +39,5 @@
   	<#include "footer.ftl">
   </body>
   
-  <script type="text/javascript" src="${ctx}/static/js/auto_load.js"></script>
+  <script type="text/javascript" src="${ctx}/static/js/auto_load.js" />
 </html>
