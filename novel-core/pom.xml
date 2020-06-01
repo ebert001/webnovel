@@ -11,7 +11,7 @@
 	
 	<parent>
 		<groupId>com.aswishes.novel</groupId>
-		<artifactId>webnovel</artifactId>
+		<artifactId>novel</artifactId>
 		<version>1.0</version>
 	</parent>
 	

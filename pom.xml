@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.aswishes.novel</groupId>
-	<artifactId>webnovel</artifactId>
+	<artifactId>novel</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
 
@@ -27,9 +27,9 @@
 	
 	<modules>
 		<module>novel-core</module>
-		<module>novel-pcweb</module>
-    	<module>novel-mobileweb</module>
-    	<module>novel-spider</module>
+		<module>novelp</module>
+    	<module>novelm</module>
+    	<module>novels</module>
 	</modules>
 	
 	<repositories>
