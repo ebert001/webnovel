@@ -16,7 +16,7 @@ public class RoleService extends SimpleService<MRole> {
 	private MRoleDao roleDao;
 	
 	public List<MRole> getRole(Long userId) {
-		return roleDao.getRole(userId);
+		return roleDao.findRoles(userId);
 	}
 	
 	@Transactional

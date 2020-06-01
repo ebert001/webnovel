@@ -15,10 +15,9 @@
 	<link rel="shortcut icon" href="${ctx}/static/imgs/logo/favicon.ico" />
 	<link rel="stylesheet" type="text/css" href="${ctx}/static/css/common.css" />
 	
-	<script type="text/javascript" src="${ctx}/static/lib/jquery/1.12.3/jquery.min.js" />
-	
-	<script type="text/javascript" src="${ctx}/static/js/common.js" />
-	<script type="text/javascript" src="${ctx}/static/js/floatPage.js" />
+	<script type="text/javascript" src="${ctx}/static/lib/jquery/1.12.3/jquery.min.js" ></script>
+	<script type="text/javascript" src="${ctx}/static/js/common.js" ></script>
+	<script type="text/javascript" src="${ctx}/static/js/floatPage.js" ></script>
 	
   </head>
   
@@ -39,5 +38,5 @@
   	<#include "footer.ftl">
   </body>
   
-  <script type="text/javascript" src="${ctx}/static/js/auto_load.js" />
+  <script type="text/javascript" src="${ctx}/static/js/auto_load.js" ></script>
 </html>

@@ -7,11 +7,11 @@ $(document).ready(function() {
 		var contentArea = $("#__setup_content");
 		var embedArea = $("#embed_area");
 		if (embedArea == undefined) {
-			console.log("embed_area is undefined.");
+			alert("Layout error.");
+			return;
 		}
-		console.log("embed area", embedArea.html);
-//		embedArea.appendTo(contentArea);
-		console.log("content area", contentArea.html);
+		contentArea.html(embedArea.html());
+		embedArea.remove();
 	}
 	// 加载分页栏
 	function loadPageLayout() {
@@ -58,6 +58,6 @@ $(document).ready(function() {
 	loadLayout();
 	loadConfigMenu();
 	//自动选中下拉框默认值
-//	autoSelectOption();
-//	loadPageLayout();
+	autoSelectOption();
+	loadPageLayout();
 });

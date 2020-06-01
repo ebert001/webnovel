@@ -36,7 +36,7 @@ public class UserService extends SimpleService<MUser> {
 	}
 	
 	public PageResult<MUser> getPage(int pageNo, int pageSize, String name, String email, String phoneNo) {
-		return userDao.getPage(pageNo, pageSize, name, email, phoneNo);
+		return userDao.findPage(pageNo, pageSize, name, email, phoneNo);
 	}
 	
 	public String calPassword(MUser user, String password) {

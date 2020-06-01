@@ -28,7 +28,7 @@ public class BookshelfService extends SimpleService<MBookshelf> {
 	}
 
 	public PageResult<MBookshelf> getBooks(int pageNo, int pageSize, Long userId) {
-		return bookshelfDao.getBooks(pageNo, pageSize, userId);
+		return bookshelfDao.findBooks(pageNo, pageSize, userId);
 	}
 	
 	@Transactional

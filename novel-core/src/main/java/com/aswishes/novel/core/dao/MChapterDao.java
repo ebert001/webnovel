@@ -48,7 +48,18 @@ public class MChapterDao extends SimpleJdbcDao<MChapter> {
 		return getNumber(appender, 0).intValue();
 	}
 	
-	public PageResult<MChapter> getUnauditChapters(int pageNo, int pageSize, Long bookId, int state) {
+	public PageResult<MChapter> findChapters(int pageNo, int pageSize, Long bookId) {
+		SqlAppender countSql = SqlAppender.namedModel()
+				.append("select count(*) from ").append(tableName)
+				.append("where book_id = :bookId and state = :state ", bookId, MChapter.State.NORMALE.getValue());
+		SqlAppender sql = SqlAppender.namedModel()
+				.append("select id, subject, book_id, state, write_time, input_time from ").append(tableName)
+				.append("where book_id = :bookId and state = :state ", bookId, MChapter.State.NORMALE.getValue());
+		
+		return getPage(countSql, sql, MChapter.class, pageNo, pageSize);
+	}
+	
+	public PageResult<MChapter> findUnauditChapters(int pageNo, int pageSize, Long bookId, int state) {
 		SqlAppender countSql = SqlAppender.namedModel()
 				.append("select count(*) from ").append(tableName)
 				.append("where book_id = :bookId and state = :state ", bookId, state);

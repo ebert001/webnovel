@@ -48,11 +48,11 @@ public class SpiderService extends SimpleService<MSpiderWebsite> {
 	}
 	
 	public PageResult<MSpiderWebsite> getSpiderWebsite(int pageNo, int pageSize) {
-		return spiderWebsiteDao.getPage(pageNo, pageSize);
+		return spiderWebsiteDao.findPage(pageNo, pageSize);
 	}
 	
 	public List<MSpiderWebsite> getOpenedWebsite() {
-		return spiderWebsiteDao.getOpenedWebsite();
+		return spiderWebsiteDao.findOpenedWebsite();
 	}
 	
 	public List<MBook> getSpiderBook(int pageNo, int pageSize) {

@@ -21,7 +21,7 @@ public class MVolumeDao extends SimpleJdbcDao<MVolume> {
 		super(dataSource);
 	}
 
-	public List<MVolume> getVolumeList(Long bookId) {
+	public List<MVolume> findVolumeList(Long bookId) {
 		SqlAppender appender = SqlAppender.namedModel()
 				.append("select * from ").append(tableName)
 				.append("where book_id = :bookId", bookId);

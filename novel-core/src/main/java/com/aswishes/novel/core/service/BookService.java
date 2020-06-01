@@ -24,7 +24,7 @@ public class BookService extends SimpleService<MBook> {
 	private MVolumeDao volumeDao;
 
 	public List<MBook> getBookList(Long userId) {
-		return bookDao.getBookList(userId);
+		return bookDao.findBookList(userId);
 	}
 	
 	public MBook getBook(String name) {
@@ -40,11 +40,11 @@ public class BookService extends SimpleService<MBook> {
 	}
 	
 	public PageResult<MBook> findUnauditBooks(int pageNo, int pageSize) {
-		return bookDao.getUnauditBooks(pageNo, pageSize);
+		return bookDao.findUnauditBooks(pageNo, pageSize);
 	}
 	
 	public PageResult<MBook> findReadTop(int pageNo, int pageSize) {
-		return bookDao.getClickTop(pageNo, pageSize);
+		return bookDao.findClickTop(pageNo, pageSize);
 	}
 	
 	public void addBook(MBook book) {
@@ -56,7 +56,7 @@ public class BookService extends SimpleService<MBook> {
 	}
 	
 	public List<MVolume> getVolumeList(Long bookId) {
-		return volumeDao.getVolumeList(bookId);
+		return volumeDao.findVolumeList(bookId);
 	}
 	
 	public void addVolume(MVolume volume) {

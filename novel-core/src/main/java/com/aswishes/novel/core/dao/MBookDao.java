@@ -24,7 +24,7 @@ public class MBookDao extends SimpleJdbcDao<MBook> {
 		super(dataSource);
 	}
 
-	public List<MBook> getBookList(Long userId) {
+	public List<MBook> findBookList(Long userId) {
 		SqlAppender appender = SqlAppender.namedModel()
 				.append("select * from ").append(tableName)
 				.append("where author_id = :userId", userId);
@@ -39,7 +39,7 @@ public class MBookDao extends SimpleJdbcDao<MBook> {
 		return getObject(appender, MBook.class);
 	}
 	
-	public PageResult<MBook> getUnauditBooks(int pageNo, int pageSize) {
+	public PageResult<MBook> findUnauditBooks(int pageNo, int pageSize) {
 		SqlAppender countSql = SqlAppender.namedModel()
 				.append("select count(*) from ").append(tableName)
 				.append("where state = :state", MBook.State.UNAUDITED.getValue());
@@ -50,7 +50,7 @@ public class MBookDao extends SimpleJdbcDao<MBook> {
 		return getPage(countSql, sql, MBook.class, pageNo, pageSize);
 	}
 	
-	public PageResult<MBook> getClickTop(int pageNo, int pageSize) {
+	public PageResult<MBook> findClickTop(int pageNo, int pageSize) {
 		SqlAppender sql = SqlAppender.namedModel()
 				.append("select * from ").append(tableName)
 				.append("where state = :state", MBook.State.NORMALE.getValue())

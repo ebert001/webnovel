@@ -19,7 +19,7 @@ public class MSpiderWebsiteDao extends SimpleJdbcDao<MSpiderWebsite> {
 		super(dataSource);
 	}
 	
-	public PageResult<MSpiderWebsite> getPage(int pageNo, int pageSize) {
+	public PageResult<MSpiderWebsite> findPage(int pageNo, int pageSize) {
 		SqlAppender countSql = SqlAppender.namedModel()
 				.append("select count(*) from ").append(tableName)
 				.append("order by id desc");
@@ -29,7 +29,7 @@ public class MSpiderWebsiteDao extends SimpleJdbcDao<MSpiderWebsite> {
 		return getPage(countSql, sql, MSpiderWebsite.class, pageNo, pageSize);
 	}
 	
-	public List<MSpiderWebsite> getOpenedWebsite() {
+	public List<MSpiderWebsite> findOpenedWebsite() {
 		SqlAppender appender = SqlAppender.namedModel()
 				.append("select * from ").append(tableName)
 				.append("where state = :state", MSpiderWebsite.State.OPENED.getValue())

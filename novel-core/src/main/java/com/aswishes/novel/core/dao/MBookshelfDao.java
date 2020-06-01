@@ -28,7 +28,7 @@ public class MBookshelfDao extends SimpleJdbcDao<MBookshelf> {
 		return getObject(appender, MBookshelf.class); 
 	}
 	
-	public PageResult<MBookshelf> getBooks(int pageNo, int pageSize, Long userId) {
+	public PageResult<MBookshelf> findBooks(int pageNo, int pageSize, Long userId) {
 		SqlAppender countSql = SqlAppender.namedModel()
 				.append("select count(*) from ").append(tableName)
 				.append("where user_id = :userId", userId);

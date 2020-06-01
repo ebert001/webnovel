@@ -38,8 +38,12 @@ public class ChapterService extends SimpleService<MChapter> {
 		return chapterDao.getMaxSerialNo(bookId);
 	}
 	
+	public PageResult<MChapter> findChapters(Long bookId, int pageNo, int pageSize) {
+		return chapterDao.findChapters(pageNo, pageSize, bookId);
+	}
+	
 	public PageResult<MChapter> findUnauditBooks(Long bookId, int pageNo, int pageSize) {
-		return chapterDao.getUnauditChapters(pageNo, pageSize, bookId, MChapter.State.UNAUDITED.getValue());
+		return chapterDao.findUnauditChapters(pageNo, pageSize, bookId, MChapter.State.UNAUDITED.getValue());
 	}
 	
 	@Transactional

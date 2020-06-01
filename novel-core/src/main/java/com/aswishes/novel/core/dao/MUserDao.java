@@ -25,7 +25,7 @@ public class MUserDao extends SimpleJdbcDao<MUser> {
 		super(dataSource);
 	}
 	
-	public PageResult<MUser> getPage(int pageNo, int pageSize, String name, String email, String phoneNo) {
+	public PageResult<MUser> findPage(int pageNo, int pageSize, String name, String email, String phoneNo) {
 		SqlAppender countSql = SqlAppender.namedModel()
 				.append("select count(*) from ").append(tableName).append("where 1")
 				.appendLikeIfNotBlank("name like :name", name)

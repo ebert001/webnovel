@@ -1,10 +1,10 @@
 
 
 <div id="embed_area">
-	<div>
+	<div load-page='true'>
 	<#list page.result as book>
 		<div> 
-			<span>${book.name}</span>
+			<span><a href="${ctx}/chapter/toList?bookId=${book.id}"> ${book.name} </a> </span>
 			<span>${book.updateTime!""}</span> 
 		</div>
 	</#list>

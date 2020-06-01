@@ -25,7 +25,7 @@ public class MRoleDao extends SimpleJdbcDao<MRole> {
 		super(dataSource);
 	}
 
-	public List<MRole> getRole(Long userId) {
+	public List<MRole> findRoles(Long userId) {
 		SqlAppender appender = SqlAppender.namedModel()
 				.append("select mr.* from m_role mr ")
 				.append("left join m_user_role mur ")
