@@ -1,23 +1,17 @@
+<#include "/taglibs.ftl">
 
-<div id="embed_area">
-	<div class="book_title">${book.bookName}</div>
-	<div style="width: 90%; margin-left: 5%;">
-		<c:forEach items="${volumeList}" var="volume">
-		<div class="volume" style="margin-top: 4px;">
-			${volume.volumeName}
-		</div>
-		</c:forEach>
-		<div class="catalog">
-			<ul>
-				<c:forEach items="${chapterList}" var="chapter">
-					<c:if test="${chapter.volumeId == volume.id}">
-						<li title="${chapter.subject}">
-							<a href="${ctx}/book/readChapter?chapterId=${chapter.id}" target="_blank">${chapter.subject}</a>
-						</li>
-					</c:if>
-				</c:forEach>
-			</ul>
-		</div>
+<div id="embed-area">
+	<form id="chapterListForm" action="${ctx}/chapter/toList">
+	<input type="hidden" name="bookId" value="${bookId}">
+	<div load-page="true" class="border-box" 
+		page-no="${page.pageNo}" page-size="${page.pageSize}" total-page="${page.pageCount}" total-count="${page.totalCount}">
+		<#list page.result as chapter>
+			<div class="chapter-item"> 
+				<span><a href="${ctx}/chapter/toChapter?chapterId=${chapter.id}"> ${chapter.subject} </a> </span>
+				<span style="float: right;">${chapter.inputTime}</span> 
+			</div>
+		</#list>
 	</div>
+	</form>
 </div>
 <#include "/frame/main.ftl">

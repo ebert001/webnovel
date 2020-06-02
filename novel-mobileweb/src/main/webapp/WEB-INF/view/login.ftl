@@ -56,7 +56,7 @@
 			   		<tr>
 			   			<td colspan="2">
 			   				<div style="width: 100%; text-align: center; margin: 26px auto 16px auto;">
-						    	<button class="a_btn medium" href="${ctx}/User.action?queryOne&uName=">登  录</button>
+						    	<button class="a-btn medium" href="${ctx}/User.action?queryOne&uName=">登  录</button>
 						    </div>
 			   			</td>
 			   		</tr>

@@ -3,8 +3,8 @@
 $(document).ready(function() {
 	// 加载基本布局
 	function loadLayout() {
-		var contentArea = $("#__setup_content");
-		var embedArea = $("#embed_area");
+		var contentArea = $("#--setup-content");
+		var embedArea = $("#embed-area");
 		if (embedArea == undefined) {
 			alert("Layout error.");
 			return;
@@ -44,7 +44,7 @@ $(document).ready(function() {
 		}
 	}
 	function loadConfigMenu() {
-		$("#__setup_menu dd").click(function() {
+		$("#--setup-menu dd").click(function() {
 			var dd = $(this);
 			var url = dd.attr("url");
 			if (url == undefined || url == null) {

@@ -17,7 +17,7 @@
 	<script type="text/javascript" src="${ctx}/static/js/floatPage.js"></script>
 
 	<style type="text/css">
-	.block_width {
+	.block-width {
 		margin: 60px 10%;
 		width: 80%;
 		padding: 5px;
@@ -28,32 +28,32 @@
   <body class="body">
 	<#include file="/frame/header.jsp">
 	<div class="container">
-		<div class="content_wrapper none_space upper_border_radius">
-			<div class="block_width">
-				<form name="register_form" method="post" action="">
-					<table class="table_form">
-						<tr class="bottom_border">
-							<td class="table_form_label">名称：</td>
-							<td class="table_form_field">
-								<input type="text" name="username" class="input_required"/>
+		<div class="content-wrapper none-space upper-border-radius">
+			<div class="block-width">
+				<form name="register-form" method="post" action="">
+					<table class="table-form">
+						<tr class="bottom-border">
+							<td class="table-form-label">名称：</td>
+							<td class="table-form-field">
+								<input type="text" name="username" class="input-required"/>
 							</td>
 						</tr>
-						<tr class="bottom_border">
-							<td class="table_form_label">邮箱：</td>
-							<td class="table_form_field">
-								<input type="text" name="email" class="input_required"/>
+						<tr class="bottom-border">
+							<td class="table-form-label">邮箱：</td>
+							<td class="table-form-field">
+								<input type="text" name="email" class="input-required"/>
 							</td>
 						</tr>
-						<tr class="bottom_border">
-							<td class="table_form_label">密码：</td>
-							<td class="table_form_field">
-								<input type="password" name="password" class="input_required"/>
+						<tr class="bottom-border">
+							<td class="table-form-label">密码：</td>
+							<td class="table-form-field">
+								<input type="password" name="password" class="input-required"/>
 							</td>
 						</tr>
-						<tr class="bottom_border">
-							<td class="table_form_label">确认密码：</td>
-							<td class="table_form_field">
-								<input type="password" name="confirm_password" class="input_required"/>
+						<tr class="bottom-border">
+							<td class="table-form-label">确认密码：</td>
+							<td class="table-form-field">
+								<input type="password" name="confirm-password" class="input-required"/>
 							</td>
 						</tr>
 						
@@ -64,13 +64,13 @@
 			
 			<ul style="width: 80%; margin: 20px 10%; list-style: none; line-height: 58px;">
 				<li>
-					<input type="checkbox" name="pro_check" value="true" checked="checked"> 我接受<a>网络小说用户服务协议</a>
+					<input type="checkbox" name="pro-check" value="true" checked="checked"> 我接受<a>网络小说用户服务协议</a>
 				</li>
 				<li style="margin-left: 20%;">
-					<a class="a_btn medium" href="#" onclick="inputCheck('register_form')">注册帐号</a>
+					<a class="a-btn medium" href="#" onclick="inputCheck('register-form')">注册帐号</a>
 				</li>
 				<li style="text-align: right;">
-					<span class="required_color">输入框左侧有红线，表明必须输入</span>
+					<span class="required-color">输入框左侧有红线，表明必须输入</span>
 				</li>
 			</ul>
 		

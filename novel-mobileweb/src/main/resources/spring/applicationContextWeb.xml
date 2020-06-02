@@ -79,7 +79,8 @@
 			<!-- 只过滤二级结构的请求, 如/firmware/upload等url请求, 不会过滤请求资源文件. -->
 			<mvc:mapping path="/*/*"/>
 			<!-- 需要 spring-mvc.xsd -->
-			<mvc:exclude-mapping path="/book/toList"/>
+			<mvc:exclude-mapping path="/book/*"/>
+			<mvc:exclude-mapping path="/chapter/*"/>
 			<bean class="com.aswishes.novel.mweb.common.web.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>

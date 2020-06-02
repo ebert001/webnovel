@@ -3,6 +3,7 @@ package com.aswishes.novel.mweb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.core.common.db.PageResult;
@@ -17,9 +18,11 @@ public class ChapterController extends AbstractController {
 	private ChapterService chapterService;
 	
 	@RequestMapping(value = "/toList")
-	public ModelAndView toList(int pageNo, int pageSize, Long bookId, ModelAndView mv) {
+	public ModelAndView toList(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "20") int pageSize, 
+			Long bookId, ModelAndView mv) {
 		PageResult<MChapter> chapterPage = chapterService.findChapters(bookId, pageNo, pageSize);
 		
+		mv.addObject("bookId", bookId);
 		mv.addObject("page", chapterPage);
 		mv.setViewName("opus/catalog");
 		return mv;
@@ -27,7 +30,11 @@ public class ChapterController extends AbstractController {
 	
 	@RequestMapping(value = "/toChapter")
 	public ModelAndView toChapter(Long chapterId, ModelAndView mv) {
-		
+		MChapter chapter = chapterService.getChapter(chapterId);
+		String content = chapter.getContent();
+		content = content.replaceAll("\n|\r|\r\n", "<br>");
+		chapter.setContent(content);
+		mv.addObject("chapter", chapter);
 		mv.setViewName("opus/chapter");
 		return mv;
 	}

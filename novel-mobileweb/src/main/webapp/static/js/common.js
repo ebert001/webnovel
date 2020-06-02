@@ -18,7 +18,7 @@ function inputCheck(fid) {
 		var input = elements[index];
 		var className = input.className;
 		var inputValue = input.value;
-		if (className && className.indexOf("input_required") != -1) {
+		if (className && className.indexOf("input-required") != -1) {
 			if (inputValue == null || inputValue.length < 1) {
 				alert(input.title + " 必须输入!");
 				input.focus();
@@ -154,8 +154,8 @@ function addKeyboardEvent(handle) {
 // 选项卡切换事件
 function tabChange(prefix, num, currentSelected) {
 	for (i = 1; i <= num; i++) {
-		var menu = document.getElementById(prefix + "_tab_menu_" + i);
-		var con = document.getElementById(prefix + "_tab_content_" + i);
+		var menu = document.getElementById(prefix + "-tab-menu-" + i);
+		var con = document.getElementById(prefix + "-tab-content-" + i);
 		menu.className = ((i == currentSelected) ? "hover" : "");
 		con.style.display = ((i == currentSelected) ? "block" : "none");
 	}
@@ -165,25 +165,25 @@ function tabChange(prefix, num, currentSelected) {
 function createTab(prefix, num, arrMenu, arrContent, style, arrFunc) {
 	var tDiv = '';
 	tDiv += '<div class="tab" style="' + style + '">';
-	tDiv += '<div class="tab_menu_box">';
+	tDiv += '<div class="tab-menu-box">';
 	tDiv += '<ul>';
 	for (i = 1; i <= num; i++) {
 		if (i > 1) {
-			tDiv += '<li id="' + prefix + '_tab_menu_' + i + '" onmouseover="tabChange(' + prefix + ', ' + num + ', ' + i + ');">';
+			tDiv += '<li id="' + prefix + '-tab-menu-' + i + '" onmouseover="tabChange(' + prefix + ', ' + num + ', ' + i + ');">';
 		} else {
-			tDiv += '<li id="' + prefix + '_tab_menu_' + i + '" onmouseover="tabChange(' + prefix + ', ' + num + ', ' + i + ');" class="hover">';
+			tDiv += '<li id="' + prefix + '-tab-menu-' + i + '" onmouseover="tabChange(' + prefix + ', ' + num + ', ' + i + ');" class="hover">';
 		}
 		tDiv += arrMenu[i - 1];
 		tDiv += '</li>';
 	}
 	tDiv += '</ul>';
 	tDiv += '</div>';
-	tDiv += '<div class="tab_content_box">';
+	tDiv += '<div class="tab-content-box">';
 	for (i = 1; i <= num; i++) {
 		if (i > 1) {
-			tDiv += '<div id="' + prefix + '_tab_content_' + i + '" style="display: none;">';
+			tDiv += '<div id="' + prefix + '-tab-content-' + i + '" style="display: none;">';
 		} else {
-			tDiv += '<div id="' + prefix + '_tab_content_' + i + '" class="hover">';	
+			tDiv += '<div id="' + prefix + '-tab-content-' + i + '" class="hover">';	
 		}
 		tDiv += arrContent[i - 1];
 		tDiv += '</div>';
@@ -198,7 +198,7 @@ function createTab(prefix, num, arrMenu, arrContent, style, arrFunc) {
 function createDivEditor(id, name) {
 	var str = '';
 	str += createDivEditorHeader(id);
-	str += '<div id="' + id + '_area" class="editor" contenteditable="true" onkeyup="javascript: setValue(\'' + id + '\');"></div>';
+	str += '<div id="' + id + '-area" class="editor" contenteditable="true" onkeyup="javascript: setValue(\'' + id + '\');"></div>';
 	str += '<input type="hidden" id="' + id + '" name="' + name + '" value="">';
 	return str;
 }
@@ -206,12 +206,12 @@ function createDivEditor(id, name) {
 function createDivEditorHeader(id) {
 	var str = '';
 	var rootPath = getRootPath();
-	str += '<div class="editor_header">';
-	str += '<img src="' + rootPath + '/static/imgs/text_indent.png" title="增加缩进" onclick="javascript: decorate(\'Indent\'); setValue(\'' + id + '\');"/>';
-	str += '<img src="' + rootPath + '/static/imgs/text_indent_remove.png" title="减少缩进" onclick="javascript: decorate(\'Outdent\'); setValue(\'' + id + '\');"/>';
-	str += '<img src="' + rootPath + '/static/imgs/text_align_left.png" title="居左" onclick="javascript: decorate(\'JustifyLeft\'); setValue(\'' + id + '\');"/>';
-	str += '<img src="' + rootPath + '/static/imgs/text_align_center.png" title="居中" onclick="javascript: decorate(\'JustifyCenter\'); setValue(\'' + id + '\');"/>';
-	str += '<img src="' + rootPath + '/static/imgs/text_align_right.png" title="居右" onclick="javascript: decorate(\'JustifyRight\'); setValue(\'' + id + '\');"/>';
+	str += '<div class="editor-header">';
+	str += '<img src="' + rootPath + '/static/imgs/text-indent.png" title="增加缩进" onclick="javascript: decorate(\'Indent\'); setValue(\'' + id + '\');"/>';
+	str += '<img src="' + rootPath + '/static/imgs/text-indent-remove.png" title="减少缩进" onclick="javascript: decorate(\'Outdent\'); setValue(\'' + id + '\');"/>';
+	str += '<img src="' + rootPath + '/static/imgs/text-align-left.png" title="居左" onclick="javascript: decorate(\'JustifyLeft\'); setValue(\'' + id + '\');"/>';
+	str += '<img src="' + rootPath + '/static/imgs/text-align-center.png" title="居中" onclick="javascript: decorate(\'JustifyCenter\'); setValue(\'' + id + '\');"/>';
+	str += '<img src="' + rootPath + '/static/imgs/text-align-right.png" title="居右" onclick="javascript: decorate(\'JustifyRight\'); setValue(\'' + id + '\');"/>';
 	str += '<img src="' + rootPath + '/static/imgs/bold.png" title="加粗" onclick="javascript: decorate(\'Bold\'); setValue(\'' + id + '\');"/>';
 	str += '<img src="' + rootPath + '/static/imgs/italic.png" title="倾斜" onclick="javascript: decorate(\'Italic\'); setValue(\'' + id + '\');"/>';
 	str += '<img src="' + rootPath + '/static/imgs/underline.png" title="下划线" onclick="javascript: decorate(\'UnderLine\'); setValue(\'' + id + '\');"/>';
@@ -222,7 +222,7 @@ function createDivEditorHeader(id) {
 }
 
 function setValue(id) {
-	document.getElementById(id).value = document.getElementById(id + "_area").innerHTML;
+	document.getElementById(id).value = document.getElementById(id + "-area").innerHTML;
 }
 
 function decorate(command) {
@@ -258,25 +258,25 @@ function getRootPath() {
 /********************************************/
 function paginationBar(pageNo, pageCount, url) {
 	url += "&page=";
-	var bar = '<div class="pagination_bar">';
+	var bar = '<div class="pagination-bar">';
 	bar += '<ul>';
 	if (pageCount == 1) {
-		bar += pageNode('class="no_operation"', '1');
+		bar += pageNode('class="no-operation"', '1');
 	} else {
 		if (pageNo == 1) {
-			bar += pageNode('class="no_operation"', '上页');
+			bar += pageNode('class="no-operation"', '上页');
 		} else {
 			bar += pageNode('href="' + url + (pageNo - 1) + '"', '上页');
 		}
 		for (i = 1; i <= pageCount; i++) {
 			if (pageNo == i) {
-				bar += pageNode('class="no_operation"', i);
+				bar += pageNode('class="no-operation"', i);
 			} else {
 				bar += pageNode('href="' + url + i + '"', i);
 			}
 		}
 		if (pageNo == pageCount) {
-			bar += pageNode('class="no_operation"', '下页');
+			bar += pageNode('class="no-operation"', '下页');
 		} else {
 			bar += pageNode('href="' + url + (pageNo + 1) + '"', '下页');
 		}

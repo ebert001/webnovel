@@ -3,8 +3,6 @@
 * {
 	margin: 0;
 	padding: 0;
-	font-size: 14px;
-	box-sizing: border-box;
 }
 
 a {
@@ -32,7 +30,7 @@ input:focus {
 	background-color: #A4E2C6;
 }
 
-div#embed_area {
+div#embed-area {
 	display: none;
 }
 
@@ -52,7 +50,7 @@ button:hover {
 }
 
 /******************** 表单页面，提交按钮区域 **********************/
-form div.button_area {
+form div.button-area {
 	width: 100%; 
 	text-align: center; 
 	margin: 26px auto 16px auto;
@@ -68,359 +66,62 @@ form div.button_area {
 }
 
 .body {
+	margin: 0;
+	padding: 0;
 	background-color: #eeeeec;
 	font-family: Times, sans-serif, serif, monospace;
+	font-size:62.5%;
+	overflow-x: auto; 
+	overflow-y: auto;
+	box-sizing: border-box;
 }
-
-.padding_top {
-	padding-top: 20px;
-}
-
-.padding_bottom {
-	padding-bottom: 16px;
-}
-
-.margin_top {
-	margin-top: 20px;
-}
-
-.text_center {
-	text-align: center;
-}
-
-.input_wrapper {
-	width: 180px;
-	height: 24px;
-	border: 1px solid #8BB8F2; 
-}
-
-.input_required {
-	border-left: 2px red solid;
-}
-
-.required_color {
-	color: red;
-}
-
-.ul_inline li {
-	display: inline;
-}
-
-.ul_inline_table li {
-	display: inline-table;
-}
-
-/************************表格样式************************/
-.table_form {
-	width: 100%;
-}
-
-.table_form .has_border {
-	border-collapse: collapse;
-}
-
-.table_form .full_border {
-	border-collapse: collapse;
-	border: 1px solid silver;
-}
-
-.table_form tr {
-	border-bottom: 1px solid silver;
-	height: 32px;
-}
-
-.table_form .group {
-	background-color: #eeeeec;
-}
-
-.table_form input,select,textarea {
-	width: 100%;
-	height: 24px;
-}
-
-.table_form_label {
-	width: 15%;
-	padding-right: 8px;
-	text-align: right;
-	background-color: #E6E6FA;
-}
-
-.table_form_field {
-	padding: 6px;
-}
-
-/********************* 列表 ***********************/
-.table_area {
-	width: 100%;
-}
-
-.table_header {
-	border: 1px solid #8BB8F2;
-	width: 100%;
-	height: 32px;
-	line-height: 32px;
-}
-
-.table_header .title {
-	display: inline-block;
-	margin-left: 3px;
-	font-weight: bold;
-}
-
-.table_header .action {
-	display: inline-flex;
-	float: right;
-	margin-right: 3px;
-	height: 100%;
-	vertical-align: middle;
-}
-
-.table_body {
-	border: 1px solid #8BB8F2;
-	width: 100%;
-}
-
-.table_footer {
-	border: 1px solid #8BB8F2;
-	width: 100%;
-	height: 32px;
-	line-height: 32px;
-}
-
-.table_footer .action {
-	display: inline-flex;
-	margin-left: 3px;
-	float: left;
-	height: 100%;
-	vertical-align: middle;
-}
-
-.table_footer .page {
-	display: inline-block;
-	float: right;
-	margin-right: 3px;
-}
-
-.table_list {
-	/**border: 1px solid #8BB8F2;*/
-	border-collapse: collapse;
-	width: 100%;
-	table-layout: fixed;
-}
-
-.table_list .title {
-	background-color: #8BB8F2;
-	text-align: center;
-	font-weight: bold;
-}
-
-.table_list tr {
-	line-height: 32px;
-}
-
-.table_list tbody tr:hover td {
-	background-color: #AFDFE4;
-}
-
-.table_list tbody tr:nth-child(2n) {
-	background-color: #eeeeec;
-}
-
-.common_table {
-	table-layout:fixed;
-	empty-cells:show; 
-	border-collapse: collapse;
-	border: none;
-	margin:0 auto;
-}
-
-/********************* 按钮 ***********************/
-.a_btn {
-	background: -moz-linear-gradient(center top , #3FB745 50%, #149E3D) repeat scroll 0 0 #149E3D;
-	background: -webkit-linear-gradient(#149E3D,#149E3D);
-	background: -o-linear-gradient(#149E3D,#149E3D);
-	background: -ms-linear-gradient(#149E3D,#149E3D);
-	background: linear-gradient(#149E3D, #149E3D);
-	background-color: #149E3D;
-	border: 1px solid #41862A;
-	box-shadow: 0 2px 1px -1px #4CC955 inset;
-	color: #FFFFFF;
-
-	border-radius: 5px 5px 5px 5px;
-	display: inline-block;
-	margin: 0;
-	outline: 0 none;
-	text-decoration: none;
-}
-
-.a_btn.medium {
-	font-size: 18px;
-	line-height: 24px;
-	padding: 6px 12px;
-}
-
-.a_btn.small {
-	font-size: 14px;
-	line-height: 20px;
-	padding: 3px 6px;
-}
-
 
 /***************** 框架头 ******************/
-.header_wrapper {
+.header-wrapper {
 	width: 100%;
 	height: 64px;
-	background-color: #FFFFFF;
+	background-color: #729fcf;
 	border-bottom: 1px solid #8BB8D2;
 	filter: alpha(opacity=80);
 	z-index: 101;
 }
 
 .header {
-	width: 1024px;
+	width: 100%;
 	height: inherit;
 	margin: 0 auto;
-	font: 16px "宋体", Arial ,"黑体";
 }
 
-.header_weather {
-	display: inline;
-}
-
-.header_weather iframe {
-	border: none;
-	text-align: center;
-	height: 22px;
-}
-
-/******************** 账号下拉框 *********************/
-.account_wrapper {
-	display: inline;
-	float: right;
-	margin-top: 16px;
-	margin-right: 5px;
-	width: 140px;
-}
-
-.account_wrapper_nav {
-	background-color: #FFFFFF;
-	border: 1px solid #8BB8F2;
-	border-radius: 3px;
-	list-style: none;
-	padding: 3px;
-	width: 132px;
-	position: absolute;
-	
-	line-height: 22px;
-}
-
-.account_wrapper_nav li {
-	text-indent: 22px;
-}
-
-.account_wrapper_nav li:HOVER {
-	background-color: #8BB8F2;
-	cursor: pointer;
-	color: #FFFFFF;
-}
-
-#account_nav_sub {
-	list-style: none;
-	display: none;
-}
-
-/******************** 搜索条 **********************/
-.search_wraper {
-	margin: 8px auto 0;
-	border: 1px solid #8BB8D2;
-	background-color: #FFFFFF;
-	height: 40px;
-	width: 1024px;
-	border-radius: 8px;
-}
-
-.search_content {
-	margin-top: 7px;
-	margin-left: 5px;
-	display: inline-block;
-}
-
-.search_input {
-	width: 350px;
-	height: 24px;
-	font-size: 18px;
-}
-
-.search_hot {
-	margin-top: 10px;
-	margin-right: 5px;
-	height: 18px;
-	display: inline-block;
-	float: right;
+.logo {
+	width: 100px;
+	height: 32px;
+	border: 1px solid red;
+	line-height: 64px;
+	vertical-align: center;
 }
 
 /******************** 框架 主体容器 **********************/
 .container {
-	width: 1024px;
+	width: 100%;
 	margin: 8px auto;
 	font: 16px "宋体", Arial ,"黑体";
 	border-radius: 8px 8px 0 0;
 }
-
-/******************** 菜单 *************************/
-.menu_wrapper {
-	width: 100%;
-	border-radius: 8px 8px 0 0;
-	height: 38px;
-	background-color: #FF8C00;
-}
-
-.menu {
-	list-style: none;
-	font: 16px "宋体", Arial ,"黑体";
-	font-weight: bold;
-}
-
-.menu li {
-	display: inline;
-	float: left;
-	margin-top: 10px;
-	margin-left: 16px;
-}
-
-.menu li a, .menu li a:visited {
-	color: #FFFFFF;
-}
-
-.menu li a:hover {
-	color: #147AB8;
-}
-
 /********************* 框架内容 ********************/
-.content_wrapper {
+.content-wrapper {
 	overflow: auto;
 	background-color: #FFFFFF;
-	padding-top: 6px;
-	padding-bottom: 6px;
+	padding: 6px;
 }
 
-.content_wrapper.none_space {
+.content-wrapper.none-space {
 	padding-top: 0;
 	padding-bottom: 0;
 }
 
-/********************* 框架上部圆角 ****************************/
-.upper_border_radius {
-	border-radius: 8px 8px 0 0;
-}
-
-.border_radius {
-	border-radius: 8px 8px 8px 8px;
-}
-
 /********************** 框架底部 *****************************/
-.footer_wrapper {
-	width: 1024px;
+.footer-wrapper {
+	width: 100%;
 	margin: 8px auto;
 	padding: 8px 0;
 	text-align: center;
@@ -428,549 +129,56 @@ form div.button_area {
 	border-radius: 0 0 8px 8px;
 }
 
-/*********** 弹出页面 begin ***************/
-._overlay { 
-	display: none; 
-	position: absolute; 
-	top: 0%; 
-	left: 0%; 
-	width: 100%; 
-	height: 100%;
-
-	background-color: silver; 
-	z-index:1001; 
-	-moz-opacity: 0.8; 
-	opacity: 0.80; 
-	filter: alpha(opacity = 80); 
-}
-
-._main { 
-	display: none; 
-	position: absolute; 
-	top: 80px; 
-	left: 25%; 
-	width: 320px; 
-	height: 250px;
-
-	padding: 0px; 
-	border: 1px solid #8BB8F2;
-	background-color: white; 
-	overflow: auto; 
-	z-index:1002; 
-	border-radius: 8px;
-}
-
-._header {
-	background-color: #8BB8F2;
-	padding: 3px 10px 3px 5px;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #FFFFFF;
-}
-
-._body {
-	margin: 6px 10px;
-	padding: 0;
-	font-size: 14px; 
-	color: #000; 
-	line-height: 28px;
-}
-/*********** 弹出页面 end ***************/
-
-/** tab begin *******/
-.tab {
-	margin-left: 3px;
-	margin-right: 3px;
-	border: 1px solid #BCE2F3;
-}
-
-.tab_menu_box {
-	height: 28px;
-	border-bottom: 1px solid #64B8E4;
-	background-color: #E4F2FB;
-	font: 16px "宋体", Arial,"黑体";
-}
-
-.tab_menu_box ul {
-	list-style: none;
-	display: inline-block;
-	float: left;
-}
-
-.tab_menu_box ul li {
-	float: left;
-	border-right: 1px solid #64B8E4;
-	line-height: 28px;
-	cursor: pointer;
-	padding-left: 16px;
-	padding-right: 16px;
-	text-align: center;
-	font-weight: bold;
-}
-
-.tab_menu_box ul li.hover{
-	background-color: #FF8C00;
-	color: #147AB8;
-}
-
-.tab_content_box {
-	height: 300px;
-}
-/** tab end *******/
-
 /****************** 书籍详情 *********************/
-.about_book_left {
-	width: 80%;
-	display: inline-block;
-}
-
-.about_book_border {
-	border-top: 1px solid #8BB8F2;
-	border-right: 1px solid #8BB8F2;
-	border-bottom: 1px solid #8BB8F2;
-}
-
-.nav_book {
-	background-color: #8BB8F2;
-	height: 28px;
-	line-height: 28px;
-}
-
-.book_detail {
-	min-height: 356px;
-	border: 1px solid #8BB8F2;
-}
-
-.book_detail .left {
-	width: 180px;
-	min-height: 356px;
-	height: auto !important;
-	float: left;
-}
-
-.book_detail .left .img {
-	border: 1px solid #a1a3a6;
-	width: 164px;
-	height: 204px;
-	padding-left: 2px;
-	padding-top: 2px;
-	margin: 8px 6px;
-}
-
-.book_detail .left .nav {
-	width: 160px;
-	margin: 0 10px;
-}
-
-.book_detail .left .nav ul {
-	list-style: none;
-	line-height: 150%;
-	text-align: center;
-}
-
-.book_detail .left .nav ul li {
-	margin-top: 6px;
-}
-
-.book_detail .left .nav .nav_button {
-	border: 1px solid #a1a3a6;
+/** 书籍列表 */
+.book-item {
+	box-sizing: border-box;
+	width: 100%; 
+	padding: 4px; 
+	border: 1px solid gray;
 	border-radius: 4px;
-	padding: 2px 20px 2px 20px;
-	background-color: #f6f5ec;
-	color: #1d953f;
+	margin-bottom: 4px;
 }
 
-.book_detail .left .nav .nav_button:hover {
-	background-color: #8BB8F2;
-	border: 1px solid #8BB8F2;
-	color: #FFFFFF;
+.subject {
+	
 }
 
-.book_detail_right .title {
-	font-size: 32px; 
-	line-height: 52px; 
-	font-family: "华文行楷", "Times New Roman", Georgia, Serif;
+/** 章节列表 */
+.chapter-item {
+	box-sizing: border-box;
+	width: 100%; 
+	padding: 4px; 
+	border-bottom: 1px solid gray;
+	margin-bottom: 4px;
 }
-
-.book_detail .right {
-	border-left: 2px solid #8BB8F2;
-	border-right: 1px solid #8BB8F2;
-	margin-left: 180px;
-	min-height: 356px;
-	height: auto !important;
-	position: relative;
-}
-
-.book_detail .right .part_top {
-	border-bottom: 2px solid #8BB8F2;
-	heigth: 100px;
-	width: 100%;
-}
-
-.book_detail .right .part_top .title {
-	font-size: 32px; 
-	line-height: 52px; 
-	font-family: "华文行楷", "Times New Roman", Georgia, Serif;
-}
-
-.book_detail .right .part_top .count_bar {
-	border-top: 2px solid #8BB8F2;
-}
-
-.book_detail .right .count_bar ul {
-	list-style: none;
-	width: 100%;
-	font-weight: bold; 
-	height: 32px; 
-	line-height: 32px;
-}
-
-.book_detail .right .part_middle {
-	margin-bottom: 10px;
-	width:100%;
-	min-height: 180px;
-	position: relative;
-}
-
-.book_detail .right .part_bottom {
-	border-top: 2px solid #8BB8F2;
-	width: 100%;
-	height: 80px;
-}
-
-.about_book_right {
-	width: 19%;
-	border: 1px solid #8BB8F2;
-	border-right: none;
-	float: right;
-	height: 800px;
-}
-
-/*************** 书籍评论 ****************/
-.book_comment {
-	margin-top: 8px;
-}
-
-.book_comment_ul {
-	list-style: none;
-}
-
-.book_comment_ul li div {
-	padding-left: 4px;
-}
-
-.book_comment_ul li:hover {
-	background-color: #cde6c7;
-}
-
-.book_comment_header {
-	height: 28px; 
-	background-color: #94d6da; 
-	line-height: 28px;
-}
-
-.book_comment_content {
-	padding-top: 3px;
-	min-height: 56px;
-	line-height: 20px;
-	position: relative;
-}
-
-.book_comment_ul .toolbar {
-	padding: 4px;
-	text-align: right;
-}
-
-.input_comment {
-	margin-top: 8px;
-}
-
-.input_comment ul {
-	list-style: none;
-	margin-top: 8px;
-	margin-bottom: 8px;
-}
-
-.input_comment ul li {
-	margin-bottom: 6px;
-}
-
-.input_comment ul li > div {
-	width: 80px;
-	display: inline-block;
-	padding-left: 10%;
-}
-
-.book_title {
+/******************* 书籍内容 ***********************/
+.book-title {
 	margin-top: 20px;
 	padding-bottom: 6px;
 	text-align: center; 
-	font-size: 28px; 
+	font-size: 1.3em; 
 	font-weight: bold;
 	border-bottom: 1px dashed #8BB8F2;
 }
 
-/******************* 书籍分卷 ***********************/
-.volume {
-	margin-top: 28px;
-	width: 100%;
-	line-height: 36px;
-	background-color: #2585A6;
-	font-weight: bold;
-}
-
-/******************* 书籍目录 ***********************/
-.catalog {
+.book-content {
 	background-color: #A4E2C6;
-	float: left;
-	padding-bottom: 6px;
-	width: 100%;
-}
-
-.catalog ul {
-	list-style: none;
-}
-
-.catalog ul li {
-	float: left;
-	width: 50%;
-	line-height: 28px;
-	max-height: 28px;
-	text-indent: 6px;
-	overflow: hidden;
-	border-bottom: 1px dashed #556B2F;
-}
-
-.catalog ul li:hover {
-	background-color: #AFDFE4;
-}
-
-/******************* 书籍内容 ***********************/
-.book_content {
-	border: 1px solid #8BB8F2;
-	background-color: #A4E2C6;
-	width: 80%;
-	margin-left: 10%;
-	margin-top: 28px;
-	padding: 8px;
-	min-height: 300px;
+	margin-top: 1.1em;
+	padding: 4px;
 	word-wrap: break-word;
 	word-break: break-all;
 	line-height: 150%;
 	letter-spacing: 2px;
-	font-size: 20px;
-	font-weight: bold;
+	font-size: 1.2em;
 }
 
-/******************* 书籍搜索页 ***********************/
-.search_list_left {
-	margin-top: 8px;
-	border: 1px dashed #FF7500;
-	width: 160px;
-	display: inline-block;
-	float: left;
-}
-
-.search_list_right {
-	margin: 8px 8px 6px 8px;
-	display: inline-block;
-	width: 800px;
-}
-
-.search_list_right > ul {
-	list-style: none;
-}
-
-.search_list_right > ul li {
-	padding: 8px;
-	border-bottom: 1px dashed #556B2F;
-}
-
-.search_list_right > ul li:hover {
-	background-color: #AFDFE4;
-}
-
-.search_result_title {
-	background-color: #94d6da;
-	height: 28px;
-	line-height: 28px;
-	border-bottom: 1px solid #D6ECF0;
-}
-
-/*********************** 翻页条 ****************************/
-.pagination_bar {
-	width: 100%;
-}
-.pagination_bar ul {
-	list-style: none;
-}
-
-.pagination_bar ul li a {
-	float: left;
-	margin: 6px;
-	padding: 3px 8px;
-	border: 1px solid #8BB8F2;
-	border-radius: 4px;
-	color: #8BB8F2;
-}
-
-.pagination_bar ul li a:link, .pagination_bar ul li a:visited {
-	color: #494E8F;
-}
-
-.pagination_bar ul li a:hover {
-	background-color: #8BB8F2;
-	cursor: pointer;
-	color: #FFFFFF;
-}
-
-.no_operation {
-	background-color: #BBFFEE;
-	color: #8BB8F2;
-}
-
-.pagination_bar ul li a.no_operation:hover {
-	background-color: #BBFFEE;
-	cursor: default;
-	color: #8BB8F2;
-}
-
-
-/********************** 设置：左侧 树 *************************/
-.setup_tree {
-	width: 20%;
-	display: inline-block;
-	float: left;
-	background-color: #E0EEE8;
-	border-right: 1px solid #BBCDC5;
-}
-
-.setup_tree dl {
-	list-style: none;
-	padding: 0 8px;
-}
-
-.setup_tree dl dt {
-	height: 28px;
-	line-height: 28px;
+/******************* 书籍内容 按钮 ***********************/
+.a-btn {
 	box-sizing: border-box;
-	padding-left: 4px;
-	background-color: #729fcf;
-	color: #FFFFFF;
-	font-size: 18px;
-	font-weight: bold;
-	cursor: default;
-}
-
-.setup_tree dl dd {
-	height: 28px;
-	line-height: 28px;
-	box-sizing: border-box;
-	border-bottom: 1px dashed #BBCDC5;
-	font-size: 14px;
-	text-indent: 16px;
-}
-
-.setup_tree dl dd:hover {
-	background-color: #AFDFE4;
-	cursor: pointer;
-}
-
-/********************* 设置：右侧 内容 **********************/
-.setup_content {
-	width: 78%;
-	/*border: 1px solid #BBCDC5;*/
-	display: inline-block;
-	margin-left: 8px;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.setup_content .content_title {
-	border-bottom: 2px solid #8BB8F2;
-	margin-bottom: 18px; 
-	text-indent: 8px;
-	line-height: 28px;
-	font-weight: bold;
-}
-
-/*********************** 论坛列表 *************************/
-.bbs_left {
-	border-right: 1px dashed #8BB8F2;
-	width: 120px;
-	display: inline-block;
-	float: left;
-}
-
-.bbs_left li {
-	line-height: 28px;
-	text-indent: 22px;
-}
-
-.bbs_left li:HOVER {
-	background-color: #AFDFE4;
-}
-
-.bbs_right {
-	padding-left: 8px;
-	display: inline-block;
-	width: 76%;
-	min-width: 760px;
-}
-
-/****************** 网页编辑器 ***********************/
-.editor {
-	height: 100px;
-	min-height: 100px;
-	padding: 6px;
-	border: 1px solid silver;
-	font-Size: 18px;
+	border: 1px solid #fcaf3e;
+	background-color: #fcaf3e;
+	padding: 4px;
+	min-width: 200px;
 	
-	word-wrap: break-word;
-	overflow-x: hidden;
-	overflow-y: scroll;
-}
-.editor:focus {
-	border: 1px solid silver;
-}
-.editor_header {
-	border: 1px solid silver;
-	height: 28px;
-	padding-top: 4px;
-	padding-left: 4px;
-	background-color: #F5F5F5;
-}
-.editor_header img {
-	margin-right: 3px;
-	padding: 3px;
-	border: 1px solid #F5F5F5;
-}
-.editor_header img:hover {
-	border: 1px solid #20B2AA;
-	background-color: #FFFFE0;
-	cursor: pointer;
-}
-
-/***************** about ***********************/
-.left_bar {
-	width: 120px;
-	background-color: #E0EEE8;
-	border-right: 1px solid #BBCDC5;
-	float: left;
-}
-.left_bar dl {
-	padding: 0 8px;
-}
-.left_bar dl dt {
-	margin-top: 8px;
-	background-color: #FF8C00;
-}
-.left_bar dl dd, .left_bar dl dt {
-	height: 28px;
-	line-height: 28px;
-	border-bottom: 1px dashed #BBCDC5;
-	text-indent: 16px;
-}
-.left_bar dl dd:hover {
-	background-color: #AFDFE4;
 }

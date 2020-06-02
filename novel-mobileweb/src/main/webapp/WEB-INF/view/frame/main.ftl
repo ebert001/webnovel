@@ -5,10 +5,16 @@
   <head>
     <title>${website_name!"Novel"}</title>
     
-    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<meta charset="UTF-8">
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="expires" content="0">
+	
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
 	
@@ -17,7 +23,6 @@
 	
 	<script type="text/javascript" src="${ctx}/static/lib/jquery/1.12.3/jquery.min.js" ></script>
 	<script type="text/javascript" src="${ctx}/static/js/common.js" ></script>
-	<script type="text/javascript" src="${ctx}/static/js/floatPage.js" ></script>
 	
   </head>
   
@@ -25,12 +30,7 @@
   	<#include "/frame/header.ftl">
   	
   	<div class="container">
-  		<div class="menu_wrapper">
-			<ul class="menu">
-				<li><a href="#">网络文学</a></li>
-			</ul>
-		</div>
-	  	<div class="content_wrapper" id="__setup_content">
+	  	<div class="content-wrapper" id="--setup-content">
 	
 		</div>
   	</div>
@@ -38,5 +38,5 @@
   	<#include "/frame/footer.ftl">
   </body>
   
-  <script type="text/javascript" src="${ctx}/static/js/auto_load.js" ></script>
+  <script type="text/javascript" src="${ctx}/static/js/auto-load.js" ></script>
 </html>
