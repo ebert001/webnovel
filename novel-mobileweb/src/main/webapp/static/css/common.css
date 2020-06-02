@@ -4,6 +4,7 @@
 	margin: 0;
 	padding: 0;
 	font-size: 14px;
+	box-sizing: border-box;
 }
 
 a {
@@ -58,6 +59,14 @@ form div.button_area {
 }
 
 /******************** 通用样式 **********************/
+.content-box {
+	box-sizing: content-box;
+}
+
+.border-box {
+	box-sizing: border-box;
+}
+
 .body {
 	background-color: #eeeeec;
 	font-family: Times, sans-serif, serif, monospace;
