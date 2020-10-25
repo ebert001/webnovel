@@ -18,7 +18,7 @@ public class BookController extends AbstractController {
 	private BookService bookService;
 	
 	@RequestMapping(value = "/toList")
-	public ModelAndView toList(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "20") int pageSize, ModelAndView mv) {
+	public ModelAndView toList(@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "5") int pageSize, ModelAndView mv) {
 		logger.debug("to book list...");
 		PageResult<MBook> page = bookService.findReadTop(pageNo, pageSize);
 		mv.addObject("page", page);
