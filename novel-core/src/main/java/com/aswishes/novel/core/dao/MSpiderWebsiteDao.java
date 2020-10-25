@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.common.db.SqlAppender;
-import com.aswishes.novel.core.model.MSpiderWebsite;
+import com.aswishes.novel.core.entity.MSpiderWebsite;
 
 @Repository
 @Transactional

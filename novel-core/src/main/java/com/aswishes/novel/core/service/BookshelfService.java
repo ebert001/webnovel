@@ -10,10 +10,10 @@ import com.aswishes.novel.core.common.NovelStatus;
 import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.dao.MBookshelfDao;
+import com.aswishes.novel.core.entity.MBook;
+import com.aswishes.novel.core.entity.MBookshelf;
+import com.aswishes.novel.core.entity.MUser;
 import com.aswishes.novel.core.exception.ServiceException;
-import com.aswishes.novel.core.model.MBook;
-import com.aswishes.novel.core.model.MBookshelf;
-import com.aswishes.novel.core.model.MUser;
 
 @Service
 @Transactional

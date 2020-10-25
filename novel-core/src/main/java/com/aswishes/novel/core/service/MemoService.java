@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.core.dao.MMemoDao;
-import com.aswishes.novel.core.model.MMemo;
+import com.aswishes.novel.core.entity.MMemo;
 
 @Service
 @Transactional

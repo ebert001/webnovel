@@ -3,7 +3,7 @@ package com.aswishes.novel.core.common.web;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 
-import com.aswishes.novel.core.model.MUser;
+import com.aswishes.novel.core.entity.MUser;
 
 public class SessionUtils {
 	public static final String USER_KEY = "__USER_KEY";

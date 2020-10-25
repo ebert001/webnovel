@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.controller.AbstractController;
-import com.aswishes.novel.core.model.MBook;
+import com.aswishes.novel.core.entity.MBook;
 import com.aswishes.novel.core.service.BookService;
 
 @Controller

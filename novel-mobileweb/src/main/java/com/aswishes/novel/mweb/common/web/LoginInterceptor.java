@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aswishes.novel.core.model.MUser;
+import com.aswishes.novel.core.entity.MUser;
 
 public class LoginInterceptor implements HandlerInterceptor {
 	protected static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);

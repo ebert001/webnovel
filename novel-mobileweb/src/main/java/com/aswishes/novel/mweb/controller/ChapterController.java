@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.controller.AbstractController;
-import com.aswishes.novel.core.model.MChapter;
+import com.aswishes.novel.core.entity.MChapter;
 import com.aswishes.novel.core.service.ChapterService;
 
 @Controller

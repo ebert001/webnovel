@@ -1,6 +1,6 @@
 package com.aswishes.novel.mweb.common.web;
 
-import com.aswishes.novel.core.model.MUser;
+import com.aswishes.novel.core.entity.MUser;
 
 public class SessionUtils {
 	

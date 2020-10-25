@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.controller.AbstractController;
-import com.aswishes.novel.core.model.MMemo;
+import com.aswishes.novel.core.entity.MMemo;
 import com.aswishes.novel.core.service.MemoService;
 
 /**

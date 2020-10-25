@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.dao.MBookDao;
 import com.aswishes.novel.core.dao.MVolumeDao;
-import com.aswishes.novel.core.model.MBook;
-import com.aswishes.novel.core.model.MVolume;
+import com.aswishes.novel.core.entity.MBook;
+import com.aswishes.novel.core.entity.MVolume;
 
 /**
  * 书籍相关的业务处理类

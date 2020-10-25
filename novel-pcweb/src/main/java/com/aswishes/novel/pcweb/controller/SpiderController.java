@@ -10,10 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.core.common.db.PageResult;
 import com.aswishes.novel.core.controller.AbstractController;
-import com.aswishes.novel.core.model.MBook;
-import com.aswishes.novel.core.model.MChapter;
-import com.aswishes.novel.core.model.MSpiderRule;
-import com.aswishes.novel.core.model.MSpiderWebsite;
+import com.aswishes.novel.core.entity.MBook;
+import com.aswishes.novel.core.entity.MChapter;
+import com.aswishes.novel.core.entity.MSpiderRule;
+import com.aswishes.novel.core.entity.MSpiderWebsite;
 import com.aswishes.novel.core.service.BookService;
 import com.aswishes.novel.core.service.ChapterService;
 import com.aswishes.novel.core.service.SpiderService;

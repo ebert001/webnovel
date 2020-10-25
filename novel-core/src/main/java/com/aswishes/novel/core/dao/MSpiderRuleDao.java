@@ -5,7 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.novel.core.model.MSpiderRule;
+import com.aswishes.novel.core.entity.MSpiderRule;
 
 @Repository
 @Transactional
