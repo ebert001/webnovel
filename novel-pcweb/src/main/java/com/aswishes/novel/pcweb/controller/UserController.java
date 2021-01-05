@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.aswishes.novel.core.common.AppConstants;
-import com.aswishes.novel.core.common.Codes;
-import com.aswishes.novel.core.common.db.PageResult;
+import com.aswishes.novel.common.AppConstants;
+import com.aswishes.novel.common.Codes;
+import com.aswishes.novel.common.db.PageResult;
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.controller.AbstractController;
 import com.aswishes.novel.core.model.MUser;

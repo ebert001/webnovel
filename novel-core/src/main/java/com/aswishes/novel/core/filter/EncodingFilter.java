@@ -10,7 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import com.aswishes.novel.core.common.Codes;
+import com.aswishes.novel.common.Codes;
 
 public class EncodingFilter implements Filter {
 

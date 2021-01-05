@@ -8,8 +8,8 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.novel.core.common.db.PageResult;
-import com.aswishes.novel.core.common.db.SqlAppender;
+import com.aswishes.novel.common.db.PageResult;
+import com.aswishes.novel.common.db.SqlAppender;
 import com.aswishes.novel.core.model.MBook;
 import com.aswishes.novel.core.model.MBook.RetriveState;
 

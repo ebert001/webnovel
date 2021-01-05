@@ -7,7 +7,7 @@ import org.dom4j.Node;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.aswishes.novel.core.exception.ServiceException;
+import com.aswishes.novel.common.exception.ServiceException;
 
 /**
  * 爬取网络书籍

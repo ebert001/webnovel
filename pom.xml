@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.aswishes.novel</groupId>
 	<artifactId>novel</artifactId>
@@ -7,8 +8,6 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<project.version>1.0</project.version>
-
 		<!-- 文件拷贝时的编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -17,6 +16,7 @@
 
 		<java.version>1.8</java.version>
 
+		<project.version>1.0</project.version>
 		<spring.version>4.3.26.RELEASE</spring.version>
 		<shiro.version>1.4.0</shiro.version>
 		<httpclient.version>4.3.2</httpclient.version>
@@ -24,14 +24,15 @@
 		<log4j.version>2.10.0</log4j.version>
 		<bouncycastle.version>1.58</bouncycastle.version>
 	</properties>
-	
+
 	<modules>
 		<module>novel-core</module>
-		<module>novelp</module>
-    	<module>novelm</module>
-    	<module>novels</module>
+		<module>novel-pc</module>
+		<module>novel-mobileweb</module>
+		<module>novel-spider</module>
+		<module>novel-common</module>
 	</modules>
-	
+
 	<repositories>
 		<repository>
 			<id>alicentral</id>
@@ -46,6 +47,17 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.aswishes.novel.common</groupId>
+				<artifactId>novel-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aswishes.novel.core</groupId>
+				<artifactId>novel-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		
 			<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -67,25 +79,25 @@
 				<artifactId>spring-aspects</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-	
+
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
 				<version>5.1.47</version>
 			</dependency>
-			
+
 			<dependency>
-			    <groupId>com.alibaba</groupId>
-			    <artifactId>druid</artifactId>
-			    <version>1.1.22</version>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>1.1.22</version>
 			</dependency>
-			
+
 			<dependency>
-			    <groupId>org.freemarker</groupId>
-			    <artifactId>freemarker</artifactId>
-			    <version>2.3.30</version>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>2.3.30</version>
 			</dependency>
-	
+
 			<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
 			<dependency>
 				<groupId>org.apache.shiro</groupId>
@@ -97,40 +109,40 @@
 				<artifactId>shiro-ehcache</artifactId>
 				<version>${shiro.version}</version>
 			</dependency>
-	
+
 			<dependency>
 				<groupId>javax.mail</groupId>
 				<artifactId>mail</artifactId>
 				<version>1.4.6</version>
 			</dependency>
-	
+
 			<!-- commons -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-compress</artifactId>
 				<version>1.18</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
 				<version>1.9.3</version>
 			</dependency>
 			<dependency>
-			    <groupId>org.apache.commons</groupId>
-			    <artifactId>commons-configuration2</artifactId>
-			    <version>2.6</version>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-configuration2</artifactId>
+				<version>2.6</version>
 			</dependency>
 
-	
+
 			<!-- httpclient -->
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>fluent-hc</artifactId>
 				<version>${httpclient.version}</version>
 			</dependency>
-	
-			
+
+
 			<dependency>
 				<groupId>net.dongliu</groupId>
 				<artifactId>apk-parser</artifactId>
@@ -151,14 +163,14 @@
 				<artifactId>bcpkix-jdk15on</artifactId>
 				<version>${bouncycastle.version}</version>
 			</dependency>
-	
+
 			<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
 			<dependency>
 				<groupId>org.apache.pdfbox</groupId>
 				<artifactId>pdfbox</artifactId>
 				<version>2.0.17</version>
 			</dependency>
-	
+
 			<!-- https://mvnrepository.com/artifact/net.sourceforge.htmlcleaner/htmlcleaner -->
 			<dependency>
 				<groupId>net.sourceforge.htmlcleaner</groupId>
@@ -177,10 +189,10 @@
 				<artifactId>jaxen</artifactId>
 				<version>1.1.6</version>
 			</dependency>
-			
+
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<dependencies>
 		<!-- logs: log4j2 -->
 		<dependency>
@@ -220,9 +232,9 @@
 			<version>1.2.59</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.typesafe</groupId>
-		    <artifactId>config</artifactId>
-		    <version>1.4.0</version>
+			<groupId>com.typesafe</groupId>
+			<artifactId>config</artifactId>
+			<version>1.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -244,7 +256,7 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.4</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -276,16 +288,34 @@
 
 	<build>
 		<plugins>
-			<!-- compiler插件, 设定JDK版本 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.7.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.8.1</version>
+				<configuration>
+					<connectionType>connection</connectionType>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+	            <groupId>org.codehaus.mojo</groupId>
+	            <artifactId>versions-maven-plugin</artifactId>
+	            <version>2.8.1</version>
+	            <configuration>
+	                <generateBackupPoms>false</generateBackupPoms>
+	            </configuration>
+	        </plugin>
 		</plugins>
 	</build>
 </project>

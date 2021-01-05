@@ -4,24 +4,25 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.aswishes.novel.spider</groupId>
+	<artifactId>novel-spider</artifactId>
+	<packaging>war</packaging>
+	<name>novel-spider Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	
 	<parent>
 		<groupId>com.aswishes.novel</groupId>
 		<artifactId>novel</artifactId>
 		<version>1.0</version>
 	</parent>
 	
-	<artifactId>novel-spider</artifactId>
-	<packaging>war</packaging>
-	<name>novel-spider Maven Webapp</name>
-	<url>http://maven.apache.org</url>
 	
 	<dependencies>
 		<dependency>
-			<groupId>com.aswishes.novel</groupId>
-			<artifactId>novel-core</artifactId>
-			<version>${project.version}</version>
+			<groupId>com.aswishes.novel.common</groupId>
+			<artifactId>novel-common</artifactId>
 		</dependency>
-		
+	
 		<dependency>
 			<groupId>net.sourceforge.htmlcleaner</groupId>
 			<artifactId>htmlcleaner</artifactId>
@@ -29,6 +30,37 @@
 		<dependency>
 			<groupId>org.dom4j</groupId>
 			<artifactId>dom4j</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-configuration2</artifactId>
 		</dependency>
 	
 	</dependencies>

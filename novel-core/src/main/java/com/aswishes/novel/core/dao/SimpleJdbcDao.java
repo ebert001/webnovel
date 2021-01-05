@@ -7,10 +7,10 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.aswishes.novel.core.common.ReflectionUtils;
-import com.aswishes.novel.core.common.db.AbstractJdbcDao;
-import com.aswishes.novel.core.common.db.Mapper;
-import com.aswishes.novel.core.common.db.SqlAppender;
+import com.aswishes.novel.common.ReflectionUtils;
+import com.aswishes.novel.common.db.AbstractJdbcDao;
+import com.aswishes.novel.common.db.Mapper;
+import com.aswishes.novel.common.db.SqlAppender;
 
 public class SimpleJdbcDao<T> extends AbstractJdbcDao {
 	protected static final Logger logger = LoggerFactory.getLogger(SimpleJdbcDao.class);

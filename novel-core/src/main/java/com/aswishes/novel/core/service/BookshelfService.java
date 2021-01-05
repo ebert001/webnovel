@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.novel.core.common.NovelStatus;
-import com.aswishes.novel.core.common.db.PageResult;
+import com.aswishes.novel.common.NovelStatus;
+import com.aswishes.novel.common.db.PageResult;
+import com.aswishes.novel.common.exception.ServiceException;
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.dao.MBookshelfDao;
-import com.aswishes.novel.core.exception.ServiceException;
 import com.aswishes.novel.core.model.MBook;
 import com.aswishes.novel.core.model.MBookshelf;
 import com.aswishes.novel.core.model.MUser;

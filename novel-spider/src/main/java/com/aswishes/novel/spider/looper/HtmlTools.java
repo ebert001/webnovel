@@ -14,7 +14,7 @@ import org.htmlcleaner.TagNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.aswishes.novel.core.exception.ServiceException;
+import com.aswishes.novel.common.exception.ServiceException;
 
 public class HtmlTools {
 	private static final Logger logger = LoggerFactory.getLogger(HtmlTools.class);

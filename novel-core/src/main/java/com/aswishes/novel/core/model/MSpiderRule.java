@@ -2,7 +2,7 @@ package com.aswishes.novel.core.model;
 
 import java.util.Date;
 
-import com.aswishes.novel.core.common.db.Mapper;
+import com.aswishes.novel.common.db.Mapper;
 
 @Mapper(tableName = "m_spider_rule", primaryKey = {"id"})
 public class MSpiderRule extends BaseIdAuto {

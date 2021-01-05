@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.aswishes.novel.core.common.DateUtil;
+import com.aswishes.novel.common.DateUtil;
 
 public class DateUtilTest {
 

@@ -9,9 +9,9 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.aswishes.novel.common.db.Insert;
+import com.aswishes.novel.common.db.SqlAppender;
 import com.aswishes.novel.core.common.AppUtil;
-import com.aswishes.novel.core.common.db.Insert;
-import com.aswishes.novel.core.common.db.SqlAppender;
 import com.aswishes.novel.core.model.MRole;
 
 /**

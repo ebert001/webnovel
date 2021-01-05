@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import com.aswishes.novel.core.common.AppConstants;
-import com.aswishes.novel.core.common.Codes;
+import com.aswishes.novel.common.AppConstants;
+import com.aswishes.novel.common.Codes;
 
 /**
  * all action bean need to extend this abstract class. otherwise, you will get an error.
