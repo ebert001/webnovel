@@ -11,6 +11,31 @@
 	
 	学习资料和相关文档，放置在金山快盘上。
 	
+命名规定：
+A) Service/DAO 层方法命名规约
+	1） 获取单个对象的方法用 get 做前缀。
+	2） 获取多个对象的方法用 list 做前缀，复数结尾，如：listObjects。
+	3） 获取统计值的方法用 count 做前缀。
+	4） 插入的方法用 save/insert 做前缀，这里使用save。
+	5） 删除的方法用 remove/delete 做前缀，这里使用delete。
+	6） 修改的方法用 update 做前缀。	
+B) 领域模型命名规约
+	1） 数据对象：xxxDO，xxx 即为数据表名。
+	2） 数据传输对象：xxxDTO，xxx 为业务领域相关的名称。
+	3） 展示对象：xxxVO，xxx 一般为网页名称。
+	4） POJO 是 DO/DTO/BO/VO 的统称，禁止命名成 xxxPOJO。
+C) Controller命名规约
+	1） 如果使用restful风格，则需严格遵守。
+	2）不使用restful风格，方法命名：
+		1> 查询单个对象使用query做前缀。例如：queryBook
+		2> 查询多个对象使用list做前缀，以复数结尾。例如：listBooks
+		3> 插入使用save做前缀。例如：saveBook
+		4> 删除使用delete做前缀。例如：deleteBook
+		5> 修改使用update做前缀。例如：updateBook
+		6> 插入和修改混合使用save做前缀。例如：saveBookAndChapter
+		7> 页面调整使用to做前缀。例如：toBook, toBooks, toBooksUpdate, toBooksView
+	
+
 开发注意事项：
 	因条件限制，开发时要尽量考虑到节省内存，优化系统吞吐量。尽量的让有限的资源，发挥最大的作用。
 	文件提交时，请勿将工程的个性配置文件提交。如：.myeclipse .project等。

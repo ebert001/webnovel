@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.core.dao.MFeedbackDao;
-import com.aswishes.novel.core.model.MFeedback;
+import com.aswishes.novel.core.entity.MFeedback;
 
 @Service
 @Transactional

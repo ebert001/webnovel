@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.aswishes.novel.core.common.web.SessionUtils;
-import com.aswishes.novel.core.model.MUser;
+import com.aswishes.novel.core.entity.MUser;
 import com.aswishes.novel.core.service.UserService;
 
 @Component("myRealm")

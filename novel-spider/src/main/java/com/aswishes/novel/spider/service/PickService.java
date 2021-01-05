@@ -115,9 +115,7 @@ public class PickService extends SimpleService<MSpiderWebsite> {
 		bean.setName(info.getBookName());
 		bean.setUrl(info.getBookUrl());
 		bean.setAuthor(info.getAuthor());
-		
-		String baseDir = StoreProperties.get().getBookImgDir();
-		bean.setImg(FileManager.get().storeBookImg(loadBookImg(info.getImgUrl()), baseDir));
+		bean.setImg(FileManager.get().storeBookImg(loadBookImg(info.getImgUrl())));
 		bean.setIntroduction(info.getIntroduction());
 		bean.setUpdateTime(DateUtil.parseDate(info.getLastUpdateTime(), AppConstants.DATE_PATTERNS));
 		

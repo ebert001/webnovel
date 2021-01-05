@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.aswishes.novel.core.common.AppUtil;
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.controller.AbstractController;
-import com.aswishes.novel.core.model.MFeedback;
+import com.aswishes.novel.core.entity.MFeedback;
 import com.aswishes.novel.core.service.FeedbackService;
 
 @Controller

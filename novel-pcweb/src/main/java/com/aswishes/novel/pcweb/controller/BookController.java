@@ -12,10 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.controller.AbstractController;
-import com.aswishes.novel.core.model.MBook;
-import com.aswishes.novel.core.model.MChapter;
-import com.aswishes.novel.core.model.MUser;
-import com.aswishes.novel.core.model.MVolume;
+import com.aswishes.novel.core.entity.MBook;
+import com.aswishes.novel.core.entity.MChapter;
+import com.aswishes.novel.core.entity.MUser;
+import com.aswishes.novel.core.entity.MVolume;
 import com.aswishes.novel.core.service.BookService;
 import com.aswishes.novel.core.service.ChapterService;
 

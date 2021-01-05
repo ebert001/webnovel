@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.core.dao.MForumDao;
 import com.aswishes.novel.core.dao.MForumSubjectDao;
-import com.aswishes.novel.core.model.MForum;
-import com.aswishes.novel.core.model.MForumSubject;
+import com.aswishes.novel.core.entity.MForum;
+import com.aswishes.novel.core.entity.MForumSubject;
 
 @Service
 @Transactional

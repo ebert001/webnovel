@@ -5,7 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.aswishes.novel.core.model.MComment;
+import com.aswishes.novel.core.entity.MComment;
 
 /**
  * 对应的数据库表为 novel_book
