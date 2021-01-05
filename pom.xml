@@ -47,6 +47,17 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>com.aswishes.novel.common</groupId>
+				<artifactId>novel-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.aswishes.novel.core</groupId>
+				<artifactId>novel-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		
 			<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 			<dependency>
 				<groupId>org.springframework</groupId>
