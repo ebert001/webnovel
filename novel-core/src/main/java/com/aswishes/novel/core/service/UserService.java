@@ -16,8 +16,8 @@ import com.aswishes.novel.common.AppConstants;
 import com.aswishes.novel.common.db.PageResult;
 import com.aswishes.novel.core.common.web.SessionUtils;
 import com.aswishes.novel.core.dao.MUserDao;
-import com.aswishes.novel.core.model.MRole;
-import com.aswishes.novel.core.model.MUser;
+import com.aswishes.novel.core.entity.MRole;
+import com.aswishes.novel.core.entity.MUser;
 
 @Service
 @Transactional

@@ -1,4 +1,4 @@
-package com.aswishes.novel.core.model;
+package com.aswishes.novel.core.entity;
 
 import java.util.Date;
 

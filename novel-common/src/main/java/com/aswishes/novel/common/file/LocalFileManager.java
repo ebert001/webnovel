@@ -11,9 +11,14 @@ import com.aswishes.novel.common.TempFile;
 
 public class LocalFileManager extends FileManager {
 	private static final Logger logger = LoggerFactory.getLogger(LocalFileManager.class);
-
+	private String baseDir;
+	
+	public void init(String baseDir) {
+		this.baseDir = baseDir;
+	}
+	
 	@Override
-	public String storeBookImg(File file, String baseDir) {
+	public String storeBookImg(File file) {
 		String storeName = TempFile.getStoreName("");
 		File storeFile = new File(baseDir, storeName);
 		try {
@@ -26,7 +31,7 @@ public class LocalFileManager extends FileManager {
 	}
 
 	@Override
-	public void deleteBookImg(String baseDir, String storeName) {
+	public void deleteBookImg(String storeName) {
 		File storeFile = new File(baseDir, storeName);
 		FileUtils.deleteQuietly(storeFile);
 	}

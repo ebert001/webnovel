@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aswishes.novel.common.db.PageResult;
 import com.aswishes.novel.common.db.SqlAppender;
 import com.aswishes.novel.core.common.AppUtil;
-import com.aswishes.novel.core.model.MUser;
+import com.aswishes.novel.core.entity.MUser;
 
 /**
  * 对应的数据库表为 novel_book

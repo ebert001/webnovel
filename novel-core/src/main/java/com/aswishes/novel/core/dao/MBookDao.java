@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.common.db.PageResult;
 import com.aswishes.novel.common.db.SqlAppender;
-import com.aswishes.novel.core.model.MBook;
-import com.aswishes.novel.core.model.MBook.RetriveState;
+import com.aswishes.novel.core.entity.MBook;
+import com.aswishes.novel.core.entity.MBook.RetriveState;
 
 /**
  * 对应的数据库表为 novel_book

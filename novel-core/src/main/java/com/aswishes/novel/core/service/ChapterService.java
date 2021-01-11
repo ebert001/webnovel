@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.aswishes.novel.common.db.PageResult;
 import com.aswishes.novel.core.dao.MBookDao;
 import com.aswishes.novel.core.dao.MChapterDao;
-import com.aswishes.novel.core.model.MChapter;
+import com.aswishes.novel.core.entity.MChapter;
 
 /**
  * 书籍相关的业务处理类

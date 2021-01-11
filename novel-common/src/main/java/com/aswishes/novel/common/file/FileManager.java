@@ -6,13 +6,16 @@ public abstract class FileManager {
 	private static FileManager instance = null;
 	static {
 		instance = new LocalFileManager();
+		instance.init("");
 	}
 	
 	public static FileManager get() {
 		return instance;
 	}
 
-	public abstract String storeBookImg(File file, String baseDir);
+	public abstract void init(String baseDir);
 	
-	public abstract void deleteBookImg(String baseDir, String storeName);
+	public abstract String storeBookImg(File file);
+	
+	public abstract void deleteBookImg(String storeName);
 }

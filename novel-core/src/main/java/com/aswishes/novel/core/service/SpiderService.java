@@ -19,9 +19,9 @@ import com.aswishes.novel.common.exception.ServiceException;
 import com.aswishes.novel.core.dao.MBookDao;
 import com.aswishes.novel.core.dao.MSpiderRuleDao;
 import com.aswishes.novel.core.dao.MSpiderWebsiteDao;
-import com.aswishes.novel.core.model.MBook;
-import com.aswishes.novel.core.model.MSpiderRule;
-import com.aswishes.novel.core.model.MSpiderWebsite;
+import com.aswishes.novel.core.entity.MBook;
+import com.aswishes.novel.core.entity.MSpiderRule;
+import com.aswishes.novel.core.entity.MSpiderWebsite;
 
 @Service
 @Transactional

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aswishes.novel.common.db.SqlAppender;
-import com.aswishes.novel.core.model.MMemo;
+import com.aswishes.novel.core.entity.MMemo;
 
 /**
  * 对应的数据库表为 novel_book
